@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.test</groupId>
+  <artifactId>BuildArtifactName</artifactId>
+  <name>BuildArtifactName</name>
+  <packaging>jar</packaging>
+  <version>1.0.0</version>
+  <description>BuildArtifactName</description>
+
+  <properties>
+	<jdkVersion>1.7</jdkVersion> <!-- Before changing version here, make sure settings.xml is changed -->
+	<currentBuildVersion>1.0.0</currentBuildVersion>
+    <javaSourcePath>${basedir}/src/java/javaSrcFolder</javaSourcePath>
+    <resourcesPath>${basedir}/src/java/javaSrcFolder/resources</resourcesPath>
+    <outputPath>D:\Folder1\Folder2</outputPath>
+    <repository>D:\Folder1\repository</repository>
+    <finalJarName>BuildArtifactName</finalJarName>
+  </properties>
+  
+	<!--<repositories>
+		<repository>
+		    <id>java.net</id>
+		    <url>https://maven.java.net/content/repositories/public/</url>
+		</repository>
+    </repositories>-->
+    
+	<dependencies>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1</version>
+	    </dependency>
+	    <dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.14</version>
+	    </dependency>
+	    <dependency>
+	      <groupId>junit-addons</groupId>
+	      <artifactId>junit-addons</artifactId>
+	      <version>1.4</version>
+	      <scope>test</scope> <!-- As the scope is test so this jar won't come in manifest.mf class-path -->
+	    </dependency>
+	    <dependency>
+	      <groupId>junit</groupId>
+	      <artifactId>junit</artifactId>
+	      <version>4.4</version>
+	      <scope>test</scope> <!-- As the scope is test so this jar won't come in manifest.mf class-path -->
+	    </dependency>
+	    
+	    <!-- TODO: Below jars are taken from hardcoded location. This path needs to be replaced with repository path -->
+	    <dependency>
+	    	<groupId>classes12</groupId>
+	    	<artifactId>classes12</artifactId>
+	    	<version>1.0</version>
+	    	<systemPath>${repository}\classes12.jar</systemPath>
+	    	<scope>system</scope>
+	    </dependency>
+	</dependencies>
+	
+	<build>
+    	<pluginManagement>
+			<plugins>
+			
+				<!-- Define java compiler version -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.3.1</version>
+					<configuration>
+						<source>${jdkVersion}</source>
+						<target>${jdkVersion}</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		
+		
+	  	<plugins>
+	  		<!-- Copy resource files into respective place-->
+	  		<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/</outputDirectory>
+							<resources>
+								<!-- Copy .properties files into target/classes folder -->
+								<resource>
+									<targetPath>${basedir}/target/classes</targetPath>
+									<directory>${resourcesPath}</directory>
+									<filtering>true</filtering>
+								</resource>
+								<!-- Copy .bat file into into target/Folder2 folder -->
+								<resource>				
+									<targetPath>${outputPath}</targetPath>
+									<directory>runner</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<!-- Copy dependant jar files into ${outputPath}/lib folder -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.1</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${outputPath}/lib</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<!-- Compile and add resources into classes folder -->
+			<plugin>
+			    <groupId>org.codehaus.mojo</groupId>
+			    <artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.9.1</version>
+			    <executions>
+			        <execution>
+			            <phase>generate-sources</phase>
+			            <goals>
+			            	<goal>add-source</goal>
+			            </goals>
+			            <configuration>
+			                <sources>
+			                    <source>${javaSourcePath}</source>
+			                </sources>
+			            </configuration>
+			        </execution>
+			    </executions>
+			</plugin>
+			
+			<!-- Create executable jar -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<!-- Below entry will include all jars present inside lib into classpath of manifest.mf file -->
+							<classpathPrefix>lib/</classpathPrefix>
+							<mainClass>fully_qualified_class_name_contains_main_method</mainClass>
+						</manifest>
+						<manifestEntries>
+							<Class-Path>lib/classes12.jar</Class-Path>
+						</manifestEntries>
+					</archive>
+				    <!-- Executable jar will be placed under user defined output folder -->
+				    <outputDirectory>${outputPath}</outputDirectory>
+					<finalName>${finalJarName}</finalName> 
+				</configuration> 
+			</plugin> 
+		</plugins> 
+	</build> 
+</project>
