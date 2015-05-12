@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.test</groupId>
+  <artifactId>BuildArtifactName</artifactId>
+  <name>BuildArtifactName</name>
+  <packaging>jar</packaging>
+  <version>1.0.0</version>
+  <description>BuildArtifactName</description>
+
+  <properties>
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<java14.home>C:\bea\jdk142_11</java14.home>
+	<jdkVersion>1.4</jdkVersion> <!-- Before changing version here, make sure settings.xml is changed -->
+	<currentBuildVersion>1.0.0</currentBuildVersion>
+    <javaSourcePath>${basedir}/src/java/javaSrcFolder</javaSourcePath>
+    <resourcesPath>${basedir}/src/java/javaSrcFolder/resources</resourcesPath>
+    <outputPath>D:\Folder1\Folder2</outputPath>
+    <repository>D:\Folder1\repository</repository>
+    <finalJarName>BuildArtifactName</finalJarName>
+  </properties>
+  
+	<!-- <repositories>
+		<repository>
+		    <id>java.net</id>
+		    <url>https://maven.java.net/content/repositories/public/</url>
+		</repository>
+    </repositories>-->
+    
+	<dependencies>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1</version>
+	    </dependency>
+	    <dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.14</version>
+	    </dependency>
+	    <dependency>
+	      <groupId>junit-addons</groupId>
+	      <artifactId>junit-addons</artifactId>
+	      <version>1.4</version>
+	      <scope>test</scope> <!-- As the scope is test so this jar won't come in manifest.mf class-path -->
+	    </dependency>
+	    <dependency>
+	      <groupId>junit</groupId>
+	      <artifactId>junit</artifactId>
+	      <version>4.4</version>
+	      <scope>test</scope> <!-- As the scope is test so this jar won't come in manifest.mf class-path -->
+	    </dependency>
+	    
+	    <!-- TODO: Below jars are taken from hardcoded location. This path needs to be replaced with repository path -->
+	    <dependency>
+	    	<groupId>classes12</groupId>
+	    	<artifactId>classes12</artifactId>
+	    	<version>1.0</version>
+	    	<systemPath>${repository}\classes12.jar</systemPath>
+	    	<scope>system</scope>
+	    </dependency>
+	</dependencies>
+	
+	<build>
+	  	<plugins>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.6</version>
+				<dependencies>
+	                <dependency>
+	                  <groupId>com.sun</groupId>
+	                  <artifactId>tools</artifactId>
+	                  <version>${jdkVersion}</version>
+	                  <scope>system</scope>
+	                  <systemPath>${java14.home}/lib/tools.jar</systemPath>
+	                </dependency>
+              </dependencies>
+				<executions>
+					<execution>
+						<id>antbuild-publish</id>
+						<phase>package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+              					<echo message="Going to call ant script"/>
+								<ant antfile="${basedir}/build.xml" target="deploy"/>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
