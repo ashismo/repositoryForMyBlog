@@ -1,0 +1,40 @@
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>Restful WebApplication</display-name>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	<servlet>
+		<servlet-name>jersey-helloWorld-serlvet</servlet-name>
+		<servlet-class>
+			com.sun.jersey.spi.container.servlet.ServletContainer
+		</servlet-class>
+		<!-- Below init-param is added to for RESTful webservice with Jersey framework -->
+		<init-param>
+			<param-name>com.sun.jersey.config.property.packages</param-name>
+			<param-value>com.ashish.rest.controller</param-value>
+		</init-param>
+		<!-- Below init-param is added to support JSON response -->
+		<init-param>
+			<param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>jersey-helloWorld-serlvet</servlet-name>
+		<url-pattern>/rest/*</url-pattern>
+	</servlet-mapping>
+	<filter>
+		<filter-name>AuthenticationFilter</filter-name>
+		<filter-class>
+			com.ashish.rest.authentication.RestAuthenticationFilter
+		</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AuthenticationFilter</filter-name>
+		<url-pattern>/rest/*</url-pattern>
+	</filter-mapping>
+</web-app>
