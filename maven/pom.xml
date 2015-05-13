@@ -6,12 +6,12 @@
   <groupId>com.test</groupId>
   <artifactId>BuildArtifactName</artifactId>
   <name>BuildArtifactName</name>
-  <packaging>jar</packaging>
+  <packaging>jar</packaging> <!-- This pom is going to create JAR file. To create war file the packaging should be war -->
   <version>1.0.0</version>
   <description>BuildArtifactName</description>
 
   <properties>
-	<jdkVersion>1.7</jdkVersion> <!-- Before changing version here, make sure settings.xml is changed -->
+	<jdkVersion>1.7</jdkVersion> <!-- Before changing version here, make sure settings.xml has right version mentioned -->
 	<currentBuildVersion>1.0.0</currentBuildVersion>
     <javaSourcePath>${basedir}/src/java/javaSrcFolder</javaSourcePath>
     <resourcesPath>${basedir}/src/java/javaSrcFolder/resources</resourcesPath>
@@ -39,16 +39,16 @@
 			<version>1.2.14</version>
 	    </dependency>
 	    <dependency>
-	      <groupId>junit-addons</groupId>
-	      <artifactId>junit-addons</artifactId>
-	      <version>1.4</version>
-	      <scope>test</scope> <!-- As the scope is test so this jar won't come in manifest.mf class-path -->
+		      <groupId>junit-addons</groupId>
+		      <artifactId>junit-addons</artifactId>
+		      <version>1.4</version>
+		      <scope>test</scope> <!-- As the scope is test so this jar won't come in manifest.mf class-path -->
 	    </dependency>
 	    <dependency>
-	      <groupId>junit</groupId>
-	      <artifactId>junit</artifactId>
-	      <version>4.4</version>
-	      <scope>test</scope> <!-- As the scope is test so this jar won't come in manifest.mf class-path -->
+		      <groupId>junit</groupId>
+		      <artifactId>junit</artifactId>
+		      <version>4.4</version>
+		      <scope>test</scope> <!-- As the scope is test so this jar won't come in manifest.mf class-path -->
 	    </dependency>
 	    
 	    <!-- TODO: Below jars are taken from hardcoded location. This path needs to be replaced with repository path -->
@@ -64,7 +64,6 @@
 	<build>
     	<pluginManagement>
 			<plugins>
-			
 				<!-- Define java compiler version -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
