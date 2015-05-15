@@ -61,6 +61,7 @@
 						</goals>
 						<configuration>
 							<!-- Sets the path to the file which contains the execution data. -->
+							<!-- This path has to be set in sonar-project.properties file to integrate the JaCoCo report in SONAR dashboard -->
 							<dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
 							<!-- Sets the output directory for the code coverage report. -->
 							<outputDirectory>${project.build.directory}/jacoco-ut</outputDirectory>
