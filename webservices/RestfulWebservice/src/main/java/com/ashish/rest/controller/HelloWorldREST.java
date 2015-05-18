@@ -26,7 +26,7 @@ public class HelloWorldREST {
 	}
 	
 	@GET
-	@Path("/json/{empId}")
+	@Path("/getEmployee/{empId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Employee getEmployee( @PathParam("empId") int empId,
 			@DefaultValue("No Employee Id passed") @QueryParam("value") String value) {
