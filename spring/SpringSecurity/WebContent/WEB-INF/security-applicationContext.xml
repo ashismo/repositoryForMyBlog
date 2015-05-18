@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:security="http://www.springframework.org/schema/security"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/security
+http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+ 
+ <security:global-method-security secured-annotations="enabled" />
+<!-- 
+	auto-config: Includes some basic services like form-login,http-basic, logout etc
+	use-expressions: It is here to use expressions to secure individual URLs. These expressions can be 
+					 e.g. hasRole([role]), hasAnyRole([role1,role2]), permitAll, denyAll etc
+	intercept-url: This will match the requested url pattern from request and will decide what action to take based on access value.
+	form-login: This will come into picture when user will try to access any secured URL. 
+				A login page mapped to “login-page” attribute will be served for authentication check. 
+				If not provided, spring will provide an inbuilt login page to user. It also contains attribute 
+				for default target if login success, or login failure due to invalid user/password match.
+ --> 
+    <security:http auto-config="true"  use-expressions="true">
+    	<!-- intercept-url=/j_spring_security_check: By default, spring auto generates and configures a UsernamePasswordAuthenticationFilter bean. 
+    						This filter, by default, responds to the URL /j_spring_security_check when processing a login POST from your web-form. 
+    						For username field it uses ‘j_username‘ and for password field it uses ‘j_password‘. 
+    	-->
+    	<security:intercept-url pattern="/j_spring_security_check" access="permitAll" />
+        <security:intercept-url pattern="/springmvc/login" access="permitAll" />
+        <security:intercept-url pattern="/springmvc/logout" access="permitAll" />
+        <security:intercept-url pattern="/springmvc/accessdenied" access="permitAll" />
+        <security:intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
+        <security:form-login login-page="/springmvc/login" default-target-url="/springmvc/homepage" authentication-failure-url="/springmvc/accessdenied" />
+        <security:logout logout-success-url="/springmvc/logout" />
+    </security:http>
+ 
+ <!-- 
+ 	  Authentication Providers for Form Login:
+ 	  below user-service hardcoded the username and password (root/root) in this xml file itself
+ 	  In realtime application this is going to be some user service fetching data from remote database 
+  -->
+    <security:authentication-manager alias="authenticationManager">
+        <security:authentication-provider>
+            <security:user-service>
+                <security:user name="root" password="root" authorities="ROLE_USER" />
+                <!-- Below is the way to check username/password from remote database. It is commented out now -->
+                <!-- <security:jdbc-user-service data-source-ref="dataSource" /> -->
+            </security:user-service>
+        </security:authentication-provider>
+    </security:authentication-manager>
+ 
+ <!-- ADD THE DATASOURCES HERE -->
+ 
+</beans:beans>
