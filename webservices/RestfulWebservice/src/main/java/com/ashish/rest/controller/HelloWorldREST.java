@@ -38,5 +38,19 @@ public class HelloWorldREST {
 		return emp;
 
 	}
+	
+	@POST
+	@Path("/getSalary")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Employee getSalary( @PathParam("empId") int empId,
+			@DefaultValue("No Employee Id passed") @QueryParam("value") String value) {
+		System.out.println("getSalary method is called");
+		Employee emp = new Employee();
+		emp.setEmpId(empId);
+		emp.setName("Ashish Mondal");
+		emp.setSalary(1000);
+		
+		return emp;
 
+	}
 }
