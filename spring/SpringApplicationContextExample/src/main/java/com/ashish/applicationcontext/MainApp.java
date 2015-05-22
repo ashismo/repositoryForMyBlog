@@ -1,4 +1,4 @@
-package com.ashish.beanfactory;
+package com.ashish.applicationcontext;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
