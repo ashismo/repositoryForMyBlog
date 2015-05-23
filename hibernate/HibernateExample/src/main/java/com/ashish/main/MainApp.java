@@ -17,11 +17,16 @@ public class MainApp
       session.beginTransaction();
       insertRecord(session);
       selectRecord(session);
-      HibernateUtil.shutdown();
+      HibernateUtil.closeSessionFactory();
    }
-
+   
+   /**
+    * Add new employee into database
+    * @param session
+    */
 	private static void insertRecord(Session session) {
-		// Add new Employee object
+		System.out.println("INSER INTO DB in HIBERNATE------------");
+		  // Add new Employee into database
 	      EmployeeEntity emp = new EmployeeEntity();
 	      emp.setEmployeeId(1);
 	      emp.setEmail("ashismo@gmail.com");
@@ -31,9 +36,14 @@ public class MainApp
 	      session.getTransaction().commit();
 	}
 	
+	/**
+	 * Select employees from database
+	 * @param session
+	 */
 	private static void selectRecord(Session session) {
 		// Select Employee
 	     List<EmployeeEntity> empList = session.createQuery("from EmployeeEntity").list();
+	     System.out.println("SELECT QUERY in HIBERNATE------------");
 	     for(EmployeeEntity emp : empList) {
 	    	 System.out.println("First Name: " + emp.getFirstName());
 	    	 System.out.println("Last Name: " + emp.getLastName());

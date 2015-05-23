@@ -4,14 +4,35 @@
 "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="hibernate.archive.autodetection">class,hbm</property> 
-        <property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property> 
-        <property name="hibernate.show_sql">true</property>   
+        <!-- Scan for annotated classes or hbm files-->
+        <property name="hibernate.archive.autodetection">class,hbm</property>
+        
+        <!-- This value changes once you change the DB -->
+        <property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
+        
+        <!-- Enable the logging of all the generated SQL statements to the console -->
+        <property name="hibernate.show_sql">true</property>
+        
+        <!-- Database driver class -->
         <property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>   
         <property name="hibernate.connection.username">sa</property>   
         <property name="hibernate.connection.password"></property>   
-        <property name="hibernate.connection.url">jdbc:hsqldb:mem:ashish</property>   
-        <property name="hibernate.hbm2ddl.auto">create</property>   
+        
+        <!-- The JDBC URL to the database instance -->
+        <property name="hibernate.connection.url">jdbc:hsqldb:mem:ashish</property>
+        
+        <!-- 
+          hibernate.hbm2ddl.auto Automatically validates or exports schema DDL to 
+          the database when the SessionFactory is created.l 
+          The possible values are 
+          1. validate: validate the schema, makes no changes to the database.
+          2. update: update the schema.
+          3. create: creates the schema, destroying previous data.
+          4. create-drop: drop the schema at the end of the session.
+        -->
+        <property name="hibernate.hbm2ddl.auto">create</property>
+        
+        <!-- Entity mapping is done here -->
         <mapping class="com.ashish.entity.EmployeeEntity"></mapping>
     </session-factory>
 </hibernate-configuration>
