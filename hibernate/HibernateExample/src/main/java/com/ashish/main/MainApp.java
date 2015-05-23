@@ -42,7 +42,8 @@ public class MainApp
 	 */
 	private static void selectRecord(Session session) {
 		// Select Employee
-	     List<EmployeeEntity> empList = session.createQuery("from EmployeeEntity").list();
+	     List<EmployeeEntity> empList = session.createQuery("from EmployeeEntity")
+	    		 								.list();
 	     System.out.println("SELECT QUERY in HIBERNATE------------");
 	     for(EmployeeEntity emp : empList) {
 	    	 System.out.println("First Name: " + emp.getFirstName());
