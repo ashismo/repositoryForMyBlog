@@ -16,11 +16,22 @@ import com.ashish.rest.bean.Employee;
 public class HelloWorldREST {
 
 	@GET
+	@Path("/{parameter}")
+	public Response responseMsg( @PathParam("parameter") String parameter,
+			@DefaultValue("Nothing to say") @QueryParam("value") String value) {
+
+		String output = "Hello from: " + parameter + " : " + value;
+
+		return Response.status(200).entity(output).build();
+
+	}
+	
+	@GET
 	@Path("/getEmployee/{empId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Employee getEmployee( @PathParam("empId") int empId,
 			@DefaultValue("No Employee Id passed") @QueryParam("value") String value) {
-		System.out.println("getEmployee method is called");
+
 		Employee emp = new Employee();
 		emp.setEmpId(empId);
 		emp.setName("Ashish Mondal");
@@ -43,5 +54,4 @@ public class HelloWorldREST {
 		return emp;
 
 	}
-
 }

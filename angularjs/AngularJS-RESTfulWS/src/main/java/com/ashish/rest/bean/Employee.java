@@ -11,7 +11,7 @@ public class Employee {
 	private String address2;
 	private String address3;
 	private String pin;
-	private double salary;
+	private int salary;
 	
 	public String getName() {
 		return name;
@@ -49,10 +49,10 @@ public class Employee {
 	public void setPin(String pin) {
 		this.pin = pin;
 	}
-	public double getSalary() {
+	public int getSalary() {
 		return salary;
 	}
-	public void setSalary(double salary) {
+	public void setSalary(int salary) {
 		this.salary = salary;
 	}
 }

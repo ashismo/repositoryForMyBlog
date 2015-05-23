@@ -1,1 +1,0 @@
-&lt;init-param&gt;&lt;br/>  &lt;param-name&gt;&lt;br/>     com.sun.jersey.api.json.POJOMappingFeature  &lt;/param-name&gt;&lt;br/>  &lt;param-value&gt;&lt;br/>true&lt;/param-value&gt;&lt;br/>&lt;/init-param&gt;&lt;br/>
