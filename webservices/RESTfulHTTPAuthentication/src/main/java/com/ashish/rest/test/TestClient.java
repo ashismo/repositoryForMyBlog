@@ -11,8 +11,8 @@ public class TestClient {
   public static void main(String[] args) {
 
 	  testPostWithoutBasicAuth();
-	  testGETWithBasicAuth();
 	  testPOSTWithBasicAuth();
+	  testGETWithBasicAuth();
  }
 
   /**
