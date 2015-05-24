@@ -17,7 +17,8 @@
 	
 	<bean id="loggingAspect" class="com.ashish.aop.LoggingAspect">
 	</bean>
-
+	
+	<!-- Spring AOP applied on the methods available in this service -->
 	<bean id="springServices" class="com.ashish.services.SpringServices">
 	</bean>
 
