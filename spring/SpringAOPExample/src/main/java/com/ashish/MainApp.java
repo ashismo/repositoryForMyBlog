@@ -7,7 +7,7 @@ import com.ashish.services.SpringServices;
 
 public class MainApp {
 	public static void main(String args[]) {
-		ApplicationContext appContext = new ClassPathXmlApplicationContext("beans.xml");
+		ApplicationContext appContext = new ClassPathXmlApplicationContext("spring-config.xml");
 		
 		SpringServices springServices = (SpringServices) appContext.getBean("springServices");
 		
