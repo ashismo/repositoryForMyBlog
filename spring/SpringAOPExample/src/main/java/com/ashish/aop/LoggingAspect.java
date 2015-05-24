@@ -55,9 +55,7 @@ public class LoggingAspect {
 			System.out.println("Returning: " + result);
 			return result;
 		} catch (Throwable e) {
-			// Log error
 			System.out.println("Error: " + e.getMessage());
-			// Throw exception to the caller
 			throw new Exception("Error", e);
 		}
 	}
