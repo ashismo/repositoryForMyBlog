@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<context:component-scan base-package="com.ashish" />
+	
+	<!-- AspectJ: Audit Logging Aspect -->
+	<aop:aspectj-autoproxy />
+    <bean id="loggingAspect" class="com.ashish.aop.LoggingAspect"></bean>
+  	
+	<!-- Data source: DB connection properties -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+		<property name="url" value="jdbc:hsqldb:mem:ashish" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+	</bean>
+
+	<!-- Session Factory for the integration with Hibernate ORM -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.archive.autodetection">class</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
+			</props>
+		</property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.ashish.entity.EmployeeEntity</value>
+				<value>com.ashish.entity.EmployeeAllocationEntity</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- TransactionManager and TransactionInterceptor is used for the Spring 
+		AOP Transaction Management -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+
+	<!-- We can manage transaction in two ways
+		1. By adding @Transactional(readOnly = false) on top of a method OR
+		2. By regex matching method name in the tx:advice as shown below
+	 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="insert*" propagation="REQUIRED" read-only="false" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- Below configuration says where we want to apply apply the transaction. In the below example we want to apply the transaction in 
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="createOperation" />
+	 -->
+	<aop:config>
+		<aop:pointcut id="createOperation" expression="execution(* com.ashish.service.EmployeeService.insert*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="createOperation" />
+	</aop:config>
+
+	<bean id="employeeDao" class="com.ashish.dao.EmployeeDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="employeeService" class="com.ashish.service.EmployeeServiceImpl">
+		<property name="employeeDao" ref="employeeDao"></property>
+	</bean>
+</beans>
