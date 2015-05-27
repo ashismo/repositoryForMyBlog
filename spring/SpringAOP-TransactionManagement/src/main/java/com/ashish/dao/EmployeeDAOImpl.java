@@ -41,6 +41,8 @@ public class EmployeeDAOImpl extends HibernateDaoSupport implements EmployeeDAO 
 	      emp.setEmpAllocations(empAllocation);
 	      
 	      getHibernateTemplate().save(emp);
+	      
+	      // If we uncomment the below line then the transaction will get automatically rolled back
 //	      throw new RuntimeException();
 	}
 

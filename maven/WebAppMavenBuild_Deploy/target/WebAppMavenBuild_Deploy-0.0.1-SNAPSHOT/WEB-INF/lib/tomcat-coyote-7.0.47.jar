@@ -1,0 +1,39 @@
+<html><head>
+<meta http-equiv="cache-control" content="max-age=0, must-revalidate, no-cache, no-store, private">
+<META HTTP-EQUIV=Expires CONTENT=-1>
+<script language="Javascript">
+    function autoSubmit(){
+	//alert("Auto submit from redirection.jsp");
+	document.forms[0].submit();
+    }
+</script>
+</head>
+
+
+
+
+
+<!--
+<?xml version="1.0" encoding="UTF-8"?>
+<WISPAccessGatewayParam xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.acmewisp.com/WISPAccessGatewayParam.xsd">
+<Redirect>
+<AccessProcedure>1.0</AccessProcedure>
+<AccessLocation>Ahmedabad</AccessLocation>
+<LocationName>Ahmedabad</LocationName>
+<LoginURL>https://testipass.com/24online/servlet/smartclient?mode=1</LoginURL>
+<MessageType>100</MessageType>
+<ResponseCode>0</ResponseCode>
+</Redirect>
+</WISPAccessGatewayParam>
+-->
+
+
+<body onload='autoSubmit()'>
+
+<FORM ACTION="http://10.10.0.1/24online/webpages/client.jsp" METHOD=POST>
+<INPUT TYPE=hidden NAME=url VALUE="http://repo.maven.apache.org:80/maven2/org/apache/tomcat/tomcat-coyote/7.0.47/tomcat-coyote-7.0.47.jar">
+<INPUT TYPE=hidden NAME=ipaddress VALUE="172.21.21.66">
+<INPUT TYPE="hidden" NAME="formsubmiturlIP" VALUE="10.10.0.1">
+</FORM>
+</body>
+</html>
