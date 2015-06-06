@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true"
+	monitoring="autodetect" dynamicConfig="true">
+
+	<!-- EHCache stores data into memory. In case of over flow of data, it writes 
+		into file system -->
+	<diskStore path="D:\Ashish\ehcache" />
+
+	<!-- defaultCache is the mandatory configuration. -->
+	<defaultCache maxEntriesLocalHeap="10000" eternal="false"
+		timeToIdleSeconds="120" timeToLiveSeconds="120" diskSpoolBufferSizeMB="30"
+		maxEntriesLocalDisk="10000000" diskExpiryThreadIntervalSeconds="120"
+		memoryStoreEvictionPolicy="LRU" statistics="true">
+		<!--localTempSwap: Enables temporary local disk usage. This option provides 
+			an extra tier for storage during cache operation, but this disk storage is 
+			not persisted. After a restart, the disk tier is cleared of any cache data -->
+		<persistence strategy="localTempSwap" />
+	</defaultCache>
+
+	<!-- cache: defines the region for the second level caching. In the entity class this needs to be annotated -->
+	<!-- timeToIdleSeconds: Defines how many seconds the object can be idle 
+		in the second level cache -->
+	<!-- timeToLiveSeconds: It defines that how many seconds object can be stored 
+		in the second level cache whether it is idle or not. -->
+	<cache name="com.ashish.entity.EmployeeEntity"
+		maxEntriesLocalHeap="100" eternal="false" timeToIdleSeconds="1"
+		timeToLiveSeconds="1">
+		<persistence strategy="localTempSwap" />
+	</cache>
+
+	<cache name="org.hibernate.cache.internal.StandardQueryCache"
+		maxEntriesLocalHeap="5" eternal="false" timeToLiveSeconds="120">
+		<persistence strategy="localTempSwap" />
+	</cache>
+
+	<cache name="org.hibernate.cache.spi.UpdateTimestampsCache"
+		maxEntriesLocalHeap="5000" eternal="true">
+		<persistence strategy="localTempSwap" />
+	</cache>
+</ehcache>
