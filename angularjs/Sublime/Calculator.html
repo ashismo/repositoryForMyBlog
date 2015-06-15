@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+	<title>Test</title>
+</head>
+<body ng-app="angularCalc" ng-controller="calcController">
+	<div>
+		<input type="text" ng-model="num" ng-init="{num:5}"/>
+	</div>
+	<div>
+		<input type="text" ng-model="num1" ng-init="{num1:5}"/>
+	</div>
+	<div>
+		<button ng-click="square()">Square</button>
+		<button ng-click="multiply()">Multiply</button>
+	</div>
+	
+	<div>
+		Result: <p ng-bind="result"/>
+	</div>
+
+	<script type="text/javascript">
+		var mainApp = angular.module('angularCalc',[]);
+
+		mainApp.config(function($provide) {
+         $provide.provider('MathService', function() {
+            this.$get = function() {
+               var factory = {};  
+               factory.multiply = function(a, b) {
+                  return a * b; 
+               }
+               return factory;
+            };
+         });
+      });
+		mainApp.value("defaultInput", 5);
+
+		/*mainApp.factory('MathService', function() {     
+         var factory = {};  
+         factory.multiply = function(a, b) {
+            return a * b; 
+         }
+         return factory;
+      }); */
+
+	mainApp.service('CalcService', function(MathService){
+            this.square = function(a) { 
+               return MathService.multiply(a,a); 
+            }
+
+            this.multiply = function(a,b) { 
+               return MathService.multiply(a,b); 
+            }
+      });
+		mainApp.controller('calcController', function($scope, CalcService, defaultInput){
+			$scope.num = defaultInput;
+
+			$scope.result = CalcService.square($scope.num);
+
+            $scope.square = function() {
+                $scope.result = CalcService.square($scope.num);
+            }
+
+            $scope.multiply = function() {
+                $scope.result = CalcService.multiply($scope.num, $scope.num1);
+            }
+		});
+	</script>
+</body>
+</html>
