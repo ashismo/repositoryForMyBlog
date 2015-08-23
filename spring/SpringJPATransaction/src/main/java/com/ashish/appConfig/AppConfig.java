@@ -54,9 +54,9 @@ public class AppConfig {
 	   }
 	 
 	 @Bean(name="creditTx")
-	   public PlatformTransactionManager transactionManager(EntityManagerFactory emf){
+	   public PlatformTransactionManager transactionManager(){
 	      JpaTransactionManager transactionManager = new JpaTransactionManager();
-	      transactionManager.setEntityManagerFactory(emf);
+	      transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
 	 
 	      return transactionManager;
 	   }
@@ -69,6 +69,7 @@ public class AppConfig {
 	   Properties additionalProperties() {
 	      Properties properties = new Properties();
 	      properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+	      properties.setProperty("hibernate.show_sql", "true");
 	      return properties;
 	   }
 }

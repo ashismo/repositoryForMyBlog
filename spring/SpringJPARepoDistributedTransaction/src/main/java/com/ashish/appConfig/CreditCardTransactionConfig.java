@@ -2,7 +2,6 @@ package com.ashish.appConfig;
 
 import java.util.Properties;
 
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +33,6 @@ public class CreditCardTransactionConfig {
 
 	@Bean(name = "creditDataSource")
 	@Qualifier("creditDataSource")
-//	@Primary
 	public DataSource creditDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(env.getProperty("db.driver"));
@@ -46,12 +44,10 @@ public class CreditCardTransactionConfig {
 
 	@Bean(name = "creditEntityManagerFactory")
 	@Qualifier("creditEntityManagerFactory")
-//	@Primary
 	public LocalContainerEntityManagerFactoryBean creditEntityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 		em.setDataSource(creditDataSource());
 		em.setPackagesToScan(new String[] { "com.ashish.credit" });
-		em.setPersistenceUnitName("creditPersistenceUnit");
 
 		JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		em.setJpaVendorAdapter(vendorAdapter);
@@ -63,11 +59,9 @@ public class CreditCardTransactionConfig {
 
 	@Bean(name="creditTransactionManager")
 	@Qualifier("creditTransactionManager")
-//	@Primary
-	public PlatformTransactionManager creditTransactionManager(
-			EntityManagerFactory emf) {
+	public PlatformTransactionManager creditTransactionManager() {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
-		transactionManager.setEntityManagerFactory(emf);
+		transactionManager.setEntityManagerFactory(creditEntityManagerFactory().getObject());
 
 		return transactionManager;
 	}

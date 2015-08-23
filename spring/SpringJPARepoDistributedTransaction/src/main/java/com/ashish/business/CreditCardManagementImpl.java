@@ -58,4 +58,15 @@ public class CreditCardManagementImpl implements CreditCardManagement {
 		tx.setUserDetail(user);
 		creditCardTransactionRepository.save(tx);
 	}
+
+	@Transactional(value="creditTransactionManager", propagation=Propagation.REQUIRED, readOnly=false)
+	public void payCreditCardBill(CreditCardBean ccBean) {
+		Transaction tx = creditCardTransactionRepository.findOne(ccBean.getUserId());
+		
+		tx.setOutstanding(tx.getOutstanding() - ccBean.getPaid());
+		tx.setPaid(ccBean.getPaid());
+		tx.setBalance(tx.getBalance() - ccBean.getPaid());
+		creditCardTransactionRepository.save(tx);
+	}
+	
 }

@@ -2,13 +2,11 @@ package com.ashish.appConfig;
 
 import java.util.Properties;
 
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
@@ -52,7 +50,6 @@ public class DebitCardTransactionConfig {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 		em.setDataSource(debitDataSource());
 		em.setPackagesToScan(new String[] { "com.ashish.debit" });
-		em.setPersistenceUnitName("debitPersistenceUnit");
 		
 		JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		em.setJpaVendorAdapter(vendorAdapter);
@@ -65,10 +62,9 @@ public class DebitCardTransactionConfig {
 	@Bean(name="debitTransactionManager")
 	@Qualifier("debitTransactionManager")
 	@Primary
-	public PlatformTransactionManager debitTransactionManager(
-			EntityManagerFactory emf) {
+	public PlatformTransactionManager debitTransactionManager() {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
-		transactionManager.setEntityManagerFactory(emf);
+		transactionManager.setEntityManagerFactory(debitEntityManagerFactory().getObject());
 
 		return transactionManager;
 	}

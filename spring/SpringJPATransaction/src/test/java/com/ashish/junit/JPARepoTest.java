@@ -28,8 +28,4 @@ public class JPARepoTest {
 		
 		creditCardManagement.addCrCardCustomerData(ccBean);
 	}
-	@Test
-	public void payCreditCardBill() {
-		
-	}
 }

@@ -57,4 +57,14 @@ public class DebitCardManagementImpl implements DebitCardManagement {
 		accountDetails.setUserDetail(user);
 		debitCardAccountDetailsRepository.save(accountDetails);
 	}
+
+	@Transactional(value="debitTransactionManager", propagation=Propagation.REQUIRED, readOnly=false)
+	public void payCreditCardBill(DebitCardBean dcBean) {
+		AccountDetail accDtls = debitCardAccountDetailsRepository.findOne(dcBean.getUserId());
+		
+		accDtls.setNewBal(accDtls.getNewBal() - dcBean.getTransferAmt());
+		accDtls.setTransferAmt(dcBean.getTransferAmt());
+		
+		debitCardAccountDetailsRepository.save(accDtls);
+	}
 }
