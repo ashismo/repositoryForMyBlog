@@ -1,0 +1,126 @@
+<html>
+<head>
+<title>Invoice</title>
+<style type="text/css">
+<!--
+body {
+  font-family:Tahoma;
+}
+
+img {
+  border:0;
+}
+
+#page {
+  width:800px;
+  margin:0 auto;
+  padding:15px;
+
+}
+
+#logo {
+  float:left;
+  margin:0;
+}
+
+#address {
+  height:181px;
+  margin-left:25px; 
+}
+
+table {
+  width:100%;
+}
+
+td {
+padding:5px;
+}
+
+tr.odd {
+  background:#e1ffe1; 
+}
+-->
+</style>
+</head>
+<body>
+<div id="page">
+  <div id="logo">
+    <a href=""><img src="../../js/dashboard/images/shared/logo.png"/></a>
+  </div><!--end logo-->
+  
+  <div id="address">
+    <p>
+    <strong>REPLACE_SHOP_NAME</strong><br/>
+    REPLACE_SHOP_ADDRESS<br/>
+    REPLACE_LICENCE/Phone: REPLACE_PHONE/Mobile: REPLACE_MOBILE
+    <br/><br/>
+    Bill No # REPLACE_BILL_NO<br />
+    Date : REPLACE_BILL_DATE<br />
+    </p>
+  </div><!--end address-->
+
+  <div id="content">
+    <p>
+      <strong>Customer Details</strong><br/>
+      Name: REPLACE_NAME<br/>
+      Address: REPLACE_ADDRESS<br/>
+      Docor: REPLACE_DOCTOR
+   </p>
+    <hr>
+    <table width="100%">
+      <tr>
+      	<td width="5%">
+      		<strong>Qty</strong>
+      	</td>
+      	<td width="25%">
+      		<strong>Description</strong>
+      	</td>
+      	<td width="10%">
+      		<strong>MFG BY</strong>
+      	</td>
+      	<td width="10%">
+      		<strong>Batch</strong>
+      	</td>
+      	<td width="10%">
+      		<strong>EXP DT</strong>
+      	</td>
+      	<td width="15%">
+      		<strong>Schedule</strong>
+      	</td>
+      	<td width="10%">
+      		<strong>Amount</strong>
+      	</td>
+      	<td width="15%">
+      		
+      	</td>
+      </tr>
+      REPLACE_TR
+      	<tr>
+      		<td></td>
+      		<td></td>
+      		<td></td>
+      		<td></td>
+      		<td></td>
+      		<td><strong>Total</strong></td>
+      		<td><strong>REPLACE_TOTAL_AMT</strong></td>
+      		<td>      </td>
+      	</tr>
+
+    </table>
+    </hr>
+    <hr>
+    <p>
+      Thank you. Visit Again.
+    </p>
+	</hr>
+    <hr>
+    <p>
+    	<br/><br/>
+      <center>Signature</center>
+    </p>
+    </hr>
+  </div><!--end content-->
+</div><!--end page-->
+</body>
+
+</html>

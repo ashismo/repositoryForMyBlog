@@ -1,0 +1,120 @@
+Named Query
+=============
+@NamedQueries({
+       @NamedQuery(name = "namedQuery",
+                       query = "select tab.col1 as name, tab.col2 as addr " +
+                               "from Table tab " +
+                               "where tab.col2 =:col2")
+})
+
+Execute query
+=============
+Query namedQuery = getSession().getNamedQuery("namedQuery");
+namedQuery.setLong("col2", col2);
+list = namedQuery.list();
+OR
+List<DTOBean> queryResultList =
+namedQuery.setResultTransformer(Transformers.aliasToBean(DTOBean.class)).list();
+
+
+Please Note DTOBean bean must have name and addr property
+
+Required Jar for Transformers class
+===================================
+hibernate-code.jar
+
+
+Named Native Query
+==================
+@SqlResultSetMappings({
+       @SqlResultSetMapping(name = "namednativeQueryNameSelectMap",
+       columns=
+               {@ColumnResult(name="name"),
+                       @ColumnResult(name="addr")
+               }
+       ),
+       @SqlResultSetMapping(name = "userPreferenceMap",
+               columns=
+                       {
+                         @ColumnResult(name="col2")
+                       }
+       )
+})
+
+@NamedNativeQueries({
+
+       @NamedNativeQuery(name = "namednativeQueryNameSelect",
+                    query = "SELECT t.col1 as name, t.col2 as addr from Table t
+where t.col2 = :col2 ",
+                    resultSetMapping  = "namednativeQueryNameSelectMap"
+               ),
+       @NamedNativeQuery(name = "namednativeQueryNameUpdate",
+                    query = "update Table t set t.col1 = :col1 where t.col2= :col2 ",
+                    resultSetMapping  = "namednativeQueryNameMap"
+               )
+})
+
+
+Execute Query Select
+====================
+Query query = getSession().getNamedQuery("namednativeQueryNameSelect");
+SQLQuery namedNativeQuery = getSession().createSQLQuery(query.getQueryString());
+//String namedQuery = namedNativeQuery.getQueryString();
+//namedQuery = namedQuery.replaceAll("\\|", "");
+//namedNativeQuery = getSession().createSQLQuery(namedQuery);
+namedNativeQuery.setLong("col2", col2);
+
+new Util().setScalarInQuery(namedNativeQuery,"attr-attrType");
+List<DTOBean> tempUList =
+namedNativeQuery.setResultTransformer(Transformers.aliasToBean(DTOBean.class)).list();
+
+
+
+Execute Query Update
+====================
+Query query = getSession().getNamedQuery("namednativeQueryNameUpdate");
+query.setString("col2", col2);
+query.executeUpdate();
+
+
+
+
+
+
+public void setScalarInQuery(SQLQuery query, String propertyString) {
+
+       StringTokenizer scalarMatch = new StringTokenizer(propertyString, ",");
+       while(scalarMatch.hasMoreTokens()){
+               String token = scalarMatch.nextToken();
+               String[] nameDataType = token.split("-");
+               if(nameDataType.length == 2) {
+                       String attrName =  nameDataType[0].trim();
+                       String attrDataType =  nameDataType[1].trim();
+                       NullableType hibernateDataType = null;
+                       if("long".equalsIgnoreCase(attrDataType)) {
+                               hibernateDataType = Hibernate.LONG;
+                       } else if("integer".equalsIgnoreCase(attrDataType)) {
+                               hibernateDataType = Hibernate.INTEGER;
+                       } else if("String".equalsIgnoreCase(attrDataType)) {
+                               hibernateDataType = Hibernate.STRING;
+                       } else if("date".equalsIgnoreCase(attrDataType)) {
+                               hibernateDataType = Hibernate.DATE;
+                       } else if("double".equalsIgnoreCase(attrDataType)) {
+                               hibernateDataType = Hibernate.DOUBLE;
+                       }
+                       else if("BigInteger".equalsIgnoreCase(attrDataType)) {
+                               hibernateDataType = Hibernate.BIG_INTEGER;
+                       }
+                       else if("short".equalsIgnoreCase(attrDataType)) {
+                               hibernateDataType = Hibernate.SHORT;
+                       }
+                       else if("Timestamp".equalsIgnoreCase(attrDataType)) {
+                               hibernateDataType = Hibernate.TIMESTAMP;
+                       }
+                       else if("float".equalsIgnoreCase(attrDataType)) {
+                               hibernateDataType = Hibernate.FLOAT;
+                       }
+                       query.addScalar(attrName, hibernateDataType);
+               }
+       }
+}

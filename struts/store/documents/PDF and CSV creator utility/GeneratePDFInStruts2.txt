@@ -1,0 +1,105 @@
+Generate PDF in Struts2
+=======================
+Required jar : itext-2.0.8.jar
+
+Struts.xml configuration
+------------------------
+<action name="generatePDF" method="generatePDF" class="com.ashish.test1.test.LinkAction">
+	<result name="success" type="stream"> 
+		<param name="contentType">application/pdf</param> 
+		<param name="inputName">inputStream</param>
+		<param name="contentDisposition">attachment; filename="PDF.pdf"</param>
+		<param name="bufferSize">1024</param> 
+	</result>
+</action>
+
+PDF Creator Utility Class
+-------------------------
+com.ashish.test1.test.LinkAction class attached with this mail.
+
+
+Action Class
+-------------
+1. Declare private InputStream inputStream; and generate getter and setter
+2. Write the below code
+public String generatePDF()
+{
+	String header[] = {"Column1^10", "Column2^10", "Column3^14"};
+	String pdfContent[][] = {{"val11", "val12", "val13"}, 
+					{"val21", "val22", "val23"}, 
+					{"val31", "val32", "val33"}
+				};
+	String title = "POC PDF";
+	try {
+		inputStream = new PDFCreator().createPDF(title, header, pdfContent);
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	return Action.SUCCESS;		
+}
+
+
+javascript change
+-----------------
+jQuery(document).delegate(".generatePDF", "click", function(event) {
+	window.open('generatePDF.action');
+	
+});
+
+
+
+Generate Invoice from html to pdf
+---------------------------------
+Required Jar - servlet-api-5.5.15.jar, de.huxhorn.lilith.3rdparty.flyingsaucer.core-renderer-8Pre2.jar
+
+Action Class
+-------------
+1. Declare private InputStream inputStream; and generate getter and setter
+2. Write the below code
+
+public String generateInvoiceFromHtml()
+{
+	
+	try {
+		ServletContext context = ServletActionContext.getServletContext();
+		
+        String htmlFilePath = context.getRealPath("") + "\\resources\\jsp\\poc\\InvoiceTemplate.html";
+        String pdfFilePath = context.getRealPath(".") + "\\Invoice.pdf";
+        FileInputStream fstream = new FileInputStream(htmlFilePath);
+        // Get the object of DataInputStream
+        DataInputStream in = new DataInputStream(fstream);
+        BufferedReader br = new BufferedReader(new InputStreamReader(in));
+
+		String fileContent = "";
+		String line = "";
+		while ((line = br.readLine()) != null)   {
+			fileContent += line;                      
+		} 
+		in.close();
+
+		OutputStream os = new FileOutputStream(pdfFilePath);
+		try {
+            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            Document doc = builder.parse(new StringBufferInputStream(fileContent));
+            ITextRenderer renderer = new ITextRenderer();
+            renderer.setDocument(doc, null);
+            renderer.layout();
+            renderer.createPDF(os);
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+        	os.close();
+        }
+        inputStream = new FileInputStream(pdfFilePath);
+
+	}catch(Exception e) {
+		e.printStackTrace();
+	}
+	return Action.SUCCESS;		
+}
+
+HTML File
+=========
+HTML File is attached with this mail
+------------------------------------

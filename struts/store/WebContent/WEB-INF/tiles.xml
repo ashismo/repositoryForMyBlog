@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+  <definition name="baseLayout" template="/resources/jsp/framework/baseLayout.jsp">
+      <put-attribute name="title"  value="Template"/>
+      <put-attribute name="header" value="/resources/jsp/framework/header.jsp"/>
+      <put-attribute name="idleTimer" value="/resources/jsp/framework/IdleTimer.jsp"/>
+      <put-attribute name="menu"   value="/resources/jsp/framework/menu.jsp"/>
+      <put-attribute name="body"   value="/resources/jsp/framework/body.jsp"/>
+      <put-attribute name="footer"   value="/resources/jsp/framework/footer.jsp"/>
+  </definition>
+
+  <definition name="home" extends="baseLayout">
+      <put-attribute name="title"  value="Welcome"/>
+      <put-attribute name="body"   value="/resources/jsp/admin/welcome.jsp"/>      
+  </definition>
+  
+  <definition name="forgotPassword" extends="baseLayout">
+      <put-attribute name="title"  value="Welcome"/>
+      <put-attribute name="body"   value="/resources/jsp/admin/forgotPassword.jsp"/>      
+  </definition>
+  
+  <definition name="unauthorizedAccess" extends="baseLayout">
+      <put-attribute name="title"  value="Welcome"/>
+      <put-attribute name="body"   value="/resources/jsp/admin/unauthorizedAccess.jsp"/>      
+  </definition>
+  
+  <definition name="applicationExpired" extends="baseLayout">
+      <put-attribute name="title"  value="Welcome"/>
+      <put-attribute name="body"   value="/resources/jsp/framework/applicationExpired.jsp"/>      
+  </definition>
+  
+  <definition name="addCompany" extends="baseLayout">
+      <put-attribute name="title"  value="Welcome"/>
+      <put-attribute name="body"   value="/resources/jsp/admin/addCompany.jsp"/>      
+  </definition>
+  
+  <definition name="getPOCPage" extends="baseLayout">
+      <put-attribute name="title"  value="POC Page"/>
+      <put-attribute name="body"   value="/resources/jsp/poc/pocPage.jsp"/>      
+  </definition>
+  
+  <definition name="companyManagement" extends="baseLayout">
+      <put-attribute name="title"  value="Manufacturer Management"/>
+      <put-attribute name="body"   value="/resources/jsp/admin/companyManagement.jsp"/>      
+  </definition>
+  
+  <definition name="scheduleManagement" extends="baseLayout">
+      <put-attribute name="title"  value="Manufacturer Management"/>
+      <put-attribute name="body"   value="/resources/jsp/admin/scheduleManagement.jsp"/>      
+  </definition>
+  
+  <definition name="wholesellerManagement" extends="baseLayout">
+      <put-attribute name="title"  value="Whole Seller Management"/>
+      <put-attribute name="body"   value="/resources/jsp/admin/wholeSellerManagement.jsp"/>      
+  </definition>
+  
+  <definition name="customerManagement" extends="baseLayout">
+      <put-attribute name="title"  value="Customer Management"/>
+      <put-attribute name="body"   value="/resources/jsp/admin/customerManagement.jsp"/>      
+  </definition>
+  
+  <definition name="doctorManagement" extends="baseLayout">
+      <put-attribute name="title"  value="Doctor's Management"/>
+      <put-attribute name="body"   value="/resources/jsp/admin/doctorManagement.jsp"/>      
+  </definition>
+  
+  <definition name="medRepManagement" extends="baseLayout">
+      <put-attribute name="title"  value="Medical Representative Management"/>
+      <put-attribute name="body"   value="/resources/jsp/admin/medRepManagement.jsp"/>      
+  </definition>
+  
+  <definition name="medicineManagement" extends="baseLayout">
+      <put-attribute name="title"  value="Medicine Management"/>
+      <put-attribute name="body"   value="/resources/jsp/admin/medicineManagement.jsp"/>      
+  </definition>
+  
+  <definition name="orderManagement" extends="baseLayout">
+      <put-attribute name="title"  value="Order Management"/>
+      <put-attribute name="body"   value="/resources/jsp/admin/orderManagement.jsp"/>      
+  </definition>
+  
+  <definition name="buyManagement" extends="baseLayout">
+      <put-attribute name="title"  value="Buy Management"/>
+      <put-attribute name="body"   value="/resources/jsp/admin/buyManagement.jsp"/>      
+  </definition>
+  
+  <definition name="invoiceManagement" extends="baseLayout">
+      <put-attribute name="title"  value="Invoice Management"/>
+      <put-attribute name="body"   value="/resources/jsp/admin/invoiceManagement.jsp"/>      
+  </definition>
+  
+  <definition name="myAccount" extends="baseLayout">
+      <put-attribute name="title"  value="Shop Details"/>
+      <put-attribute name="body"   value="/resources/jsp/admin/manageAccount.jsp"/>      
+  </definition>
+  
+  <definition name="useraccount" extends="baseLayout">
+      <put-attribute name="title"  value="User Account"/>
+      <put-attribute name="body"   value="/resources/jsp/admin/userAccount.jsp"/>      
+  </definition>
+  
+  <definition name="userManagement" extends="baseLayout">
+      <put-attribute name="title"  value="User Management"/>
+      <put-attribute name="body"   value="/resources/jsp/admin/userManagement.jsp"/>      
+  </definition>
+  
+  <definition name="transactionManagement" extends="baseLayout">
+      <put-attribute name="title"  value="Transaction Management"/>
+      <put-attribute name="body"   value="/resources/jsp/admin/transactionManagement.jsp"/>      
+  </definition>
+  
+  <definition name="contactsManagement" extends="baseLayout">
+      <put-attribute name="title"  value="Contact Management"/>
+      <put-attribute name="body"   value="/resources/jsp/admin/contactsManagement.jsp"/>      
+  </definition>
+  
+  <definition name="resourceManagement" extends="baseLayout">
+      <put-attribute name="title"  value="Resources"/>
+      <put-attribute name="body"   value="/resources/html/Medicine Management User Guide.html"/>      
+  </definition>
+</tiles-definitions>

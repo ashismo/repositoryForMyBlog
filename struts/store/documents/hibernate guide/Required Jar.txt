@@ -1,0 +1,15 @@
+antlr-2.7.6.jar
+commons-collections-3.1.jar
+db2jcc_license_cisuz.jar
+db2jcc.jar
+dom4j-1.6.1.jar
+hibernate-annotations-3.4.0.GA.jar
+hibernate-commons-annotations-3.2.0.Final.jar
+hibernate-jpa-2.0-api-1.0.0.Final.jar
+hibernate3.jar
+javassist-3.9.0.GA.jar
+jboss-logging.jar
+jta-1.1.jar
+log4j.jar
+slf4j-api-1.5.8.jar
+slf4j-jboss-logging.jar

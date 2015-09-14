@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+<session-factory>
+      <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+      <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/medical_store</property>
+      <property name="hibernate.connection.username">root</property>
+      <property name="hibernate.connection.password">root</property>
+      <property name="hibernate.connection.pool_size">10</property>
+      <property name="show_sql">true</property>
+      <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+      <!-- property name="hibernate.hbm2ddl.auto">update</property-->
+      <property name="hibernate.cache.use_query_cache">false</property> 
+	  <property name="hibernate.cache.use_second_level_cache">false</property> 
+	  <property name="hibernate.connection.aggressive_release">false</property> 
+	  <property name="hibernate.connection.release_mode">after_transaction</property> 
+		
+      <!-- Mapping files -->
+      <mapping class="com.ashish.medicine.entity.Owner" />
+      <mapping class="com.ashish.medicine.entity.User" />
+      <mapping class="com.ashish.medicine.entity.Customer" />
+      <mapping class="com.ashish.medicine.entity.Doctor" />
+      <mapping class="com.ashish.medicine.entity.Company" />
+      <mapping class="com.ashish.medicine.entity.WholeSeller" />
+      <mapping class="com.ashish.medicine.entity.MedRep" />
+      <mapping class="com.ashish.medicine.entity.Medicine" />
+      <mapping class="com.ashish.medicine.entity.MedicineDetail" />
+      <mapping class="com.ashish.medicine.entity.Invoice" />
+      <mapping class="com.ashish.medicine.entity.InvoiceDetail" />
+      <mapping class="com.ashish.medicine.entity.Order" />
+      <mapping class="com.ashish.medicine.entity.TransactionDetails" />
+      <mapping class="com.ashish.medicine.entity.Schedule" />
+      <mapping class="com.ashish.medicine.entity.Attachment" />
+      <mapping class="com.ashish.medicine.entity.Contact" />
+      <mapping class="com.ashish.medicine.entity.SequrityQuestion" />
+      <mapping class="com.ashish.medicine.entity.UserSecurity" />
+</session-factory>
+</hibernate-configuration>

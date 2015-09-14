@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application>
+	<display-name>Test-ear</display-name>
+	<description>Test-ear</description>
+	<module>
+		<web>
+			<web-uri>TestEar.ear</web-uri>
+			<context-root>test</context-root>
+		</web>
+	</module>
+</application>

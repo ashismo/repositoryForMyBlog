@@ -1,0 +1,47 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.ui.theme" value="simple" />
+	<constant name="struts.ui.templateDir" value="template" />
+	<constant name="struts.devMode" value="true" />
+
+	<package name="store" extends="struts-default, json-default">
+		<result-types>
+			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+	  	
+	  	<interceptors>
+			<interceptor name="sessionInterceptor"  class="com.ashish.medicine.interceptor.SessionInterceptor"></interceptor>
+			<interceptor name="authorizationInterceptor"  class="com.ashish.medicine.interceptor.AuthorizationInterceptor"></interceptor>
+       		<interceptor-stack name="medicineInterceptorStack">
+	          	<interceptor-ref name="sessionInterceptor"/>
+	          	<interceptor-ref name="authorizationInterceptor"/>
+		        <interceptor-ref name="defaultStack"/>
+		        <interceptor-ref name="fileUpload">
+		       		<param name="allowedTypes">text/plain</param>
+		       		<param name="maximumSize">10240</param>
+		  	    </interceptor-ref> 
+	       	</interceptor-stack>
+	  	</interceptors>
+	  	<default-interceptor-ref name="medicineInterceptorStack"/>
+	  	
+	  	<global-results>
+	        <result name="loginFailure" type="redirect">/loginFailure.html</result>
+	        <result name="unauthorizedAccess" type="tiles">unauthorizedAccess</result>
+	        <result name="applicationExpired" type="tiles">applicationExpired</result>
+	    </global-results>
+	    
+		<action name="*Link" method="{1}" class="com.ashish.medicine.test.LinkAction">
+			<result name="welcome" type="tiles">welcomeLink</result>
+			<result name="friends">/resources/jsp/poc/pocXML.jsp</result>
+			<result name="office" type="tiles">office</result>
+		</action>
+		
+	</package>
+
+	<include file="struts-config/struts-welcome.xml"></include>
+	<include file="struts-config/struts-admin.xml"></include>
+	<include file="struts-config/struts-poc.xml"></include>
+</struts>

@@ -1,0 +1,46 @@
+Generate CSV in Struts2
+=======================
+
+Struts.xml configuration
+------------------------
+<action name="generateCSV" method="generateCSV" class="com.ashish.medicine.admin.company.CompanyAction">
+	<result name="success" type="stream"> 
+		<param name="contentType">application/csv</param> 
+		<param name="inputName">inputStream</param>
+		<param name="contentDisposition">attachment; filename="CSV.csv"</param>
+		<param name="bufferSize">1024</param> 
+	</result>
+</action>
+
+CSV Creator Utility Class
+-------------------------
+com.ashish.medicine.util.CSVCreator class attached with this mail.
+
+
+Action Class
+-------------
+1. Declare private InputStream inputStream; and generate getter and setter
+2. Write the below code
+public String generateCSV()
+{
+	String header[] = {"Column1", "Column2", "Column3"};
+	String csvContent[][] = {{"val11", "val12", "val13"}, 
+					{"val21", "val22", "val23"}, 
+					{"val31", "val32", "val33"}
+				};
+	String title = "POC CSV";
+	try {
+		inputStream = new CSVCreator().createCSV(title, header, csvContent);
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	return Action.SUCCESS;		
+}
+
+
+javascript change
+-----------------
+jQuery(document).delegate(".generateCSV", "click", function(event) {
+	window.open('generateCSV.action');
+	
+});

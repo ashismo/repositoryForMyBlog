@@ -1,0 +1,8 @@
+1. Transaction Management-> Total Amount 100, paid amount 100 then due should be 0. But showing 30rs
+2. Display invoice number in the Invoice table
+3. Open one invoice click on pay button. A popup gets opened. Add one entry then delete the same. The entry gets deleted but GUI table does not get updated.
+
+
+4. Stock is not getting updated after invoicing. Check with Ranbaxy, ABC, middle one
+5.Medicine must be linked with MR.
+6. Payment details must have case insensative combo box. (under invoice->Pay button)

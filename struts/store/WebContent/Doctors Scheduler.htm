@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Creating a School Timetable - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/demo/demo.css">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+	<script type="text/javascript" src="http://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
+</head>
+<body>
+	<h2>Timetable</h2>
+	<div class="demo-info" style="margin-bottom:10px">
+		<div class="demo-tip icon-tip">&nbsp;</div>
+		<div>Click and drag a class to timetable.</div>
+	</div>
+	<div id="dlg-buttons">  
+	    <a href="#" class="easyui-linkbutton submitSchedule" iconCls="icon-ok" onclick="submitData();">Save</a>
+	    <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#companyDisplayWindow').dialog('close')">Cancel</a>  
+	</div>
+	<div style="hight:80;">&nbsp;</div>
+	<div style="width:700px;">
+		<div class="left">
+		</div>
+		
+		<div class="right">
+		</div>
+	</div>
+	
+	<div id="scheduleData" style="display:none;">
+		<input type="text" class="0800-Monday" value="Music"></input>
+		<input type="text" class="0830-Wednesday" value="English"></input>
+	</div>
+	<style type="text/css">
+		.left{
+			width:120px;
+			float:left;
+		}
+		.left table{
+			background:#E0ECFF;
+		}
+		.left td{
+			background:#eee;
+		}
+		.right{
+			float:right;
+			width:570px;
+		}
+		.right table{
+			background:#E0ECFF;
+			width:100%;
+		}
+		.right td{
+			background:#fafafa;
+			text-align:center;
+			padding:2px;
+		}
+		.right td{
+			background:#E0ECFF;
+		}
+		.right td.drop{
+			background:#fafafa;
+			width:100px;
+		}
+		.right td.over{
+			background:#FBEC88;
+		}
+		.item{
+			text-align:center;
+			border:1px solid #499B33;
+			background:#fafafa;
+			width:100px;
+		}
+		.assigned{
+			border:1px solid #BC2A4D;
+		}
+		
+	</style>
+	<script>
+		$(document).ready(function() {
+			createDynamicLeftTable();
+			createDynamicRightTable();
+			var c = $('.assigned');
+			c.draggable({
+				revert:true
+			});
+			dragLeft($('.left .item'));
+			dragRight();
+		});
+		function dragLeft(elem) {
+			$('.left .item').draggable({   
+				revert:true,   
+				proxy:'clone'
+			}); 
+		}
+
+		function dragRight() {
+			$('.right td.drop').droppable({
+				onDragEnter:function(){
+					$(this).addClass('over');
+				},
+				onDragLeave:function(){
+					$(this).removeClass('over');
+				},
+				onDrop:function(e,source){
+					$(this).removeClass('over');
+					if ($(source).hasClass('assigned')){
+						$(this).append(source);
+					} else {
+						var targetVal = ($(this).find('span').html());
+						var target = $(this).find('span');
+						var c = $(source).clone().addClass('assigned');
+						$(this).empty().append(c);
+						var sourceVal=($(source).html());
+						var targetHtml = target.html() + '-' + sourceVal;
+						target.html(targetHtml);
+						c.draggable({
+							revert:true
+						});
+					}
+				}
+			}); 
+		}
+
+		function createDynamicLeftTable() {
+			var leftItem = new Array('Sampad Baral','Ashish Mondal');
+			var innerTr = '';
+			$.each(leftItem, function(index, item) { 
+				innerTr = innerTr + '<tr><td><div class="item">' + item + '</div></td></tr>';
+			});
+			innerTr = innerTr + '<tr><td><div class="item">&nbsp</div></td></tr>';
+			$('div.left').html('<table>' + innerTr + '</table>');
+		}
+		function createDynamicRightTable() {
+			var time = new Array('0800','0830','0900','0930','1000','1030','1100','1130');
+			var day = new Array('Monday','Tuesday','Wednesday','Thursday', 'Friday','Saturday','Sunday');
+			
+			var innerTr = '';
+			var innerTdDay = '';
+			$.each(time, function(index, t) { 
+				innerTdDay = ''
+				var innerTd = '<td class="time">' + t + '</td>';
+				$.each(day, function(i, d) { 
+					 var value = '';
+					 var classname = t + '-' + d;
+					 if( $("#scheduleData ." + classname).val() != undefined ) {
+						 value = $("#scheduleData ." + classname).val();
+						 innerTd = innerTd + '<td class="drop"><div style="POSITION: static;" class="item assigned">' + 
+						 			'<span style="display:none;">' + t + '-' + d + '-' + value + '</span>' +
+				 					value + '</div></td>';
+					 } else {
+					 	innerTd = innerTd + '<td class="drop">' + 
+					 				'<span style="display:none;">' + t + '-' + d + '</span>' + 
+					 				'</td>';
+					 }
+					 innerTdDay = innerTdDay + '<td class="title">' +  d + '</td>';
+				});
+				innerTr = innerTr + '<tr>' + innerTd + '</tr>';
+			});
+			innerTr = '<table>' + '<tr><td class="blank"></td>' + innerTdDay + '</tr>' + innerTr + '</table>';
+			$('div.right').html(innerTr);	
+		}
+		function submitData() {
+			
+		}
+	</script>
+</body>
+</html>

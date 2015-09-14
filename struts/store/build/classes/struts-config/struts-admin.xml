@@ -1,0 +1,480 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="/admin" extends="store">
+		<result-types>
+			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+
+		<action name="home" method="home" class="com.ashish.medicine.login.LoginAction">
+			<result name="home" type="tiles">home</result>
+			<!--result name="success" type="tiles">home</result-->
+		</action>
+		
+		<action name="forgotPassword" method="forgotPassword" class="com.ashish.medicine.login.LoginAction">
+			<result name="success">/resources/jsp/admin/forgotPassword.jsp</result>
+		</action>
+		
+		<action name="displayPassword" method="displayPassword" class="com.ashish.medicine.login.LoginAction">
+			<result name="success">/resources/jsp/admin/displayPassword.jsp</result>
+		</action>
+		
+		<action name="renewSession" method="renewSession" class="com.ashish.medicine.login.LoginAction">
+			<result type="json"></result>
+		</action>
+				
+		<action name="logout" method="logout" class="com.ashish.medicine.login.LoginAction">
+			<result name="logout" type="redirect">/login.html</result>
+		</action>
+		
+		<action name="getPOCPage" method="getPOCPage" class="com.ashish.test1.test.LinkAction">
+			<result name="success" type="tiles">getPOCPage</result>
+		</action>
+		<action name="getStates" method="getStates" class="com.ashish.medicine.util.UtilAction">
+			<result name="success">/resources/jsp/common/States.jsp</result>
+		</action>
+		
+		<!-- Company Management-->
+		<action name="companyManagementDetails" method="companyManagementDetails" class="com.ashish.medicine.admin.company.CompanyAction">
+			<result name="success" type="tiles">companyManagement</result>
+		</action>
+		<action name="searchCompany" method="searchCompany" class="com.ashish.medicine.admin.company.CompanyAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="addCompanyForm" method="addCompanyForm" class="com.ashish.medicine.admin.company.CompanyAction">
+			<result type="json">    
+			</result>
+		</action>
+		<action name="viewCompany" method="viewCompany" class="com.ashish.medicine.admin.company.CompanyAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="createCompany" method="addOrUpdateCompany" class="com.ashish.medicine.admin.company.CompanyAction">
+			<result type="json"></result>
+		</action>
+		<action name="deleteCompany" method="deleteCompany" class="com.ashish.medicine.admin.company.CompanyAction">
+			<result type="json"></result>
+		</action>
+		<action name="getAllCompanies" method="allCompanies" class="com.ashish.medicine.admin.company.CompanyAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="sellByMonths" method="sellByMonths" class="com.ashish.medicine.admin.company.CompanyAction">
+			<result name="success">/resources/jsp/poc/chartXML.jsp</result>
+		</action>
+		
+		<!-- Schedule Management-->
+		<action name="scheduleManagementDetails" method="scheduleManagementDetails" class="com.ashish.medicine.admin.schedule.ScheduleAction">
+			<result name="success" type="tiles">scheduleManagement</result>
+		</action>
+		<action name="scheduleCriteriaForm" method="scheduleCriteriaForm" class="com.ashish.medicine.admin.schedule.ScheduleAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="viewSchedule" method="viewSchedule" class="com.ashish.medicine.admin.schedule.ScheduleAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="saveSchedule" method="addOrUpdateSchedule" class="com.ashish.medicine.admin.schedule.ScheduleAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="deleteSchedule" method="deleteSchedule" class="com.ashish.medicine.admin.schedule.ScheduleAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="dayAndDates" method="dayAndDates" class="com.ashish.medicine.admin.schedule.ScheduleAction">
+			<result type="json">     
+			</result>
+		</action>
+		
+		
+		<!-- Whole Seller Management-->
+		<action name="wholesellerManagementDetails" method="wholesellerManagementDetails" class="com.ashish.medicine.admin.wholeseller.WholeSellerAction">
+			<result name="success" type="tiles">wholesellerManagement</result>
+		</action>
+		<action name="searchWholeSeller" method="searchWholeSeller" class="com.ashish.medicine.admin.wholeseller.WholeSellerAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="addWholeSellerForm" method="addWholeSellerForm" class="com.ashish.medicine.admin.wholeseller.WholeSellerAction">
+			<result type="json">    
+			</result>
+		</action>
+		<action name="viewWholeSeller" method="viewWholeSeller" class="com.ashish.medicine.admin.wholeseller.WholeSellerAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="getAllWholesellers" method="allWholesellers" class="com.ashish.medicine.admin.wholeseller.WholeSellerAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="createWholeSeller" method="addOrUpdateWholeSeller" class="com.ashish.medicine.admin.wholeseller.WholeSellerAction">
+			<result type="json"></result>
+		</action>
+		<action name="deleteWholeSeller" method="deleteWholeSeller" class="com.ashish.medicine.admin.wholeseller.WholeSellerAction">
+			<result type="json"></result>
+		</action>
+
+		
+		<!-- Customer Management -->
+		<action name="addCustomerForm" method="addCustomerForm" class="com.ashish.medicine.admin.company.CompanyAction">
+			<result type="json">    
+			</result>
+		</action>
+		<action name="customerManagementDetails" method="customerManagementDetails" class="com.ashish.medicine.admin.customer.CustomerAction">
+			<result name="success" type="tiles">customerManagement</result>
+		</action>
+		<action name="searchCustomer" method="searchCustomer" class="com.ashish.medicine.admin.customer.CustomerAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="viewCustomer" method="viewCustomer" class="com.ashish.medicine.admin.customer.CustomerAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="createCustomer" method="addOrUpdateCustomer" class="com.ashish.medicine.admin.customer.CustomerAction">
+			<result type="json"></result>
+		</action>
+		<action name="getAllCustomers" method="allCustomers" class="com.ashish.medicine.admin.customer.CustomerAction">
+			<result type="json"></result>
+		</action>
+		<action name="getCustomerByCustomerId" method="customerByCustomerId" class="com.ashish.medicine.admin.customer.CustomerAction">
+			<result type="json"></result>
+		</action>
+		<action name="deleteCustomer" method="deleteCustomer" class="com.ashish.medicine.admin.customer.CustomerAction">
+			<result type="json"></result>
+		</action>
+		<action name="sellByMonths" method="sellByMonths" class="com.ashish.medicine.admin.customer.CustomerAction">
+			<result name="success">/resources/jsp/poc/chartXML.jsp</result>
+		</action>
+		
+		<!-- Doctor Management -->
+		<action name="doctorManagementDetails" method="doctorManagementDetails" class="com.ashish.medicine.admin.doctor.DoctorAction">
+			<result name="success" type="tiles">doctorManagement</result>
+		</action>
+		<action name="searchDoctor" method="searchDoctor" class="com.ashish.medicine.admin.doctor.DoctorAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="viewDoctor" method="viewDoctor" class="com.ashish.medicine.admin.doctor.DoctorAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="deleteDoctor" method="deleteDoctor" class="com.ashish.medicine.admin.doctor.DoctorAction">
+			<result type="json"></result>
+		</action>
+		<action name="createDoctor" method="addOrUpdateDoctor" class="com.ashish.medicine.admin.doctor.DoctorAction">
+			<result type="json"></result>
+		</action>
+		<action name="getAllDoctors" method="allDoctors" class="com.ashish.medicine.admin.doctor.DoctorAction">
+			<result type="json"></result>
+		</action>
+		<action name="getDoctorByDoctorId" method="doctorByDoctorId" class="com.ashish.medicine.admin.doctor.DoctorAction">
+			<result type="json"></result>
+		</action>
+		
+		<!-- Medical representative Management -->
+		<action name="medRepManagementDetails" method="medRepManagementDetails" class="com.ashish.medicine.admin.medRep.MedRepAction">
+			<result name="success" type="tiles">medRepManagement</result>
+		</action>
+		<action name="searchMedRep" method="searchMedRep" class="com.ashish.medicine.admin.medRep.MedRepAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="addMedRepForm" method="addMedRepForm" class="com.ashish.medicine.admin.medRep.MedRepAction">
+			<result type="json">    
+			</result>
+		</action>
+		<action name="viewMedRep" method="viewMedRep" class="com.ashish.medicine.admin.medRep.MedRepAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="createMedRep" method="addOrUpdateMedRep" class="com.ashish.medicine.admin.medRep.MedRepAction">
+			<result type="json"></result>
+		</action>
+		<action name="deleteMedRep" method="deleteMedRep" class="com.ashish.medicine.admin.medRep.MedRepAction">
+			<result type="json"></result>
+		</action>
+		<action name="medRepByWholeSellerId" method="medRepByWholeSellerId" class="com.ashish.medicine.admin.medRep.MedRepAction">
+			<result type="json"></result>
+		</action>
+
+		
+		<!-- Medicine Management -->
+		<action name="medicineManagementDetails" method="medicineManagementDetails" class="com.ashish.medicine.admin.medicine.MedicineAction">
+			<result name="success" type="tiles">medicineManagement</result>
+		</action>
+		<action name="searchMedicine" method="searchMedicine" class="com.ashish.medicine.admin.medicine.MedicineAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="getMedicineByBatchAndMedicineId" method="medicineByBatchAndMedicineId" class="com.ashish.medicine.admin.medicine.MedicineAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="getMedicinesByCompanyId" method="medicinesByCompanyId" class="com.ashish.medicine.admin.medicine.MedicineAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="getAllMedicineBatches" method="allMedicineBatches" class="com.ashish.medicine.admin.medicine.MedicineAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="getMedicineDetailsByMedicineId" method="medicineDetailsByMedicineId" class="com.ashish.medicine.admin.medicine.MedicineAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="addMedicineForm" method="addMedicineForm" class="com.ashish.medicine.admin.medicine.MedicineAction">
+			<result type="json">    
+			</result>
+		</action>
+		<action name="viewMedicine" method="viewMedicine" class="com.ashish.medicine.admin.medicine.MedicineAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="deleteMedicineDetails" method="deleteMedicineDetails" class="com.ashish.medicine.admin.medicine.MedicineAction">
+			<result type="json"></result>
+		</action>
+		<action name="addOrUpdateMedicine" method="addOrUpdateMedicine" class="com.ashish.medicine.admin.medicine.MedicineAction">
+			<result type="json"></result>
+		</action>
+		<action name="getAllMedicines" method="allMedicines" class="com.ashish.medicine.admin.medicine.MedicineAction">
+			<result type="json"></result>
+		</action>
+		<action name="saveMedicineIntoInvoice" method="saveMedicineIntoInvoice" class="com.ashish.medicine.admin.medicine.MedicineAction">
+			<result type="json"></result>
+		</action>
+		
+		<!-- Order Management -->
+		<action name="orderManagementDetails" method="orderManagementDetails" class="com.ashish.medicine.admin.order.OrderAction">
+			<result name="success" type="tiles">orderManagement</result>
+		</action>
+		<action name="searchOrderDetails" method="searchOrderDetails" class="com.ashish.medicine.admin.order.OrderAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="addOrUpdateOrder" method="addOrUpdateOrder" class="com.ashish.medicine.admin.order.OrderAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="deleteOrder" method="deleteOrder" class="com.ashish.medicine.admin.order.OrderAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="addOrUpdateNotes" method="addOrUpdateNotes" class="com.ashish.medicine.admin.order.OrderAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="deleteNotes" method="deleteNotes" class="com.ashish.medicine.admin.order.OrderAction">
+			<result type="json">     
+			</result>
+		</action>
+		
+		<!-- Buy Medicine Management -->
+		<action name="buyManagementDetails" method="buyManagementDetails" class="com.ashish.medicine.admin.buy.BuyAction">
+			<result name="success" type="tiles">buyManagement</result>
+		</action>
+		<action name="searchBuy" method="searchBuy" class="com.ashish.medicine.admin.buy.BuyAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="viewBuy" method="viewBuy" class="com.ashish.medicine.admin.buy.BuyAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="createBuy" method="createBuy" class="com.ashish.medicine.admin.buy.BuyAction">
+			<result type="json"></result>
+		</action>
+		<action name="sellByMonths" method="sellByMonths" class="com.ashish.medicine.admin.buy.BuyAction">
+			<result name="success">/resources/jsp/poc/chartXML.jsp</result>
+		</action>
+		
+		<!-- Invoice Medicine Management -->
+		<action name="invoiceManagementDetails" method="invoiceManagementDetails" class="com.ashish.medicine.admin.invoice.InvoiceAction">
+			<result name="success" type="tiles">invoiceManagement</result>
+		</action>
+		<action name="searchInvoice" method="searchInvoice" class="com.ashish.medicine.admin.invoice.InvoiceAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="addInvoiceForm" method="addInvoiceForm" class="com.ashish.medicine.admin.invoice.InvoiceAction">
+			<result type="json">    
+			</result>
+		</action>
+		<action name="viewInvoice" method="viewInvoice" class="com.ashish.medicine.admin.invoice.InvoiceAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="addOrUpdateInvoice" method="addOrUpdateInvoice" class="com.ashish.medicine.admin.invoice.InvoiceAction">
+			<result type="json"></result>
+		</action>
+		<action name="deleteMedicineIntoInvoice" method="deleteMedicineIntoInvoice" class="com.ashish.medicine.admin.invoice.InvoiceAction">
+			<result type="json"></result>
+		</action>
+		<action name="addOrUpdateInvoiceDetails" method="addOrUpdateInvoiceDetails" class="com.ashish.medicine.admin.invoice.InvoiceAction">
+			<result type="json"></result>
+		</action>
+		<action name="deleteInvoice" method="deleteInvoice" class="com.ashish.medicine.admin.invoice.InvoiceAction">
+			<result type="json"></result>
+		</action>
+		<!-- action name="getInvoiceItems" method="invoiceItems" class="com.ashish.medicine.admin.invoice.InvoiceAction">
+			<result type="json"></result>
+		</action -->
+		<action name="printInvoice" method="printInvoice" class="com.ashish.medicine.admin.invoice.InvoiceAction">
+			<result name="success" type="stream"> 
+				<param name="contentType">application/pdf</param> 
+				<param name="inputName">inputStream</param>
+				<param name="contentDisposition">attachment; filename="${filename}"</param>
+				<param name="bufferSize">1024</param> 
+			</result>
+			<result name="failure" type="json"> </result>
+		</action>
+		
+		<!-- Transaction Management -->
+		<action name="transactionManagementDetails" method="transactionManagementDetails" class="com.ashish.medicine.admin.transaction.TransactionDetailsAction">
+			<result name="success" type="tiles">transactionManagement</result>
+		</action>
+		<action name="searchTransactionDetails" method="searchTransactionDetails" class="com.ashish.medicine.admin.transaction.TransactionDetailsAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="searchRevenueDetails" method="searchRevenueDetails" class="com.ashish.medicine.admin.transaction.TransactionDetailsAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="addOrUpdateTransactionDetails" method="addOrUpdateTransactionDetails" class="com.ashish.medicine.admin.transaction.TransactionDetailsAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="viewTransactionDetails" method="viewTransactionDetails" class="com.ashish.medicine.admin.transaction.TransactionDetailsAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="deleteTransactionDetails" method="deleteTransactionDetails" class="com.ashish.medicine.admin.transaction.TransactionDetailsAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="transactionDetailsByInvoiceId" method="transactionDetailsByInvoiceId" class="com.ashish.medicine.admin.transaction.TransactionDetailsAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="deleteTransactionDetails" method="deleteTransactionDetails" class="com.ashish.medicine.admin.transaction.TransactionDetailsAction">
+			<result type="json">     
+			</result>
+		</action>
+		
+		<action name="attachFileDetails" method="attachFileDetails" class="com.ashish.medicine.admin.transaction.TransactionDetailsAction">
+			<result name="success">/resources/jsp/admin/FileUploadSuccess.jsp</result>
+			<result name="failure">/resources/jsp/admin/FileUploadFailed.jsp</result>
+		</action>
+		<action name="viewAttachmentDetails" method="viewAttachmentDetails" class="com.ashish.medicine.admin.transaction.TransactionDetailsAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="updateAttachmentDetails" method="updateAttachmentDetails" class="com.ashish.medicine.admin.transaction.TransactionDetailsAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="downloadAttachment" method="downloadAttachment" class="com.ashish.medicine.admin.transaction.TransactionDetailsAction">
+			<result name="success" type="stream"> 
+				<!-- param name="contentType">application/pdf</param--> 
+				<param name="inputName">inputStream</param>
+				<param name="contentDisposition">attachment; filename="${filename}"</param>
+				<param name="bufferSize">1024</param> 
+			</result>
+			<result name="failure" type="json"> </result>
+		</action>
+		<action name="deleteAttachmentDetails" method="deleteAttachmentDetails" class="com.ashish.medicine.admin.transaction.TransactionDetailsAction">
+			<result type="json">     
+			</result>
+		</action>		
+		
+		
+		<!-- My Account Management -->
+		<action name="myAccount" method="myAccount" class="com.ashish.medicine.admin.myaccount.MyAccountAction">
+			<result type="json"></result>
+		</action>
+		<action name="account" method="account" class="com.ashish.medicine.admin.myaccount.MyAccountAction">
+			<result name="success" type="tiles">myAccount</result>
+		</action>
+		<action name="updateAccount" method="updateAccount" class="com.ashish.medicine.admin.myaccount.MyAccountAction">
+			<result name="success" type="tiles">myAccount</result>
+		</action>
+		<action name="useraccount" method="useraccount" class="com.ashish.medicine.admin.myaccount.MyAccountAction">
+			<result name="success" type="tiles">useraccount</result>
+		</action>
+		<action name="validateUserCredential" method="validateUserCredential" class="com.ashish.medicine.admin.myaccount.MyAccountAction">
+			<result type="json"></result>
+		</action>
+		<action name="fetchUserAccount" method="fetchUserAccount" class="com.ashish.medicine.admin.myaccount.MyAccountAction">
+			<result type="json"></result>
+		</action>
+		<action name="updateUserAccount" method="updateUserAccount" class="com.ashish.medicine.admin.myaccount.MyAccountAction">
+			<result type="json"></result>
+		</action>
+		
+		
+		<!-- User Management-->
+		<action name="userManagement" method="userManagement" class="com.ashish.medicine.admin.usermanagement.UserManagementAction">
+			<result name="success" type="tiles">userManagement</result>
+		</action>
+		<action name="searchUser" method="searchUser" class="com.ashish.medicine.admin.usermanagement.UserManagementAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="addUserForm" method="addUserForm" class="com.ashish.medicine.admin.usermanagement.UserManagementAction">
+			<result type="json">    
+			</result>
+		</action>
+		<action name="viewUser" method="viewUser" class="com.ashish.medicine.admin.usermanagement.UserManagementAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="createUser" method="addOrUpdateUser" class="com.ashish.medicine.admin.usermanagement.UserManagementAction">
+			<result type="json"></result>
+		</action>
+		<action name="deleteUser" method="deleteUser" class="com.ashish.medicine.admin.usermanagement.UserManagementAction">
+			<result type="json"></result>
+		</action>
+		<action name="getAllUsers" method="allUsers" class="com.ashish.medicine.admin.usermanagement.UserManagementAction">
+			<result type="json">     
+			</result>
+		</action>
+		
+		<!-- Contacts Management -->
+		<action name="contactsManagementDetails" method="contactsManagementDetails" class="com.ashish.medicine.admin.contacts.ContactsAction">
+			<result name="success" type="tiles">contactsManagement</result>
+		</action>
+		<action name="searchContacts" method="searchContacts" class="com.ashish.medicine.admin.contacts.ContactsAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="addContactsForm" method="addContactsForm" class="com.ashish.medicine.admin.contacts.ContactsAction">
+			<result type="json">    
+			</result>
+		</action>
+		<action name="viewContacts" method="viewContacts" class="com.ashish.medicine.admin.contacts.ContactsAction">
+			<result type="json">     
+			</result>
+		</action>
+		<action name="createContacts" method="addOrUpdateContacts" class="com.ashish.medicine.admin.contacts.ContactsAction">
+			<result type="json"></result>
+		</action>
+		<action name="deleteContacts" method="deleteContacts" class="com.ashish.medicine.admin.contacts.ContactsAction">
+			<result type="json"></result>
+		</action>
+		<action name="getAllContacts" method="allContacts" class="com.ashish.medicine.admin.contacts.ContactsAction">
+			<result type="json">     
+			</result>
+		</action>
+		
+		<!-- Resource Management-->
+		<action name="resourceManagement" method="resourceManagement" class="com.ashish.medicine.admin.resource.ResourceAction">
+			<result name="success" type="tiles">resourceManagement</result>
+		</action>
+	</package>
+</struts>

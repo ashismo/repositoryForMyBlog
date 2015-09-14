@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="test_ear" name="myProject">
+    <property name="build.dir" value="WebContent"/>
+	<property name="build.dest" value="build"/>
+	<property name="war.file" value="store.war"/>
+	<property name="ear.file" value="testEAR.ear"/>
+	
+	<target name="clean">
+		<echo>Clean Build</echo>
+		<delete dir="${build.dest}/classes"/>
+	    <delete dir="${build.dest}/WEB-INF"/>
+		<delete file="${build.dest}/${war.file}"/>
+		<!--delete file="${build.dest}/${ear.file}"/-->
+	</target>
+
+	<path id="master-classpath">
+	  <fileset dir="${build.dir}/WEB-INF/lib">
+	    <include name="*.jar"/>
+	  </fileset>
+
+	  <!--fileset dir="${build.dir}/WEB-INF/server/lib">
+	    <include name="servlet*.jar"/>
+	  </fileset-->
+	  <!--pathelement path="${build.dir}"-->
+	</path>
+	
+<target name="test_ear" depends="clean">
+	<mkdir dir="${build.dest}/WEB-INF/lib"/>
+	<mkdir dir="${build.dest}/classes"/>
+	<mkdir dir="${build.dest}/classes/struts-config"/>
+	 <javac srcdir="src"
+	         destdir="${build.dest}/classes"
+	         debug="on">
+	 	<classpath refid="master-classpath"/>
+	 </javac>
+	<copydir dest="${build.dest}/classes/struts-config" src="src/struts-config/"></copydir>
+	<copy todir="${build.dest}/classes/">
+		<fileset dir="src">
+			<include name="*.properties"/>
+			<include name="*.xml"/>
+		</fileset>
+	</copy>
+	<jar destfile="${build.dest}/WEB-INF/lib/app.jar"
+	       basedir="${build.dest}/classes"
+	  />
+    <war destfile="${build.dest}/${war.file}" needxmlfile='false'>
+      	<fileset dir="${build.dir}" excludes="*build*.xml"/>
+    	<fileset dir="${build.dest}" includes="WEB-INF/lib/*.jar" excludes="*build*.xml"/>
+    </war>
+    <!--ear destfile="${build.dest}/${ear.file}" appxml="WebContent/META-INF/application.xml">
+      <fileset dir="${build.dest}" includes="*.war"/>
+    </ear-->
+</target>
+</project>
