@@ -1,0 +1,131 @@
+1. yum install wget
+2. wget http://downloads.sourceforge.net/project/xampp/XAMPP%20Linux/1.8.3/xampp-linux-x64-1.8.3-3-installer.run 
+3. Give executable permission to downloaded XAMPP script
+	chmod +x xampp-linux-x64-1.8.3-3-installer.run
+4. Run XAMPP installer script
+	./xampp-linux-x64-1.8.3-3-installer.run 
+	
+	XAMPP will be installed to /opt/lampp
+5. Allow ALL network to access XAMPP Server
+	vi /opt/lampp/etc/extra/httpd-xampp.conf
+	Replace "Require local" by   Require all granted
+	
+	<LocationMatch "^/(?i:(?:xampp|security|licenses|phpmyadmin|webalizer|server-status|server-info))">
+        Require local
+        ErrorDocument 403 /error/XAMPP_FORBIDDEN.html.var
+</LocationMatch>
+
+6. restart the service
+sudo /opt/lampp/lampp restart
+
+
+7. Install and configure postgres server
+
+sudo yum install postgresql postgresql-server postgresql-devel postgresql-contrib postgresql-docs
+sudo service postgresql initdb
+sudo vi /var/lib/pgsql/data/pg_hba.conf
+
+Add following lines 
+local   all             all                                     trust
+host    all             all             0.0.0.0/0           md5
+
+7a. modify following lines in sudo vi /var/lib/pgsql/data/postgresql.conf
+
+listen_addresses = '*'
+port = 5432
+
+8. Start postgresql
+sudo service postgresql start
+
+
+9. Set a password for "postgres" user to access it from outside 
+a.sudo psql -U postgres
+b.ALTER USER postgres WITH PASSWORD 'root';
+
+10. Restore database
+sudo psql -U postgres
+\i <path to sql file>;
+
+
+11. Start webapp and postgre at instance startup
+
+Write the below script and add execute permission chmod +x /etc/init.d/start_my_app
+
+#!/bin/bash
+/opt/lampp/lampp start
+service postgresql start
+
+
+11a.  Create another script(start-my-app) and add execute permission chmod +x start-my-app with following lines which attaches the above script
+. /etc/init.d/functions
+
+FILENAME=/etc/init.d/start_my_app
+
+[ -z "$HOME" ] && export HOME=/
+
+case "$1" in
+    start)
+        ./etc/init.d/start_my_app
+    stop)
+        exit 0
+        ;;
+
+    *)
+        echo $"Usage: $0 {start|stop}"
+        exit 3
+        ;;
+esac
+
+11b. sudo chkconfig --add start-my-app
+
+sudo chkconfig service postgresql start
+sudo chkconfig /opt/lampp/lampp start
+
+
+
+
+
+ISSUE: 12. PHP code is not running in apache. PHP code is getting printed in browser
+Add the following line in httpd.conf
+
+AddType text/html .php .php4 .php5 .phps
+    AddHandler application/x-httpd-php .php .php4 .php5
+    AddHandler application/x-httpd-php-source .phps
+	
+And go to WAMP srver -> PHP -> PHP Settings -> short open tag
+
+ISSUE 13: Fatal error: Call-time pass-by-reference has been removed in
+Downgrade PHP5.5 to less than PHP5.3 in wamp
+
+
+
+Install PHP4
+http://www.nocser.net/clients/knowledgebase/379/Install-PHP4-on-CentOS-55-VPS.html
+
+sudo yum install flex gcc* bison bison-devel httpd-devel make
+
+
+
+Install Xampp old version 1.6.0 for PHP 5.2
+===============================
+wget http://sourceforge.net/projects/xampp/files/XAMPP%20Linux/1.6/xampp-linux-1.6.tar.gz
+tar xvafz xampp-linux-1.6.tar.gz -C /opt
+yum install glibc*
+yum install libstd*
+yum install -y glibc*i686
+yum install libgcc-4.8.3-9.el7.i686
+
+
+
+
+Startup script
+===============
+ sudo chmod +x /etc/rc.d/rc.local
+
+ Add your script at the end
+ 
+ 
+sudo crontab -e
+
+Add below line
+@reboot /home/ec2-user/ec2startup.sh
