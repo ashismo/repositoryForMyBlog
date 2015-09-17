@@ -120,6 +120,11 @@ yum install libgcc-4.8.3-9.el7.i686
 
 Startup script
 ===============
+chkconfig postgresql on
+
+
+
+
  sudo chmod +x /etc/rc.d/rc.local
 
  Add your script at the end
