@@ -1,0 +1,33 @@
+Enable HTTPS in apache
+=========================
+
+1. Create certificate (public and private part of an SSL certificate)
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout netware.key -out netware.crt
+
+	netware.crt is the self signed certificate. It is the public part of an SSL certificate
+	netware.key is the private part of an SSL certificate
+	These are the public (.crt) and private (.key) parts of an SSL certificate
+	
+2. Enable SSL in wamp server
+	WAMP->Apache->Apache module -> ssl_module
+	
+3. Load the following modules in H:\Program Files\wamp\bin\apache\apache2.4.9\conf\httpd.conf file
+
+LoadModule socache_shmcb_module modules/mod_socache_shmcb.so  
+LoadModule log_config_module modules/mod_log_config.so  
+LoadModule setenvif_module modules/mod_setenvif.so  
+LoadModule ssl_module modules/mod_ssl.so
+
+
+4. Include the conf file for SSL
+
+<IfModule ssl_module>
+	Include conf/extra/httpd-ssl.conf
+	SSLRandomSeed startup builtin
+	SSLRandomSeed connect builtin
+</IfModule>
+
+6. Enable php_openssl in php.ini
+extension=php_openssl.dll
+
+

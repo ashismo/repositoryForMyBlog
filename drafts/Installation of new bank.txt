@@ -1,0 +1,10 @@
+DB Import
+===========
+1. Create new DB from pg admin 
+	a. create role (if required)
+	b. Create DB and attach the role
+	
+2. Go to putty console
+	psql <db name> < <path of the sql>
+	
+	e.g. [root@ip-172-31-21-59 htdocs]# psql bergerpaints < /home/ec2-user/netware/bergerpaint/berjerpaints09.09.15_04.20_last.sql
