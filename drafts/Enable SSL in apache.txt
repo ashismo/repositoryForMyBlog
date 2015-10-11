@@ -1,33 +1,99 @@
-Enable HTTPS in apache
-=========================
 
-1. Create certificate (public and private part of an SSL certificate)
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout netware.key -out netware.crt
+http://www.phpjoel.com/2011/04/07/installing-ssl-using-openssl-on-a-wamp-localhost/
+1. GENERATE KEY
+	a. go to H:\Program Files\wamp\bin
+	b. open command prompt
+	c. execute th following command "openssl req -new > webserver.csr"
+	d. This will generate .rnd, privkey.pem and webserver.csr files
+2. REMOVE PASSPHRASE
+	a. openssl rsa -in privkey.pem -out webserver.key
+	b. This will generate webserver.key file in the same directory
+3. CONVERT INTO SIGNED CERTIFICATE
+	a. Run the following command to create a certificate (webserver.cert) which expires after one year:
+		openssl x509 -in webserver.csr -out webserver.cert -req -signkey webserver.key -days 365
+4. STORE CERTIFICATE FILES
+	a. Create a folder H:\Program Files\wamp\OpenSSL with the following subfolders
+		/certs
+		/crl
+		/newcerts
+		/private
+	b. Copy the following files to /certs/:
+		webserver.cert
+		webserver.csr
+		webserver.key
+	c. Copy the following files to /private/
+		rnd
+		privkey.pem
+		cacert.pem
+5. MODIFY HTTPD-SSL.CONF (H:\Program Files\wamp\bin\apache\apache2.4.9\conf\extra\httpd-ssl.conf)
+		SSLSessionCache "shmcb:C:/wamp/Apache2/logs/ssl_scache(512000)"
+		 
+		#SSLMutex default
+		 
+		# General setup for the virtual host
+		DocumentRoot "C:/www/mysecuresite"
+		ServerName localhost:443
+		ServerAdmin myemail@example.com
+		ErrorLog "C:/wamp/logs/mysecuresite_error_log"
+		TransferLog "C:/wamp/logs/mysecuresite_access_log"
 
-	netware.crt is the self signed certificate. It is the public part of an SSL certificate
-	netware.key is the private part of an SSL certificate
-	These are the public (.crt) and private (.key) parts of an SSL certificate
+		SSLCertificateFile "H:/Program Files/wamp/OpenSSL/certs/webserver.cert"
+		SSLCertificateKeyFile "H:/Program Files/wamp/OpenSSL/certs/webserver.key"
+		SSLCARevocationPath "H:/Program Files/wamp/OpenSSL/crl"
+		CustomLog "H:/Program Files/wamp/logs/ssl_request.log" \
+			  "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
+
+
+6. MODIFY OPENSSL.CNF (H:\Program Files\wamp\bin\apache\apache2.4.9\conf\openssl.cnf)
+	dir		= "H:/Program Files/wamp/OpenSSL"		# Where everything is kept
 	
-2. Enable SSL in wamp server
-	WAMP->Apache->Apache module -> ssl_module
+7. MODIFY HTTPD.CONF (H:\Program Files\wamp\bin\apache\apache2.4.9\conf\httpd.conf)
+	a. Uncomment the following line
+	LoadModule socache_shmcb_module modules/mod_socache_shmcb.so
 	
-3. Load the following modules in H:\Program Files\wamp\bin\apache\apache2.4.9\conf\httpd.conf file
-
-LoadModule socache_shmcb_module modules/mod_socache_shmcb.so  
-LoadModule log_config_module modules/mod_log_config.so  
-LoadModule setenvif_module modules/mod_setenvif.so  
-LoadModule ssl_module modules/mod_ssl.so
-
-
-4. Include the conf file for SSL
-
-<IfModule ssl_module>
+	b. Load httpd-ssl.conf file
+	# Secure (SSL/TLS) connections
+	#Include conf/extra/httpd-ssl.conf
 	Include conf/extra/httpd-ssl.conf
-	SSLRandomSeed startup builtin
-	SSLRandomSeed connect builtin
-</IfModule>
+	
+8. Ensure SSL is Enabled
+	Make sure that Apache is setup to even use SSL.
+	Do this by clicking the WAMP icon in your tray,
+	hovering to: Apache > Apache Modules,
+	scroll through the list and make sure that ssl_module has a check next to it.
+	If not, then click it.
+9. TEST HTTPS
+	Run "H:\Program Files\wamp\bin\apache\apache2.4.9\bin\httpd.exe –t" and make sure the syntax is OK in httpd.conf file.
+	Restart Apache.
+	Check that port 443 is open by running the following in the command prompt: netstat -an | more
+	
+	
+10. REDIRECT ALL HTTP TO HTTPS
 
-6. Enable php_openssl in php.ini
-extension=php_openssl.dll
+a. MODIFY HTTPD.CONF (H:\Program Files\wamp\bin\apache\apache2.4.9\conf\httpd.conf) with the following lines
+Uncomment the following line
+LoadModule rewrite_module modules/mod_rewrite.so
+
+Then add the following lines after "Include conf/extra/httpd-ssl.conf"
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+
+Then check for the syntax with the following command "H:\Program Files\wamp\bin\apache\apache2.4.9\bin\httpd.exe -t"
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+Enable SSL in LAMPP in Linux
+================================
+1. /opt/lampp/etc
