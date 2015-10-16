@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+	<mapping>
+		<class-a>com.dozerbean.ChildBean</class-a>
+		<class-b>com.entity.Child</class-b>
+		<field>
+			<a>id</a>
+			<b>id</b>
+		</field>
+		<field>
+			<a>age</a>
+			<b>age</b>
+		</field>
+		<field>
+			<a>name</a>
+			<b>name</b>
+		</field>
+	</mapping>
+	<mapping map-id="parentChildMapping">
+		<class-a>com.dozerbean.ParentBean</class-a>
+		<class-b>com.entity.Parent</class-b>
+		<field>
+			<a>fId</a>
+			<b>father.id</b>
+		</field>
+		<field>
+			<a>mId</a>
+			<b>mother.id</b>
+		</field>
+		<field>
+			<a>fName</a>
+			<b>father.name</b>
+		</field>
+		<field>
+			<a>mName</a>
+			<b>mother.name</b>
+		</field>
+		<field>
+			<a>fAge</a>
+			<b>father.age</b>
+		</field>
+		<field>
+			<a>mAge</a>
+			<b>mother.age</b>
+		</field>
+		<field>
+			<a>child</a>
+			<b>father.child</b>
+		</field>
+		<field>
+			<a>mId</a>
+			<b>father.spouseId</b>
+		</field>
+		<field>
+			<a>fId</a>
+			<b>mother.spouseId</b>
+		</field>
+		<field>
+			<a>fId</a>
+			<b>father.child.fId</b>
+		</field>
+		<field custom-converter="com.custom.converter.ChildCustomConverter">
+			<a>mId</a>
+			<b>father.child</b>
+		</field>
+		<field>
+			<a>child</a>
+			<b>mother.child</b>
+		</field>
+	</mapping>
+</mappings>
