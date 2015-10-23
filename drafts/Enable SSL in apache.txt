@@ -3,7 +3,7 @@ http://www.phpjoel.com/2011/04/07/installing-ssl-using-openssl-on-a-wamp-localho
 1. GENERATE KEY
 	a. go to H:\Program Files\wamp\bin
 	b. open command prompt
-	c. execute th following command "openssl req -new > webserver.csr"
+	c. execute the following command "openssl req -new > webserver.csr"
 	d. This will generate .rnd, privkey.pem and webserver.csr files
 2. REMOVE PASSPHRASE
 	a. openssl rsa -in privkey.pem -out webserver.key

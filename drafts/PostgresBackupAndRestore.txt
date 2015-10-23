@@ -1,0 +1,91 @@
+Cron job for database backup
+===============================
+crontab -e
+
+#Takes DB backup at 7PM everyday
+0 19 * * * /home/ec2-user/backupdb.sh >> /tmp/cronjob.log 2>&1
+
+
+
+
+Database Backup script (dbbackup.sh  , chmod 777)
+=============
+#!/bin/sh
+DB_USERNAME=postgres
+export PGPASSWORD=root
+
+# Under this directory all DB backup to be placed
+BCK_DIR="/tmp/ashish"
+#Below databases to be backup
+DATABASE_TO_BE_BACKED_UP="nimo4915,nimo4916"
+#Last 10 backup to be kept for each database
+KEEP_LAST_NO_OF_BACKUP=3
+
+if [ -d "${BCK_DIR}" ]; then
+        echo "Backup directory ${BCK_DIR} exists";
+else
+        echo "Backup directory ${BCK_DIR} created";
+        mkdir -p ${BCK_DIR}
+fi
+
+for DB_NAME in $(echo "$DATABASE_TO_BE_BACKED_UP" | tr "," " "); do
+        echo "PROCESSING DATABASE === $DB_NAME"
+        SQL_DIR="${BCK_DIR}/${DB_NAME}"
+        if [ -d "${SQL_DIR}" ]; then
+               echo "Backup directory ${SQL_DIR} exists for database ${DB_NAME}";
+        else
+                echo "Backup directory ${SQL_DIR} created for database ${DB_NAME}";
+                mkdir ${SQL_DIR}
+        fi
+
+        echo "Going to backup $DB_NAME database"
+        current_time=$(date "+%Y.%m.%d-%H.%M.%S")
+        pg_dump -U ${DB_USERNAME} $DB_NAME -f "${SQL_DIR}/${DB_NAME}-${current_time}.sql"
+
+        count=1
+        for file in $(ls -lt ${SQL_DIR} | awk {'print $9'}) ; do
+                if [ $count -gt $KEEP_LAST_NO_OF_BACKUP ]; then
+                        echo "Going to delete $file"
+                        rm -fr "${SQL_DIR}/${file}"
+                else
+                        echo "We are keeping this backup file $file"
+                fi
+                count=$((count+1))
+        done
+done
+
+
+
+
+
+
+
+http://www.mkyong.com/database/postgresql-point-in-time-recovery-incremental-backup/
+
+
+PostgreSQL “Point-in-time Recovery” (PITR) also called as incremental database backup , online backup or may be archive backup. The PostgreSQL server records all users’ data modification transaction like insert, update or delete and write it into a file call write-ahead (WAL) log file. This mechanism use the history records stored in WAL file to do roll-forward changes made since last database full backup
+
+
+Summary of PostgreSQL Backup Steps
+========================================
+Modify postgresql.conf to support archive log
+Make a base backup (full database backup)
+Backup base backup to remote storage.
+Backup WAL (archive log files) to remote storage (continuous process)
+
+
+Summary of PostgreSQL Point-in-time Recovery Steps
+==================================================
+Extract files from base backup
+Copy files from pg_xlog folder
+Create recovery.conf file
+Start Recover
+
+
+1. Windows postgres service uses the following command to start postgres. So database files will be under ${POSTGRES_HOME}\data folder
+"H:\Program Files\PostgreSql\bin\pg_ctl.exe" runservice -N "postgresql-x64-9.4" -D "H:\Program Files\PostgreSql\data" -w
+
+2. make the following changes in postgresql.conf file
+
+archive_mode = on
+archive_command = 'cp %p "H:\Program Files\PostgreSql\data\wals\%f"'

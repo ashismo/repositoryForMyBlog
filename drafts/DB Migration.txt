@@ -1,0 +1,40 @@
+"H:\Program Files\PostgreSql\bin\pg_ctl.exe" runservice -N "postgresql-x64-9.4" -D "H:\Program Files\PostgreSql\data" -w
+
+
+initdb -D "H:\Program Files\PostgreSql\TestBackupRecovery"
+pg_ctl start -D "H:\Program Files\PostgreSql\TestBackupRecovery"
+
+
+Start Postgres
+pg_ctl start -D "H:\Program Files\PostgreSql\data"
+
+Stop postgres
+pg_ctl stop -D "H:\Program Files\PostgreSql\data"
+
+
+
+Error in amazon
+=================
+ALTER FUNCTION
+ERROR:  could not access file "/usr/lib/pgsql/plpgsql.so": No such file or directory
+ERROR:  function public.plpgsql_call_handler() does not exist
+CREATE FUNCTION
+
+/usr/lib64/pgsql/plpgsql.so is available so copied the file into /usr/lib/pgsql/plpgsql.so
+
+
+
+
+ERROR:  language "plpgsql" already exists
+ALTER FUNCTION
+ERROR:  attempt to redefine parameter "plpgsql.variable_conflict"
+ERROR:  function public.plpgsql_call_handler() does not exist
+CREATE FUNCTION
+
+
+
+
+Use psql without password prompt
+====================
+export PGPASSWORD=root
+ psql -U postgres

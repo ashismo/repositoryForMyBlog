@@ -1,5 +1,5 @@
 
-vi /home/ec2-user/ec2startup    (chmod 777 ec2startup)
+vi /etc/rc.d/init.d/ec2startup    (chmod 777 ec2startup)
 =========================
 #!/bin/sh
 # SAMPLE BASIC INIT SCRIPT
