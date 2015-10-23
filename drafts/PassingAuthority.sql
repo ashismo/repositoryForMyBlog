@@ -6,12 +6,8 @@ select * into gl_ledger_hrd_bck from gl_ledger_hrd where 1=2;
 alter table gl_ledger_hrd_bck add column operation_flag character varying(2) default NULL;
 select * from gl_ledger_hrd_bck;
 
-select * into mas_gl_tran_bck from mas_gl_tran where 1=2;
-alter table mas_gl_tran_bck add column operation_flag character varying(2) default NULL;
-select * from mas_gl_tran_bck;
 
-Function to get current financial year
-======================================
+--Function to get current financial year
 CREATE OR REPLACE FUNCTION getFy ()
 RETURNS char(10) AS $f$
 declare
@@ -29,8 +25,7 @@ END;
 $f$ LANGUAGE plpgsql;
   
   
-Trigger to move record into bck table
-======================================
+--Trigger to move record into gl_ledger_hrd_bck table
 CREATE OR REPLACE FUNCTION gl_ledger_hrd_passing_auth()
 RETURNS trigger as $$
    Declare recordCnt integer;
@@ -40,7 +35,7 @@ BEGIN
 		SELECT count(*) as c
 		FROM gl_ledger_hrd_bck
 	 WHERE tran_id=NEW.tran_id) as s;
-  IF NEW.type='sb' and NEW.fy=(select getFy()) and to_char(NEW.action_date,'YYYY-MM-DD')=to_char(now(),'YYYY-MM-DD') 
+  IF NEW.type in ('sb','jv') and NEW.fy=(select getFy()) and to_char(NEW.action_date,'YYYY-MM-DD')=to_char(now(),'YYYY-MM-DD') -- jv is for bank charges
 	AND recordCnt=0
   THEN
     insert into gl_ledger_hrd_bck select NEW.*,'E';
@@ -57,7 +52,7 @@ FOR EACH ROW
 EXECUTE PROCEDURE gl_ledger_hrd_passing_auth();
 
 
-
+--Trigger to move record into gl_ledger_dtl_bck table
 CREATE OR REPLACE FUNCTION gl_ledger_dtl_passing_auth()
   RETURNS trigger AS $$
   Declare recordCnt integer;
@@ -68,8 +63,17 @@ BEGIN
 		FROM gl_ledger_dtl_bck
 	 WHERE tran_id=NEW.tran_id) as s;
 	 
-  IF NEW.particulars in ('cash','cheque','interest','int.') and NEW.gl_mas_code in ('14101','28101') and NEW.dr_cr in ('Dr','Cr') 
-	AND recordCnt in (0,1)
+  IF (NEW.particulars in ('cash','interest') and 
+		NEW.gl_mas_code in ('14101','28101') and NEW.dr_cr in ('Dr','Cr')
+	AND recordCnt in (0,1))
+	OR
+	(NEW.particulars in ('Cleared') and 
+		NEW.gl_mas_code in ('14101') and NEW.dr_cr in ('Cr') 
+	AND recordCnt=0)
+	OR
+	(NEW.particulars in ('bank charge') and 
+		NEW.gl_mas_code in ('28201','14101','57903') and NEW.dr_cr in ('Cr','Dr')  -- 28201: For cheque clear
+	AND recordCnt in (0,1))
   THEN
     insert into gl_ledger_dtl_bck select NEW.*,'E';
     delete from gl_ledger_dtl where tran_id = NEW.tran_id;
@@ -84,15 +88,12 @@ AFTER INSERT ON gl_ledger_dtl
 FOR EACH ROW
 EXECUTE PROCEDURE gl_ledger_dtl_passing_auth();
 
+-- drop constraint from gl_ledger_hrd table
+ALTER TABLE ONLY gl_ledger_hrd
+    DROP CONSTRAINT gl_ledger_hrd_pkey;
 
 
-
-
-
-
-
-
-
+-- Passing authority function
 CREATE OR REPLACE FUNCTION passing_auth_action(tranId text, paAction text, paComment text)
 RETURNS VOID as $$
 BEGIN
