@@ -26,7 +26,7 @@ sudo service postgresql initdb
 sudo vi /var/lib/pgsql/data/pg_hba.conf
 
 Add following lines 
-local   all             all                                     trust
+local   all             all                                     trust  
 host    all             all             0.0.0.0/0           md5
 
 7a. modify following lines in sudo vi /var/lib/pgsql/data/postgresql.conf

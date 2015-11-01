@@ -1,0 +1,7 @@
+Multiple database connection
+=============================
+
+1. Install DB link
+	DB link file (dblink.sql) may be available in <POSTGRES_HOME>/share/extension
+2. From pgsql console execute "CREATE EXTENSION dblink;"
+3. select * FROM dblink('dbname=nimo4916 port=5432 host=localhost user=postgres password=root','SELECT id, name FROM staff') as t1(id text, name text)

@@ -40,7 +40,7 @@ for DB_NAME in $(echo "$DATABASE_TO_BE_BACKED_UP" | tr "," " "); do
 
         echo "Going to backup $DB_NAME database"
         current_time=$(date "+%Y.%m.%d-%H.%M.%S")
-        pg_dump -U ${DB_USERNAME} $DB_NAME -f "${SQL_DIR}/${DB_NAME}-${current_time}.sql"
+        pg_dump -U ${DB_USERNAME} -O $DB_NAME -f "${SQL_DIR}/${DB_NAME}-${current_time}.sql"
 
         count=1
         for file in $(ls -lt ${SQL_DIR} | awk {'print $9'}) ; do

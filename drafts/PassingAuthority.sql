@@ -26,7 +26,7 @@ BEGIN
 		FROM gl_ledger_hrd_bck
 	 WHERE tran_id=NEW.tran_id and operation_flag in ('EA')) as s;
 	 
-  IF NEW.type in ('sb','jv') and NEW.fy=(select getFy()) AND recordCnt=0   -- recordCnt = 0 means request is coming from the Application
+  IF recordCnt=0 AND NEW.type in ('sb','jv') and NEW.fy=(select getFy())   -- recordCnt = 0 means request is coming from the Application
 	--and to_char(NEW.action_date,'YYYY-MM-DD')=to_char(now(),'YYYY-MM-DD') -- jv is for bank charges
   THEN
     insert into gl_ledger_hrd_bck select NEW.*,null,'E';
@@ -57,16 +57,19 @@ BEGIN
   IF recordCnt = 0 AND   -- recordCnt = 0 means request is coming from Application
 
 	(
-		(NEW.particulars in ('cash','interest') and 
-			NEW.gl_mas_code in ('14101','28101') and NEW.dr_cr in ('Dr','Cr')
+		(NEW.particulars in ('cash','interest') 
+			--and (NEW.gl_mas_code like '14_01' OR NEW.gl_mas_code like '28101') 
+			and NEW.dr_cr in ('Dr','Cr')
 		)
 		OR
-		(NEW.particulars in ('Cleared') and 
-			NEW.gl_mas_code in ('14101') and NEW.dr_cr in ('Cr')
+		(NEW.particulars in ('Cleared') 
+			--and NEW.gl_mas_code in ('14101') 
+			and NEW.dr_cr in ('Cr')
 		)
 		OR
-		(NEW.particulars in ('bank charge') and 
-			NEW.gl_mas_code in ('28201','14101','57903') and NEW.dr_cr in ('Cr','Dr')  -- 28201: For cheque clear
+		(NEW.particulars in ('bank charge') 
+			--and NEW.gl_mas_code in ('28201','14101','57903') 
+			and NEW.dr_cr in ('Cr','Dr')  -- 28201: For cheque clear
 		)
 	)
   THEN
@@ -89,17 +92,14 @@ ALTER TABLE ONLY gl_ledger_hrd
 
 
 -- Passing authority function
-CREATE OR REPLACE FUNCTION passing_auth_action(tranId text, paAction text, paComment text)
+CREATE OR REPLACE FUNCTION passing_auth_action(tranId text, paAction text, paComment text, operatorCode text)
 RETURNS integer AS $passingStatus$
 
    Declare commentId integer;
-	   operatorCode char(30);
 	   passingStatus integer;
 BEGIN
    passingStatus := 1;
-   operatorCode := '';
    select nextval('comment_seq') into commentId;
-   select operator_code into operatorCode from gl_ledger_hrd_bck where tran_id=tranId; 
    INSERT INTO comment(id,comments,entry_time,operator_code) values (commentId, paComment, now(), operatorCode);
    
   IF paAction in ('ER') THEN   -- E = Entry, ER = Entry then Reject/ D = Deleted, DR = Deleted but Rejected
@@ -141,7 +141,7 @@ CREATE OR REPLACE FUNCTION gl_ledger_dtl_passing_auth_success(tranId text, comme
 RETURNS VOID as $$
 BEGIN
    IF operation = 'INSERT' THEN
-	insert into gl_ledger_dtl (tran_id,gl_mas_code,qty1, amount,dr_cr, particulars,account_no)
+	insert into gl_ledger_dtl (tran_id,gl_mas_code,qty, amount,dr_cr, particulars,account_no)
 	select tran_id, gl_mas_code,qty,amount,dr_cr, particulars,account_no from gl_ledger_dtl_bck 
 	where tran_id=tranId and operation_flag in ('EA');
    ELSIF operation = 'UPDATE' THEN
