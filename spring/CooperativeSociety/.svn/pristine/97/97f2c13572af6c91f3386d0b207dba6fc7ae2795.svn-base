@@ -1,33 +1,24 @@
 package com.org.coop.society.data.customer.entities;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
+
 
 /**
- * The persistent class for the staff database table.
+ * The persistent class for the user database table.
  * 
  */
 @Entity
-@NamedQuery(name="Staff.findAll", query="SELECT s FROM Staff s")
-public class Staff implements Serializable {
+@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -74,17 +65,26 @@ public class Staff implements Serializable {
 	@Column(name="user_name")
 	private String userName;
 
-	//bi-directional many-to-one association to StaffAddress
-	@OneToMany(mappedBy="staff", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	//bi-directional many-to-one association to UserAddress
+	@OneToMany(mappedBy="user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@Fetch(value = FetchMode.SUBSELECT)
-	private List<StaffAddress> staffAddresses;
+	private List<UserAddress> userAddresses;
 
-	//bi-directional many-to-one association to StaffRole
-	@OneToMany(mappedBy="staff", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	//bi-directional one-to-one association to UserCredential
+	@OneToOne(mappedBy="user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private UserCredential userCredential;
+
+	//bi-directional many-to-one association to UserRole
+	@OneToMany(mappedBy="user",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@Fetch(value = FetchMode.SUBSELECT)
-	private List<StaffRole> staffRoles;
+	private List<UserRole> userRoles;
 
-	public Staff() {
+	//bi-directional many-to-one association to UserCredentialOtp
+	@OneToMany(mappedBy="user",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@Fetch(value = FetchMode.SUBSELECT)
+	private List<UserCredentialOtp> userCredentialOtps;
+	
+	public User() {
 	}
 
 	public int getId() {
@@ -207,48 +207,71 @@ public class Staff implements Serializable {
 		this.userName = userName;
 	}
 
-	public List<StaffAddress> getStaffAddresses() {
-		return this.staffAddresses;
+	public List<UserAddress> getUserAddresses() {
+		return this.userAddresses;
 	}
 
-	public void setStaffAddresses(List<StaffAddress> staffAddresses) {
-		this.staffAddresses = staffAddresses;
+	public void setUserAddresses(List<UserAddress> userAddresses) {
+		this.userAddresses = userAddresses;
 	}
 
-	public StaffAddress addStaffAddress(StaffAddress staffAddress) {
-		getStaffAddresses().add(staffAddress);
-		staffAddress.setStaff(this);
+	public UserAddress addUserAddress(UserAddress userAddress) {
+		getUserAddresses().add(userAddress);
+		userAddress.setUser(this);
 
-		return staffAddress;
+		return userAddress;
 	}
 
-	public StaffAddress removeStaffAddress(StaffAddress staffAddress) {
-		getStaffAddresses().remove(staffAddress);
-		staffAddress.setStaff(null);
+	public UserAddress removeUserAddress(UserAddress userAddress) {
+		getUserAddresses().remove(userAddress);
+		userAddress.setUser(null);
 
-		return staffAddress;
+		return userAddress;
 	}
 
-	public List<StaffRole> getStaffRoles() {
-		return this.staffRoles;
+	public UserCredential getUserCredential() {
+		return this.userCredential;
 	}
 
-	public void setStaffRoles(List<StaffRole> staffRoles) {
-		this.staffRoles = staffRoles;
+	public void setUserCredential(UserCredential userCredential) {
+		this.userCredential = userCredential;
 	}
 
-	public StaffRole addStaffRole(StaffRole staffRole) {
-		getStaffRoles().add(staffRole);
-		staffRole.setStaff(this);
-
-		return staffRole;
+	public List<UserRole> getUserRoles() {
+		return this.userRoles;
 	}
 
-	public StaffRole removeStaffRole(StaffRole staffRole) {
-		getStaffRoles().remove(staffRole);
-		staffRole.setStaff(null);
+	public void setUserRoles(List<UserRole> userRoles) {
+		this.userRoles = userRoles;
+	}
 
-		return staffRole;
+	public UserRole addUserRole(UserRole userRole) {
+		getUserRoles().add(userRole);
+		userRole.setUser(this);
+
+		return userRole;
+	}
+
+	public UserRole removeUserRole(UserRole userRole) {
+		getUserRoles().remove(userRole);
+		userRole.setUser(null);
+
+		return userRole;
+	}
+
+	public List<UserCredentialOtp> getUserCredentialOtps() {
+		return this.userCredentialOtps;
+	}
+
+	public void setUserCredentialOtps(List<UserCredentialOtp> userCredentialOtps) {
+		this.userCredentialOtps = userCredentialOtps;
+	}
+
+	public UserCredentialOtp removeUserCredentialOtp(UserCredentialOtp userCredentialOtp) {
+		getUserCredentialOtps().remove(userCredentialOtp);
+		userCredentialOtp.setUser(null);
+
+		return userCredentialOtp;
 	}
 
 }

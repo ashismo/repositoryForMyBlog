@@ -6,17 +6,17 @@ import java.sql.Timestamp;
 
 
 /**
- * The persistent class for the staff_credential database table.
+ * The persistent class for the user_credential database table.
  * 
  */
 @Entity
-@Table(name="staff_credential")
-@NamedQuery(name="StaffCredential.findAll", query="SELECT s FROM StaffCredential s")
-public class StaffCredential implements Serializable {
+@Table(name="user_credential")
+@NamedQuery(name="UserCredential.findAll", query="SELECT u FROM UserCredential u")
+public class UserCredential implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+//	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="user_name")
 	private String userName;
 
@@ -43,7 +43,12 @@ public class StaffCredential implements Serializable {
 	@Column(name="update_user")
 	private String updateUser;
 
-	public StaffCredential() {
+	//bi-directional one-to-one association to User
+	@OneToOne
+	@JoinColumn(name="user_name")
+	private User user;
+
+	public UserCredential() {
 	}
 
 	public String getUserName() {
@@ -116,6 +121,14 @@ public class StaffCredential implements Serializable {
 
 	public void setUpdateUser(String updateUser) {
 		this.updateUser = updateUser;
+	}
+
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

@@ -9,17 +9,17 @@ import java.util.Date;
 
 
 /**
- * The persistent class for the staff_address database table.
+ * The persistent class for the user_address database table.
  * 
  */
 @Entity
-@Table(name="staff_address")
-@NamedQuery(name="StaffAddress.findAll", query="SELECT s FROM StaffAddress s")
-public class StaffAddress implements Serializable {
+@Table(name="user_address")
+@NamedQuery(name="UserAddress.findAll", query="SELECT u FROM UserAddress u")
+public class UserAddress implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
-	private StaffAddressPK id;
+	private UserAddressPK id;
 
 	@Column(name="create_date")
 	private Timestamp createDate;
@@ -42,23 +42,23 @@ public class StaffAddress implements Serializable {
 	private String updateUser;
 
 	//bi-directional many-to-one association to Address
-	@ManyToOne
-	@JoinColumn(name="address_id", referencedColumnName="id", insertable=false, updatable=false)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="address_id", insertable=false, updatable=false)
 	private Address address;
 
-	//bi-directional many-to-one association to Staff
-	@ManyToOne
-	@JoinColumn(name="staff_id", referencedColumnName="id", insertable=false, updatable=false)
-	private Staff staff;
+	//bi-directional many-to-one association to User
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="user_id", insertable=false, updatable=false)
+	private User user;
 
-	public StaffAddress() {
+	public UserAddress() {
 	}
 
-	public StaffAddressPK getId() {
+	public UserAddressPK getId() {
 		return this.id;
 	}
 
-	public void setId(StaffAddressPK id) {
+	public void setId(UserAddressPK id) {
 		this.id = id;
 	}
 
@@ -118,12 +118,12 @@ public class StaffAddress implements Serializable {
 		this.address = address;
 	}
 
-	public Staff getStaff() {
-		return this.staff;
+	public User getUser() {
+		return this.user;
 	}
 
-	public void setStaff(Staff staff) {
-		this.staff = staff;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }
