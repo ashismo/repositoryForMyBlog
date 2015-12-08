@@ -1,4 +1,4 @@
-package com.org.coop.service;
+package com.org.coop.customer.service;
 
 import java.util.ArrayList;
 import java.util.List;
