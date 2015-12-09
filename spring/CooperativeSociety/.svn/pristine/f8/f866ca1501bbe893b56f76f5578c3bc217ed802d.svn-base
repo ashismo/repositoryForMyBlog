@@ -7,19 +7,21 @@ import java.util.Date;
 
 
 /**
- * The persistent class for the company_address database table.
+ * The persistent class for the user_sequrity_question database table.
  * 
  */
 @Entity
-@Table(name="company_address")
-@NamedQuery(name="CompanyAddress.findAll", query="SELECT c FROM CompanyAddress c")
-public class CompanyAddress implements Serializable {
+@Table(name="user_sequrity_question")
+@NamedQuery(name="UserSequrityQuestion.findAll", query="SELECT u FROM UserSequrityQuestion u")
+public class UserSequrityQuestion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="company_addr_id")
-	private int companyAddrId;
+	@Column(name="user_seq_id")
+	private int userSeqId;
+
+	private String answer;
 
 	@Column(name="create_date")
 	private Timestamp createDate;
@@ -41,25 +43,33 @@ public class CompanyAddress implements Serializable {
 	@Column(name="update_user")
 	private String updateUser;
 
-	//bi-directional many-to-one association to Address
+	//bi-directional many-to-one association to SecurityQuestion
 	@ManyToOne
-	@JoinColumn(name="address_id")
-	private Address address;
+	@JoinColumn(name="question_id")
+	private SecurityQuestion securityQuestion;
 
-	//bi-directional many-to-one association to CompanyMaster
+	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="branch_id")
-	private CompanyMaster companyMaster;
+	@JoinColumn(name="user_id")
+	private User user;
 
-	public CompanyAddress() {
+	public UserSequrityQuestion() {
 	}
 
-	public int getCompanyAddrId() {
-		return this.companyAddrId;
+	public int getUserSeqId() {
+		return this.userSeqId;
 	}
 
-	public void setCompanyAddrId(int companyAddrId) {
-		this.companyAddrId = companyAddrId;
+	public void setUserSeqId(int userSeqId) {
+		this.userSeqId = userSeqId;
+	}
+
+	public String getAnswer() {
+		return this.answer;
+	}
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}
 
 	public Timestamp getCreateDate() {
@@ -110,20 +120,20 @@ public class CompanyAddress implements Serializable {
 		this.updateUser = updateUser;
 	}
 
-	public Address getAddress() {
-		return this.address;
+	public SecurityQuestion getSecurityQuestion() {
+		return this.securityQuestion;
 	}
 
-	public void setAddress(Address address) {
-		this.address = address;
+	public void setSecurityQuestion(SecurityQuestion securityQuestion) {
+		this.securityQuestion = securityQuestion;
 	}
 
-	public CompanyMaster getCompanyMaster() {
-		return this.companyMaster;
+	public User getUser() {
+		return this.user;
 	}
 
-	public void setCompanyMaster(CompanyMaster companyMaster) {
-		this.companyMaster = companyMaster;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

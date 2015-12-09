@@ -1,4 +1,4 @@
-package com.org.coop.service;
+package com.org.coop.security.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;

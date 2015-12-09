@@ -8,13 +8,13 @@ import java.util.List;
 
 
 /**
- * The persistent class for the company_master database table.
+ * The persistent class for the branch_master database table.
  * 
  */
 @Entity
-@Table(name="company_master")
-@NamedQuery(name="CompanyMaster.findAll", query="SELECT c FROM CompanyMaster c")
-public class CompanyMaster implements Serializable {
+@Table(name="branch_master")
+@NamedQuery(name="BranchMaster.findAll", query="SELECT b FROM BranchMaster b")
+public class BranchMaster implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -67,19 +67,23 @@ public class CompanyMaster implements Serializable {
 	@Column(name="update_user")
 	private String updateUser;
 
-	//bi-directional many-to-one association to CompanyAddress
-	@OneToMany(mappedBy="companyMaster")
-	private List<CompanyAddress> companyAddresses;
+	//bi-directional many-to-one association to BranchAddress
+	@OneToMany(mappedBy="branchMaster")
+	private List<BranchAddress> branchAddresses;
+
+	//bi-directional many-to-one association to BranchRule
+	@OneToMany(mappedBy="branchMaster")
+	private List<BranchRule> branchRules;
 
 	//bi-directional many-to-one association to RoleMaster
-	@OneToMany(mappedBy="companyMaster")
+	@OneToMany(mappedBy="branchMaster")
 	private List<RoleMaster> roleMasters;
 
 	//bi-directional many-to-one association to User
-	@OneToMany(mappedBy="companyMaster")
+	@OneToMany(mappedBy="branchMaster")
 	private List<User> users;
 
-	public CompanyMaster() {
+	public BranchMaster() {
 	}
 
 	public int getBranchId() {
@@ -218,26 +222,48 @@ public class CompanyMaster implements Serializable {
 		this.updateUser = updateUser;
 	}
 
-	public List<CompanyAddress> getCompanyAddresses() {
-		return this.companyAddresses;
+	public List<BranchAddress> getBranchAddresses() {
+		return this.branchAddresses;
 	}
 
-	public void setCompanyAddresses(List<CompanyAddress> companyAddresses) {
-		this.companyAddresses = companyAddresses;
+	public void setBranchAddresses(List<BranchAddress> branchAddresses) {
+		this.branchAddresses = branchAddresses;
 	}
 
-	public CompanyAddress addCompanyAddress(CompanyAddress companyAddress) {
-		getCompanyAddresses().add(companyAddress);
-		companyAddress.setCompanyMaster(this);
+	public BranchAddress addBranchAddress(BranchAddress branchAddress) {
+		getBranchAddresses().add(branchAddress);
+		branchAddress.setBranchMaster(this);
 
-		return companyAddress;
+		return branchAddress;
 	}
 
-	public CompanyAddress removeCompanyAddress(CompanyAddress companyAddress) {
-		getCompanyAddresses().remove(companyAddress);
-		companyAddress.setCompanyMaster(null);
+	public BranchAddress removeBranchAddress(BranchAddress branchAddress) {
+		getBranchAddresses().remove(branchAddress);
+		branchAddress.setBranchMaster(null);
 
-		return companyAddress;
+		return branchAddress;
+	}
+
+	public List<BranchRule> getBranchRules() {
+		return this.branchRules;
+	}
+
+	public void setBranchRules(List<BranchRule> branchRules) {
+		this.branchRules = branchRules;
+	}
+
+	public BranchRule addBranchRule(BranchRule branchRule) {
+		getBranchRules().add(branchRule);
+		branchRule.setBranchMaster(this);
+
+		return branchRule;
+	}
+
+	public BranchRule removeBranchRule(BranchRule branchRule) {
+		getBranchRules().remove(branchRule);
+		branchRule.setBranchMaster(null);
+
+		return branchRule;
 	}
 
 	public List<RoleMaster> getRoleMasters() {
@@ -250,14 +276,14 @@ public class CompanyMaster implements Serializable {
 
 	public RoleMaster addRoleMaster(RoleMaster roleMaster) {
 		getRoleMasters().add(roleMaster);
-		roleMaster.setCompanyMaster(this);
+		roleMaster.setBranchMaster(this);
 
 		return roleMaster;
 	}
 
 	public RoleMaster removeRoleMaster(RoleMaster roleMaster) {
 		getRoleMasters().remove(roleMaster);
-		roleMaster.setCompanyMaster(null);
+		roleMaster.setBranchMaster(null);
 
 		return roleMaster;
 	}
@@ -272,14 +298,14 @@ public class CompanyMaster implements Serializable {
 
 	public User addUser(User user) {
 		getUsers().add(user);
-		user.setCompanyMaster(this);
+		user.setBranchMaster(this);
 
 		return user;
 	}
 
 	public User removeUser(User user) {
 		getUsers().remove(user);
-		user.setCompanyMaster(null);
+		user.setBranchMaster(null);
 
 		return user;
 	}
