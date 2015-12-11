@@ -7,19 +7,19 @@ import java.util.Date;
 
 
 /**
- * The persistent class for the branch_rule database table.
+ * The persistent class for the rule_master_values database table.
  * 
  */
 @Entity
-@Table(name="branch_rule")
-@NamedQuery(name="BranchRule.findAll", query="SELECT b FROM BranchRule b")
-public class BranchRule implements Serializable {
+@Table(name="rule_master_values")
+@NamedQuery(name="RuleMasterValue.findAll", query="SELECT r FROM RuleMasterValue r")
+public class RuleMasterValue implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="branch_rule_id")
-	private int branchRuleId;
+	@Column(name="rule_value_id")
+	private int ruleValueId;
 
 	@Column(name="create_date")
 	private Timestamp createDate;
@@ -30,6 +30,9 @@ public class BranchRule implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name="end_date")
 	private Date endDate;
+
+	@Column(name="rule_desction")
+	private String ruleDesction;
 
 	@Column(name="rule_value")
 	private String ruleValue;
@@ -44,25 +47,20 @@ public class BranchRule implements Serializable {
 	@Column(name="update_user")
 	private String updateUser;
 
-	//bi-directional many-to-one association to BranchMaster
-	@ManyToOne
-	@JoinColumn(name="branch_id")
-	private BranchMaster branchMaster;
-
 	//bi-directional many-to-one association to RuleMaster
 	@ManyToOne
 	@JoinColumn(name="rule_id")
 	private RuleMaster ruleMaster;
 
-	public BranchRule() {
+	public RuleMasterValue() {
 	}
 
-	public int getBranchRuleId() {
-		return this.branchRuleId;
+	public int getRuleValueId() {
+		return this.ruleValueId;
 	}
 
-	public void setBranchRuleId(int branchRuleId) {
-		this.branchRuleId = branchRuleId;
+	public void setRuleValueId(int ruleValueId) {
+		this.ruleValueId = ruleValueId;
 	}
 
 	public Timestamp getCreateDate() {
@@ -87,6 +85,14 @@ public class BranchRule implements Serializable {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	public String getRuleDesction() {
+		return this.ruleDesction;
+	}
+
+	public void setRuleDesction(String ruleDesction) {
+		this.ruleDesction = ruleDesction;
 	}
 
 	public String getRuleValue() {
@@ -119,14 +125,6 @@ public class BranchRule implements Serializable {
 
 	public void setUpdateUser(String updateUser) {
 		this.updateUser = updateUser;
-	}
-
-	public BranchMaster getBranchMaster() {
-		return this.branchMaster;
-	}
-
-	public void setBranchMaster(BranchMaster branchMaster) {
-		this.branchMaster = branchMaster;
 	}
 
 	public RuleMaster getRuleMaster() {
