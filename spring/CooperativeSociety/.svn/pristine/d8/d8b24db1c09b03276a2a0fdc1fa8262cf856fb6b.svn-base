@@ -9,8 +9,8 @@
 		</layout>
 	</appender>
 
-	<appender name="file" class="org.apache.log4j.DailyRollingFileAppender">
-		<!-- <appender name="file" class="org.apache.log4j.RollingFileAppender"> -->
+	<!-- <appender name="file" class="org.apache.log4j.DailyRollingFileAppender"> -->
+	<appender name="file" class="org.apache.log4j.RollingFileAppender">
 		<param name="append" value="true" />
 		<param name="maxFileSize" value="10KB" />
 		<param name="maxBackupIndex" value="1" />
