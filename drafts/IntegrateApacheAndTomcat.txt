@@ -14,6 +14,8 @@ ProxyPassReverse  /  http://localhost:8081/
 	Order allow,deny
 	Allow from all
 </Location>
+AddType text/css .css
+AddType text/javascript .js
 #Ashish END
 
 
