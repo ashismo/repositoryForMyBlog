@@ -1,0 +1,29 @@
+1. Install WAMP which contains Apache
+2. Open httpd.conf
+====================
+#Ashish
+LoadModule proxy_module modules/mod_proxy.so
+LoadModule proxy_http_module modules/mod_proxy_http.so
+#Ashish
+
+#Ashish START
+ProxyPass         / http://localhost:8081/
+ProxyPassReverse  /  http://localhost:8081/
+
+<Location "/">
+	Order allow,deny
+	Allow from all
+</Location>
+#Ashish END
+
+
+3. In tomcat server.xml
+==========================
+<!-- Ashish -->
+<Connector port="8081" protocol="HTTP/1.1"
+	   connectionTimeout="20000"
+	   URIEncoding="UTF-8"
+	   redirectPort="8443"
+		proxyName="localhost"
+		proxyPort="80"
+		/>
