@@ -10,7 +10,6 @@ import java.util.Random;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -282,29 +281,6 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 		}
 		if(user.getUserCredential().getUnsuccessfulLoginCount() >= lockAfterWrongAttempt ) {
 			log.debug("Account is locked:");
-			return true;
-		}
-		return false;
-	}
-	
-	/**
-	 * This method verifies if the user is authenticated user
-	 * @param username
-	 */
-	@Transactional(value="adminTransactionManager")
-	public boolean isUserAuthenticated(String username, String password) {
-		if(username == null || password == null) {
-			log.debug("Username or password is null: " + username);
-			return false;
-		}
-		User user = userAdminRepository.findByUserName(username);
-		if(user == null) {
-			log.debug("User name doesn't exist in our record: " + username);
-			return false;
-		}
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		if(passwordEncoder.matches(password, user.getUserCredential().getPassword())) {
-			log.debug("User is authenticated: " + username);
 			return true;
 		}
 		return false;

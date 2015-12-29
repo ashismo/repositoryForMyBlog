@@ -29,3 +29,30 @@ AddType text/javascript .js
 		proxyName="localhost"
 		proxyPort="80"
 		/>
+		
+Troubleshooting
+=================
+a. Validate the http.conf file
+Command: httpd.exe -t
+
+b. Change the log level
+"LogLevel debug" in httpd.conf file
+
+c. Restart apache
+Command: httpd.exe -k restart
+
+		
+Error Debug
+============
+(OS 10048)Only one usage of each socket address (protocol/network address/port) is normally permitted.  : AH00072: make_sock: could not bind to address [::]:80
+(OS 10048)Only one usage of each socket address (protocol/network address/port) is normally permitted.  : AH00072: make_sock: could not bind to address 0.0.0.0:80
+AH00451: no listening sockets available, shutting down
+AH00015: Unable to open logs
+
+Solution:
+---------
+In windows check the process accessing 0.0.0.0:80
+
+netstat -ano
+
+Then kill the process from task manager
