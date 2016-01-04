@@ -1,0 +1,6 @@
+db.driver=com.mysql.jdbc.Driver
+db.admin.url=jdbc:mysql://localhost:3306/cooperative
+db.admin.username=root
+db.admin.password=root
+
+
