@@ -1,6 +1,3 @@
-enable.http.basic.authentication=false
-
-
 ##### Properties for email configuration
 email.host=smtp.gmail.com
 email.port=587

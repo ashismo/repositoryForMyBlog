@@ -15,7 +15,7 @@ import com.org.coop.bs.mapper.converter.AddressCC;
 
 @Configuration
 @ComponentScan(value={"com.org.coop"})
-public class DozerConfig {
+public class CustomerDozerConfig {
 	
 	@Bean(name = "org.dozer.Mapper")
 	  public DozerBeanMapper dozerBean() {
