@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+	<mapping  map-id="countryStateDistMap" wildcard="true" >
+		<class-a>com.org.coop.canonical.master.beans.CountryMasterBean</class-a>
+		<class-b>com.org.coop.society.data.admin.entities.CountryMaster</class-b>
+		<field map-id="stateDistMap">
+			<a>states</a>
+			<b>stateMasters</b>
+		</field>
+	</mapping>
+	<mapping  map-id="stateDistMap" wildcard="true" >
+		<class-a>com.org.coop.canonical.master.beans.StateMasterBean</class-a>
+		<class-b>com.org.coop.society.data.admin.entities.StateMaster</class-b>
+		<field map-id="distMap">
+			<a>districts</a>
+			<b>districtMasters</b>
+		</field>
+	</mapping>
+	<mapping  map-id="distMap" wildcard="true" >
+		<class-a>com.org.coop.canonical.master.beans.DistrictMasterBean</class-a>
+		<class-b>com.org.coop.society.data.admin.entities.DistrictMaster</class-b>
+	</mapping>
+</mappings>
