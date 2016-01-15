@@ -1,9 +1,0 @@
-package com.org.coop.society.data.admin.repositories;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.org.coop.society.data.admin.entities.User;
-
-public interface UserAdminRepository extends JpaRepository<User, Integer> {
-	public User findByUserName(String userName);
-}
