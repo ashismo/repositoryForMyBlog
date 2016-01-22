@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+	<mapping  map-id="securityQuestionsMap" wildcard="true" >
+		<class-a>com.org.coop.canonical.master.beans.SecurityQuestionsMasterBean</class-a>
+		<class-b>com.org.coop.society.data.admin.entities.SecurityQuestion</class-b>
+	</mapping>
+</mappings>
