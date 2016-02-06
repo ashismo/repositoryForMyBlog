@@ -1,0 +1,5 @@
+db.test.driver=com.mysql.jdbc.Driver
+#db.test.driver=org.h2.Driver
+db.test.admin.url=jdbc:mysql://localhost:3306/coopadmin_unittest
+db.test.admin.username=root
+db.test.admin.password=root

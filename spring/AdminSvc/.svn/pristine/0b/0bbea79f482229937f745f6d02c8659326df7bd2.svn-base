@@ -1,11 +1,12 @@
-package com.org.coop.admin.service;
+package com.org.coop.admin.servicehelper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.coop.org.exception.SecurityQuestionNotSetException;
 import com.org.coop.canonical.beans.SecurityQnA;
 
-public interface AdminLoginService {
+public interface AdminLoginServiceHelper {
 	/**
 	 * This method returns list of roles for a given user name
 	 */
