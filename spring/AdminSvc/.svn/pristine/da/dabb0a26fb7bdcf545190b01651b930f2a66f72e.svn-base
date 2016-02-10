@@ -20,6 +20,8 @@ BEGIN
 	
 	SELECT COUNT(*) FROM tempTbl INTO n;
 	SET i=0;
+	
+	SET FOREIGN_KEY_CHECKS=0;
 	WHILE i<n DO 
 	  	SELECT query into @q FROM tempTbl LIMIT i,1;
 	  	PREPARE stmt3 FROM @q;
@@ -27,8 +29,6 @@ BEGIN
 		DEALLOCATE PREPARE stmt3;
 	  	SET i = i + 1;
 	END WHILE;
-
+	SET FOREIGN_KEY_CHECKS=1;
 END $$
 DELIMITER ;
-
---CALL truncateTables();
