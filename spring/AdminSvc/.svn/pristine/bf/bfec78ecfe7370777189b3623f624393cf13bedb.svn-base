@@ -1,0 +1,19 @@
+{
+	"countries": [
+		{
+			"countryId": 1,
+			"countryName": "INDIA",
+			"countryCode": "IND",
+			"createUser": "ashish",
+			"states": [
+				{
+					"stateId": 0,
+					"stateName": "West Bengal",
+					"stateCode": "WB",
+					"countryCode": "IND",
+					"createUser": "ashish"
+				}
+			]
+		}
+	]
+}

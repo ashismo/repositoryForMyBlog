@@ -1,0 +1,29 @@
+{
+	"countries": [
+		{
+			"countryId": 1,
+			"countryName": "INDIA",
+			"countryCode": "IND",
+			"createUser": "ashish",
+			"states": [
+				{
+					"stateId": 1,
+					"stateName": "West Bengal",
+					"stateCode": "WB",
+					"countryCode": "IND",
+					"createUser": "ashish",
+					"districts": [
+						{
+							"distId": 0,
+							"districtCode": "HLY",
+							"districtName": "Hooghly",
+							"stateCode": "WB",
+							"countryCode": "IND",
+							"createUser": "ashish"
+						}
+					]
+				}
+			]
+		}
+	]
+}

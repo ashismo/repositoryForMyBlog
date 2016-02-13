@@ -1,0 +1,31 @@
+{
+	"modules": [
+		{
+			"moduleId": 1,
+			"moduleName": "RD",
+			"startDate": "08/12/2015 00:00:00",
+			"createUser": "ashish",
+			"moduleRules": [
+				{
+					"ruleId": 1,
+					"moduleName": "RD",
+					"ruleName": "LOCK_AFTER_NO_OF_ATTEMPTS",
+					"ruleDescription": "Lock User After how many attempts",
+					"startDate": "10/12/2015 00:00:00",
+					"createUser": "ashish",
+					"ruleMasterValues": [
+						{
+							"ruleValueId": 0,
+							"moduleName": "RD",
+							"ruleName": "LOCK_AFTER_NO_OF_ATTEMPTS",
+							"ruleValue": "5",
+							"ruleValueDescription": "Lock after how many unsuccessful attempts?",
+							"startDate": "10/12/2015 00:00:00",
+							"createUser": "ashish"
+						}
+					]
+				}
+			]
+		}
+	]
+}
