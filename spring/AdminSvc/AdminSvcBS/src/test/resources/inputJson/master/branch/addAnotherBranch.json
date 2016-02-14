@@ -1,0 +1,15 @@
+{
+	"branchBean": {
+		"branchId": 0,
+		"bankName": "Janai",
+		"branchName": "Janai",
+		"ifscCode": "12345678",
+		"micrCode": "87654321",
+		"email1": "ashismo@gmail.com",
+		"phone1": "9830625559",
+		"startDate": "18/12/2015 00:00:00",
+		"createUser": "ashish",
+		"dbName": "coop_janai",
+		"contextRoot": "CustomerSvcWS"
+	}
+}

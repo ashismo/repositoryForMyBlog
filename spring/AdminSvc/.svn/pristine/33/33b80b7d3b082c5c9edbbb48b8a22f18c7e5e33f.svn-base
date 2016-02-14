@@ -10,18 +10,6 @@
 		"startDate": "18/12/2015 00:00:00",
 		"createUser": "ashish",
 		"dbName": "coop_janai",
-		"contextRoot": "CustomerSvcWS",
-		"addresses": [
-			{
-				"addressId": 0,
-				"addressName": "Naldighi",
-				"addressLine1": "Benipur",
-				"pin": "712304",
-				"distId": 1,
-				"phoneNo1": "9830525559",
-				"startDate": "17/12/2015 00:00:00",
-				"createUser": "ashish"
-			}
-		]
+		"contextRoot": "CustomerSvcWS"
 	}
 }
