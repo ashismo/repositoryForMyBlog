@@ -1,0 +1,29 @@
+{
+	"countries": [
+		{
+			"countryId": 1,
+			"countryName": "INDIA",
+			"countryCode": "IND",
+			"createUser": "ashish",
+			"states": [
+				{
+					"stateId": 2,
+					"stateName": "Karnataka",
+					"stateCode": "KA",
+					"countryCode": "IND",
+					"createUser": "ashish",
+					"districts": [
+						{
+							"distId": 0,
+							"districtCode": "BLR",
+							"districtName": "Bangalore",
+							"stateCode": "KA",
+							"countryCode": "IND",
+							"createUser": "ashish"
+						}
+					]
+				}
+			]
+		}
+	]
+}
