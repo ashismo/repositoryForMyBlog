@@ -1,4 +1,4 @@
-package com.org.coop.canonical.master.beans;
+package com.org.coop.canonical.beans;
 
 import java.util.Date;
 import java.util.HashSet;

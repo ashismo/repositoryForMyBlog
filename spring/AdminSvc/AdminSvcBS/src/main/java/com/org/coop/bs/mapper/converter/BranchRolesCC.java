@@ -7,26 +7,24 @@ import org.dozer.MapperAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.org.coop.canonical.beans.BranchRuleBean;
+import com.org.coop.canonical.beans.RoleMasterBean;
 import com.org.coop.canonical.beans.UserMasterBean;
 import com.org.coop.society.data.admin.entities.BranchMaster;
-import com.org.coop.society.data.admin.entities.BranchRule;
-import com.org.coop.society.data.admin.entities.RuleMaster;
+import com.org.coop.society.data.admin.entities.RoleMaster;
 import com.org.coop.society.data.admin.entities.User;
 import com.org.coop.society.data.admin.repositories.BranchMasterRepository;
-import com.org.coop.society.data.admin.repositories.RuleMasterRepository;
 
-@Component("branchUsersCC")
-public class BranchUsersCC extends DozerConverter<User, UserMasterBean> implements MapperAware, CustomConverter {
+@Component("branchRolesCC")
+public class BranchRolesCC extends DozerConverter<RoleMaster, RoleMasterBean> implements MapperAware, CustomConverter {
 	
 	@Autowired
 	private BranchMasterRepository branchMasterRepository;
 	
-	public BranchUsersCC() {
-		super(User.class, UserMasterBean.class);
+	public BranchRolesCC() {
+		super(RoleMaster.class, RoleMasterBean.class);
 	}
 	
-	public BranchUsersCC(Class prototypeA, Class prototypeB) {
+	public BranchRolesCC(Class prototypeA, Class prototypeB) {
 		super(prototypeA, prototypeB);
 	}
 	
@@ -36,7 +34,7 @@ public class BranchUsersCC extends DozerConverter<User, UserMasterBean> implemen
 	}
 
 	@Override
-	public User convertFrom(UserMasterBean src, User dest) {
+	public RoleMaster convertFrom(RoleMasterBean src, RoleMaster dest) {
 		if(src != null) {
 				BranchMaster branch = branchMasterRepository.findOne(src.getBranchId());
 				if(branch != null) {
@@ -47,7 +45,7 @@ public class BranchUsersCC extends DozerConverter<User, UserMasterBean> implemen
 	}
 
 	@Override
-	public UserMasterBean convertTo(User src, UserMasterBean dest) {
+	public RoleMasterBean convertTo(RoleMaster src, RoleMasterBean dest) {
 		if(src != null) {
 			dest.setBranchId(src.getBranchMaster().getBranchId());
 		}
