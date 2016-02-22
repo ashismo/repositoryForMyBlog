@@ -1,0 +1,19 @@
+{
+	"modules": [
+		{
+			"moduleId": 2,
+			"moduleName": "GENERAL",
+			"startDate": "08/12/2015 00:00:00",
+			"createUser": "ashish",
+			"modulePermissions": [
+				{
+					"permissionId": 0,
+					"moduleName": "GENERAL",
+					"permission": "DELETE",
+					"startDate": "08/12/2015 00:00:00",
+					"createUser": "ashish"
+				}
+			]
+		}
+	]
+}
