@@ -13,15 +13,15 @@ import java.util.Date;
  * 
  */
 @Entity
-@Table(name="user_sequrity_question")
-@NamedQuery(name="UserSequrityQuestion.findAll", query="SELECT u FROM UserSequrityQuestion u")
-public class UserSequrityQuestion implements Serializable {
+@Table(name="user_security_question")
+@NamedQuery(name="UserSecurityQuestion.findAll", query="SELECT u FROM UserSecurityQuestion u")
+public class UserSecurityQuestion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="user_seq_id")
-	private int userSeqId;
+	@Column(name="user_sec_id")
+	private int userSecId;
 
 	private String answer;
 
@@ -58,15 +58,15 @@ public class UserSequrityQuestion implements Serializable {
 	@JoinColumn(name="user_id")
 	private User user;
 
-	public UserSequrityQuestion() {
+	public UserSecurityQuestion() {
 	}
 
-	public int getUserSeqId() {
-		return this.userSeqId;
+	public int getUserSecId() {
+		return this.userSecId;
 	}
 
-	public void setUserSeqId(int userSeqId) {
-		this.userSeqId = userSeqId;
+	public void setUserSecId(int userSecId) {
+		this.userSecId = userSecId;
 	}
 
 	public String getAnswer() {
@@ -150,7 +150,7 @@ public class UserSequrityQuestion implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + userSeqId;
+		result = prime * result + userSecId;
 		return result;
 	}
 
@@ -162,8 +162,8 @@ public class UserSequrityQuestion implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UserSequrityQuestion other = (UserSequrityQuestion) obj;
-		if (userSeqId != other.userSeqId)
+		UserSecurityQuestion other = (UserSecurityQuestion) obj;
+		if (userSecId != other.userSecId)
 			return false;
 		return true;
 	}
