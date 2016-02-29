@@ -1,0 +1,18 @@
+Change server time
+=================
+
+Ubuntu:
+--------
+Login and go to sudo mode
+
+1. echo "Asia/Kolkata" |  tee /etc/timezone
+2. dpkg-reconfigure --frontend noninteractive tzdata
+
+
+Change timezone in database server
+-----------------------------------
+psql -U postgres
+
+SET TIME ZONE 'Asia/Kolkata';
+
+ALTER DATABASE postgres SET timezone TO 'Asia/Kolkata';

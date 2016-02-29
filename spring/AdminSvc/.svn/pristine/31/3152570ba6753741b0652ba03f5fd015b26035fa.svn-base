@@ -16,9 +16,9 @@
     "updateUser" : "ashish",
     "dbName" : "coop_kalipur",
     "contextRoot" : "CustomerSvcWS",
-    "licenseRemaining" : -367,
-    "gracePeriod" : 10,
-    "licenseOverDays" : 367,
+    "licenseRemaining" : 0,
+    "gracePeriod" : 0,
+    "licenseOverDays" : 0,
     "addresses" : [ {
       "addressId" : 1,
       "addressName" : "Queen Palace",
@@ -54,39 +54,8 @@
       "createUser" : "ashish",
       "updateUser" : null
     } ],
-    "branchLicenseDtlsBeans" : [ {
-      "branchId" : 1,
-      "branchLicenseId" : 1,
-      "startDate" : 1394303400000,
-      "endDate" : 1424802600000,
-      "graceDay" : 10,
-      "createUser" : "ashish",
-      "updateUser" : null,
-      "addresses" : [ ]
-    } ],
-    "branchRuleBeans" : [ {
-      "branchRuleId" : 1,
-      "branchId" : 1,
-      "branchName" : "Kalipur",
-      "ruleId" : 1,
-      "ruleName" : "LOCK_AFTER_NO_OF_ATTEMPTS",
-      "ruleValue" : "3",
-      "startDate" : 1449772200000,
-      "endDate" : null,
-      "createUser" : "ashish",
-      "updateUser" : null
-    }, {
-      "branchRuleId" : 2,
-      "branchId" : 1,
-      "branchName" : "Kalipur",
-      "ruleId" : 2,
-      "ruleName" : "NUMBER_OF_TIMES_OTP_TO_BE_RESEND",
-      "ruleValue" : "3",
-      "startDate" : 1449772200000,
-      "endDate" : null,
-      "createUser" : "ashish",
-      "updateUser" : null
-    } ],
+    "branchLicenseDtlsBeans" : [ ],
+    "branchRuleBeans" : [ ],
     "users" : [ ],
     "roles" : [ ],
     "branchActive" : false

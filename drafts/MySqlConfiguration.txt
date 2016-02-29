@@ -1,0 +1,19 @@
+Mysql prompt
+============
+/opt/lampp/bin/mysql -u root
+
+Add password for root
+=========================
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('password');
+
+
+Grant access to root
+====================
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'password' WITH GRANT OPTION;
+
+
+How to make MySQL table name case insensitive 
+================================================
+Open /opt/lampp/etc/my.cnf file and add the following line under [mysqld]  and restart
+
+lower_case_table_names = 1
