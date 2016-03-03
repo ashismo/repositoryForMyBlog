@@ -4,4 +4,8 @@ db.customer2.url=jdbc:mysql://localhost:3306/coopadmin
 db.username=root
 db.password=root
 
+mongodb.name=retail
+mongodb.host=localhost
+mongodb.port=27017
+
 
