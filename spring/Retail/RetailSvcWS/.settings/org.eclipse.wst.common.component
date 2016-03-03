@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="RetailSvcWS">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <dependent-module archiveName="RetailSvcBS-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/RetailSvcBS/RetailSvcBS">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="RetailSvcData-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/RetailSvcData/RetailSvcData">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="AdminSecurityData-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/AdminSecurityData/AdminSecurityData">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="AdminSecurityCanonical-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/AdminSecurityCanonical/AdminSecurityCanonical">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="RetailSvcWS"/>
+        <property name="java-output-path" value="/RetailSvcWS/build/classes"/>
+    </wb-module>
+</project-modules>
