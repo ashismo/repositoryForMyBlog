@@ -15,7 +15,7 @@ import com.org.coop.society.data.transaction.config.CoOperativeAdminDBConfig;
 @ComponentScan(basePackages = "com.org.coop")
 @PropertySource("classpath:retailApplicationData.properties")
 @Import({RetailCustomerMongoDBConfig.class, CoOperativeAdminDBConfig.class})
-public class CustomerDataAppConfig {
+public class RetailDataAppConfig {
 	
 	@Autowired
 	private Environment env;
