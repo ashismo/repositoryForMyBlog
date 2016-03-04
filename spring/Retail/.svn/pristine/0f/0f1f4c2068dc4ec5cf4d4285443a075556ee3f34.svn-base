@@ -30,7 +30,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.org.coop.bs.config.CustomerDozerConfig;
 import com.org.coop.retail.data.entities.MaterialMaster;
 import com.org.coop.retail.data.entities.RetailData;
 import com.org.coop.society.data.customer.transaction.config.RetailDataAppConfig;
@@ -41,7 +40,7 @@ import com.org.test.coop.junit.JunitTestUtil;
 @ComponentScan(basePackages = "com.org.test.coop"/*, excludeFilters = { @Filter(type = FilterType.ANNOTATION, value = DataAppConfig.class) }*/)
 @EnableAutoConfiguration(exclude = { DataAppConfig.class})
 @ContextHierarchy({
-	  @ContextConfiguration(classes={RetailDataAppConfig.class, CustomerDozerConfig.class})
+	  @ContextConfiguration(classes={RetailDataAppConfig.class})
 })
 @WebAppConfiguration
 public class RetailMasterWSTest {
