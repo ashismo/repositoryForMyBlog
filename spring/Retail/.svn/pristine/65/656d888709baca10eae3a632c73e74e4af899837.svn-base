@@ -1,0 +1,16 @@
+{
+  "branch" : {
+    "id" : null,
+    "branchId" : 0,
+    "phone1" : null,
+    "seq" : 0,
+    "branchName" : null,
+    "createDate" : null,
+    "updateDate" : null,
+    "materials" : null
+  },
+  "sequence" : null,
+  "errorMsg" : null,
+  "branchId" : 1,
+  "materialId" : 1
+}

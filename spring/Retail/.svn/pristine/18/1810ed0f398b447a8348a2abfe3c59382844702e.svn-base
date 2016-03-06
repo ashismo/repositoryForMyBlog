@@ -11,4 +11,6 @@ import com.org.coop.retail.data.entities.MaterialMaster;
 
 @Repository
 public interface MaterialMasterRepository extends MongoRepository<MaterialMaster, Integer> {
+	@Query(value = "{ 'branchId' : ?0, 'materials.materialId' : ?1}"/*, fields = "{ 'materials.materialId' : 1 }"*/)
+    public List<MaterialMaster> findMaterialByMaterialId(int branchId, int materialId);
 }
