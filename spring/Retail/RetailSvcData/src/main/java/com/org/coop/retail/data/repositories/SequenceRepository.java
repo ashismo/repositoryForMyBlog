@@ -5,9 +5,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.org.coop.retail.data.entities.MaterialMaster;
+import com.org.coop.retail.data.entities.Sequence;
 
 @Repository
-public interface MaterialMasterRepository extends MongoRepository<MaterialMaster, Integer> {
-	
-//	MaterialMaster findByMaterialId(@Param("materialId") long materialId);
+public interface SequenceRepository extends MongoRepository<Sequence, String> {
 }

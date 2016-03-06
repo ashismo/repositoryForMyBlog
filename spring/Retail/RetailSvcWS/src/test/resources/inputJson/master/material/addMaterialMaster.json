@@ -1,0 +1,13 @@
+{
+  "branch": {
+  	"branchId": 1,
+    "branchName": "Bajaj showroom1",
+    "phone1":"9830525559",
+    "materials": [
+      {
+      	"materialId":1,
+        "name": "Servo Engine oil"
+      }
+    ]
+  }
+}

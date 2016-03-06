@@ -1,8 +1,6 @@
 package com.org.test.coop.master.junit;
 
-import static org.junit.Assert.assertNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -45,14 +43,12 @@ import com.org.test.coop.junit.JunitTestUtil;
 	  @ContextConfiguration(classes={RetailDataAppConfig.class, CustomerDozerConfig.class})
 })
 @WebAppConfiguration
-public class RetailMasterWSTest {
-	private static final Logger logger = Logger.getLogger(RetailMasterWSTest.class);
+public class RetailUtilWSTest {
+	private static final Logger logger = Logger.getLogger(RetailUtilWSTest.class);
 	
 	private MockMvc mockMvc;
 	@Autowired
 	private WebApplicationContext wac;
-	
-	private String addMaterialMasterJson = null;
 	
 	private ObjectMapper om = null;
 	
@@ -66,52 +62,31 @@ public class RetailMasterWSTest {
 			om = new ObjectMapper();
 			om.setSerializationInclusion(Include.NON_NULL);
 			om.setDateFormat(df);
-			addMaterialMasterJson = JunitTestUtil.getFileContent("inputJson/master/material/addMaterialMaster.json");
-			
 		} catch (Exception e) {
 			logger.error("Error while initializing: ", e);
 		}
 	}
-	@Test
-	public void retailMasterTest() {
-		//addNewBranch();
-		addMaterialMaster();
-	}
+	
 
-	private void addMaterialMaster() {
+	@Test
+	public void getMaterialSequence() {
 		try {
-			MvcResult result = this.mockMvc.perform(post("/rest/masterData")
+			MvcResult result = this.mockMvc.perform(get("/rest/sequence?document=branch")
 					 .contentType("application/json").header("Authorization", "Basic " + Base64.getEncoder().encodeToString("ashish:ashish".getBytes()))
-					 .content(addMaterialMasterJson)
 					).andExpect(status().isOk())
 					.andExpect(content().contentType("application/json"))
 					.andReturn();
-			
-			RetailData retailData = getRetailData(result,  "outputJson/master/material/addMaterialMaster.json");
-			assertNull(retailData.getErrorMsg());
+				
+			RetailData retailData = getRetailData(result,  "outputJson/sequence.json");
+			if(retailData.getErrorMsg() != null) {
+				return;
+			}
 		} catch(Exception e) {
 			logger.error("Error while adding material master", e);
 		}
 	}
 	
 	
-	private void addNewBranch() {
-		try {
-			MvcResult result = this.mockMvc.perform(get("/rest/masterData?branchId=1")
-					 .contentType("application/json").header("Authorization", "Basic " + Base64.getEncoder().encodeToString("ashish:ashish".getBytes()))
-					).andExpect(status().isOk())
-					.andExpect(content().contentType("application/json"))
-					.andReturn();
-				
-			RetailData retailData = getRetailData(result,  "outputJson/addBranch.json");
-			if(retailData.getErrorMsg() != null) {
-				return;
-			}
-			
-		} catch(Exception e) {
-			logger.error("Error while retriving material master", e);
-		}
-	}
 	
 	private RetailData getRetailData(MvcResult result)
 			throws UnsupportedEncodingException, IOException,
