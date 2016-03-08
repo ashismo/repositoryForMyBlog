@@ -1,0 +1,19 @@
+{
+  "branch" : {
+    "branchId" : 0,
+    "phone1" : null,
+    "branchName" : null,
+    "createDate" : null,
+    "updateDate" : null,
+    "materials" : [ {
+      "materialId" : 1,
+      "name" : "Servo Engine oil",
+      "createDate" : null,
+      "updateDate" : null
+    } ]
+  },
+  "sequence" : null,
+  "errorMsg" : null,
+  "branchId" : 1,
+  "materialId" : 1
+}

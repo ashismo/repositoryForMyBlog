@@ -1,0 +1,29 @@
+{
+  "branch" : {
+    "branchId" : 1,
+    "phone1" : "9830525559",
+    "branchName" : "Auto Relax",
+    "createDate" : 1457320533000,
+    "updateDate" : 1457320533000,
+    "materials" : [ {
+      "materialId" : 1,
+      "name" : "Servo Engine oil",
+      "createDate" : null,
+      "updateDate" : null
+    }, {
+      "materialId" : 2,
+      "name" : "Maxx Engine oil",
+      "createDate" : null,
+      "updateDate" : null
+    }, {
+      "materialId" : 3,
+      "name" : "Castrol Engine oil",
+      "createDate" : null,
+      "updateDate" : null
+    } ]
+  },
+  "sequence" : null,
+  "errorMsg" : null,
+  "branchId" : 0,
+  "materialId" : 0
+}
