@@ -1,0 +1,64 @@
+package com.org.test.coop.junit;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.org.coop.canonical.beans.UIModel;
+
+public class JunitTestUtil {
+	private static final Logger logger = Logger.getLogger(JunitTestUtil.class);
+	/**
+	 * This method returns file content into string
+	 * @param fileName
+	 * @return
+	 */
+	public static String getFileContent(String fileName) {
+
+		String fieContent = "";
+
+		ClassLoader classLoader = JunitTestUtil.class.getClassLoader();
+		try {
+			fieContent = IOUtils.toString(classLoader.getResourceAsStream(fileName));
+		} catch (IOException e) {
+			logger.error("Error while reading " + fileName + " file: ", e);
+		}
+
+		return fieContent;
+
+	}
+	
+	public static void writeJSONToFile(Object json, String path) {
+		try {
+			ObjectMapper om = new ObjectMapper();
+			String indented = om.writerWithDefaultPrettyPrinter().writeValueAsString(json);
+			path = new File(".").getAbsolutePath() + "\\..\\RetailSvcWS\\src\\test\\resources\\" + path;
+			
+			
+			String absolutePath = path.substring(0, path.lastIndexOf("/"));
+			
+			File f = new File(absolutePath);
+			if(!f.isDirectory()) {
+				logger.debug("Create directory: " + absolutePath);
+				f.mkdirs();
+			}
+			PrintWriter print = new PrintWriter(path);
+			print.println(indented);
+			print.close();
+			logger.debug("Output file: " + path);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("Error: ", e);
+		}
+		
+	}
+	
+	public static void main(String args[]) {
+		writeJSONToFile(new UIModel(), "outputJson/master/branch/branchUsers/addUserSecurityQuestion1.json");
+	}
+	
+}
