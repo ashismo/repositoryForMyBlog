@@ -1,0 +1,203 @@
+package com.org.coop.retail.entities;
+
+import java.io.Serializable;
+
+import javax.persistence.*;
+
+import java.sql.Timestamp;
+import java.math.BigDecimal;
+
+
+/**
+ * The persistent class for the retail_rate_chart database table.
+ * 
+ */
+@Entity
+@Table(name="retail_rate_chart")
+@NamedQuery(name="RetailRateChart.findAll", query="SELECT r FROM RetailRateChart r")
+public class RetailRateChart implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="rate_id")
+	private int rateId;
+
+	@Column(name="create_date")
+	private Timestamp createDate;
+
+	@Column(name="create_user")
+	private String createUser;
+
+	@Column(name="delete_ind")
+	private String deleteInd;
+
+	@Column(name="delete_reason")
+	private String deleteReason;
+
+	@Column(name="passing_auth_ind")
+	private String passingAuthInd;
+
+	@Column(name="passing_auth_remark")
+	private String passingAuthRemark;
+
+	@Column(name="start_date")
+	private Timestamp startDate;
+
+	@Column(name="unit_rate")
+	private BigDecimal unitRate;
+
+	@Column(name="update_date")
+	private Timestamp updateDate;
+
+	@Column(name="update_user")
+	private String updateUser;
+
+	//bi-directional many-to-one association to BranchMaster
+	@ManyToOne
+	@JoinColumn(name="branch_id")
+	private BranchMaster branchMaster;
+
+	//bi-directional many-to-one association to MaterialMaster
+	@ManyToOne
+	@JoinColumn(name="material_id")
+	private MaterialMaster materialMaster;
+
+	public RetailRateChart() {
+	}
+
+	public int getRateId() {
+		return this.rateId;
+	}
+
+	public void setRateId(int rateId) {
+		this.rateId = rateId;
+	}
+
+	public Timestamp getCreateDate() {
+		return this.createDate;
+	}
+
+	public void setCreateDate(Timestamp createDate) {
+		this.createDate = createDate;
+	}
+
+	public String getCreateUser() {
+		return this.createUser;
+	}
+
+	public void setCreateUser(String createUser) {
+		this.createUser = createUser;
+	}
+
+	public String getDeleteInd() {
+		return this.deleteInd;
+	}
+
+	public void setDeleteInd(String deleteInd) {
+		this.deleteInd = deleteInd;
+	}
+
+	public String getDeleteReason() {
+		return this.deleteReason;
+	}
+
+	public void setDeleteReason(String deleteReason) {
+		this.deleteReason = deleteReason;
+	}
+
+	public String getPassingAuthInd() {
+		return this.passingAuthInd;
+	}
+
+	public void setPassingAuthInd(String passingAuthInd) {
+		this.passingAuthInd = passingAuthInd;
+	}
+
+	public String getPassingAuthRemark() {
+		return this.passingAuthRemark;
+	}
+
+	public void setPassingAuthRemark(String passingAuthRemark) {
+		this.passingAuthRemark = passingAuthRemark;
+	}
+
+	public Timestamp getStartDate() {
+		return this.startDate;
+	}
+
+	public void setStartDate(Timestamp startDate) {
+		this.startDate = startDate;
+	}
+
+	public BigDecimal getUnitRate() {
+		return this.unitRate;
+	}
+
+	public void setUnitRate(BigDecimal unitRate) {
+		this.unitRate = unitRate;
+	}
+
+	public Timestamp getUpdateDate() {
+		return this.updateDate;
+	}
+
+	public void setUpdateDate(Timestamp updateDate) {
+		this.updateDate = updateDate;
+	}
+
+	public String getUpdateUser() {
+		return this.updateUser;
+	}
+
+	public void setUpdateUser(String updateUser) {
+		this.updateUser = updateUser;
+	}
+
+	public BranchMaster getBranchMaster() {
+		return this.branchMaster;
+	}
+
+	public void setBranchMaster(BranchMaster branchMaster) {
+		this.branchMaster = branchMaster;
+	}
+
+	public MaterialMaster getMaterialMaster() {
+		return this.materialMaster;
+	}
+
+	public void setMaterialMaster(MaterialMaster materialMaster) {
+		this.materialMaster = materialMaster;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + rateId;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RetailRateChart other = (RetailRateChart) obj;
+		if (rateId != other.rateId)
+			return false;
+		return true;
+	}
+
+	@PreUpdate
+	@PrePersist
+	public void updateTimeStamps() {
+	    updateDate = new Timestamp(System.currentTimeMillis());
+	    if (createDate == null) {
+	    	createDate = new Timestamp(System.currentTimeMillis());
+	    }
+	}
+}

@@ -1,0 +1,241 @@
+package com.org.coop.retail.entities;
+
+import java.io.Serializable;
+
+import javax.persistence.*;
+
+import java.sql.Timestamp;
+import java.util.List;
+
+
+/**
+ * The persistent class for the retail_customer_master database table.
+ * 
+ */
+@Entity
+@Table(name="retail_customer_master")
+@NamedQuery(name="RetailCustomerMaster.findAll", query="SELECT r FROM RetailCustomerMaster r")
+public class RetailCustomerMaster implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="customer_id")
+	private int customerId;
+
+	@Column(name="address_line1")
+	private String addressLine1;
+
+	@Column(name="address_line2")
+	private String addressLine2;
+
+	@Column(name="create_date")
+	private Timestamp createDate;
+
+	@Column(name="create_user")
+	private String createUser;
+
+	@Column(name="customer_name")
+	private String customerName;
+
+	@Column(name="customer_type")
+	private String customerType;
+
+	private String email1;
+
+	private String email2;
+
+	private String phone1;
+
+	private String phone2;
+
+	private String pin;
+
+	@Column(name="update_date")
+	private Timestamp updateDate;
+
+	@Column(name="update_user")
+	private String updateUser;
+
+	private String website;
+
+	//bi-directional many-to-one association to MaterialTranHrd
+	@OneToMany(mappedBy="retailCustomerMaster")
+	private List<MaterialTranHrd> materialTranHrds;
+
+	public RetailCustomerMaster() {
+	}
+
+	public int getCustomerId() {
+		return this.customerId;
+	}
+
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
+	}
+
+	public String getAddressLine1() {
+		return this.addressLine1;
+	}
+
+	public void setAddressLine1(String addressLine1) {
+		this.addressLine1 = addressLine1;
+	}
+
+	public String getAddressLine2() {
+		return this.addressLine2;
+	}
+
+	public void setAddressLine2(String addressLine2) {
+		this.addressLine2 = addressLine2;
+	}
+
+	public Timestamp getCreateDate() {
+		return this.createDate;
+	}
+
+	public void setCreateDate(Timestamp createDate) {
+		this.createDate = createDate;
+	}
+
+	public String getCreateUser() {
+		return this.createUser;
+	}
+
+	public void setCreateUser(String createUser) {
+		this.createUser = createUser;
+	}
+
+	public String getCustomerName() {
+		return this.customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+
+	public String getCustomerType() {
+		return this.customerType;
+	}
+
+	public void setCustomerType(String customerType) {
+		this.customerType = customerType;
+	}
+
+	public String getEmail1() {
+		return this.email1;
+	}
+
+	public void setEmail1(String email1) {
+		this.email1 = email1;
+	}
+
+	public String getEmail2() {
+		return this.email2;
+	}
+
+	public void setEmail2(String email2) {
+		this.email2 = email2;
+	}
+
+	public String getPhone1() {
+		return this.phone1;
+	}
+
+	public void setPhone1(String phone1) {
+		this.phone1 = phone1;
+	}
+
+	public String getPhone2() {
+		return this.phone2;
+	}
+
+	public void setPhone2(String phone2) {
+		this.phone2 = phone2;
+	}
+
+	public String getPin() {
+		return this.pin;
+	}
+
+	public void setPin(String pin) {
+		this.pin = pin;
+	}
+
+	public Timestamp getUpdateDate() {
+		return this.updateDate;
+	}
+
+	public void setUpdateDate(Timestamp updateDate) {
+		this.updateDate = updateDate;
+	}
+
+	public String getUpdateUser() {
+		return this.updateUser;
+	}
+
+	public void setUpdateUser(String updateUser) {
+		this.updateUser = updateUser;
+	}
+
+	public String getWebsite() {
+		return this.website;
+	}
+
+	public void setWebsite(String website) {
+		this.website = website;
+	}
+
+	public List<MaterialTranHrd> getMaterialTranHrds() {
+		return this.materialTranHrds;
+	}
+
+	public void setMaterialTranHrds(List<MaterialTranHrd> materialTranHrds) {
+		this.materialTranHrds = materialTranHrds;
+	}
+
+	public MaterialTranHrd addMaterialTranHrd(MaterialTranHrd materialTranHrd) {
+		getMaterialTranHrds().add(materialTranHrd);
+		materialTranHrd.setRetailCustomerMaster(this);
+
+		return materialTranHrd;
+	}
+
+	public MaterialTranHrd removeMaterialTranHrd(MaterialTranHrd materialTranHrd) {
+		getMaterialTranHrds().remove(materialTranHrd);
+		materialTranHrd.setRetailCustomerMaster(null);
+
+		return materialTranHrd;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + customerId;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RetailCustomerMaster other = (RetailCustomerMaster) obj;
+		if (customerId != other.customerId)
+			return false;
+		return true;
+	}
+
+	@PreUpdate
+	@PrePersist
+	public void updateTimeStamps() {
+	    updateDate = new Timestamp(System.currentTimeMillis());
+	    if (createDate == null) {
+	    	createDate = new Timestamp(System.currentTimeMillis());
+	    }
+	}
+}
