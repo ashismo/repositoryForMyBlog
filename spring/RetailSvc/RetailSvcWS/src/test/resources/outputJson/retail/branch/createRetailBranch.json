@@ -1,0 +1,32 @@
+{
+  "branchBean" : {
+    "branchId" : 2,
+    "parentId" : 0,
+    "bankName" : "Test Branch",
+    "branchName" : "Test Branch",
+    "ifscCode" : "11AA12",
+    "micrCode" : "11AA11",
+    "email1" : "ujan@gmail.com",
+    "email2" : null,
+    "phone1" : "9830625559",
+    "phone2" : null,
+    "startDate" : 1449685800000,
+    "endDate" : null,
+    "createUser" : "ashish",
+    "updateUser" : null,
+    "dbName" : "coopadmin",
+    "contextRoot" : "CustomerSvcWS",
+    "licenseRemaining" : 0,
+    "gracePeriod" : 0,
+    "licenseOverDays" : 0,
+    "addresses" : [ ],
+    "branchLicenseDtlsBeans" : [ ],
+    "branchRuleBeans" : [ ],
+    "users" : [ ],
+    "roles" : [ ],
+    "materialGroups" : [ ],
+    "retailRateCharts" : [ ],
+    "branchActive" : false
+  },
+  "errorMsg" : null
+}
