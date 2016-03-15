@@ -2,8 +2,6 @@ package com.org.test.coop.society.data.transaction.config;
 
 import java.util.Properties;
 
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,25 +28,25 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @ComponentScan(basePackages = "com.org.coop")
-@EnableJpaRepositories(basePackages = {"com.org.coop.society.data.admin.repositories"}, 
-					entityManagerFactoryRef="adminEntityManagerFactory", 
-					transactionManagerRef="adminTransactionManager")
+@EnableJpaRepositories(basePackages = {"com.org.coop.retail.repositories"}, 
+					entityManagerFactoryRef="retailEntityManagerFactory", 
+					transactionManagerRef="retailTransactionManager")
 @EnableTransactionManagement
 //@PersistenceContext(type = PersistenceContextType.EXTENDED) // This configuration solves “failed to lazily initialize a collection of role” problem i.e. EAGER load
-@PropertySource("classpath:applicationTest.properties")
+@PropertySource("classpath:retailSvcWSTest.properties")
 public class TestRetailDBConfig {
 	@Autowired
 	private Environment env;
 	
-	@Value("classpath:testdb/coopadmin_truncate_proc_call.sql")
+	@Value("classpath:truncate_db_proc.sql")
 	private Resource schemaScript;
 
-	@Bean(name = "adminDataSource")
-	@Qualifier("adminDataSource")
-	public DataSource adminDataSource() {
+	@Bean(name = "retailDataSource")
+	@Qualifier("retailDataSource")
+	public DataSource retailDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(env.getProperty("db.test.driver"));
-		dataSource.setUrl(env.getProperty("db.test.admin.url"));
+		dataSource.setUrl(env.getProperty("db.test.retail.url"));
 		dataSource.setUsername(env.getProperty("db.test.admin.username"));
 		dataSource.setPassword(env.getProperty("db.test.admin.password"));
 		if("true".equalsIgnoreCase(env.getProperty("clean.db"))) {
@@ -57,22 +55,6 @@ public class TestRetailDBConfig {
 		return dataSource;
 	}
 	
-	public DataSource adminDataSource_h2db() {
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		// Create DB schema
-		// mysqldump --compatible=ansi,no_table_options,no_field_options,no_key_options --hex-blob --skip-opt --no-data -uroot -p coopadmin > d:\\coopadmin_schema.sql
-		
-//		dataSource.setDriverClassName("org.h2.jdbcx.JdbcDataSource");
-		dataSource.setDriverClassName("org.h2.Driver");
-//		dataSource.setUrl("jdbc:h2:~/h2-testdb;MODE=MYSQL");
-		dataSource.setUrl("jdbc:h2:mem:test;INIT=runscript from 'classpath:testdb/coopadmin_schema.sql'");
-		dataSource.setUsername("sa");
-		dataSource.setPassword("");
-		
-		//DatabasePopulatorUtils.execute(getDatabasePopulator(), dataSource);
-		return dataSource;
-	}
-
 	private DatabasePopulator getDatabasePopulator() {
 		ResourceDatabasePopulator rdp = new ResourceDatabasePopulator();
 		rdp.addScript(schemaScript);
@@ -81,12 +63,12 @@ public class TestRetailDBConfig {
 		return rdp;
 	}
 	
-	@Bean(name = "adminEntityManagerFactory")
-	@Qualifier("adminEntityManagerFactory")
-	public LocalContainerEntityManagerFactoryBean adminEntityManagerFactory() {
+	@Bean(name = "retailEntityManagerFactory")
+	@Qualifier("retailEntityManagerFactory")
+	public LocalContainerEntityManagerFactoryBean retailEntityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-		em.setDataSource(adminDataSource());
-		em.setPackagesToScan(new String[] { "com.org.coop.society.data.admin" });
+		em.setDataSource(retailDataSource());
+		em.setPackagesToScan(new String[] { "com.org.coop.retail.entities" });
 
 		JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		em.setJpaVendorAdapter(vendorAdapter);
@@ -95,11 +77,11 @@ public class TestRetailDBConfig {
 		return em;
 	}
 	
-	@Bean(name="adminTransactionManager")
-	@Qualifier("adminTransactionManager")
-	public PlatformTransactionManager adminTransactionManager() {
+	@Bean(name="retailTransactionManager")
+	@Qualifier("retailTransactionManager")
+	public PlatformTransactionManager retailTransactionManager() {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
-		transactionManager.setEntityManagerFactory(adminEntityManagerFactory().getObject());
+		transactionManager.setEntityManagerFactory(retailEntityManagerFactory().getObject());
 		return transactionManager;
 	}
 	

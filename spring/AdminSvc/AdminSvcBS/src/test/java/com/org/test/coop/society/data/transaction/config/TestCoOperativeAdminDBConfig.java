@@ -40,7 +40,7 @@ public class TestCoOperativeAdminDBConfig {
 	@Autowired
 	private Environment env;
 	
-	@Value("classpath:testdb/coopadmin_truncate_proc_call.sql")
+	@Value("classpath:truncate_db_proc.sql")
 	private Resource schemaScript;
 
 	@Bean(name = "adminDataSource")
