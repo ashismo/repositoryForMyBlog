@@ -10,33 +10,34 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.org.coop.canonical.beans.UIModel;
+import com.org.coop.retail.service.MaterialSetupServiceImpl;
 import com.org.coop.retail.service.RetailBranchSetupServiceImpl;
 
 @RestController
 @RequestMapping("/rest")
-public class RetailBranchSetupWSImpl {
+public class MaterialSetupWSImpl {
 	
-	private static final Logger log = Logger.getLogger(RetailBranchSetupWSImpl.class); 
+	private static final Logger log = Logger.getLogger(MaterialSetupWSImpl.class); 
 	
 	@Autowired
-	private RetailBranchSetupServiceImpl branchSetupServiceImpl;
+	private MaterialSetupServiceImpl materialSetupServiceImpl;
 	
-	@RequestMapping(value = "/getRetailBranch", method = RequestMethod.GET, headers="Accept=application/json",produces="application/json")
-	public UIModel getRetailBranch(@RequestParam(value = "branchId",required = true,defaultValue = "0") Integer branchId) {
+	@RequestMapping(value = "/getMaterial", method = RequestMethod.GET, headers="Accept=application/json",produces="application/json")
+	public UIModel getMaterial(@RequestParam(value = "materialId",required = true,defaultValue = "0") Integer materialId) {
 		UIModel uiModel = new UIModel();
 		try {
-			uiModel = branchSetupServiceImpl.getRetailBranch(branchId);
+			uiModel = materialSetupServiceImpl.getMaterial(materialId);
 		} catch (Exception e) {
-			log.error("Error Retrieving branch by branch Id", e);
-			uiModel.setErrorMsg("Error Retrieving branch by branch Id: " + branchId);
+			log.error("Error Retrieving material by mterial Id", e);
+			uiModel.setErrorMsg("Error Retrieving material by branch Id: " + materialId);
 		}
 		return uiModel;
 	}
 	
-	@RequestMapping(value = "/createRetailBranch", method = RequestMethod.POST, headers="Accept=application/json",produces="application/json")
-	public UIModel createRetailBranch(@RequestBody UIModel uiModel) {
+	@RequestMapping(value = "/saveMaterial", method = RequestMethod.POST, headers="Accept=application/json",produces="application/json")
+	public UIModel saveMaterial(@RequestBody UIModel uiModel) {
 		try {
-			uiModel = branchSetupServiceImpl.createRetailBranch(uiModel);
+			uiModel = materialSetupServiceImpl.saveMaterial(uiModel);
 		} catch (Exception e) {
 			log.error("Error while creating branch by branch Id", e);
 			uiModel.setErrorMsg("Error while creating branch by branch Id: " + uiModel.getBranchBean().getBranchId());

@@ -1,6 +1,7 @@
 package com.org.test.coop.master.junit;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -12,8 +13,10 @@ import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,36 +36,43 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.org.coop.admin.service.BranchSetupServiceImpl;
 import com.org.coop.bs.config.DozerConfig;
 import com.org.coop.bs.util.AdminSvcCommonUtil;
+import com.org.coop.canonical.beans.AddressBean;
+import com.org.coop.canonical.beans.BranchBean;
+import com.org.coop.canonical.beans.BranchLicenseDtlsBean;
+import com.org.coop.canonical.beans.BranchRuleBean;
+import com.org.coop.canonical.beans.RoleMasterBean;
+import com.org.coop.canonical.beans.RolePermissionBean;
 import com.org.coop.canonical.beans.UIModel;
-import com.org.coop.retail.bs.config.RetailDozerConfig;
-import com.org.coop.retail.servicehelper.RetailBranchSetupServiceHelperImpl;
+import com.org.coop.canonical.beans.UserMasterBean;
+import com.org.coop.canonical.beans.UserRoleBean;
+import com.org.coop.canonical.beans.UserSecurityBean;
 import com.org.coop.society.data.admin.repositories.BranchMasterRepository;
 import com.org.coop.society.data.transaction.config.DataAppConfig;
 import com.org.test.coop.junit.JunitTestUtil;
 import com.org.test.coop.society.data.transaction.config.TestDataAppConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ComponentScan(basePackages = "com.org.test.coop")
-@EnableAutoConfiguration(exclude = { DataAppConfig.class, DozerConfig.class})
+@ComponentScan(basePackages = "com.org.test.coop"/*, excludeFilters = { @Filter(type = FilterType.ANNOTATION, value = DataAppConfig.class) }*/)
+@EnableAutoConfiguration(exclude = { DataAppConfig.class})
 @ContextHierarchy({
-	  @ContextConfiguration(classes={TestDataAppConfig.class, RetailDozerConfig.class})
+	  @ContextConfiguration(classes={TestDataAppConfig.class, DozerConfig.class})
 })
 @WebAppConfiguration
-public class RetailBranchWSTest {
-	private static final Logger logger = Logger.getLogger(RetailBranchWSTest.class);
+public class UserBranchWSTest {
+	private static final Logger logger = Logger.getLogger(UserBranchWSTest.class);
 	
 	private MockMvc mockMvc;
 	@Autowired
 	private WebApplicationContext wac;
 	
-	private String createBranchJson = null;
 	
 	private ObjectMapper om = null;
 	
 	@Autowired
-	private RetailBranchSetupServiceHelperImpl branchSetupServiceImpl;
+	private BranchSetupServiceImpl branchSetupServiceImpl;
 	
 	@Autowired
 	private BranchMasterRepository branchMasterRepository;
@@ -79,50 +89,32 @@ public class RetailBranchWSTest {
 			om = new ObjectMapper();
 			om.setSerializationInclusion(Include.NON_NULL);
 			om.setDateFormat(df);
-			createBranchJson = JunitTestUtil.getFileContent("inputJson/retail/branch/createRetailBranch.json");
 			
 		} catch (Exception e) {
 			logger.error("Error while initializing: ", e);
 		}
 	}
 	@Test
-	public void testRetailBranch() {
-		createRetailBranch();
-		getBranch();
+	public void testBranch() {
+		getUserBranch();
 	}
 
-	private void createRetailBranch() {
+	private void getUserBranch() {
 		try {
-			MvcResult result = this.mockMvc.perform(post("/rest/createRetailBranch")
-				 .contentType("application/json").header("Authorization", "Basic " + Base64.getEncoder().encodeToString("ashish:ashish".getBytes()))
-				 .content(createBranchJson)
-				).andExpect(status().isOk())
-				.andExpect(content().contentType("application/json"))
-				.andReturn();
-			
-			UIModel uiModel = getUIModel(result, "outputJson/retail/branch/createRetailBranch.json");
-			
-			assertNull(uiModel.getErrorMsg());
-			assertEquals(uiModel.getBranchBean().getBranchId(), 2);
-		} catch(Exception e) {
-			logger.error("Error while creating branch", e);
-		}
-	}
-	
-	private void getBranch() {
-		try {
-			MvcResult result = this.mockMvc.perform(get("/rest/getRetailBranch?branchId=1")
+			MvcResult result = this.mockMvc.perform(get("/rest/getUserBranch?username=ashish")
 					 .contentType("application/json").header("Authorization", "Basic " + Base64.getEncoder().encodeToString("ashish:ashish".getBytes()))
 					).andExpect(status().isOk())
 					.andExpect(content().contentType("application/json"))
 					.andReturn();
 				
-			UIModel uiModel = getUIModel(result, "outputJson/retail/branch/getBranch.json");
-			if(uiModel.getErrorMsg() != null) {
-				return;
-			}
+			UIModel uiModel = getUIModel(result, "outputJson/master/user/getUserBranch.json");
+			assertNull(uiModel.getErrorMsg());
+			assertEquals(uiModel.getBranchBean().getBranchId(), 1);
+			UserMasterBean user = uiModel.getBranchBean().getUsers().get(0);
+			assertEquals("ashish",user.getUserName());
+			assertEquals("Ashish",user.getFirstName());
 		} catch(Exception e) {
-			logger.error("Error while creating branch", e);
+			logger.error("Error while retrieving branch by username ", e);
 		}
 	}
 	

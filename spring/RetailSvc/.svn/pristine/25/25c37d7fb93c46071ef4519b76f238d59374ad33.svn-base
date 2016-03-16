@@ -50,14 +50,14 @@ import com.org.test.coop.society.data.transaction.config.TestDataAppConfig;
 	  @ContextConfiguration(classes={TestDataAppConfig.class, RetailDozerConfig.class})
 })
 @WebAppConfiguration
-public class RetailBranchWSTest {
-	private static final Logger logger = Logger.getLogger(RetailBranchWSTest.class);
+public class RetailMaterialWSTest {
+	private static final Logger logger = Logger.getLogger(RetailMaterialWSTest.class);
 	
 	private MockMvc mockMvc;
 	@Autowired
 	private WebApplicationContext wac;
 	
-	private String createBranchJson = null;
+	private String createMaterialGroupJson = null;
 	
 	private ObjectMapper om = null;
 	
@@ -79,31 +79,29 @@ public class RetailBranchWSTest {
 			om = new ObjectMapper();
 			om.setSerializationInclusion(Include.NON_NULL);
 			om.setDateFormat(df);
-			createBranchJson = JunitTestUtil.getFileContent("inputJson/retail/branch/createRetailBranch.json");
+			createMaterialGroupJson = JunitTestUtil.getFileContent("inputJson/retail/branch/createMaterialGroup.json");
 			
 		} catch (Exception e) {
 			logger.error("Error while initializing: ", e);
 		}
 	}
 	@Test
-	public void testRetailBranch() {
-		createRetailBranch();
-		getBranch();
+	public void testMaterials() {
+		createMaterialGroup();
 	}
 
-	private void createRetailBranch() {
+	private void createMaterialGroup() {
 		try {
-			MvcResult result = this.mockMvc.perform(post("/rest/createRetailBranch")
+			MvcResult result = this.mockMvc.perform(post("/rest/saveMaterial")
 				 .contentType("application/json").header("Authorization", "Basic " + Base64.getEncoder().encodeToString("ashish:ashish".getBytes()))
-				 .content(createBranchJson)
+				 .content(createMaterialGroupJson)
 				).andExpect(status().isOk())
 				.andExpect(content().contentType("application/json"))
 				.andReturn();
 			
-			UIModel uiModel = getUIModel(result, "outputJson/retail/branch/createRetailBranch.json");
+			UIModel uiModel = getUIModel(result, "outputJson/retail/branch/createMaterialGroup.json");
 			
 			assertNull(uiModel.getErrorMsg());
-			assertEquals(uiModel.getBranchBean().getBranchId(), 2);
 		} catch(Exception e) {
 			logger.error("Error while creating branch", e);
 		}
