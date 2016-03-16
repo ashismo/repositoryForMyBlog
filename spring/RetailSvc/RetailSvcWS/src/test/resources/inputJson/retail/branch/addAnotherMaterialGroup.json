@@ -1,0 +1,14 @@
+{
+  "branchBean": {
+    "branchId": 2,
+    "materialGroups": [
+      {
+        "materialGrpId": 0,
+        "branchId" : 2,
+        "groupName": "PartsAndMaterials",
+        "groupDescription": "Parts and Materials",
+        "createUser": "ashish"
+      }
+    ]
+  }
+}
