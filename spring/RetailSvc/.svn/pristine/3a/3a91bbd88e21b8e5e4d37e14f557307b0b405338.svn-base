@@ -6,8 +6,8 @@
         "materialGrpId": 0,
         "branchId" : 2,
         "groupName": "PartsAndMaterials",
-        "groupDescription": "Parts and Materials",
         "uom" : "pcs",
+        "groupDescription": "Parts and Materials",
         "createUser": "ashish"
       }
     ]

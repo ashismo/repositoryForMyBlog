@@ -24,20 +24,25 @@
     "branchRuleBeans" : [ ],
     "users" : [ ],
     "roles" : [ ],
-    "materialGroups" : [ {
-      "materialGrpId" : 2,
-      "branchId" : 2,
-      "deleteInd" : null,
-      "groupDescription" : "Parts and Materials",
-      "groupName" : "PartsAndMaterials",
-      "createDate" : 1458234794000,
-      "updateDate" : 1458234794000,
-      "createUser" : "ashish",
-      "updateUser" : null,
-      "materials" : [ ]
-    } ],
+    "materialGroups" : [ ],
     "retailRateCharts" : [ ],
-    "documents" : [ ],
+    "documents" : [ {
+      "docId" : 2,
+      "branchId" : 2,
+      "comment" : null,
+      "docType" : "json",
+      "createDate" : 1458235640000,
+      "createUser" : "ashish",
+      "deleteInd" : null,
+      "deleteReason" : null,
+      "docSize" : 235,
+      "document" : null,
+      "passingAuthInd" : null,
+      "passingAuthRemark" : null,
+      "title" : "Test Document",
+      "updateDate" : 1458235640000,
+      "updateUser" : null
+    } ],
     "branchActive" : false
   },
   "errorMsg" : null
