@@ -24,22 +24,27 @@
     "branchRuleBeans" : [ ],
     "users" : [ ],
     "roles" : [ ],
-    "materialGroups" : [ {
-      "materialGrpId" : 0,
-      "branchId" : 2,
-      "deleteInd" : null,
-      "groupDescription" : "Parts and Materials",
-      "groupName" : "PartsAndMaterials",
-      "createDate" : null,
-      "updateDate" : null,
-      "createUser" : "ashish",
-      "updateUser" : null,
-      "materials" : [ ]
-    } ],
+    "materialGroups" : [ ],
     "retailRateCharts" : [ ],
     "documents" : [ ],
-    "retailVendors" : [ ],
+    "retailVendors" : [ {
+      "vendorId" : 1,
+      "branchId" : 2,
+      "addressLine1" : "Kolkata",
+      "addressLine2" : null,
+      "createDate" : 1458320647000,
+      "createUser" : "ashish",
+      "email1" : null,
+      "email2" : null,
+      "phone1" : "9830525559",
+      "phone2" : null,
+      "pin" : "743502",
+      "updateDate" : 1458320647000,
+      "updateUser" : "ashish",
+      "vendorName" : "CTS",
+      "website" : null
+    } ],
     "branchActive" : false
   },
-  "errorMsg" : "Error while adding material group for a branch: 2"
+  "errorMsg" : null
 }

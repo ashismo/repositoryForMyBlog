@@ -1,0 +1,16 @@
+{
+  "branchBean": {
+    "branchId": 2,
+    "retailVendors": [
+      {
+        "vendorId": 0,
+        "branchId": 2,
+        "vendorName": "CTS",
+        "addressLine1": "Kolkata",
+        "pin": "712708",
+        "phone1": "9830525559",
+        "createUser": "ashish"
+      }
+    ]
+  }
+}
