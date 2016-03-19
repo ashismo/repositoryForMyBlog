@@ -1,6 +1,6 @@
 {
   "branchBean" : {
-    "branchId" : 0,
+    "branchId" : 2,
     "parentId" : 0,
     "bankName" : null,
     "branchName" : null,
@@ -24,19 +24,22 @@
     "branchRuleBeans" : [ ],
     "users" : [ ],
     "roles" : [ ],
-    "materialGroups" : [ {
-      "materialGrpId" : 2,
+    "materialGroups" : [ ],
+    "retailRateCharts" : [ {
+      "rateId" : 1,
       "branchId" : 2,
-      "deleteInd" : null,
-      "groupDescription" : "Parts and Materials",
-      "groupName" : "PartsAndMaterials",
-      "createDate" : 1458405910000,
-      "updateDate" : 1458405910000,
+      "materialId" : 1,
+      "createDate" : 1458372258000,
       "createUser" : "ashish",
-      "updateUser" : null,
-      "materials" : [ ]
+      "deleteInd" : null,
+      "deleteReason" : null,
+      "passingAuthInd" : null,
+      "passingAuthRemark" : null,
+      "startDate" : 1458325800000,
+      "unitRate" : 150.00,
+      "updateDate" : 1458372258000,
+      "updateUser" : null
     } ],
-    "retailRateCharts" : [ ],
     "documents" : [ ],
     "retailVendors" : [ ],
     "branchActive" : false

@@ -1,0 +1,146 @@
+package com.org.coop.retail.servicehelper;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.org.coop.canonical.beans.BranchBean;
+import com.org.coop.canonical.beans.RetailRateChartBean;
+import com.org.coop.canonical.beans.RetailVendorBean;
+import com.org.coop.canonical.beans.UIModel;
+import com.org.coop.retail.bs.mapper.RetailRateChartMappingImpl;
+import com.org.coop.retail.entities.BranchMaster;
+import com.org.coop.retail.entities.MaterialMaster;
+import com.org.coop.retail.entities.RetailRateChart;
+import com.org.coop.retail.entities.VendorMaster;
+import com.org.coop.retail.repositories.RetailBranchMasterRepository;
+import com.org.coop.retail.repositories.RetailMaterialMasterRepository;
+import com.org.coop.retail.repositories.RetailRateChartRepository;
+import com.org.coop.retail.repositories.RetailVendorMasterRepository;
+
+@Service
+public class RetailRateChartSetupServiceHelperImpl {
+
+	private static final Logger log = Logger.getLogger(RetailRateChartSetupServiceHelperImpl.class); 
+	
+	@Autowired
+	private RetailBranchMasterRepository branchMasterRepository;
+	
+	@Autowired
+	private RetailMaterialMasterRepository retailMaterialMasterRepository;
+	
+	@Autowired
+	private RetailRateChartMappingImpl retailRateChartMappingImpl;
+	
+	@Autowired
+	private RetailRateChartRepository retailRateChartRepository;
+	
+	@Transactional(value="retailTransactionManager")
+	public UIModel getRateChart(int rateChartId, int materialId) {
+		UIModel uiModel = new UIModel();
+		RetailRateChart rateChart = null;
+		if(rateChartId > 0) {
+			// Check if the rate chart already exists
+			rateChart = retailRateChartRepository.findOne(rateChartId);
+			if(rateChart == null) {
+				uiModel.setErrorMsg("Rate Chart does not exist for rate Id: " + rateChartId);
+				return uiModel;
+			}
+		} else if (materialId > 0) {
+			// Check if the rate chart already exists
+			List<RetailRateChart> rateChartList = retailRateChartRepository.findMaterialRateForBranch(materialId);
+			if(rateChartList == null || rateChartList.size() == 0) {
+				uiModel.setErrorMsg("Rate Chart does not exist for material Id: " + materialId);
+				return uiModel;
+			}
+			rateChart = rateChartList.get(0);
+		}
+		BranchBean branchBean = new BranchBean();
+		RetailRateChartBean rateChartBean = new RetailRateChartBean();
+		List<RetailRateChartBean> rateChartBeanList = new ArrayList<RetailRateChartBean>();
+		rateChartBeanList.add(rateChartBean);
+		branchBean.setRetailRateCharts(rateChartBeanList);
+		
+		retailRateChartMappingImpl.mapBean(rateChart, rateChartBean);
+		uiModel.setBranchBean(branchBean);
+		branchBean.setBranchId(rateChart.getBranchMaster().getBranchId());
+		
+		if(log.isDebugEnabled()) {
+			log.debug("Retail rate chart details has been retrieved from database for rateId: " + rateChartId);
+		}
+		return uiModel;
+	}
+	
+	@Transactional(value="retailTransactionManager")
+	public UIModel saveRateChart(UIModel uiModel) {
+		if(uiModel.getBranchBean().getRetailRateCharts() != null && uiModel.getBranchBean().getRetailRateCharts().size() > 0 ) {
+			RetailRateChartBean rateChartBean = uiModel.getBranchBean().getRetailRateCharts().get(0);
+			int rateId = rateChartBean.getRateId();
+			RetailRateChart rateChart = null;
+			if(rateId == 0) {
+				rateChart = new RetailRateChart();
+				BranchMaster branchMaster = branchMasterRepository.findOne(rateChartBean.getBranchId());
+				if(branchMaster == null) {
+					log.debug("Branch does not exist for branch Id: " + rateChartBean.getBranchId());
+					uiModel.setErrorMsg("Branch does not exists in our record. Please pass branch id correctly.");
+					return uiModel;
+				}
+				
+				MaterialMaster material = retailMaterialMasterRepository.findOne(rateChartBean.getMaterialId());
+				if(material == null) {
+					log.debug("Material does not exist for materialId Id: " + rateChartBean.getMaterialId());
+					uiModel.setErrorMsg("Material does not exist in our record. Please pass branch id correctly.");
+					return uiModel;
+				}
+				
+				rateChart.setBranchMaster(branchMaster);
+				rateChart.setMaterialMaster(material);
+				if(log.isDebugEnabled()) {
+					log.debug("Adding new Rate chart");
+				}
+				
+				// Find out existing active entry for the same material. If found then 
+				// update delete indicator to Y for start_date != today else
+				// Update the rate for start_date = today
+				List<RetailRateChart> rrcList = retailRateChartRepository.findExistingMaterialRateForBranch(rateChartBean.getBranchId(), rateChartBean.getMaterialId());
+				if(rrcList != null && rrcList.size() > 0) {
+					for(RetailRateChart rrc : rrcList) {
+						rrc.setDeleteInd("Y");
+						rrc.setDeleteReason("Rate updated");
+						rrc.setUpdateUser(rateChartBean.getCreateUser());  // The user who is creating new entry is deleting existing old entry
+					}
+					retailRateChartRepository.save(rrcList);
+					if(log.isDebugEnabled()) {
+						log.debug("Existing rate charts have been soft deleted/updated");
+					}
+				} else {
+					rrcList = retailRateChartRepository.findTodaysMaterialRateForBranch(rateChartBean.getBranchId(), rateChartBean.getMaterialId());
+					if(rrcList != null && rrcList.size() > 0) {
+						rrcList.get(0).setUnitRate(rateChartBean.getUnitRate());
+						rrcList.get(0).setUpdateUser(rateChartBean.getCreateUser());
+						rateChartBean.setRateId(rrcList.get(0).getRateId());
+						retailRateChartRepository.save(rrcList);
+						return uiModel;
+					}
+				}
+			} else {
+				rateChart = retailRateChartRepository.findOne(rateId);
+				if(log.isDebugEnabled()) {
+					log.debug("Modifying existing Rate chart for rateId = " + rateId);
+				}
+			}
+			
+			retailRateChartMappingImpl.mapBean(rateChartBean, rateChart);
+			retailRateChartRepository.saveAndFlush(rateChart);
+			rateChartBean.setRateId(rateChart.getRateId());
+		} else {
+			uiModel.setErrorMsg("Rate chart details not passed correctly");
+		}
+		return uiModel;
+	}
+	
+}

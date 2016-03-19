@@ -1,0 +1,15 @@
+{
+  "branchBean": {
+    "branchId": 2,
+    "retailRateCharts": [
+      {
+        "rateId": 0,
+        "branchId": 2,
+        "materialId": 1,
+        "startDate": "19/03/2016 00:00:00",
+        "unitRate": "200.00",
+        "createUser": "ashish"
+      }
+    ]
+  }
+}
