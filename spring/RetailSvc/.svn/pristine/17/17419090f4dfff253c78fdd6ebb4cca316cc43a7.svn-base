@@ -5,11 +5,12 @@
       {
         "customerId": 0,
         "branchId": 2,
-        "customerType" : "Running",
-        "customerName": "Ashish Mondal",
+        "refCustomerId" : 100,
+        "customerType" : "Member",
+        "customerName": "Dona Mondal",
         "addressLine1": "Kalipur",
         "pin": "712708",
-        "phone1": "9830525559",
+        "phone1": "9830625559",
         "createUser": "ashish"
       }
     ]

@@ -29,19 +29,20 @@
       "rateId" : 3,
       "branchId" : 2,
       "materialId" : 1,
-      "createDate" : 1458405913000,
+      "createDate" : 1458493714000,
       "createUser" : "ashish",
       "deleteInd" : null,
       "deleteReason" : null,
       "passingAuthInd" : null,
       "passingAuthRemark" : null,
-      "startDate" : 1458325800000,
+      "startDate" : 1458412200000,
       "unitRate" : 200.00,
-      "updateDate" : 1458405913000,
-      "updateUser" : null
+      "updateDate" : 1458493714000,
+      "updateUser" : "ashish"
     } ],
     "documents" : [ ],
     "retailVendors" : [ ],
+    "retailCustomers" : [ ],
     "branchActive" : false
   },
   "errorMsg" : null

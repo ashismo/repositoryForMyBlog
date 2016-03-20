@@ -30,8 +30,8 @@
       "deleteInd" : null,
       "groupDescription" : "Lubricant (Engine Oil)",
       "groupName" : "Lubricant",
-      "createDate" : 1458405910000,
-      "updateDate" : 1458405910000,
+      "createDate" : 1458493711000,
+      "updateDate" : 1458493711000,
       "createUser" : "ashish",
       "updateUser" : null,
       "materials" : [ {
@@ -47,8 +47,8 @@
         "stockOut" : null,
         "uom" : "ml",
         "updateUser" : null,
-        "createDate" : 1458405911000,
-        "updateDate" : 1458405911000
+        "createDate" : 1458493712000,
+        "updateDate" : 1458493712000
       } ]
     }, {
       "materialGrpId" : 2,
@@ -56,8 +56,8 @@
       "deleteInd" : null,
       "groupDescription" : "Parts and Materials",
       "groupName" : "PartsAndMaterials",
-      "createDate" : 1458405910000,
-      "updateDate" : 1458405910000,
+      "createDate" : 1458493712000,
+      "updateDate" : 1458493712000,
       "createUser" : "ashish",
       "updateUser" : null,
       "materials" : [ {
@@ -73,29 +73,29 @@
         "stockOut" : null,
         "uom" : "pcs",
         "updateUser" : null,
-        "createDate" : 1458405911000,
-        "updateDate" : 1458405911000
+        "createDate" : 1458493712000,
+        "updateDate" : 1458493712000
       } ]
     } ],
     "retailRateCharts" : [ {
       "rateId" : 3,
       "branchId" : 2,
       "materialId" : 1,
-      "createDate" : 1458405913000,
+      "createDate" : 1458493714000,
       "createUser" : "ashish",
       "deleteInd" : null,
       "deleteReason" : null,
       "passingAuthInd" : null,
       "passingAuthRemark" : null,
-      "startDate" : 1458325800000,
+      "startDate" : 1458412200000,
       "unitRate" : 200.00,
-      "updateDate" : 1458405913000,
-      "updateUser" : null
+      "updateDate" : 1458493714000,
+      "updateUser" : "ashish"
     }, {
       "rateId" : 2,
       "branchId" : 2,
       "materialId" : 2,
-      "createDate" : 1458405912000,
+      "createDate" : 1458493714000,
       "createUser" : "ashish",
       "deleteInd" : null,
       "deleteReason" : null,
@@ -103,7 +103,7 @@
       "passingAuthRemark" : null,
       "startDate" : 1458325800000,
       "unitRate" : 200.00,
-      "updateDate" : 1458405912000,
+      "updateDate" : 1458493714000,
       "updateUser" : null
     } ],
     "documents" : [ ],
@@ -112,14 +112,14 @@
       "branchId" : 2,
       "addressLine1" : "Kolkata",
       "addressLine2" : null,
-      "createDate" : 1458405911000,
+      "createDate" : 1458493713000,
       "createUser" : "ashish",
       "email1" : null,
       "email2" : null,
       "phone1" : "9830525559",
       "phone2" : null,
       "pin" : "743502",
-      "updateDate" : 1458405912000,
+      "updateDate" : 1458493713000,
       "updateUser" : "ashish",
       "vendorName" : "CTS",
       "website" : null
@@ -128,18 +128,19 @@
       "branchId" : 2,
       "addressLine1" : "Kolkata",
       "addressLine2" : null,
-      "createDate" : 1458405912000,
+      "createDate" : 1458493713000,
       "createUser" : "ashish",
       "email1" : null,
       "email2" : null,
       "phone1" : "9830525559",
       "phone2" : null,
       "pin" : "712708",
-      "updateDate" : 1458405912000,
+      "updateDate" : 1458493713000,
       "updateUser" : null,
       "vendorName" : "TCS",
       "website" : null
     } ],
+    "retailCustomers" : [ ],
     "branchActive" : false
   },
   "errorMsg" : null

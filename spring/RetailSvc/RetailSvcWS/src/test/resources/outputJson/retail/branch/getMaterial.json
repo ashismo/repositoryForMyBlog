@@ -47,13 +47,14 @@
         "stockOut" : null,
         "uom" : "ml",
         "updateUser" : null,
-        "createDate" : 1458405911000,
-        "updateDate" : 1458405911000
+        "createDate" : 1458493712000,
+        "updateDate" : 1458493712000
       } ]
     } ],
     "retailRateCharts" : [ ],
     "documents" : [ ],
     "retailVendors" : [ ],
+    "retailCustomers" : [ ],
     "branchActive" : false
   },
   "errorMsg" : null

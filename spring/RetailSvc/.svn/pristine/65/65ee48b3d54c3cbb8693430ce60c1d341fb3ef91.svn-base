@@ -1,6 +1,6 @@
 {
   "branchBean" : {
-    "branchId" : 0,
+    "branchId" : 2,
     "parentId" : 0,
     "bankName" : null,
     "branchName" : null,
@@ -24,22 +24,29 @@
     "branchRuleBeans" : [ ],
     "users" : [ ],
     "roles" : [ ],
-    "materialGroups" : [ {
-      "materialGrpId" : 2,
-      "branchId" : 2,
-      "deleteInd" : null,
-      "groupDescription" : "Parts and Materials",
-      "groupName" : "PartsAndMaterials",
-      "createDate" : 1458493712000,
-      "updateDate" : 1458493712000,
-      "createUser" : "ashish",
-      "updateUser" : null,
-      "materials" : [ ]
-    } ],
+    "materialGroups" : [ ],
     "retailRateCharts" : [ ],
     "documents" : [ ],
     "retailVendors" : [ ],
-    "retailCustomers" : [ ],
+    "retailCustomers" : [ {
+      "customerId" : 2,
+      "branchId" : 2,
+      "refCustomerId" : 100,
+      "addressLine1" : "Kalipur",
+      "addressLine2" : null,
+      "createDate" : 1458493715000,
+      "createUser" : "ashish",
+      "customerName" : "Dona Mondal",
+      "customerType" : "Member",
+      "email1" : null,
+      "email2" : null,
+      "phone1" : "9830625559",
+      "phone2" : null,
+      "pin" : "712708",
+      "updateDate" : 1458493715000,
+      "updateUser" : null,
+      "website" : null
+    } ],
     "branchActive" : false
   },
   "errorMsg" : null

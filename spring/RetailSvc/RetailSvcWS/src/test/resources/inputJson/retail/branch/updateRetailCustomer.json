@@ -3,14 +3,15 @@
     "branchId": 2,
     "retailCustomers": [
       {
-        "customerId": 0,
+        "customerId": 1,
         "branchId": 2,
         "customerType" : "Running",
         "customerName": "Ashish Mondal",
         "addressLine1": "Kalipur",
         "pin": "712708",
-        "phone1": "9830525559",
-        "createUser": "ashish"
+        "phone1": "9830625559",
+        "createUser": "ashish",
+        "updateUser" : "ashish"
       }
     ]
   }
