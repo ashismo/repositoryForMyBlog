@@ -10,13 +10,13 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Dumping database structure for retail
-DROP DATABASE IF EXISTS `retail`;
-CREATE DATABASE IF NOT EXISTS `retail` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `retail`;
+-- Dumping database structure for retail_unittest
+DROP DATABASE IF EXISTS `retail_unittest`;
+CREATE DATABASE IF NOT EXISTS `retail_unittest` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `retail_unittest`;
 
 
--- Dumping structure for table retail.branch_master
+-- Dumping structure for table retail_unittest.branch_master
 DROP TABLE IF EXISTS `branch_master`;
 CREATE TABLE IF NOT EXISTS `branch_master` (
   `branch_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -42,15 +42,14 @@ CREATE TABLE IF NOT EXISTS `branch_master` (
   PRIMARY KEY (`branch_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Dumping data for table retail.branch_master: ~0 rows (approximately)
+-- Dumping data for table retail_unittest.branch_master: ~1 rows (approximately)
 /*!40000 ALTER TABLE `branch_master` DISABLE KEYS */;
 INSERT INTO `branch_master` (`branch_id`, `parent_id`, `bank_name`, `branch_name`, `ifsc_code`, `micr_code`, `db_name`, `context_root`, `email1`, `email2`, `phone1`, `phone2`, `remarks`, `start_date`, `end_date`, `delete_ind`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 0, 'Kalipur', 'Kalipur', '12345723', '87656311', 'retail', 'RetailSvcWS', 'ashismo@gmail.com', NULL, '9830625559', NULL, NULL, '2015-12-18', NULL, NULL, 'ashish', '2016-02-14 22:03:57', NULL, '2016-03-10 21:56:37'),
-	(2, 0, 'Test Branch', 'Test Branch', '11AA12', '11AA11', 'coopadmin', 'CustomerSvcWS', 'ujan@gmail.com', NULL, '9830625559', NULL, NULL, '2015-12-10', NULL, NULL, 'ashish', '2016-03-15 21:59:10', NULL, '2016-03-15 21:59:10');
+	(2, 0, 'Janai', 'Janai', '12345678', '87654321', 'coop_janai', 'CustomerSvcWS', 'ashismo@gmail.com', NULL, '9830625559', NULL, NULL, '2015-12-18', NULL, NULL, 'ashish', '2016-03-19 22:15:09', NULL, '2016-03-19 22:15:09');
 /*!40000 ALTER TABLE `branch_master` ENABLE KEYS */;
 
 
--- Dumping structure for table retail.material_group
+-- Dumping structure for table retail_unittest.material_group
 DROP TABLE IF EXISTS `material_group`;
 CREATE TABLE IF NOT EXISTS `material_group` (
   `material_grp_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -64,18 +63,18 @@ CREATE TABLE IF NOT EXISTS `material_group` (
   `update_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`material_grp_id`),
   UNIQUE KEY `branch_id_group_name` (`branch_id`,`group_name`),
-  KEY `FK_material_group_branch_master` (`branch_id`),
   CONSTRAINT `FK_material_group_branch_master` FOREIGN KEY (`branch_id`) REFERENCES `branch_master` (`branch_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Dumping data for table retail.material_group: ~0 rows (approximately)
+-- Dumping data for table retail_unittest.material_group: ~2 rows (approximately)
 /*!40000 ALTER TABLE `material_group` DISABLE KEYS */;
 INSERT INTO `material_group` (`material_grp_id`, `branch_id`, `group_name`, `group_description`, `delete_ind`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 1, 'Metal', 'Metal', NULL, 'ashish', '2016-03-11 23:34:56', NULL, NULL);
+	(1, 2, 'Lubricant', 'Lubricant (Engine Oil)', NULL, 'ashish', '2016-03-19 22:15:10', NULL, '2016-03-19 22:15:10'),
+	(2, 2, 'PartsAndMaterials', 'Parts and Materials', NULL, 'ashish', '2016-03-19 22:15:10', NULL, '2016-03-19 22:15:10');
 /*!40000 ALTER TABLE `material_group` ENABLE KEYS */;
 
 
--- Dumping structure for table retail.material_master
+-- Dumping structure for table retail_unittest.material_master
 DROP TABLE IF EXISTS `material_master`;
 CREATE TABLE IF NOT EXISTS `material_master` (
   `material_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -95,16 +94,17 @@ CREATE TABLE IF NOT EXISTS `material_master` (
   PRIMARY KEY (`material_id`),
   KEY `FK_material_master_material_group` (`material_grp_id`),
   CONSTRAINT `FK_material_master_material_group` FOREIGN KEY (`material_grp_id`) REFERENCES `material_group` (`material_grp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Dumping data for table retail.material_master: ~1 rows (approximately)
+-- Dumping data for table retail_unittest.material_master: ~2 rows (approximately)
 /*!40000 ALTER TABLE `material_master` DISABLE KEYS */;
 INSERT INTO `material_master` (`material_id`, `material_name`, `material_description`, `material_grp_id`, `uom`, `stock_in`, `stock_out`, `stock_balance`, `low_stock_level`, `qty_check_required_ind`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 'Cstrol', 'Castrol', 1, 'L', 100.00, 10.00, 90.00, 10.00, NULL, 'ashish', '2016-03-11 23:49:24', NULL, NULL);
+	(1, 'Castrol', 'Castrol Engine oil', 1, 'ml', NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-03-19 22:15:11', NULL, '2016-03-19 22:15:11'),
+	(2, 'SeatCover', 'Seat Cover', 2, 'pcs', NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-03-19 22:15:11', NULL, '2016-03-19 22:15:11');
 /*!40000 ALTER TABLE `material_master` ENABLE KEYS */;
 
 
--- Dumping structure for table retail.material_tran_dtl
+-- Dumping structure for table retail_unittest.material_tran_dtl
 DROP TABLE IF EXISTS `material_tran_dtl`;
 CREATE TABLE IF NOT EXISTS `material_tran_dtl` (
   `tran_dtl_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -129,12 +129,12 @@ CREATE TABLE IF NOT EXISTS `material_tran_dtl` (
   CONSTRAINT `FK_material_tran_dtl_material_tran_hrd` FOREIGN KEY (`tran_id`) REFERENCES `material_tran_hrd` (`tran_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table retail.material_tran_dtl: ~0 rows (approximately)
+-- Dumping data for table retail_unittest.material_tran_dtl: ~0 rows (approximately)
 /*!40000 ALTER TABLE `material_tran_dtl` DISABLE KEYS */;
 /*!40000 ALTER TABLE `material_tran_dtl` ENABLE KEYS */;
 
 
--- Dumping structure for table retail.material_tran_hrd
+-- Dumping structure for table retail_unittest.material_tran_hrd
 DROP TABLE IF EXISTS `material_tran_hrd`;
 CREATE TABLE IF NOT EXISTS `material_tran_hrd` (
   `tran_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -164,19 +164,17 @@ CREATE TABLE IF NOT EXISTS `material_tran_hrd` (
   CONSTRAINT `FK_material_tran_hrd_retail_customer_master` FOREIGN KEY (`customer_id`) REFERENCES `retail_customer_master` (`customer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table retail.material_tran_hrd: ~0 rows (approximately)
+-- Dumping data for table retail_unittest.material_tran_hrd: ~0 rows (approximately)
 /*!40000 ALTER TABLE `material_tran_hrd` DISABLE KEYS */;
 /*!40000 ALTER TABLE `material_tran_hrd` ENABLE KEYS */;
 
 
--- Dumping structure for table retail.retail_customer_master
+-- Dumping structure for table retail_unittest.retail_customer_master
 DROP TABLE IF EXISTS `retail_customer_master`;
 CREATE TABLE IF NOT EXISTS `retail_customer_master` (
   `customer_id` int(11) NOT NULL AUTO_INCREMENT,
-  `branch_id` int(11) NOT NULL,
-  `ref_customer_id` int(11) DEFAULT NULL,
   `customer_name` varchar(50) NOT NULL,
-  `customer_type` varchar(50) DEFAULT NULL COMMENT 'Running Customer/Account holder Customer/Member Customer etc',
+  `customer_type` varchar(50) DEFAULT NULL COMMENT 'Running Customer/Regular Customer etc',
   `address_line1` varchar(50) NOT NULL,
   `address_line2` varchar(50) DEFAULT NULL,
   `pin` varchar(50) NOT NULL,
@@ -189,24 +187,22 @@ CREATE TABLE IF NOT EXISTS `retail_customer_master` (
   `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_user` varchar(50) DEFAULT NULL,
   `update_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`customer_id`),
-  KEY `FK_retail_customer_master_branch_master` (`branch_id`),
-  CONSTRAINT `FK_retail_customer_master_branch_master` FOREIGN KEY (`branch_id`) REFERENCES `branch_master` (`branch_id`)
+  PRIMARY KEY (`customer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table retail.retail_customer_master: ~0 rows (approximately)
+-- Dumping data for table retail_unittest.retail_customer_master: ~0 rows (approximately)
 /*!40000 ALTER TABLE `retail_customer_master` DISABLE KEYS */;
 /*!40000 ALTER TABLE `retail_customer_master` ENABLE KEYS */;
 
 
--- Dumping structure for table retail.retail_document
+-- Dumping structure for table retail_unittest.retail_document
 DROP TABLE IF EXISTS `retail_document`;
 CREATE TABLE IF NOT EXISTS `retail_document` (
   `doc_id` int(11) NOT NULL AUTO_INCREMENT,
   `branch_id` int(11) NOT NULL,
   `document` blob NOT NULL,
   `title` varchar(100) NOT NULL,
-  `doc_type` varchar(10) NOT NULL COMMENT 'e.g. PDF, txt etc',
+  `doc_type` varchar(10) NOT NULL COMMENT 'e.g. pdf, txt etc',
   `doc_size` int(11) DEFAULT NULL,
   `comment` varchar(255) DEFAULT NULL,
   `delete_ind` varchar(4) DEFAULT NULL,
@@ -220,21 +216,16 @@ CREATE TABLE IF NOT EXISTS `retail_document` (
   PRIMARY KEY (`doc_id`),
   KEY `FK__branch_master` (`branch_id`),
   CONSTRAINT `FK__branch_master` FOREIGN KEY (`branch_id`) REFERENCES `branch_master` (`branch_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Dumping data for table retail.retail_document: ~6 rows (approximately)
+-- Dumping data for table retail_unittest.retail_document: ~1 rows (approximately)
 /*!40000 ALTER TABLE `retail_document` DISABLE KEYS */;
 INSERT INTO `retail_document` (`doc_id`, `branch_id`, `document`, `title`, `doc_type`, `doc_size`, `comment`, `delete_ind`, `delete_reason`, `passing_auth_ind`, `passing_auth_remark`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 2, _binary 0x7B0D0A2020226272616E63684265616E223A207B0D0A20202020226272616E63684964223A20322C0D0A2020202022646F63756D656E7473223A205B0D0A2020202020207B0D0A202020202020202022646F634964223A20302C0D0A2020202020202020226272616E6368496422203A20322C0D0A202020202020202022646F6354797065223A20226A736F6E222C0D0A2020202020202020227469746C6522203A20225465737420446F63756D656E74222C0D0A20202020202020202263726561746555736572223A2022617368697368220D0A2020202020207D0D0A202020205D0D0A20207D0D0A7D, 'Test Document', 'txt', 235, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-03-18 22:44:59', NULL, '2016-03-17 22:55:12'),
-	(2, 2, _binary 0x7B0D0A2020226272616E63684265616E223A207B0D0A20202020226272616E63684964223A20322C0D0A2020202022646F63756D656E7473223A205B0D0A2020202020207B0D0A202020202020202022646F634964223A20302C0D0A2020202020202020226272616E6368496422203A20322C0D0A202020202020202022646F6354797065223A20226A736F6E222C0D0A2020202020202020227469746C6522203A20225465737420446F63756D656E74222C0D0A20202020202020202263726561746555736572223A2022617368697368220D0A2020202020207D0D0A202020205D0D0A20207D0D0A7D, 'Test Document', 'txt', 235, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-03-18 22:45:02', NULL, '2016-03-17 22:57:20'),
-	(3, 2, _binary 0x7B0D0A2020226272616E63684265616E223A207B0D0A20202020226272616E63684964223A20322C0D0A2020202022646F63756D656E7473223A205B0D0A2020202020207B0D0A202020202020202022646F634964223A20302C0D0A2020202020202020226272616E6368496422203A20322C0D0A202020202020202022646F6354797065223A20226A736F6E222C0D0A2020202020202020227469746C6522203A20225465737420446F63756D656E74222C0D0A20202020202020202263726561746555736572223A2022617368697368220D0A2020202020207D0D0A202020205D0D0A20207D0D0A7D, 'Test Document', 'json', 235, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-03-17 23:04:36', NULL, '2016-03-17 23:04:36'),
-	(4, 2, _binary 0x7B0D0A2020226272616E63684265616E223A207B0D0A20202020226272616E63684964223A20322C0D0A2020202022646F63756D656E7473223A205B0D0A2020202020207B0D0A202020202020202022646F634964223A20302C0D0A2020202020202020226272616E6368496422203A20322C0D0A202020202020202022646F6354797065223A20226A736F6E222C0D0A2020202020202020227469746C6522203A20225465737420446F63756D656E74222C0D0A20202020202020202263726561746555736572223A2022617368697368220D0A2020202020207D0D0A202020205D0D0A20207D0D0A7D, 'Test Document', 'json', 235, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-03-17 23:08:41', NULL, '2016-03-17 23:08:41'),
-	(5, 2, _binary 0x7B0D0A2020226272616E63684265616E223A207B0D0A20202020226272616E63684964223A20322C0D0A2020202022646F63756D656E7473223A205B0D0A2020202020207B0D0A202020202020202022646F634964223A20302C0D0A2020202020202020226272616E6368496422203A20322C0D0A202020202020202022646F6354797065223A20226A736F6E222C0D0A2020202020202020227469746C6522203A20225465737420446F63756D656E74222C0D0A20202020202020202263726561746555736572223A2022617368697368220D0A2020202020207D0D0A202020205D0D0A20207D0D0A7D, 'Test Document', 'json', 235, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-03-18 06:27:05', NULL, '2016-03-18 06:27:05'),
-	(6, 2, _binary 0x7B0D0A2020226272616E63684265616E223A207B0D0A20202020226272616E63684964223A20322C0D0A2020202022646F63756D656E7473223A205B0D0A2020202020207B0D0A202020202020202022646F634964223A20302C0D0A2020202020202020226272616E6368496422203A20322C0D0A202020202020202022646F6354797065223A20226A736F6E222C0D0A2020202020202020227469746C6522203A20225465737420446F63756D656E74222C0D0A20202020202020202263726561746555736572223A2022617368697368220D0A2020202020207D0D0A202020205D0D0A20207D0D0A7D, 'Test Document', 'json', 235, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-03-18 06:31:43', NULL, '2016-03-18 06:31:43');
+	(1, 2, _binary 0x7B0D0A2020226272616E63684265616E223A207B0D0A20202020226272616E63684964223A20322C0D0A2020202022646F63756D656E7473223A205B0D0A2020202020207B0D0A202020202020202022646F634964223A20302C0D0A2020202020202020226272616E6368496422203A20322C0D0A202020202020202022646F6354797065223A20226A736F6E222C0D0A2020202020202020227469746C6522203A20225465737420446F63756D656E74222C0D0A20202020202020202263726561746555736572223A2022617368697368220D0A2020202020207D0D0A202020205D0D0A20207D0D0A7D, 'Test Document', 'json', 235, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-03-19 22:15:11', NULL, '2016-03-19 22:15:11');
 /*!40000 ALTER TABLE `retail_document` ENABLE KEYS */;
 
 
--- Dumping structure for table retail.retail_master
+-- Dumping structure for table retail_unittest.retail_master
 DROP TABLE IF EXISTS `retail_master`;
 CREATE TABLE IF NOT EXISTS `retail_master` (
   `master_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -255,12 +246,12 @@ CREATE TABLE IF NOT EXISTS `retail_master` (
   CONSTRAINT `FK_retail_master_branch_master` FOREIGN KEY (`branch_id`) REFERENCES `branch_master` (`branch_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table retail.retail_master: ~0 rows (approximately)
+-- Dumping data for table retail_unittest.retail_master: ~0 rows (approximately)
 /*!40000 ALTER TABLE `retail_master` DISABLE KEYS */;
 /*!40000 ALTER TABLE `retail_master` ENABLE KEYS */;
 
 
--- Dumping structure for table retail.retail_rate_chart
+-- Dumping structure for table retail_unittest.retail_rate_chart
 DROP TABLE IF EXISTS `retail_rate_chart`;
 CREATE TABLE IF NOT EXISTS `retail_rate_chart` (
   `rate_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -281,16 +272,18 @@ CREATE TABLE IF NOT EXISTS `retail_rate_chart` (
   KEY `FK_retail_rate_chart_branch_master` (`branch_id`),
   CONSTRAINT `FK_retail_rate_chart_branch_master` FOREIGN KEY (`branch_id`) REFERENCES `branch_master` (`branch_id`),
   CONSTRAINT `FK_retail_rate_chart_material_master` FOREIGN KEY (`material_id`) REFERENCES `material_master` (`material_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Dumping data for table retail.retail_rate_chart: ~0 rows (approximately)
+-- Dumping data for table retail_unittest.retail_rate_chart: ~2 rows (approximately)
 /*!40000 ALTER TABLE `retail_rate_chart` DISABLE KEYS */;
 INSERT INTO `retail_rate_chart` (`rate_id`, `branch_id`, `material_id`, `start_date`, `unit_rate`, `delete_ind`, `delete_reason`, `passing_auth_ind`, `passing_auth_remark`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 1, 1, '2016-03-12', 100.00, NULL, NULL, NULL, NULL, 'ashish', '2016-03-12 10:50:05', NULL, NULL);
+	(1, 2, 1, '2016-03-17', 200.00, 'Y', 'Rate updated', NULL, NULL, 'ashish', '2016-03-19 22:15:12', 'ashish', '2016-03-19 22:15:13'),
+	(2, 2, 2, '2016-03-19', 200.00, NULL, NULL, NULL, NULL, 'ashish', '2016-03-19 22:15:12', NULL, '2016-03-19 22:15:12'),
+	(3, 2, 1, '2016-03-19', 200.00, NULL, NULL, NULL, NULL, 'ashish', '2016-03-19 22:15:13', NULL, '2016-03-19 22:15:13');
 /*!40000 ALTER TABLE `retail_rate_chart` ENABLE KEYS */;
 
 
--- Dumping structure for table retail.stock_entry
+-- Dumping structure for table retail_unittest.stock_entry
 DROP TABLE IF EXISTS `stock_entry`;
 CREATE TABLE IF NOT EXISTS `stock_entry` (
   `stock_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -321,12 +314,12 @@ CREATE TABLE IF NOT EXISTS `stock_entry` (
   CONSTRAINT `FK_stock_entry_vendor_master` FOREIGN KEY (`vendor_id`) REFERENCES `vendor_master` (`vendor_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table retail.stock_entry: ~0 rows (approximately)
+-- Dumping data for table retail_unittest.stock_entry: ~0 rows (approximately)
 /*!40000 ALTER TABLE `stock_entry` DISABLE KEYS */;
 /*!40000 ALTER TABLE `stock_entry` ENABLE KEYS */;
 
 
--- Dumping structure for table retail.stock_return
+-- Dumping structure for table retail_unittest.stock_return
 DROP TABLE IF EXISTS `stock_return`;
 CREATE TABLE IF NOT EXISTS `stock_return` (
   `stock_return_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -347,12 +340,48 @@ CREATE TABLE IF NOT EXISTS `stock_return` (
   CONSTRAINT `FK_stock_return_stock_entry` FOREIGN KEY (`stock_id`) REFERENCES `stock_entry` (`stock_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table retail.stock_return: ~0 rows (approximately)
+-- Dumping data for table retail_unittest.stock_return: ~0 rows (approximately)
 /*!40000 ALTER TABLE `stock_return` DISABLE KEYS */;
 /*!40000 ALTER TABLE `stock_return` ENABLE KEYS */;
 
 
--- Dumping structure for table retail.vat_reg_no
+-- Dumping structure for procedure retail_unittest.truncateTables
+DROP PROCEDURE IF EXISTS `truncateTables`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `truncateTables`()
+BEGIN
+
+  DECLARE n INT DEFAULT 0;
+  DECLARE i INT DEFAULT 0;
+  DECLARE q VARCHAR(2000);
+  
+  DROP TEMPORARY TABLE IF EXISTS tempTbl;
+  CREATE TEMPORARY TABLE IF NOT EXISTS tempTbl  (
+    `query` VARCHAR(50)
+  );
+  
+	INSERT INTO tempTbl SELECT CONCAT('truncate table ',table_name,';')
+	FROM INFORMATION_SCHEMA.TABLES
+	WHERE TABLE_SCHEMA = 'retail_unittest'
+	AND TABLE_TYPE = 'BASE TABLE';
+	
+	SELECT COUNT(*) FROM tempTbl INTO n;
+	SET i=0;
+	
+	SET FOREIGN_KEY_CHECKS=0;
+	WHILE i<n DO 
+	  	SELECT query into @q FROM tempTbl LIMIT i,1;
+	  	PREPARE stmt3 FROM @q;
+		EXECUTE stmt3;
+		DEALLOCATE PREPARE stmt3;
+	  	SET i = i + 1;
+	END WHILE;
+	SET FOREIGN_KEY_CHECKS=1;
+END//
+DELIMITER ;
+
+
+-- Dumping structure for table retail_unittest.vat_reg_no
 DROP TABLE IF EXISTS `vat_reg_no`;
 CREATE TABLE IF NOT EXISTS `vat_reg_no` (
   `vat_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -369,12 +398,12 @@ CREATE TABLE IF NOT EXISTS `vat_reg_no` (
   CONSTRAINT `FK_vat_reg_no_branch_master` FOREIGN KEY (`branch_id`) REFERENCES `branch_master` (`branch_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table retail.vat_reg_no: ~0 rows (approximately)
+-- Dumping data for table retail_unittest.vat_reg_no: ~0 rows (approximately)
 /*!40000 ALTER TABLE `vat_reg_no` DISABLE KEYS */;
 /*!40000 ALTER TABLE `vat_reg_no` ENABLE KEYS */;
 
 
--- Dumping structure for table retail.vendor_master
+-- Dumping structure for table retail_unittest.vendor_master
 DROP TABLE IF EXISTS `vendor_master`;
 CREATE TABLE IF NOT EXISTS `vendor_master` (
   `vendor_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -395,10 +424,13 @@ CREATE TABLE IF NOT EXISTS `vendor_master` (
   PRIMARY KEY (`vendor_id`),
   KEY `FK_vendor_master_branch_master` (`branch_id`),
   CONSTRAINT `FK_vendor_master_branch_master` FOREIGN KEY (`branch_id`) REFERENCES `branch_master` (`branch_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Dumping data for table retail.vendor_master: ~0 rows (approximately)
+-- Dumping data for table retail_unittest.vendor_master: ~2 rows (approximately)
 /*!40000 ALTER TABLE `vendor_master` DISABLE KEYS */;
+INSERT INTO `vendor_master` (`vendor_id`, `branch_id`, `vendor_name`, `address_line1`, `address_line2`, `pin`, `phone1`, `phone2`, `email1`, `email2`, `website`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
+	(1, 2, 'CTS', 'Kolkata', NULL, '743502', '9830525559', NULL, NULL, NULL, NULL, 'ashish', '2016-03-19 22:15:11', 'ashish', '2016-03-19 22:15:12'),
+	(2, 2, 'TCS', 'Kolkata', NULL, '712708', '9830525559', NULL, NULL, NULL, NULL, 'ashish', '2016-03-19 22:15:12', NULL, '2016-03-19 22:15:12');
 /*!40000 ALTER TABLE `vendor_master` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

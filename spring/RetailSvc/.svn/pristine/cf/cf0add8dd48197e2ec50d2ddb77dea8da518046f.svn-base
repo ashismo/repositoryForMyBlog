@@ -173,10 +173,8 @@ CREATE TABLE IF NOT EXISTS `material_tran_hrd` (
 DROP TABLE IF EXISTS `retail_customer_master`;
 CREATE TABLE IF NOT EXISTS `retail_customer_master` (
   `customer_id` int(11) NOT NULL AUTO_INCREMENT,
-  `branch_id` int(11) NOT NULL,
-  `ref_customer_id` int(11) DEFAULT NULL,
   `customer_name` varchar(50) NOT NULL,
-  `customer_type` varchar(50) DEFAULT NULL COMMENT 'Running Customer/Account holder Customer/Member Customer etc',
+  `customer_type` varchar(50) DEFAULT NULL COMMENT 'Running Customer/Regular Customer etc',
   `address_line1` varchar(50) NOT NULL,
   `address_line2` varchar(50) DEFAULT NULL,
   `pin` varchar(50) NOT NULL,
@@ -189,9 +187,7 @@ CREATE TABLE IF NOT EXISTS `retail_customer_master` (
   `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_user` varchar(50) DEFAULT NULL,
   `update_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`customer_id`),
-  KEY `FK_retail_customer_master_branch_master` (`branch_id`),
-  CONSTRAINT `FK_retail_customer_master_branch_master` FOREIGN KEY (`branch_id`) REFERENCES `branch_master` (`branch_id`)
+  PRIMARY KEY (`customer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table retail.retail_customer_master: ~0 rows (approximately)

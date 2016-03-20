@@ -1,0 +1,16 @@
+{
+  "branchBean": {
+    "branchId": 2,
+    "retailCustomers": [
+      {
+        "customerId": 0,
+        "branchId": 2,
+        "customerName": "Ashish Mondal",
+        "addressLine1": "Kalipur",
+        "pin": "712708",
+        "phone1": "9830525559",
+        "createUser": "ashish"
+      }
+    ]
+  }
+}

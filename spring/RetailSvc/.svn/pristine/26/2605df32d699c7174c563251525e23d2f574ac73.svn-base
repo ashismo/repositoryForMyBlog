@@ -1,0 +1,47 @@
+package com.org.coop.customer.ws;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.org.coop.canonical.beans.UIModel;
+import com.org.coop.retail.service.RetailCustomerSetupServiceImpl;
+
+@RestController
+@RequestMapping("/rest")
+public class RetailCustomerSetupWSImpl {
+	
+	private static final Logger log = Logger.getLogger(RetailCustomerSetupWSImpl.class); 
+	
+	@Autowired
+	private RetailCustomerSetupServiceImpl retailCustomerSetupServiceImpl;
+	
+	@RequestMapping(value = "/getRetailCustomer", method = RequestMethod.GET, headers="Accept=application/json",produces="application/json")
+	public UIModel getRetailCustomer(@RequestParam(value = "customerId",required = true,defaultValue = "0") Integer customerId,
+								@RequestParam(value = "branchId",required = true,defaultValue = "0") Integer branchId) {
+		UIModel uiModel = new UIModel();
+		try {
+			uiModel = retailCustomerSetupServiceImpl.getRetailCustomer(customerId, branchId);
+		} catch (Exception e) {
+			log.error("Error Retrieving Retail Customer by customer Id", e);
+			uiModel.setErrorMsg("Error Retrieving Retail Customer by customer Id: " + customerId + " or branciId: " + branchId);
+		}
+		return uiModel;
+	}
+	
+	@RequestMapping(value = "/saveRetailCustomer", method = RequestMethod.POST, headers="Accept=application/json",produces="application/json", consumes="application/json")
+	public UIModel saveRateChart(@RequestBody UIModel uiModel) {
+		try {
+			uiModel = retailCustomerSetupServiceImpl.saveRetailCustomer(uiModel);
+		} catch (Exception e) {
+			log.error("Error while adding retail retail customer", e);
+			uiModel.setErrorMsg("Error while adding retail customer for a branch: " + uiModel.getBranchBean().getBranchId());
+		}
+		return uiModel;
+	}
+	
+}
