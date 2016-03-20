@@ -141,6 +141,17 @@
       "website" : null
     } ],
     "retailCustomers" : [ ],
+    "retailVatRegNos" : [ {
+      "vatId" : 1,
+      "branchId" : 2,
+      "createDate" : 1458495129000,
+      "createUser" : "ashish",
+      "endDate" : null,
+      "startDate" : 1458412200000,
+      "updateDate" : null,
+      "updateUser" : null,
+      "vatRegistrationNo" : "1234"
+    } ],
     "branchActive" : false
   },
   "errorMsg" : null
