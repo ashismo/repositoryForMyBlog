@@ -34,7 +34,7 @@
       "refCustomerId" : 0,
       "addressLine1" : "Kalipur",
       "addressLine2" : null,
-      "createDate" : 1458493714000,
+      "createDate" : 1458577396000,
       "createUser" : "ashish",
       "customerName" : "Ashish Mondal",
       "customerType" : "Running",
@@ -43,10 +43,11 @@
       "phone1" : "9830625559",
       "phone2" : null,
       "pin" : "712708",
-      "updateDate" : 1458493715000,
+      "updateDate" : 1458577397000,
       "updateUser" : "ashish",
       "website" : null
     } ],
+    "retailVatRegNos" : [ ],
     "branchActive" : false
   },
   "errorMsg" : null
