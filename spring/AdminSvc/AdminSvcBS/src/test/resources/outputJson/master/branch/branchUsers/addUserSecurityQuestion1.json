@@ -57,8 +57,8 @@
     "branchLicenseDtlsBeans" : [ {
       "branchId" : 1,
       "branchLicenseId" : 1,
-      "startDate" : 1396290600000,
-      "endDate" : 1426789800000,
+      "startDate" : 1396895400000,
+      "endDate" : 1427394600000,
       "graceDay" : 10,
       "createUser" : "ashish",
       "updateUser" : null,
@@ -66,8 +66,8 @@
     }, {
       "branchId" : 1,
       "branchLicenseId" : 2,
-      "startDate" : 1426876200000,
-      "endDate" : 1458412200000,
+      "startDate" : 1427481000000,
+      "endDate" : 1459017000000,
       "graceDay" : 10,
       "createUser" : "ashish",
       "updateUser" : null,
@@ -101,7 +101,7 @@
       "branchId" : 1,
       "userName" : "ashish",
       "password" : "ashish",
-      "transactionPassword" : "$2a$10$PVDaDxMKA4RRspoWkmBGRO2OeeVUPZileCfasEtGU58GivEo7Se22",
+      "transactionPassword" : "$2a$10$HhjEloDVx5DqZVFjAYzCfuSDv6M4lUHbG2LPeICHIPQrBE4k6Wbli",
       "firstName" : "Ashish",
       "middleName" : null,
       "lastName" : null,
@@ -226,5 +226,6 @@
     "retailVatRegNos" : [ ],
     "branchActive" : true
   },
+  "branches" : [ ],
   "errorMsg" : null
 }

@@ -23,13 +23,14 @@
     "branchLicenseDtlsBeans" : [ ],
     "branchRuleBeans" : [ ],
     "users" : [ ],
+    "modules" : [ ],
     "roles" : [ ],
     "materialGroups" : [ ],
     "retailRateCharts" : [ {
       "rateId" : 3,
       "branchId" : 2,
       "materialId" : 1,
-      "createDate" : 1458577396000,
+      "createDate" : 1459273604000,
       "createUser" : "ashish",
       "deleteInd" : null,
       "deleteReason" : null,
@@ -37,7 +38,7 @@
       "passingAuthRemark" : null,
       "startDate" : 1458412200000,
       "unitRate" : 200.00,
-      "updateDate" : 1458577396000,
+      "updateDate" : 1459273604000,
       "updateUser" : null
     } ],
     "documents" : [ ],
@@ -46,5 +47,6 @@
     "retailVatRegNos" : [ ],
     "branchActive" : false
   },
+  "branches" : [ ],
   "errorMsg" : null
 }

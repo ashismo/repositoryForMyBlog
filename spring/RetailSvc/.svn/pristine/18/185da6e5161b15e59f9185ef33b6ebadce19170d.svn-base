@@ -1,0 +1,12 @@
+{
+  "branchBean" : {
+    "branchId" : 2,
+    "retailVatRegNos" : [ {
+      "vatId" : 0,
+      "branchId" : 2,
+      "startDate" : "28/03/2016 00:00:00",
+      "createUser" : "ashish",
+      "vatRegistrationNo" : "1234"
+    } ]
+  }
+}

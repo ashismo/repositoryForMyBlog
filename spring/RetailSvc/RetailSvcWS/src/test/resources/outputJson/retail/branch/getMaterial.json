@@ -23,6 +23,7 @@
     "branchLicenseDtlsBeans" : [ ],
     "branchRuleBeans" : [ ],
     "users" : [ ],
+    "modules" : [ ],
     "roles" : [ ],
     "materialGroups" : [ {
       "materialGrpId" : 0,
@@ -47,8 +48,8 @@
         "stockOut" : null,
         "uom" : "ml",
         "updateUser" : null,
-        "createDate" : 1458577394000,
-        "updateDate" : 1458577394000
+        "createDate" : 1459273601000,
+        "updateDate" : 1459273601000
       } ]
     } ],
     "retailRateCharts" : [ ],
@@ -58,5 +59,6 @@
     "retailVatRegNos" : [ ],
     "branchActive" : false
   },
+  "branches" : [ ],
   "errorMsg" : null
 }
