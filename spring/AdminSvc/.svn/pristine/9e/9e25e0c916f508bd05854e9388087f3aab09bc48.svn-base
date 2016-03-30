@@ -1,5 +1,0 @@
-basic.auth.username=ashish
-basic.auth.password=ashish
-customerSvc.application.url=http://localhost:8080/CustomerSvcWS/rest
-
-enable.http.basic.authentication=true
