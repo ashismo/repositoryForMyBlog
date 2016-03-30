@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+	<!-- <mapping  map-id="retailStockEntryMap" wildcard="true" map-null="false" trim-strings="true">
+		<class-a>com.org.coop.canonical.beans.BranchBean</class-a>
+		<class-b>com.org.coop.retail.entities.BranchMaster</class-b>
+		
+		<field map-id="retailstockEntryMap-1">
+			<a>stockEntries</a>
+			<b>stockEntries</b>
+		</field>
+	</mapping> -->
+	
+	<mapping  map-id="retailStockEntryMap" wildcard="true" map-null="false" trim-strings="true">
+		<class-a>com.org.coop.canonical.beans.RetailStockEntryBean</class-a>
+		<class-b>com.org.coop.retail.entities.StockEntry</class-b>
+		<field-exclude type="one-way">
+			<a>branchId</a>
+			<b>branchMaster.branchId</b>
+		</field-exclude>
+		<field-exclude type="one-way">
+			<a>materialId</a>
+			<b>materialMaster.materialId</b>
+		</field-exclude>
+		<field type="one-way" custom-converter-id="retailStockEntryCC">
+			<a>this</a>
+			<b>this</b>
+		</field>
+	</mapping>
+</mappings>
