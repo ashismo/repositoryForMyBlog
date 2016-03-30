@@ -31,8 +31,8 @@
       "deleteInd" : null,
       "groupDescription" : "Lubricant (Engine Oil)",
       "groupName" : "Lubricant",
-      "createDate" : 1459273600000,
-      "updateDate" : 1459273600000,
+      "createDate" : 1459358154000,
+      "updateDate" : 1459358154000,
       "createUser" : "ashish",
       "updateUser" : null,
       "materials" : [ ]
@@ -42,6 +42,7 @@
     "retailVendors" : [ ],
     "retailCustomers" : [ ],
     "retailVatRegNos" : [ ],
+    "stockEntries" : [ ],
     "branchActive" : false
   },
   "branches" : [ ],

@@ -1,0 +1,93 @@
+package com.org.coop.retail.servicehelper;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.org.coop.canonical.beans.BranchBean;
+import com.org.coop.canonical.beans.RetailVendorBean;
+import com.org.coop.canonical.beans.UIModel;
+import com.org.coop.retail.bs.mapper.RetailVendorMappingImpl;
+import com.org.coop.retail.entities.BranchMaster;
+import com.org.coop.retail.entities.VendorMaster;
+import com.org.coop.retail.repositories.RetailBranchMasterRepository;
+import com.org.coop.retail.repositories.RetailVendorMasterRepository;
+
+@Service
+public class RetailStockManagementServiceHelperImpl {
+
+	private static final Logger log = Logger.getLogger(RetailStockManagementServiceHelperImpl.class); 
+	
+	@Autowired
+	private RetailBranchMasterRepository branchMasterRepository;
+	
+	@Autowired
+	private RetailVendorMappingImpl retailVendorMappingImpl;
+	
+	@Autowired
+	private RetailVendorMasterRepository retailVendorMasterRepository;
+	
+	@Transactional(value="retailTransactionManager")
+	public UIModel getStockEntries(int vendorId) {
+		UIModel uiModel = new UIModel();
+		// Check if the Vendor already exists
+		VendorMaster vendor = retailVendorMasterRepository.findOne(vendorId);
+		if(vendor == null) {
+			uiModel.setErrorMsg("Vendor does not exist for vendor Id: " + vendorId);
+			return uiModel;
+		}
+		BranchBean branchBean = new BranchBean();
+		RetailVendorBean vendorBean = new RetailVendorBean();
+		List<RetailVendorBean> vendorBeanList = new ArrayList<RetailVendorBean>();
+		vendorBeanList.add(vendorBean);
+		branchBean.setRetailVendors(vendorBeanList);
+		
+		retailVendorMappingImpl.mapBean(vendor, vendorBean);
+		uiModel.setBranchBean(branchBean);
+		branchBean.setBranchId(vendor.getBranchMaster().getBranchId());
+		
+		if(log.isDebugEnabled()) {
+			log.debug("Vendor details has been retrieved from database for vendorId: " + vendorId);
+		}
+		return uiModel;
+	}
+	
+	@Transactional(value="retailTransactionManager")
+	public UIModel saveStockEntries(UIModel uiModel) {
+		if(uiModel.getBranchBean().getRetailVendors() != null && uiModel.getBranchBean().getRetailVendors().size() > 0 ) {
+			RetailVendorBean vendorBean = uiModel.getBranchBean().getRetailVendors().get(0);
+			int vendorId = vendorBean.getVendorId();
+			VendorMaster vendor = null;
+			if(vendorId == 0) {
+				vendor = new VendorMaster();
+				BranchMaster branchMaster = branchMasterRepository.findOne(vendorBean.getBranchId());
+				if(branchMaster == null) {
+					log.debug("Branch does not exist for branch Id: " + vendorBean.getBranchId());
+					uiModel.setErrorMsg("Branch does not exists in our record. Please pass branch id correctly.");
+					return uiModel;
+				}
+				vendor.setBranchMaster(branchMaster);
+				if(log.isDebugEnabled()) {
+					log.debug("Adding new vendor");
+				}
+			} else {
+				vendor = retailVendorMasterRepository.findOne(vendorId);
+				if(log.isDebugEnabled()) {
+					log.debug("Modifying existing Vendor for vendorId = " + vendorId);
+				}
+			}
+			
+			retailVendorMappingImpl.mapBean(vendorBean, vendor);
+			retailVendorMasterRepository.saveAndFlush(vendor);
+			vendorBean.setVendorId(vendor.getVendorId());
+		} else {
+			uiModel.setErrorMsg("Vendor details not passed correctly");
+		}
+		return uiModel;
+	}
+	
+}
