@@ -1,0 +1,49 @@
+{
+  "branchBean": {
+    "branchId": 2,
+    "stockEntries": [
+      {
+        "stockIn": 0,
+        "branchId": 2,
+        "materialId": 1,
+        "vendorId": 1,
+        "batch" : "AZ1001",
+        "entryDate" : "28/03/2016 00:00:00",
+        "qty" : 100,
+        "challanNo" : "86/123",
+        "billNo" : "86-123",
+        "purchasePrice" : "100.50",
+        "openingEntryInd" : "N",
+        "createUser": "ashish"
+      },
+      {
+        "stockIn": 0,
+        "branchId": 2,
+        "materialId": 1,
+        "vendorId": 2,
+        "batch" : "AZ1001",
+        "entryDate" : "31/03/2016 00:00:00",
+        "qty" : 100,
+        "challanNo" : "86/124",
+        "billNo" : "86-124",
+        "purchasePrice" : "100.50",
+        "openingEntryInd" : "N",
+        "createUser": "ashish"
+      },
+      {
+        "stockIn": 0,
+        "branchId": 2,
+        "materialId": 2,
+        "vendorId": 1,
+        "batch" : "AZ1001",
+        "entryDate" : "28/03/2016 00:00:00",
+        "qty" : 100,
+        "challanNo" : "86/123",
+        "billNo" : "86-123",
+        "purchasePrice" : "100.50",
+        "openingEntryInd" : "N",
+        "createUser": "ashish"
+      }
+    ]
+  }
+}
