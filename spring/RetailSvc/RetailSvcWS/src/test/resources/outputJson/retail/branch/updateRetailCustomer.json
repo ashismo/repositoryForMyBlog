@@ -35,7 +35,7 @@
       "refCustomerId" : 0,
       "addressLine1" : "Kalipur",
       "addressLine2" : null,
-      "createDate" : 1459446863000,
+      "createDate" : 1459472947000,
       "createUser" : "ashish",
       "customerName" : "Ashish Mondal",
       "customerType" : "Running",
@@ -44,7 +44,7 @@
       "phone1" : "9830625559",
       "phone2" : null,
       "pin" : "712708",
-      "updateDate" : 1459446863000,
+      "updateDate" : 1459472948000,
       "updateUser" : "ashish",
       "website" : null
     } ],
