@@ -15,6 +15,8 @@
     "createUser" : null,
     "updateUser" : null,
     "dbName" : null,
+    "deleteInd" : null,
+    "deleteReason" : null,
     "contextRoot" : null,
     "licenseRemaining" : 0,
     "gracePeriod" : 0,
@@ -28,13 +30,14 @@
     "materialGroups" : [ {
       "materialGrpId" : 0,
       "branchId" : 0,
-      "deleteInd" : null,
       "groupDescription" : null,
       "groupName" : null,
       "createDate" : null,
       "updateDate" : null,
       "createUser" : null,
       "updateUser" : null,
+      "deleteInd" : null,
+      "deleteReason" : null,
       "materials" : [ {
         "materialId" : 1,
         "materialGrpId" : 1,
@@ -48,8 +51,10 @@
         "stockOut" : null,
         "uom" : "ml",
         "updateUser" : null,
-        "createDate" : 1459474099000,
-        "updateDate" : 1459474099000
+        "createDate" : 1459566547000,
+        "updateDate" : 1459566547000,
+        "deleteInd" : null,
+        "deleteReason" : null
       } ]
     } ],
     "retailRateCharts" : [ ],

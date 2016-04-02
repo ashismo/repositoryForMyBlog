@@ -1,0 +1,15 @@
+{
+  "branchBean": {
+    "branchId": 2,
+    "materialGroups": [
+      {
+        "materialGrpId": 0,
+        "branchId" : 2,
+        "groupName": "Pestisides",
+        "groupDescription": "Pestisides",
+        "uom" : "pkt",
+        "createUser": "ashish"
+      }
+    ]
+  }
+}

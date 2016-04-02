@@ -1,0 +1,20 @@
+{
+  "branchBean": {
+    "branchId": 2,
+    "materialGroups": [
+      {
+        "materialGrpId": 2,
+        "materials" : [
+        	{
+        		"materialId" : 0,
+        		"materialGrpId": 2,
+        		"materialName" : "LongSeatCover",
+        		"materialDescription" : "Long Seat Cover",
+        		"uom" : "pcs",
+        		"createUser": "ashish"
+        	}
+        ]
+      }
+    ]
+  }
+}

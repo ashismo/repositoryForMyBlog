@@ -15,6 +15,8 @@
     "createUser" : "ashish",
     "updateUser" : "ashish",
     "dbName" : "coop_kalipur",
+    "deleteInd" : null,
+    "deleteReason" : null,
     "contextRoot" : "CustomerSvcWS",
     "licenseRemaining" : -1,
     "gracePeriod" : 10,
@@ -57,8 +59,8 @@
     "branchLicenseDtlsBeans" : [ {
       "branchId" : 1,
       "branchLicenseId" : 1,
-      "startDate" : 1397154600000,
-      "endDate" : 1427653800000,
+      "startDate" : 1397241000000,
+      "endDate" : 1427740200000,
       "graceDay" : 10,
       "createUser" : "ashish",
       "updateUser" : null,
@@ -66,8 +68,8 @@
     }, {
       "branchId" : 1,
       "branchLicenseId" : 2,
-      "startDate" : 1427740200000,
-      "endDate" : 1459276200000,
+      "startDate" : 1427826600000,
+      "endDate" : 1459362600000,
       "graceDay" : 10,
       "createUser" : "ashish",
       "updateUser" : null,
@@ -101,7 +103,7 @@
       "branchId" : 1,
       "userName" : "ashish",
       "password" : "ashish",
-      "transactionPassword" : "$2a$10$PxZWTdaM5P1kZ6idgmJdeus3RRSOHO.kR8KDm8UMjFZj3c0O3iu4q",
+      "transactionPassword" : "$2a$10$b1Ltz0iFMAgqHvcJYZpf7.T9cT9L.9r4NWM41GvYhE5KWiCF73aq2",
       "firstName" : "Ashish",
       "middleName" : null,
       "lastName" : null,
@@ -228,5 +230,8 @@
     "branchActive" : true
   },
   "branches" : [ ],
-  "errorMsg" : null
+  "errorMsg" : null,
+  "recordCount" : 0,
+  "pageNo" : 0,
+  "recordsPerPage" : 0
 }

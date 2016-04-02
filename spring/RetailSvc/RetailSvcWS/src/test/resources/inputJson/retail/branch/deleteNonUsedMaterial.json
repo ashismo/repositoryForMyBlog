@@ -1,0 +1,18 @@
+{
+  "branchBean": {
+    "branchId": 2,
+    "materialGroups": [
+      {
+        "materialGrpId": 2,
+        "materials" : [
+        	{
+        		"materialId" : 3,
+        		"materialGrpId": 2,
+        		"deleteInd" : "Y",
+        		"updateUser": "ashish"
+        	}
+        ]
+      }
+    ]
+  }
+}
