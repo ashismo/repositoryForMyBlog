@@ -1,0 +1,8 @@
+{
+  "branchBean" : null,
+  "branches" : [ ],
+  "errorMsg" : "Customer does not exist for customer Id: 2",
+  "recordCount" : 0,
+  "pageNo" : 0,
+  "recordsPerPage" : 0
+}

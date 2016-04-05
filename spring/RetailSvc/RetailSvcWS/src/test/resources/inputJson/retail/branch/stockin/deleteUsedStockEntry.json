@@ -1,0 +1,28 @@
+{
+  "branchBean": {
+    "branchId": 2,
+    "stockEntries": [
+      {
+        "stockId": 1,
+        "branchId": 2,
+        "materialId": 1,
+        "vendorId": 1,
+        "updateUser": "ashish"
+      },
+      {
+        "stockId": 2,
+        "branchId": 2,
+        "materialId": 1,
+        "vendorId": 2,
+        "updateUser": "ashish"
+      },
+      {
+        "stockId": 3,
+        "branchId": 2,
+        "materialId": 2,
+        "vendorId": 1,
+        "updateUser": "ashish"
+      }
+    ]
+  }
+}

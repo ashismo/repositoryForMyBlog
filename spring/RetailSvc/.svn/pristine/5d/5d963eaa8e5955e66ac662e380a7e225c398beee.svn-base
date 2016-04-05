@@ -1,0 +1,12 @@
+{
+  "branchBean": {
+    "branchId": 2,
+    "retailCustomers": [
+      {
+        "customerId": 1,
+        "branchId": 2,
+        "updateUser": "ashish"
+      }
+    ]
+  }
+}
