@@ -18,28 +18,6 @@
       "updateUser" : null
     } ],
     "moduleRules" : [ {
-      "ruleId" : 2,
-      "moduleId" : null,
-      "moduleName" : "GENERAL",
-      "ruleName" : "NUMBER_OF_TIMES_OTP_TO_BE_RESEND",
-      "ruleDescription" : "Number of times OTP to be resend",
-      "startDate" : 1449685800000,
-      "endDate" : null,
-      "createUser" : "ashish",
-      "updateUser" : null,
-      "ruleMasterValues" : [ {
-        "ruleValueId" : 2,
-        "moduleName" : "GENERAL",
-        "ruleName" : "NUMBER_OF_TIMES_OTP_TO_BE_RESEND",
-        "ruleDescription" : null,
-        "ruleValue" : "5",
-        "ruleValueDescription" : "Number of times OTP to be resend?",
-        "startDate" : 1449685800000,
-        "endDate" : null,
-        "createUser" : "ashish",
-        "updateUser" : null
-      } ]
-    }, {
       "ruleId" : 1,
       "moduleId" : null,
       "moduleName" : "GENERAL",
@@ -56,6 +34,28 @@
         "ruleDescription" : null,
         "ruleValue" : "5",
         "ruleValueDescription" : "Lock after how many unsuccessful attempts?",
+        "startDate" : 1449685800000,
+        "endDate" : null,
+        "createUser" : "ashish",
+        "updateUser" : null
+      } ]
+    }, {
+      "ruleId" : 2,
+      "moduleId" : null,
+      "moduleName" : "GENERAL",
+      "ruleName" : "NUMBER_OF_TIMES_OTP_TO_BE_RESEND",
+      "ruleDescription" : "Number of times OTP to be resend",
+      "startDate" : 1449685800000,
+      "endDate" : null,
+      "createUser" : "ashish",
+      "updateUser" : null,
+      "ruleMasterValues" : [ {
+        "ruleValueId" : 2,
+        "moduleName" : "GENERAL",
+        "ruleName" : "NUMBER_OF_TIMES_OTP_TO_BE_RESEND",
+        "ruleDescription" : null,
+        "ruleValue" : "5",
+        "ruleValueDescription" : "Number of times OTP to be resend?",
         "startDate" : 1449685800000,
         "endDate" : null,
         "createUser" : "ashish",
