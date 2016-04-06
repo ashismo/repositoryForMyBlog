@@ -1,0 +1,23 @@
+{
+  "branchBean": {
+    "branchId": 2,
+    "stockReturns": [
+      {
+        "stockReturnId": 0,
+        "stockId": 1,
+        "returnDate" : "28/03/2016 00:00:00",
+        "qty" : 10,
+        "reason" : "Extra order",
+        "createUser": "ashish"
+      },
+      {
+        "stockReturnId": 0,
+        "stockId": 2,
+        "returnDate" : "28/03/2016 00:00:00",
+        "qty" : 10,
+        "reason" : "Extra order",
+        "createUser": "ashish"
+      }
+    ]
+  }
+}

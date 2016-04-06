@@ -32,7 +32,7 @@
       "rateId" : 3,
       "branchId" : 2,
       "materialId" : 1,
-      "createDate" : 1459879231000,
+      "createDate" : 1459964466000,
       "createUser" : "ashish",
       "deleteInd" : null,
       "deleteReason" : null,
@@ -40,7 +40,7 @@
       "passingAuthRemark" : null,
       "startDate" : 1458412200000,
       "unitRate" : 200.00,
-      "updateDate" : 1459879231000,
+      "updateDate" : 1459964466000,
       "updateUser" : null
     } ],
     "documents" : [ ],
@@ -48,6 +48,7 @@
     "retailCustomers" : [ ],
     "retailVatRegNos" : [ ],
     "stockEntries" : [ ],
+    "stockReturns" : [ ],
     "branchActive" : false
   },
   "branches" : [ ],

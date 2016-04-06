@@ -51,8 +51,8 @@
         "stockOut" : null,
         "uom" : "ml",
         "updateUser" : null,
-        "createDate" : 1459879228000,
-        "updateDate" : 1459879228000,
+        "createDate" : 1459964463000,
+        "updateDate" : 1459964463000,
         "deleteInd" : null,
         "deleteReason" : null
       } ]
@@ -63,6 +63,7 @@
     "retailCustomers" : [ ],
     "retailVatRegNos" : [ ],
     "stockEntries" : [ ],
+    "stockReturns" : [ ],
     "branchActive" : false
   },
   "branches" : [ ],
