@@ -49,10 +49,11 @@
         "stockBalance" : null,
         "stockIn" : null,
         "stockOut" : null,
+        "mrp" : 100.00,
         "uom" : "ml",
         "updateUser" : null,
-        "createDate" : 1459903512000,
-        "updateDate" : 1459903512000,
+        "createDate" : 1459962885000,
+        "updateDate" : 1459962885000,
         "deleteInd" : null,
         "deleteReason" : null
       } ]

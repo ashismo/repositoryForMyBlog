@@ -1,0 +1,21 @@
+{
+  "branchBean": {
+    "branchId": 2,
+    "stockReturns": [
+      {
+        "stockReturnId": 1,
+        "stockId": 1,
+        "returnDate" : "28/03/2016 00:00:00",
+        "deleteReason" : "Wrong entry",
+        "updateUser": "ashish"
+      },
+      {
+        "stockReturnId": 2,
+        "stockId": 2,
+        "returnDate" : "28/03/2016 00:00:00",
+        "deleteReason" : "Wrong entry",
+        "updateUser": "ashish"
+      }
+    ]
+  }
+}
