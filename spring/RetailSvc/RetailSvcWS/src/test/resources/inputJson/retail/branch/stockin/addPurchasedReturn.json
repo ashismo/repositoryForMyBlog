@@ -1,0 +1,16 @@
+{
+  "branchBean": {
+    "branchId": 2,
+    "stockEntries": [
+      {
+        "stockId": 0,
+        "parentStockId": 1,
+        "entryDate" : "28/03/2016 00:00:00",
+        "qty" : 20,
+        "purchasePrice" : "100.50",
+        "entryType" : "PR",
+        "createUser": "ashish"
+      }
+    ]
+  }
+}

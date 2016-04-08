@@ -52,8 +52,8 @@
         "mrp" : 100.00,
         "uom" : "ml",
         "updateUser" : null,
-        "createDate" : 1459992072000,
-        "updateDate" : 1459992072000,
+        "createDate" : 1460078738000,
+        "updateDate" : 1460078738000,
         "deleteInd" : null,
         "deleteReason" : null
       } ]
@@ -65,6 +65,7 @@
     "retailVatRegNos" : [ ],
     "stockEntries" : [ ],
     "stockReturns" : [ ],
+    "materialTranHrds" : [ ],
     "branchActive" : false
   },
   "branches" : [ ],
