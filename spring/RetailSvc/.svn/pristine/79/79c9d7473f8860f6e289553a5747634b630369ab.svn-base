@@ -1,0 +1,57 @@
+package com.org.coop.retail.bs.mapper.converter;
+
+import org.dozer.CustomConverter;
+import org.dozer.DozerConverter;
+import org.dozer.Mapper;
+import org.dozer.MapperAware;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.org.coop.canonical.beans.MaterialTranDtlBean;
+import com.org.coop.retail.entities.MaterialTranDtl;
+import com.org.coop.retail.entities.MaterialTranHrd;
+import com.org.coop.retail.entities.StockEntry;
+import com.org.coop.retail.repositories.RetailMaterialTranHrdRepository;
+import com.org.coop.retail.repositories.RetailStockEntryRepository;
+
+@Component("retailMaterialTranDtlCC")
+public class RetailMaterialTranDtlCC extends DozerConverter<MaterialTranDtlBean, MaterialTranDtl> implements MapperAware, CustomConverter {
+	@Autowired
+	private RetailStockEntryRepository retailStockEntryRepository;
+	
+	@Autowired
+	private RetailMaterialTranHrdRepository retailMaterialTranHrdRepository;
+	
+	
+	public RetailMaterialTranDtlCC() {
+		super(MaterialTranDtlBean.class, MaterialTranDtl.class);
+	}
+	
+	public RetailMaterialTranDtlCC(Class prototypeA, Class prototypeB) {
+		super(prototypeA, prototypeB);
+	}
+	
+	public void setMapper(Mapper arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public MaterialTranDtlBean convertFrom(MaterialTranDtl src, MaterialTranDtlBean dest) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MaterialTranDtl convertTo(MaterialTranDtlBean src, MaterialTranDtl dest) {
+		// TODO Auto-generated method stub
+		if(src != null) {
+			StockEntry stock = retailStockEntryRepository.findOne(src.getStockId());
+			MaterialTranHrd materialTranHrd = retailMaterialTranHrdRepository.findOne(src.getTranId());
+			
+			dest.setStockEntry(stock);
+			dest.setMaterialTranHrd(materialTranHrd);
+		}
+		return dest;
+	}
+}
