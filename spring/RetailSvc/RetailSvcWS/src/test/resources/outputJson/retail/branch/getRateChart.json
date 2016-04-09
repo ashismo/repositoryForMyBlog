@@ -32,7 +32,7 @@
       "rateId" : 3,
       "branchId" : 2,
       "materialId" : 1,
-      "createDate" : 1460138133000,
+      "createDate" : 1460172248000,
       "createUser" : "ashish",
       "deleteInd" : null,
       "deleteReason" : null,
@@ -40,7 +40,7 @@
       "passingAuthRemark" : null,
       "startDate" : 1458412200000,
       "unitRate" : 200.00,
-      "updateDate" : 1460138133000,
+      "updateDate" : 1460172248000,
       "updateUser" : null
     } ],
     "documents" : [ ],

@@ -1,0 +1,43 @@
+{
+  "branchBean": {
+    "branchId": 2,
+    "materialTranHrds": [
+      {
+        "tranId": 0,
+        "branchId": 2,
+        "customerId": 1,
+        "tranType" : "SELL",
+        "billAmt" : 100.10,
+        "vat" : 12.00,
+        "billDate" : "07/04/2016 00:00:00",
+        "createUser": "ashish",
+        "materialTranDtls": [
+	      {
+	        "tranDtlId": 0,
+	        "tranId": 0,
+	        "stockId": 4,
+	        "qty" : "9",
+	        "rate" : 10.00,
+	        "createUser": "ashish"
+	      },
+	      {
+	        "tranDtlId": 0,
+	        "tranId": 0,
+	        "stockId": 4,
+	        "qty" : "1",
+	        "rate" : 10.00,
+	        "createUser": "ashish"
+	      },
+	      {
+	        "tranDtlId": 0,
+	        "tranId": 0,
+	        "stockId": 5,
+	        "qty" : "9",
+	        "rate" : 10.00,
+	        "createUser": "ashish"
+	      }
+	    ]
+      }
+    ]
+  }
+}
