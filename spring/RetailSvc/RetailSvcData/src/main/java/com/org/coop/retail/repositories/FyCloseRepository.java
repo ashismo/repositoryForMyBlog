@@ -1,0 +1,14 @@
+package com.org.coop.retail.repositories;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import com.org.coop.retail.entities.BranchMaster;
+import com.org.coop.retail.entities.FyClose;
+
+public interface FyCloseRepository extends JpaRepository<FyClose, Integer> {
+	
+	@Query("select fc from FyClose fc where fc.branchMaster.branchId = :branchId and fc.fy = :fy")
+	public FyClose isFinancialYearClosed(@Param("branchId") int branchId, @Param("fy") String fy);
+}
