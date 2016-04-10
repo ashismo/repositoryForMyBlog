@@ -51,32 +51,6 @@ INSERT INTO `branch_master` (`branch_id`, `parent_id`, `bank_name`, `branch_name
 /*!40000 ALTER TABLE `branch_master` ENABLE KEYS */;
 
 
--- Dumping structure for table retail.fy_close
-DROP TABLE IF EXISTS `fy_close`;
-CREATE TABLE IF NOT EXISTS `fy_close` (
-  `fy_id` int(11) NOT NULL AUTO_INCREMENT,
-  `fy` varchar(50) NOT NULL,
-  `branch_id` int(11) NOT NULL,
-  `start_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `end_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `is_closed` tinyint(4) DEFAULT NULL,
-  `create_user` varchar(50) NOT NULL,
-  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_user` varchar(50) DEFAULT NULL,
-  `update_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`fy_id`),
-  KEY `fy_branch_id` (`fy`,`branch_id`),
-  KEY `FK_fy_close_branch_master` (`branch_id`),
-  CONSTRAINT `FK_fy_close_branch_master` FOREIGN KEY (`branch_id`) REFERENCES `branch_master` (`branch_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
--- Dumping data for table retail.fy_close: ~0 rows (approximately)
-/*!40000 ALTER TABLE `fy_close` DISABLE KEYS */;
-INSERT INTO `fy_close` (`fy_id`, `fy`, `branch_id`, `start_date`, `end_date`, `is_closed`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, '2016-2017', 2, '2016-04-10 21:51:17', '2017-03-31 23:59:59', NULL, 'ashish', '2016-04-10 21:51:45', NULL, NULL);
-/*!40000 ALTER TABLE `fy_close` ENABLE KEYS */;
-
-
 -- Dumping structure for table retail.gl_header
 DROP TABLE IF EXISTS `gl_header`;
 CREATE TABLE IF NOT EXISTS `gl_header` (
@@ -149,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `gl_master` (
   PRIMARY KEY (`gl_mas_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table retail.gl_master: ~1,032 rows (approximately)
+-- Dumping data for table retail.gl_master: ~0 rows (approximately)
 /*!40000 ALTER TABLE `gl_master` DISABLE KEYS */;
 INSERT INTO `gl_master` (`gl_mas_code`, `gl_mas_desc`, `gl_sub_header_code`, `annexure_id`) VALUES
 	('11100', 'share (state govt)', '11000', 1),

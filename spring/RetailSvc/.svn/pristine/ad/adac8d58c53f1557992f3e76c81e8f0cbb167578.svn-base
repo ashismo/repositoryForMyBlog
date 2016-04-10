@@ -46,32 +46,8 @@ CREATE TABLE IF NOT EXISTS `branch_master` (
 -- Dumping data for table retail_unittest.branch_master: ~1 rows (approximately)
 /*!40000 ALTER TABLE `branch_master` DISABLE KEYS */;
 INSERT INTO `branch_master` (`branch_id`, `parent_id`, `bank_name`, `branch_name`, `ifsc_code`, `micr_code`, `db_name`, `context_root`, `email1`, `email2`, `phone1`, `phone2`, `remarks`, `start_date`, `end_date`, `delete_ind`, `delete_reason`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(2, 0, 'Janai', 'Janai', '12345678', '87654321', 'coop_janai', 'CustomerSvcWS', 'ashismo@gmail.com', NULL, '9830625559', NULL, NULL, '2015-12-18', NULL, NULL, NULL, 'ashish', '2016-04-10 22:07:01', NULL, '2016-04-10 22:07:01');
+	(2, 0, 'Janai', 'Janai', '12345678', '87654321', 'coop_janai', 'CustomerSvcWS', 'ashismo@gmail.com', NULL, '9830625559', NULL, NULL, '2015-12-18', NULL, NULL, NULL, 'ashish', '2016-04-10 20:41:54', NULL, '2016-04-10 20:41:54');
 /*!40000 ALTER TABLE `branch_master` ENABLE KEYS */;
-
-
--- Dumping structure for table retail_unittest.fy_close
-DROP TABLE IF EXISTS `fy_close`;
-CREATE TABLE IF NOT EXISTS `fy_close` (
-  `fy_id` int(11) NOT NULL AUTO_INCREMENT,
-  `fy` varchar(50) NOT NULL,
-  `branch_id` int(11) NOT NULL,
-  `start_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `end_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `is_closed` tinyint(4) DEFAULT NULL,
-  `create_user` varchar(50) NOT NULL,
-  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_user` varchar(50) DEFAULT NULL,
-  `update_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`fy_id`),
-  KEY `fy_branch_id` (`fy`,`branch_id`),
-  KEY `FK_fy_close_branch_master` (`branch_id`),
-  CONSTRAINT `FK_fy_close_branch_master` FOREIGN KEY (`branch_id`) REFERENCES `branch_master` (`branch_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- Dumping data for table retail_unittest.fy_close: ~0 rows (approximately)
-/*!40000 ALTER TABLE `fy_close` DISABLE KEYS */;
-/*!40000 ALTER TABLE `fy_close` ENABLE KEYS */;
 
 
 -- Dumping structure for table retail_unittest.gl_sub_header
@@ -83,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `gl_sub_header` (
   PRIMARY KEY (`gl_sub_header_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table retail_unittest.gl_sub_header: ~0 rows (approximately)
+-- Dumping data for table retail_unittest.gl_sub_header: ~187 rows (approximately)
 /*!40000 ALTER TABLE `gl_sub_header` DISABLE KEYS */;
 /*!40000 ALTER TABLE `gl_sub_header` ENABLE KEYS */;
 
@@ -109,9 +85,9 @@ CREATE TABLE IF NOT EXISTS `material_group` (
 -- Dumping data for table retail_unittest.material_group: ~3 rows (approximately)
 /*!40000 ALTER TABLE `material_group` DISABLE KEYS */;
 INSERT INTO `material_group` (`material_grp_id`, `branch_id`, `group_name`, `group_description`, `delete_ind`, `delete_reason`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 2, 'Lubricant', 'Lubricant (Engine Oil)', NULL, NULL, 'ashish', '2016-04-10 22:07:02', NULL, '2016-04-10 22:07:02'),
-	(2, 2, 'PartsAndMaterials', 'Parts and Materials', NULL, NULL, 'ashish', '2016-04-10 22:07:02', NULL, '2016-04-10 22:07:02'),
-	(3, 2, 'Pestisides', 'Pestisides', 'Y', NULL, 'ashish', '2016-04-10 22:07:03', 'ashish', '2016-04-10 22:07:13');
+	(1, 2, 'Lubricant', 'Lubricant (Engine Oil)', NULL, NULL, 'ashish', '2016-04-10 20:41:54', NULL, '2016-04-10 20:41:54'),
+	(2, 2, 'PartsAndMaterials', 'Parts and Materials', NULL, NULL, 'ashish', '2016-04-10 20:41:54', NULL, '2016-04-10 20:41:54'),
+	(3, 2, 'Pestisides', 'Pestisides', 'Y', NULL, 'ashish', '2016-04-10 20:41:55', 'ashish', '2016-04-10 20:42:02');
 /*!40000 ALTER TABLE `material_group` ENABLE KEYS */;
 
 
@@ -143,9 +119,9 @@ CREATE TABLE IF NOT EXISTS `material_master` (
 -- Dumping data for table retail_unittest.material_master: ~3 rows (approximately)
 /*!40000 ALTER TABLE `material_master` DISABLE KEYS */;
 INSERT INTO `material_master` (`material_id`, `material_name`, `material_description`, `material_grp_id`, `uom`, `mrp`, `stock_in`, `stock_out`, `stock_balance`, `low_stock_level`, `qty_check_required_ind`, `delete_ind`, `delete_reason`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 'Castrol', 'Castrol Engine oil', 1, 'ml', 100.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 22:07:03', NULL, '2016-04-10 22:07:03'),
-	(2, 'SeatCover', 'Seat Cover', 2, 'pcs', 1000.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 22:07:03', NULL, '2016-04-10 22:07:03'),
-	(3, 'LongSeatCover', 'Long Seat Cover', 2, 'pcs', 10.00, NULL, NULL, NULL, NULL, NULL, 'Y', NULL, 'ashish', '2016-04-10 22:07:04', 'ashish', '2016-04-10 22:07:13');
+	(1, 'Castrol', 'Castrol Engine oil', 1, 'ml', 100.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 20:41:55', NULL, '2016-04-10 20:41:55'),
+	(2, 'SeatCover', 'Seat Cover', 2, 'pcs', 1000.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 20:41:55', NULL, '2016-04-10 20:41:55'),
+	(3, 'LongSeatCover', 'Long Seat Cover', 2, 'pcs', 10.00, NULL, NULL, NULL, NULL, NULL, 'Y', NULL, 'ashish', '2016-04-10 20:41:56', 'ashish', '2016-04-10 20:42:02');
 /*!40000 ALTER TABLE `material_master` ENABLE KEYS */;
 
 
@@ -177,9 +153,9 @@ CREATE TABLE IF NOT EXISTS `material_tran_dtl` (
 -- Dumping data for table retail_unittest.material_tran_dtl: ~3 rows (approximately)
 /*!40000 ALTER TABLE `material_tran_dtl` DISABLE KEYS */;
 INSERT INTO `material_tran_dtl` (`tran_dtl_id`, `tran_id`, `stock_id`, `qty`, `rate`, `total`, `delete_ind`, `delete_reason`, `passing_auth_ind`, `passing_auth_remark`, `end_date`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 1, 4, 9.00, 10.00, 90.00, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 22:07:11', NULL, '2016-04-10 22:07:11'),
-	(2, 1, 4, 1.00, 10.00, 10.00, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 22:07:11', NULL, '2016-04-10 22:07:11'),
-	(3, 1, 5, 9.00, 10.00, 90.00, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 22:07:11', NULL, '2016-04-10 22:07:11');
+	(1, 1, 4, 9.00, 10.00, 90.00, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 20:42:01', NULL, '2016-04-10 20:42:01'),
+	(2, 1, 4, 1.00, 10.00, 10.00, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 20:42:01', NULL, '2016-04-10 20:42:01'),
+	(3, 1, 5, 9.00, 10.00, 90.00, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 20:42:01', NULL, '2016-04-10 20:42:01');
 /*!40000 ALTER TABLE `material_tran_dtl` ENABLE KEYS */;
 
 
@@ -216,7 +192,7 @@ CREATE TABLE IF NOT EXISTS `material_tran_hrd` (
 -- Dumping data for table retail_unittest.material_tran_hrd: ~1 rows (approximately)
 /*!40000 ALTER TABLE `material_tran_hrd` DISABLE KEYS */;
 INSERT INTO `material_tran_hrd` (`tran_id`, `tran_no`, `branch_id`, `customer_id`, `tran_type`, `bill_date`, `bill_amt`, `vat`, `gross_total`, `paid_amt`, `outstanding_amt`, `paid_by`, `delete_ind`, `delete_reason`, `passing_auth_ind`, `passing_auth_remark`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, '10042016/1', 2, 1, 'SELL', '2016-04-07', 190.00, 12.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 22:07:11', NULL, '2016-04-10 22:07:11');
+	(1, '10042016/1', 2, 1, 'SELL', '2016-04-07', 190.00, 12.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 20:42:01', NULL, '2016-04-10 20:42:01');
 /*!40000 ALTER TABLE `material_tran_hrd` ENABLE KEYS */;
 
 
@@ -250,8 +226,8 @@ CREATE TABLE IF NOT EXISTS `retail_customer_master` (
 -- Dumping data for table retail_unittest.retail_customer_master: ~2 rows (approximately)
 /*!40000 ALTER TABLE `retail_customer_master` DISABLE KEYS */;
 INSERT INTO `retail_customer_master` (`customer_id`, `branch_id`, `ref_customer_id`, `customer_name`, `customer_type`, `address_line1`, `address_line2`, `pin`, `phone1`, `phone2`, `email1`, `email2`, `website`, `delete_ind`, `delete_reason`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 2, 0, 'Ashish Mondal', 'Running', 'Kalipur', NULL, '712708', '9830625559', NULL, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 22:07:06', 'ashish', '2016-04-10 22:07:07'),
-	(2, 2, 0, 'Dona Mondal', 'Member', 'Kalipur', NULL, '712708', '9830625559', NULL, NULL, NULL, NULL, 'Y', NULL, 'ashish', '2016-04-10 22:07:07', 'ashish', '2016-04-10 22:07:13');
+	(1, 2, 0, 'Ashish Mondal', 'Running', 'Kalipur', NULL, '712708', '9830625559', NULL, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 20:41:58', 'ashish', '2016-04-10 20:41:58'),
+	(2, 2, 0, 'Dona Mondal', 'Member', 'Kalipur', NULL, '712708', '9830625559', NULL, NULL, NULL, NULL, 'Y', NULL, 'ashish', '2016-04-10 20:41:58', 'ashish', '2016-04-10 20:42:02');
 /*!40000 ALTER TABLE `retail_customer_master` ENABLE KEYS */;
 
 
@@ -281,7 +257,7 @@ CREATE TABLE IF NOT EXISTS `retail_document` (
 -- Dumping data for table retail_unittest.retail_document: ~1 rows (approximately)
 /*!40000 ALTER TABLE `retail_document` DISABLE KEYS */;
 INSERT INTO `retail_document` (`doc_id`, `branch_id`, `document`, `title`, `doc_type`, `doc_size`, `comment`, `delete_ind`, `delete_reason`, `passing_auth_ind`, `passing_auth_remark`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 2, _binary 0x7B0D0A2020226272616E63684265616E223A207B0D0A20202020226272616E63684964223A20322C0D0A2020202022646F63756D656E7473223A205B0D0A2020202020207B0D0A202020202020202022646F634964223A20302C0D0A2020202020202020226272616E6368496422203A20322C0D0A202020202020202022646F6354797065223A20226A736F6E222C0D0A2020202020202020227469746C6522203A20225465737420446F63756D656E74222C0D0A20202020202020202263726561746555736572223A2022617368697368220D0A2020202020207D0D0A202020205D0D0A20207D0D0A7D, 'Test Document', 'json', 235, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 22:07:04', NULL, '2016-04-10 22:07:04');
+	(1, 2, _binary 0x7B0D0A2020226272616E63684265616E223A207B0D0A20202020226272616E63684964223A20322C0D0A2020202022646F63756D656E7473223A205B0D0A2020202020207B0D0A202020202020202022646F634964223A20302C0D0A2020202020202020226272616E6368496422203A20322C0D0A202020202020202022646F6354797065223A20226A736F6E222C0D0A2020202020202020227469746C6522203A20225465737420446F63756D656E74222C0D0A20202020202020202263726561746555736572223A2022617368697368220D0A2020202020207D0D0A202020205D0D0A20207D0D0A7D, 'Test Document', 'json', 235, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 20:41:56', NULL, '2016-04-10 20:41:56');
 /*!40000 ALTER TABLE `retail_document` ENABLE KEYS */;
 
 
@@ -337,9 +313,9 @@ CREATE TABLE IF NOT EXISTS `retail_rate_chart` (
 -- Dumping data for table retail_unittest.retail_rate_chart: ~3 rows (approximately)
 /*!40000 ALTER TABLE `retail_rate_chart` DISABLE KEYS */;
 INSERT INTO `retail_rate_chart` (`rate_id`, `branch_id`, `material_id`, `start_date`, `unit_rate`, `delete_ind`, `delete_reason`, `passing_auth_ind`, `passing_auth_remark`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 2, 1, '2016-04-08', 200.00, 'Y', 'Rate updated', NULL, NULL, 'ashish', '2016-04-10 22:07:05', 'ashish', '2016-04-10 22:07:06'),
-	(2, 2, 2, '2016-03-19', 200.00, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 22:07:05', NULL, '2016-04-10 22:07:05'),
-	(3, 2, 1, '2016-03-20', 200.00, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 22:07:06', NULL, '2016-04-10 22:07:06');
+	(1, 2, 1, '2016-04-08', 200.00, 'Y', 'Rate updated', NULL, NULL, 'ashish', '2016-04-10 20:41:57', 'ashish', '2016-04-10 20:41:58'),
+	(2, 2, 2, '2016-03-19', 200.00, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 20:41:57', NULL, '2016-04-10 20:41:57'),
+	(3, 2, 1, '2016-03-20', 200.00, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 20:41:58', NULL, '2016-04-10 20:41:58');
 /*!40000 ALTER TABLE `retail_rate_chart` ENABLE KEYS */;
 
 
@@ -381,13 +357,13 @@ CREATE TABLE IF NOT EXISTS `stock_entry` (
 -- Dumping data for table retail_unittest.stock_entry: ~7 rows (approximately)
 /*!40000 ALTER TABLE `stock_entry` DISABLE KEYS */;
 INSERT INTO `stock_entry` (`stock_id`, `parent_stock_id`, `branch_id`, `material_id`, `vendor_id`, `entry_date`, `entry_type`, `batch`, `qty`, `available_qty`, `purchase_price`, `challan_no`, `bill_no`, `mfg_date`, `exp_date`, `delete_ind`, `delete_reason`, `passing_auth_ind`, `passing_auth_remark`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 0, 2, 1, 1, '2016-03-28', 'NEW', 'AZ1001', 100.00, 80.00, 100.00, '86/123', NULL, '2016-01-31', '2018-01-31', NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 22:07:10', NULL, '2016-04-10 22:07:10'),
-	(2, 0, 2, 1, 2, '2016-03-28', 'PURCHASED', 'AB1001', 100.00, 100.00, 100.50, '86/123', '86-123', NULL, NULL, 'Y', NULL, NULL, NULL, 'ashish', '2016-04-10 22:07:10', NULL, '2016-04-10 22:07:14'),
-	(3, 0, 2, 2, 1, '2016-03-28', 'PURCHASED', 'AA1001', 100.00, 100.00, 10.00, '86/123', '86-124', NULL, NULL, 'Y', NULL, NULL, NULL, 'ashish', '2016-04-10 22:07:10', NULL, '2016-04-10 22:07:14'),
-	(4, 0, 2, 1, 1, '2016-03-30', 'PURCHASED', 'AZ1002', 10.00, 0.00, 100.60, '86/125', '86-125', NULL, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 22:07:10', NULL, '2016-04-10 22:07:11'),
-	(5, 0, 2, 1, 2, '2016-03-30', 'PURCHASED', 'AB1002', 20.00, 11.00, 100.10, '86/125', '86-125', NULL, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 22:07:10', NULL, '2016-04-10 22:07:11'),
-	(6, 0, 2, 2, 1, '2016-03-30', 'PURCHASED', 'AA1002', 30.00, 30.00, 10.10, '86/126', '86-125', NULL, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 22:07:10', NULL, '2016-04-10 22:07:10'),
-	(7, 1, 2, 1, 1, '2016-03-28', 'PURCHASE_RETURN', 'AZ1001', 20.00, 20.00, 100.50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 22:07:10', NULL, '2016-04-10 22:07:10');
+	(1, 0, 2, 1, 1, '2016-03-28', 'NEW', 'AZ1001', 100.00, 80.00, 100.00, '86/123', NULL, '2016-01-31', '2018-01-31', NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 20:42:00', NULL, '2016-04-10 20:42:00'),
+	(2, 0, 2, 1, 2, '2016-03-28', 'PURCHASED', 'AB1001', 100.00, 100.00, 100.50, '86/123', '86-123', NULL, NULL, 'Y', NULL, NULL, NULL, 'ashish', '2016-04-10 20:42:00', NULL, '2016-04-10 20:42:03'),
+	(3, 0, 2, 2, 1, '2016-03-28', 'PURCHASED', 'AA1001', 100.00, 100.00, 10.00, '86/123', '86-124', NULL, NULL, 'Y', NULL, NULL, NULL, 'ashish', '2016-04-10 20:42:00', NULL, '2016-04-10 20:42:03'),
+	(4, 0, 2, 1, 1, '2016-03-30', 'PURCHASED', 'AZ1002', 10.00, 0.00, 100.60, '86/125', '86-125', NULL, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 20:42:00', NULL, '2016-04-10 20:42:01'),
+	(5, 0, 2, 1, 2, '2016-03-30', 'PURCHASED', 'AB1002', 20.00, 11.00, 100.10, '86/125', '86-125', NULL, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 20:42:00', NULL, '2016-04-10 20:42:01'),
+	(6, 0, 2, 2, 1, '2016-03-30', 'PURCHASED', 'AA1002', 30.00, 30.00, 10.10, '86/126', '86-125', NULL, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 20:42:00', NULL, '2016-04-10 20:42:00'),
+	(7, 1, 2, 1, 1, '2016-03-28', 'PURCHASE_RETURN', 'AZ1001', 20.00, 20.00, 100.50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 20:42:00', NULL, '2016-04-10 20:42:00');
 /*!40000 ALTER TABLE `stock_entry` ENABLE KEYS */;
 
 
@@ -475,8 +451,8 @@ CREATE TABLE IF NOT EXISTS `vat_reg_no` (
 -- Dumping data for table retail_unittest.vat_reg_no: ~2 rows (approximately)
 /*!40000 ALTER TABLE `vat_reg_no` DISABLE KEYS */;
 INSERT INTO `vat_reg_no` (`vat_id`, `vat_registration_no`, `branch_id`, `start_date`, `end_date`, `delete_ind`, `delete_reason`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, '1234A', 2, '2015-04-28', NULL, 'Y', NULL, 'ashish', '2016-04-10 22:07:07', 'ashish', '2016-04-10 22:07:08'),
-	(2, '1234A', 2, '2015-03-28', NULL, NULL, NULL, 'ashish', '2016-04-10 22:07:07', NULL, '2016-04-10 22:07:07');
+	(1, '1234A', 2, '2015-04-28', NULL, 'Y', NULL, 'ashish', '2016-04-10 20:41:59', 'ashish', '2016-04-10 20:42:00'),
+	(2, '1234A', 2, '2015-03-28', NULL, NULL, NULL, 'ashish', '2016-04-10 20:41:59', NULL, '2016-04-10 20:41:59');
 /*!40000 ALTER TABLE `vat_reg_no` ENABLE KEYS */;
 
 
@@ -508,9 +484,9 @@ CREATE TABLE IF NOT EXISTS `vendor_master` (
 -- Dumping data for table retail_unittest.vendor_master: ~3 rows (approximately)
 /*!40000 ALTER TABLE `vendor_master` DISABLE KEYS */;
 INSERT INTO `vendor_master` (`vendor_id`, `branch_id`, `vendor_name`, `address_line1`, `address_line2`, `pin`, `phone1`, `phone2`, `email1`, `email2`, `website`, `delete_ind`, `delete_reason`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 2, 'CTS', 'Kolkata', NULL, '743502', '9830525559', NULL, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 22:07:04', 'ashish', '2016-04-10 22:07:05'),
-	(2, 2, 'TCS', 'Kolkata', NULL, '712708', '9830525559', NULL, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 22:07:04', NULL, '2016-04-10 22:07:04'),
-	(3, 2, 'TechMahindra', 'Kolkata', NULL, '712708', '9830525559', NULL, NULL, NULL, NULL, 'Y', NULL, 'ashish', '2016-04-10 22:07:05', 'ashish', '2016-04-10 22:07:13');
+	(1, 2, 'CTS', 'Kolkata', NULL, '743502', '9830525559', NULL, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 20:41:56', 'ashish', '2016-04-10 20:41:56'),
+	(2, 2, 'TCS', 'Kolkata', NULL, '712708', '9830525559', NULL, NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-04-10 20:41:56', NULL, '2016-04-10 20:41:56'),
+	(3, 2, 'TechMahindra', 'Kolkata', NULL, '712708', '9830525559', NULL, NULL, NULL, NULL, 'Y', NULL, 'ashish', '2016-04-10 20:41:56', 'ashish', '2016-04-10 20:42:02');
 /*!40000 ALTER TABLE `vendor_master` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
