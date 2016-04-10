@@ -9,7 +9,7 @@
         "tranType" : "SELL",
         "billAmt" : 100.10,
         "vat" : 12.00,
-        "billDate" : "07/04/2016 00:00:00",
+        "billDate" : "30/03/2016 00:00:00",
         "createUser": "ashish",
         "materialTranDtls": [
 	      {
