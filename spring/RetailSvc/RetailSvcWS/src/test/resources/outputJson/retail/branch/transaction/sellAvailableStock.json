@@ -43,7 +43,7 @@
       "customerName" : "Ashish Mondal",
       "billAmt" : 190.00,
       "billDate" : 1459967400000,
-      "createDate" : 1460301121000,
+      "createDate" : 1460309054000,
       "createUser" : "ashish",
       "deleteInd" : null,
       "deleteReason" : null,
@@ -55,7 +55,7 @@
       "passingAuthRemark" : null,
       "tranNo" : "10042016/1",
       "tranType" : "SELL",
-      "updateDate" : 1460301121000,
+      "updateDate" : 1460309054000,
       "updateUser" : null,
       "vat" : 12.00,
       "materialTranDtls" : [ {
@@ -65,7 +65,7 @@
         "materialName" : "Castrol",
         "batch" : "AZ1002",
         "uom" : "ml",
-        "createDate" : 1460301121000,
+        "createDate" : 1460309054000,
         "createUser" : "ashish",
         "deleteInd" : null,
         "deleteReason" : null,
@@ -75,7 +75,7 @@
         "qty" : 9.00,
         "rate" : 10.00,
         "total" : 90.00,
-        "updateDate" : 1460301121000,
+        "updateDate" : 1460309054000,
         "updateUser" : null
       }, {
         "tranDtlId" : 2,
@@ -84,7 +84,7 @@
         "materialName" : "Castrol",
         "batch" : "AZ1002",
         "uom" : "ml",
-        "createDate" : 1460301121000,
+        "createDate" : 1460309054000,
         "createUser" : "ashish",
         "deleteInd" : null,
         "deleteReason" : null,
@@ -94,7 +94,7 @@
         "qty" : 1.00,
         "rate" : 10.00,
         "total" : 10.00,
-        "updateDate" : 1460301121000,
+        "updateDate" : 1460309054000,
         "updateUser" : null
       }, {
         "tranDtlId" : 3,
@@ -103,7 +103,7 @@
         "materialName" : "Castrol",
         "batch" : "AB1002",
         "uom" : "ml",
-        "createDate" : 1460301121000,
+        "createDate" : 1460309054000,
         "createUser" : "ashish",
         "deleteInd" : null,
         "deleteReason" : null,
@@ -113,10 +113,11 @@
         "qty" : 9.00,
         "rate" : 10.00,
         "total" : 90.00,
-        "updateDate" : 1460301121000,
+        "updateDate" : 1460309054000,
         "updateUser" : null
       } ]
     } ],
+    "fyCloses" : [ ],
     "branchActive" : false
   },
   "branches" : [ ],

@@ -32,8 +32,8 @@
       "branchId" : 2,
       "groupDescription" : "Lubricant (Engine Oil)",
       "groupName" : "Lubricant",
-      "createDate" : 1460301114000,
-      "updateDate" : 1460301114000,
+      "createDate" : 1460309046000,
+      "updateDate" : 1460309046000,
       "createUser" : "ashish",
       "updateUser" : null,
       "deleteInd" : null,
@@ -48,6 +48,7 @@
     "stockEntries" : [ ],
     "stockReturns" : [ ],
     "materialTranHrds" : [ ],
+    "fyCloses" : [ ],
     "branchActive" : false
   },
   "branches" : [ ],

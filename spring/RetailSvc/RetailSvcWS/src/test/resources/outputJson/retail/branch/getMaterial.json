@@ -52,8 +52,8 @@
         "mrp" : 100.00,
         "uom" : "ml",
         "updateUser" : null,
-        "createDate" : 1460301115000,
-        "updateDate" : 1460301115000,
+        "createDate" : 1460309047000,
+        "updateDate" : 1460309047000,
         "deleteInd" : null,
         "deleteReason" : null
       } ]
@@ -66,6 +66,7 @@
     "stockEntries" : [ ],
     "stockReturns" : [ ],
     "materialTranHrds" : [ ],
+    "fyCloses" : [ ],
     "branchActive" : false
   },
   "branches" : [ ],
