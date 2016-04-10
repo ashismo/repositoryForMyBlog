@@ -1,4 +1,0 @@
-package com.org.coop.bs.util;
-
-public class BusinessConstants {
-}

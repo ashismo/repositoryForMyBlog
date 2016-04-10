@@ -7,12 +7,11 @@
         "branchId": 2,
         "materialId": 1,
         "vendorId": 1,
-        "batch" : "AZ1002",
+        "batch" : "AZ1003",
         "entryDate" : "30/03/2016 00:00:00",
         "qty" : 10,
         "challanNo" : "86/125",
-        "billNo" : "86-125",
-        "purchasePrice" : "100.60",
+        "entryType" : "NEW",
         "createUser": "ashish"
       },
       {
@@ -24,8 +23,7 @@
         "entryDate" : "30/03/2016 00:00:00",
         "qty" : 20,
         "challanNo" : "86/125",
-        "billNo" : "86-125",
-        "purchasePrice" : "100.10",
+        "entryType" : "NEW",
         "createUser": "ashish"
       },
       {
@@ -37,8 +35,7 @@
         "entryDate" : "30/03/2016 00:00:00",
         "qty" : 30,
         "challanNo" : "86/126",
-        "billNo" : "86-125",
-        "purchasePrice" : "10.10",
+        "entryType" : "NEW",
         "createUser": "ashish"
       }
     ]

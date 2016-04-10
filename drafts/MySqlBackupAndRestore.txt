@@ -1,0 +1,8 @@
+Backup
+===========================
+/opt/lampp/bin/mysqldump --user='root' --password='password' netware > /tmp/netware.sql
+
+
+Restore
+==============
+/opt/lampp/bin/mysql -u root -p DATABASE_NAME < /tmp/dbname.sql
