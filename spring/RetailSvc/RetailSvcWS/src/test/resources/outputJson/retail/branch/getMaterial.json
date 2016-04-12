@@ -21,6 +21,7 @@
     "licenseRemaining" : 0,
     "gracePeriod" : 0,
     "licenseOverDays" : 0,
+    "fy" : null,
     "addresses" : [ ],
     "branchLicenseDtlsBeans" : [ ],
     "branchRuleBeans" : [ ],
@@ -52,8 +53,8 @@
         "mrp" : 100.00,
         "uom" : "ml",
         "updateUser" : null,
-        "createDate" : 1460309047000,
-        "updateDate" : 1460309047000,
+        "createDate" : 1460398569000,
+        "updateDate" : 1460398569000,
         "deleteInd" : null,
         "deleteReason" : null
       } ]
@@ -67,7 +68,8 @@
     "stockReturns" : [ ],
     "materialTranHrds" : [ ],
     "fyCloses" : [ ],
-    "branchActive" : false
+    "branchActive" : false,
+    "fyClosed" : false
   },
   "branches" : [ ],
   "errorMsg" : null,

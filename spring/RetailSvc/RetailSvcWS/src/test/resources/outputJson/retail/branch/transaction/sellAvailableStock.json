@@ -21,6 +21,7 @@
     "licenseRemaining" : 0,
     "gracePeriod" : 0,
     "licenseOverDays" : 0,
+    "fy" : null,
     "addresses" : [ ],
     "branchLicenseDtlsBeans" : [ ],
     "branchRuleBeans" : [ ],
@@ -42,8 +43,8 @@
       "customerId" : 1,
       "customerName" : "Ashish Mondal",
       "billAmt" : 190.00,
-      "billDate" : 1459967400000,
-      "createDate" : 1460309054000,
+      "billDate" : 1459276200000,
+      "createDate" : 1460398572000,
       "createUser" : "ashish",
       "deleteInd" : null,
       "deleteReason" : null,
@@ -53,9 +54,9 @@
       "paidBy" : null,
       "passingAuthInd" : null,
       "passingAuthRemark" : null,
-      "tranNo" : "10042016/1",
+      "tranNo" : "11042016/1",
       "tranType" : "SELL",
-      "updateDate" : 1460309054000,
+      "updateDate" : 1460398572000,
       "updateUser" : null,
       "vat" : 12.00,
       "materialTranDtls" : [ {
@@ -65,7 +66,7 @@
         "materialName" : "Castrol",
         "batch" : "AZ1002",
         "uom" : "ml",
-        "createDate" : 1460309054000,
+        "createDate" : 1460398572000,
         "createUser" : "ashish",
         "deleteInd" : null,
         "deleteReason" : null,
@@ -75,7 +76,7 @@
         "qty" : 9.00,
         "rate" : 10.00,
         "total" : 90.00,
-        "updateDate" : 1460309054000,
+        "updateDate" : 1460398572000,
         "updateUser" : null
       }, {
         "tranDtlId" : 2,
@@ -84,7 +85,7 @@
         "materialName" : "Castrol",
         "batch" : "AZ1002",
         "uom" : "ml",
-        "createDate" : 1460309054000,
+        "createDate" : 1460398572000,
         "createUser" : "ashish",
         "deleteInd" : null,
         "deleteReason" : null,
@@ -94,7 +95,7 @@
         "qty" : 1.00,
         "rate" : 10.00,
         "total" : 10.00,
-        "updateDate" : 1460309054000,
+        "updateDate" : 1460398572000,
         "updateUser" : null
       }, {
         "tranDtlId" : 3,
@@ -103,7 +104,7 @@
         "materialName" : "Castrol",
         "batch" : "AB1002",
         "uom" : "ml",
-        "createDate" : 1460309054000,
+        "createDate" : 1460398572000,
         "createUser" : "ashish",
         "deleteInd" : null,
         "deleteReason" : null,
@@ -113,12 +114,13 @@
         "qty" : 9.00,
         "rate" : 10.00,
         "total" : 90.00,
-        "updateDate" : 1460309054000,
+        "updateDate" : 1460398572000,
         "updateUser" : null
       } ]
     } ],
     "fyCloses" : [ ],
-    "branchActive" : false
+    "branchActive" : false,
+    "fyClosed" : false
   },
   "branches" : [ ],
   "errorMsg" : null,

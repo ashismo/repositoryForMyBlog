@@ -21,6 +21,7 @@
     "licenseRemaining" : 0,
     "gracePeriod" : 0,
     "licenseOverDays" : 0,
+    "fy" : null,
     "addresses" : [ ],
     "branchLicenseDtlsBeans" : [ ],
     "branchRuleBeans" : [ ],
@@ -32,8 +33,8 @@
       "branchId" : 2,
       "groupDescription" : "Lubricant (Engine Oil)",
       "groupName" : "Lubricant",
-      "createDate" : 1460309046000,
-      "updateDate" : 1460309046000,
+      "createDate" : 1460398568000,
+      "updateDate" : 1460398568000,
       "createUser" : "ashish",
       "updateUser" : null,
       "deleteInd" : null,
@@ -49,7 +50,8 @@
     "stockReturns" : [ ],
     "materialTranHrds" : [ ],
     "fyCloses" : [ ],
-    "branchActive" : false
+    "branchActive" : false,
+    "fyClosed" : false
   },
   "branches" : [ ],
   "errorMsg" : null,

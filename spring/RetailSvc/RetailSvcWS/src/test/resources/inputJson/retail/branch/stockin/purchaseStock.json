@@ -1,0 +1,17 @@
+{
+  "branchBean": {
+    "branchId": 2,
+    "stockEntries": [
+      {
+        "stockId": 1,
+        "branchId": 2,
+        "materialId": 1,
+        "vendorId": 1,
+        "billNo" : "86/123",
+        "billDate" : "28/03/2016 00:00:00",
+        "purchasePrice" : "100.50",
+        "updateUser": "ashish"
+      }
+    ]
+  }
+}
