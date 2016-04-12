@@ -45,7 +45,7 @@
         "createUser" : "ashish",
         "lowStockLevel" : null,
         "materialDescription" : "Castrol Engine oil",
-        "materialName" : "Castrol",
+        "materialName" : "CASTROL",
         "qtyCheckRequiredInd" : null,
         "stockBalance" : null,
         "stockIn" : null,
@@ -53,8 +53,8 @@
         "mrp" : 100.00,
         "uom" : "ml",
         "updateUser" : null,
-        "createDate" : 1460398569000,
-        "updateDate" : 1460398569000,
+        "createDate" : 1460473009000,
+        "updateDate" : 1460473009000,
         "deleteInd" : null,
         "deleteReason" : null
       } ]
@@ -68,8 +68,8 @@
     "stockReturns" : [ ],
     "materialTranHrds" : [ ],
     "fyCloses" : [ ],
-    "branchActive" : false,
-    "fyClosed" : false
+    "fyClosed" : false,
+    "branchActive" : false
   },
   "branches" : [ ],
   "errorMsg" : null,
