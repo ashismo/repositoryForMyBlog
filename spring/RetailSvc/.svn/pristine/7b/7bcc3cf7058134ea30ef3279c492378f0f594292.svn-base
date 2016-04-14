@@ -1,0 +1,15 @@
+{
+  "branchBean": {
+    "branchId": 2,
+    "stockEntries": [
+      {
+        "stockId": 0,
+        "parentStockId": 1,
+        "qty" : 20,
+        "actionDate" : "28/03/2016 00:00:00",
+        "entryType" : "STOCK_RETURN",
+        "createUser": "ashish"
+      }
+    ]
+  }
+}

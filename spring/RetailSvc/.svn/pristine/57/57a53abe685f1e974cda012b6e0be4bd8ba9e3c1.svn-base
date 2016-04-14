@@ -1,0 +1,725 @@
+package com.org.coop.retail.servicehelper;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.coop.org.exception.RetailException;
+import com.coop.org.exception.RetailStockEntryException;
+import com.org.coop.bs.util.AdminSvcCommonUtil;
+import com.org.coop.bs.util.RetailBusinessConstants;
+import com.org.coop.canonical.beans.BranchBean;
+import com.org.coop.canonical.beans.RetailStockEntryBean;
+import com.org.coop.canonical.beans.RetailStockReturnBean;
+import com.org.coop.canonical.beans.UIModel;
+import com.org.coop.retail.bs.mapper.RetailStockEntryMappingImpl;
+import com.org.coop.retail.bs.mapper.RetailStockReturnMappingImpl;
+import com.org.coop.retail.entities.MaterialMaster;
+import com.org.coop.retail.entities.StockEntry;
+import com.org.coop.retail.entities.StockReturn;
+import com.org.coop.retail.repositories.RetailMaterialMasterRepository;
+import com.org.coop.retail.repositories.RetailStockEntryRepository;
+import com.org.coop.retail.repositories.RetailStockReturnRepository;
+import com.org.coop.retail.service.FinancialYearCloseServiceImpl;
+
+@Service
+public class RetailStockManagementServiceHelperImpl {
+
+	private static final Logger log = Logger.getLogger(RetailStockManagementServiceHelperImpl.class); 
+	
+	@Autowired
+	private RetailStockEntryRepository retailStockEntryRepository;
+	
+	@Autowired
+	private RetailStockEntryMappingImpl retailStockEntryMappingImpl;
+	
+	@Autowired
+	private RetailStockReturnRepository retailStockReturnRepository;
+	
+	@Autowired
+	private RetailStockReturnMappingImpl retailStockReturnMappingImpl;
+	
+	@Autowired
+	private RetailMaterialMasterRepository retailMaterialMasterRepository;
+	
+	@Autowired
+	private AdminSvcCommonUtil adminSvcCommonUtil;
+	
+	@Autowired
+	private FinancialYearCloseServiceImpl financialYearCloseServiceImpl;
+	
+	@Transactional(value="retailTransactionManager")
+	public UIModel getStockEntries(int branchId, int vendorId, int materialId, int pageNo, int recordsPerPage, String challanNo, String billNo) {
+		UIModel uiModel = new UIModel();
+		List<StockEntry> stocks = null;
+		
+		if(pageNo == 0) pageNo = 1;
+		if(recordsPerPage == 0) recordsPerPage = 1000000;
+		
+		PageRequest pageRequest = new PageRequest(pageNo - 1, recordsPerPage, Sort.Direction.DESC, "challanDate");
+		int recordCount = 0;
+		if(branchId > 0) {
+			if(vendorId > 0) {
+				stocks = retailStockEntryRepository.findByVendorId(branchId, vendorId, pageRequest);
+				recordCount = retailStockEntryRepository.countByVendorId(branchId, vendorId);
+			} else if(materialId > 0) {
+				stocks = retailStockEntryRepository.findByMaterialId(branchId, materialId, pageRequest);
+				recordCount = retailStockEntryRepository.countByMaterialId(branchId, materialId);
+			} else {
+				stocks = retailStockEntryRepository.findByBranchId(branchId, pageRequest);
+				recordCount = retailStockEntryRepository.countByBranchId(branchId);
+			}
+		}
+		
+		if(stocks != null && stocks.size() > 0) {
+			uiModel.setRecordCount(recordCount);
+			uiModel.setPageNo(pageNo);
+			uiModel.setRecordsPerPage(recordsPerPage);
+			
+			List<RetailStockEntryBean> stocksBean = new ArrayList<RetailStockEntryBean>();
+			for(StockEntry stock : stocks) {
+				RetailStockEntryBean stockBean = new RetailStockEntryBean();
+				retailStockEntryMappingImpl.mapBean(stock, stockBean);
+				stocksBean.add(stockBean);
+			}
+			
+			uiModel.setBranchBean(new BranchBean());
+			uiModel.getBranchBean().setStockEntries(stocksBean);
+		} else {
+			if(log.isDebugEnabled()) {
+				log.debug("No Stock-in records found for given input");
+			}
+		}
+		return uiModel;
+	}
+	
+	/**
+	 * This method can save the following scenarios <br/>
+	 * 1. a. Fresh stock entry (without bill) where parentStockId = 0 and entry_type = 'NEW' <br/>
+	 * &nbsp;&nbsp;&nbsp; b. Fresh stock purchase (with bill) where parentStockId = 0 and entry_type = 'PURCHASE' <br/>
+	 * 2. a. Opening stock entry (after year close) where parentStockId > 0 and entry_type = 'YR_CLOSE_OPENING'. <br/>
+	 * &nbsp;&nbsp;&nbsp; b. Opening stock entry (1st time installation) where parentStockId = 0 and entry_type = 'OPENING'. <br/>
+	 * 3. a. Purchase return stock entry where parentStockId > 0 and entry_type = 'STOCK_RETURN' <br/>
+	 * &nbsp;&nbsp;&nbsp; b. stock return (before purchase) stock where parentStockId > 0 and entry_type = 'STOCK_RETURN'  <br/>
+	 * 4. TODO: Shortage after year close where parentStockId > 0 and entry_type = 'SHORTAGE'. <br/>
+	 * 5. TODO: a. Stock transfer among branches where parentStockId > 0 and entry_type = 'TRANSFER'. <br/>
+	 * &nbsp;&nbsp;&nbsp; b. Stock return from branch where parentStockId > 0 and entry_type = 'TRANSFER_RETURN'. <br/>
+	 * @param uiModel
+	 * @return
+	 */
+	@Transactional(value="retailTransactionManager")
+	public UIModel saveStockEntries(UIModel uiModel) {
+		if(uiModel.getBranchBean().getStockEntries() != null && uiModel.getBranchBean().getStockEntries().size() > 0 ) {
+			
+			List<RetailStockEntryBean> stocksBean = uiModel.getBranchBean().getStockEntries();
+			List<StockEntry> stocks = new ArrayList<StockEntry>();
+			for(RetailStockEntryBean stockBean : stocksBean) {
+				int parentStockId = stockBean.getParentStockId();
+				int stockId = stockBean.getStockId();
+				int branchId = stockBean.getBranchId();
+				int vendorId = stockBean.getVendorId();
+				int materialId = stockBean.getMaterialId();
+				String batch = stockBean.getBatch();
+				
+				//**********************
+				// Validate the input
+				//**********************
+				isValidStockInput(stockBean);
+				
+				// RULE: If there is a update on bill number, challan number, purchased price, batch number then update all its children
+				if(stockId > 0) {
+					List<StockEntry> childStocks = retailStockEntryRepository.findAllChildrenByStockId(stockId);
+					if(childStocks != null && childStocks.size() > 0) {
+						for(StockEntry stk : childStocks) {
+							if(stockBean.getBillDate() != null) stk.setBillDate(stockBean.getBillDate());
+							if(stockBean.getBillNo() != null) stk.setBillNo(stockBean.getBillNo());
+							if(stockBean.getBatch() != null) stk.setBatch(stockBean.getBatch());
+							if(stockBean.getChallanDate() != null) stk.setChallanDate(stockBean.getChallanDate());
+							if(stockBean.getPurchasePrice() != null) stk.setPurchasePrice(stockBean.getPurchasePrice());
+							
+							// Child of child stock to be updated in case of TRANSFER_RETURN
+							List<StockEntry> childOfChildStocks = retailStockEntryRepository.findAllChildrenByStockId(stk.getStockId());
+							if(childOfChildStocks != null && childOfChildStocks.size() > 0) {
+								for(StockEntry tempStk : childOfChildStocks) {
+									if(stockBean.getBillDate() != null) tempStk.setBillDate(stockBean.getBillDate());
+									if(stockBean.getBillNo() != null) tempStk.setBillNo(stockBean.getBillNo());
+									if(stockBean.getBatch() != null) tempStk.setBatch(stockBean.getBatch());
+									if(stockBean.getChallanDate() != null) tempStk.setChallanDate(stockBean.getChallanDate());
+									if(stockBean.getPurchasePrice() != null) tempStk.setPurchasePrice(stockBean.getPurchasePrice());
+								}
+								retailStockEntryRepository.save(childOfChildStocks);
+							}
+						}
+						retailStockEntryRepository.save(childStocks);
+					}
+				}
+				
+				//******************************************
+				// opening stocks, purchase return stocks or entry returns stock will have parent stock id > 0
+				// *****************************************
+				if(parentStockId > 0) { 
+					StockEntry parentStock = retailStockEntryRepository.findOne(parentStockId);
+					if(parentStock == null) {
+						String msg = "Incorrect parentStockId passed: " + parentStockId;
+						log.error(msg);
+						throw new RetailStockEntryException(msg,RetailBusinessConstants.EXCEPTION_RETAIL_STOCK_ENTRY);
+					}
+					if(stockBean.getMaterialId() == 0) {
+						stockBean.setMaterialId(parentStock.getMaterialMaster().getMaterialId());
+					}
+					if(stockBean.getVendorId() == 0) {
+						stockBean.setVendorId(parentStock.getVendorMaster().getVendorId());
+					}
+					stockBean.setBranchId(uiModel.getBranchBean().getBranchId());
+					
+					stockBean.setBatch(parentStock.getBatch());
+					stockBean.setChallanDate(parentStock.getChallanDate());
+					stockBean.setChallanNo(parentStock.getChallanNo());
+					stockBean.setBillDate(parentStock.getBillDate());
+					stockBean.setBillNo(parentStock.getBillNo());
+					stockBean.setPurchasePrice(parentStock.getPurchasePrice());
+					
+					// **************************************
+					// If stock is returned to vendor then the available qty has to be reduced
+					// If year is closed then the available qty should not be reduced
+					//***************************************
+					
+					Date actionDate = stockBean.getActionDate();
+					
+					boolean isYearClosed = isYearClosed(stockBean, actionDate);
+					
+					
+					if(!isYearClosed) {
+						// REDUCE AVAILABLE QUANTITY OF THE PARENT STOCK
+						List<String> reduceStockTypes = new ArrayList<String>();
+						reduceStockTypes.add(RetailBusinessConstants.ENTRY_TYPE_STOCK_RETURN);
+						reduceStockTypes.add(RetailBusinessConstants.ENTRY_TYPE_SHORTAGE);
+						reduceStockTypes.add(RetailBusinessConstants.ENTRY_TYPE_TRANSFER);
+						
+						if(reduceStockTypes.contains(stockBean.getEntryType())) { // REDUCE AVAILABLE QUANTITY OF THE PARENT STOCK
+							BigDecimal availableQty = parentStock.getAvailableQty();
+							if(availableQty != null && stockBean.getQty() != null) {
+								if(availableQty.compareTo(stockBean.getQty()) < 0) {
+									String msg = "Available quantity " + availableQty + " must be more than the return quantity " + stockBean.getQty() + " for the stock id " + stockId;
+									log.error(msg);
+									throw new RetailStockEntryException(msg,RetailBusinessConstants.EXCEPTION_RETAIL_STOCK_ENTRY);
+								}
+								availableQty = availableQty.subtract(stockBean.getQty());
+							} else {
+								String msg = "Available quantity " + availableQty + " or Return quantity " + stockBean.getQty() + " can not be null";
+								log.error(msg);
+								throw new RetailStockEntryException(msg,RetailBusinessConstants.EXCEPTION_RETAIL_STOCK_ENTRY);
+							}
+							parentStock.setAvailableQty(availableQty);
+							retailStockEntryRepository.saveAndFlush(parentStock);
+							
+							// Make an entry for the current branch where the parent belongs to
+							if(RetailBusinessConstants.ENTRY_TYPE_TRANSFER.equals(stockBean.getEntryType())) {
+								StockEntry tempStock = new StockEntry();
+								stockBean.setBranchId(parentStock.getBranchMaster().getBranchId());
+								retailStockEntryMappingImpl.mapBean(stockBean, tempStock);
+								tempStock.setAvailableQty(new BigDecimal(0));
+								retailStockEntryRepository.saveAndFlush(tempStock);
+								
+								// Change the branch ID back to the previous Id passed from UI
+								stockBean.setBranchId(uiModel.getBranchBean().getBranchId());
+							}
+							
+						} else if(RetailBusinessConstants.ENTRY_TYPE_TRANSFER_RETURN.equals(stockBean.getEntryType())) { // INCREASE AVAILABLE QUANTITY OF THE PARENT STOCK
+							// Reduce stock from parent stock
+							BigDecimal availableQty = parentStock.getAvailableQty();
+							availableQty = availableQty.subtract(stockBean.getQty());
+							
+							StockEntry tempStock = new StockEntry();
+							stockBean.setBranchId(parentStock.getBranchMaster().getBranchId());
+							retailStockEntryMappingImpl.mapBean(stockBean, tempStock);
+							tempStock.setAvailableQty(new BigDecimal(0));
+							retailStockEntryRepository.saveAndFlush(tempStock);
+							// Change the branch ID back to the previous Id passed from UI
+							stockBean.setBranchId(uiModel.getBranchBean().getBranchId());
+							
+							parentStock.setAvailableQty(availableQty);
+							retailStockEntryRepository.saveAndFlush(parentStock);
+							
+							// increase the available quantity of the parent of the parent stock
+							StockEntry parentOfParentStock = retailStockEntryRepository.findOne(parentStock.getParentStockId());
+							if(parentOfParentStock != null) {
+								availableQty = parentOfParentStock.getAvailableQty();
+								availableQty = availableQty.add(stockBean.getQty());
+								parentOfParentStock.setAvailableQty(availableQty);
+								retailStockEntryRepository.saveAndFlush(parentOfParentStock);
+							}
+						}
+					}
+				} 
+				// *****************************************************
+				// Fresh stock entry/purchase and opening stock (1st time installation) will have parentStockId = 0
+				// *****************************************************
+				else if(parentStockId == 0) {  
+					if(stockBean.getEntryType() == null) {
+						if(StringUtils.isNotBlank(stockBean.getBillNo())) { // 
+							stockBean.setEntryType(RetailBusinessConstants.ENTRY_TYPE_PURCHASED);
+						} else {
+							stockBean.setEntryType(RetailBusinessConstants.ENTRY_TYPE_NEW);
+							// As the bill is not received so the purchased price is either of the following (whichever matches first)
+							//	1. Last price of the same material of same batch (same branch)
+							//	2. Last price of the same material from the same vendor (same branch)
+							//  3. Last price of the same material from another vendor (same branch)
+							//  4. MRP of the material
+							
+							BigDecimal stockPrice = retailStockEntryRepository.getStockEntryPrice(branchId, materialId, vendorId, batch);
+							stockBean.setPurchasePrice(stockPrice);
+						}
+					}
+				}
+				
+				
+				StockEntry stock = null;
+				if(stockId == 0) { // entry_type = 'NEW' or 'PURCHASED' or 'OPENING'
+					if(log.isDebugEnabled()) {
+						log.debug("New stock to be added for material: " + stockBean.getMaterialId());
+					}
+					stock = new StockEntry();
+					
+					updateStocksForMaterials(stockBean, stock);
+				} else {
+					stock = retailStockEntryRepository.findOne(stockId);
+					if(stock == null) {
+						String msg = "Incorrect stockId passed: " + stockId;
+						log.error(msg);
+						throw new RetailStockEntryException(msg,RetailBusinessConstants.EXCEPTION_RETAIL_STOCK_ENTRY);
+					}
+				}
+				//TODO: Need to add all validations here. Example delete stock is possible if the stock is not sold.
+				// Modification of stock is possible if the sold stock is not greater than the modification qty
+				retailStockEntryMappingImpl.mapBean(stockBean, stock);
+				
+				if(RetailBusinessConstants.ENTRY_TYPE_STOCK_RETURN.equals(stockBean.getEntryType()) ||
+						RetailBusinessConstants.ENTRY_TYPE_TRANSFER_RETURN.equals(stockBean.getEntryType()) ) { // This stock is not eligible for sale
+					stock.setAvailableQty(new BigDecimal(0));
+				}
+				stocks.add(stock);
+			}
+			if(stocks.size() > 0) {
+				retailStockEntryRepository.save(stocks);
+				if(log.isDebugEnabled()) {
+					log.debug("All stocks added");
+				}
+				
+				// stockBean and stocks size has to be same
+				if(stocksBean.size() == stocks.size()) {
+					int i = 0;
+					for(StockEntry stock : stocks) {
+						RetailStockEntryBean stockBean = stocksBean.get(i++);
+						retailStockEntryMappingImpl.mapBean(stock, stockBean);
+					}
+				}
+			}
+		}		
+		return uiModel;
+	}
+
+	private boolean isYearClosed(RetailStockEntryBean stockBean, Date actionDate) {
+		if(actionDate == null) {
+			String msg = "Selected date is null";
+			log.error(msg);
+			throw new RetailStockEntryException(msg, RetailBusinessConstants.EXCEPTION_RETAIL_STOCK_ENTRY);
+		}
+		String fy = adminSvcCommonUtil.getFinancialYear(actionDate);
+		
+		if(log.isDebugEnabled()) {
+			log.debug("Selected FY = " + fy);
+		}
+		
+		boolean isYearClosed = financialYearCloseServiceImpl.isFinancialYearClosed(stockBean.getBranchId(), fy);
+		
+		if(log.isDebugEnabled()) {
+			log.debug("Financial year : " + fy + " closed: " + isYearClosed);
+		}
+		return isYearClosed;
+	}
+
+	/**
+	 * This method updates material stocks once entered
+	 * @param stockBean
+	 */
+	private void updateStocksForMaterials(RetailStockEntryBean stockBean, StockEntry stock) {
+		// RULE: Update total stock and available stock in material_master table
+		MaterialMaster material = retailMaterialMasterRepository.findOne(stockBean.getMaterialId());
+		if(material == null) {
+			log.error("Material does not exists for materialId: " + stockBean.getMaterialId());
+			throw new RetailStockEntryException("Material does not exists for materialId: " + stockBean.getMaterialId());
+		}
+		BigDecimal stockIn = material.getStockIn();
+		if(stockIn == null) stockIn = new BigDecimal(0);
+		BigDecimal stockOut = material.getStockOut();
+		if(stockOut == null) stockOut = new BigDecimal(0);
+		BigDecimal stockBalance = material.getStockBalance();
+		if(stockBalance == null) stockBalance = new BigDecimal(0);
+		
+		// Below list holds the entry type for which stock gets increased for the branch
+		List<String> stockInTypeList = new ArrayList<String>();
+		stockInTypeList.add(RetailBusinessConstants.ENTRY_TYPE_NEW);
+		stockInTypeList.add(RetailBusinessConstants.ENTRY_TYPE_PURCHASED);
+		stockInTypeList.add(RetailBusinessConstants.ENTRY_TYPE_OPENING);
+		stockInTypeList.add(RetailBusinessConstants.ENTRY_TYPE_TRANSFER_RETURN);
+		
+		// Below list holds the entry type for which stock gets decreased for the branch
+		List<String> stockOutTypeList = new ArrayList<String>();
+		stockOutTypeList.add(RetailBusinessConstants.ENTRY_TYPE_STOCK_RETURN);
+		stockOutTypeList.add(RetailBusinessConstants.ENTRY_TYPE_TRANSFER);
+		stockOutTypeList.add(RetailBusinessConstants.ENTRY_TYPE_TRANSFER_RETURN);
+		
+		if(stockBean.getEntryType() != null) {
+			if(stockInTypeList.contains(stockBean.getEntryType())) {
+				// Increase stock and available stock
+				stockIn = stockIn.add(stockBean.getQty());
+				stockBalance = stockBalance.add(stockBean.getQty());
+				material.setStockIn(stockIn);
+				material.setStockBalance(stockBalance);
+			} else if(stockOutTypeList.contains(stockBean.getEntryType())) {
+				stockOut = stockOut.add(stockBean.getQty());
+				stockBalance = stockBalance.subtract(stockBean.getQty());
+				material.setStockOut(stockOut);
+				material.setStockBalance(stockBalance);
+			}
+			retailMaterialMasterRepository.saveAndFlush(material);
+		}
+	}
+
+	private void isValidStockInput(RetailStockEntryBean stockBean) throws RetailException {
+		int parentStockId = stockBean.getParentStockId();
+		int stockId = stockBean.getStockId();
+		// VALIDATION 0: Action date can not be null;
+		if(stockBean.getActionDate() == null) {
+			String msg = "Action date must be selected";
+			log.error(msg);
+			throw new RetailStockEntryException(msg, RetailBusinessConstants.EXCEPTION_RETAIL_STOCK_ENTRY);
+		}
+		// VALIDATION 1: ParentStockID > 0 for entry type = PURCHASE_RETURN, ENTRY_RETURN, YR_CLOSE_OPENING, SHORTAGE, TRANSFER, TRANSFER_RETURN
+		//			Parent stock id = 0 for entry type = NEW/PURCHASED/OPENING
+		if(parentStockId > 0) {
+			
+			List<String> entryTypeArr = new ArrayList<String>();
+			entryTypeArr.add(RetailBusinessConstants.ENTRY_TYPE_STOCK_RETURN);
+			entryTypeArr.add(RetailBusinessConstants.ENTRY_TYPE_YR_CLOSE_OPENING);
+			entryTypeArr.add(RetailBusinessConstants.ENTRY_TYPE_SHORTAGE);
+			entryTypeArr.add(RetailBusinessConstants.ENTRY_TYPE_TRANSFER);
+			entryTypeArr.add(RetailBusinessConstants.ENTRY_TYPE_TRANSFER_RETURN);
+			if( !entryTypeArr.contains(stockBean.getEntryType()) )  {
+				String msg = "There must be parent stock for the entry type = " + entryTypeArr;
+				log.error(msg);
+				throw new RetailStockEntryException(msg, RetailBusinessConstants.EXCEPTION_RETAIL_STOCK_ENTRY);
+			}
+			
+			// VALIDATION 2: Quantity must be lesser than the available quantity of the parent stock
+			StockEntry parentStock = retailStockEntryRepository.findOne(parentStockId);
+			if(parentStock == null) {
+				String msg = "Parent stock does not exists for the stock Id: " + parentStockId;
+				log.error(msg);
+				throw new RetailStockEntryException(msg, RetailBusinessConstants.EXCEPTION_RETAIL_STOCK_ENTRY);
+			}
+			stockBean.setChallanDate(parentStock.getChallanDate());
+			stockBean.setChallanNo(parentStock.getChallanNo());
+			stockBean.setBillNo(parentStock.getBillNo());
+			stockBean.setBillDate(parentStock.getBillDate());
+			stockBean.setPurchasePrice(parentStock.getPurchasePrice());
+			
+			if(parentStock.getAvailableQty().compareTo(stockBean.getQty()) < 0) {
+				String msg = "Selected quantity " + stockBean.getQty() + " can not be greater than the available quantity " + parentStock.getAvailableQty() + " of the stock id " + parentStockId;
+				log.error(msg);
+				throw new RetailStockEntryException(msg, RetailBusinessConstants.EXCEPTION_RETAIL_STOCK_ENTRY);
+			}
+		} else if (parentStockId == 0) {
+			List<String> entryTypeArr = new ArrayList<String>();
+			entryTypeArr.add(RetailBusinessConstants.ENTRY_TYPE_OPENING);
+			entryTypeArr.add(RetailBusinessConstants.ENTRY_TYPE_NEW);
+			entryTypeArr.add(RetailBusinessConstants.ENTRY_TYPE_PURCHASED);
+			if( !(stockBean.getEntryType() == null || entryTypeArr.contains(stockBean.getEntryType())) )  {
+				String msg = "parent stock id must be zero for entry type = " + entryTypeArr + " and you have selected different one";
+				log.error(msg);
+				throw new RetailStockEntryException(msg, RetailBusinessConstants.EXCEPTION_RETAIL_STOCK_ENTRY);
+			}
+			
+			// VALIDATION 3: Challan number and entry date can not be null for opening/new/purchased stock
+			if(stockId == 0 && stockBean.getEntryType() == null && (stockBean.getChallanNo() == null || stockBean.getChallanDate() == null)) {
+				String msg = "Challan number/challan date can not be null";
+				log.error(msg);
+				throw new RetailStockEntryException(msg, RetailBusinessConstants.EXCEPTION_RETAIL_STOCK_ENTRY);
+				
+			}
+			
+			// VALIDATION 3.a: Batch number can not be updated if the stock/part of the stock is already sold
+			if(stockId > 0) {
+				StockEntry stock = retailStockEntryRepository.findOne(stockBean.getStockId());
+				if(stock == null) {
+					String msg = "stock does not exists for the stock Id: " + stockId;
+					log.error(msg);
+					throw new RetailStockEntryException(msg, RetailBusinessConstants.EXCEPTION_RETAIL_STOCK_ENTRY);
+				}
+				if(stockBean.getBatch() != null && !stock.getBatch().equals(stockBean.getBatch())) {
+					if(retailStockEntryRepository.checkIfAnyChildRecordExists(stockId) > 0) {
+						String msg = "Batch can not be updated because it is partially/completely sold for stockId: " + stockId;
+						log.error(msg);
+						throw new RetailStockEntryException(msg, RetailBusinessConstants.EXCEPTION_RETAIL_STOCK_ENTRY);
+					}
+				}
+				
+				stockBean.setChallanDate(stock.getChallanDate());
+				stockBean.setChallanNo(stock.getChallanNo());
+				if(stock.getBillDate() != null) stockBean.setBillDate(stock.getBillDate());
+				if(stock.getBillNo() != null) stockBean.setBillNo(stock.getBillNo());
+			}
+		}
+		
+		
+		
+		// VALIDATION 4: If bill number is specified then bill date and purchased price must not be empty
+		if(StringUtils.isNotBlank(stockBean.getBillNo())) {
+			if(stockBean.getBillDate() == null || stockBean.getPurchasePrice() == null) {
+				String msg = "As bill is received then billDate/purchased price can not be null";
+				log.error(msg);
+				throw new RetailStockEntryException(msg, RetailBusinessConstants.EXCEPTION_RETAIL_STOCK_ENTRY);
+			}
+		} else {
+			// VALIDATION 5: If bill number is not received then bill date must be null
+			if(stockBean.getBillDate() != null) {
+				String msg = "As bill is not received so bill date must be null";
+				log.error(msg);
+				throw new RetailStockEntryException(msg, RetailBusinessConstants.EXCEPTION_RETAIL_STOCK_ENTRY);
+			}
+		}
+		
+		// VALIDATION 6: Entry is not possible for closed financial year
+		boolean isYearClosed = isYearClosed(stockBean, stockBean.getActionDate());
+		if(isYearClosed) {
+			String msg = "Financial year closed for the selected date: " + stockBean.getActionDate();
+			log.error(msg);
+			throw new RetailStockEntryException(msg, RetailBusinessConstants.EXCEPTION_RETAIL_STOCK_ENTRY);
+		}
+		
+	}
+	
+	@Transactional(value="retailTransactionManager")
+	public UIModel deleteStockEntries(UIModel uiModel) {
+		if(uiModel.getBranchBean().getStockEntries() != null && uiModel.getBranchBean().getStockEntries().size() > 0 ) {
+			
+			List<RetailStockEntryBean> stocksBean = uiModel.getBranchBean().getStockEntries();
+			List<StockEntry> stocks = new ArrayList<StockEntry>();
+			for(RetailStockEntryBean stockBean : stocksBean) {
+				int stockId = stockBean.getStockId(); 
+				StockEntry stock = null;
+				if(stockId == 0) {
+					log.error("StockId can not be zero");
+					uiModel.setErrorMsg("StockId can not be zero");
+					return uiModel;
+				} else {
+					stock = retailStockEntryRepository.findOne(stockId);
+					if(stock == null) {
+						log.error("Incorrect stockId passed: " + stockId);
+						uiModel.setErrorMsg("Incorrect stockId passed: " + stockId);
+						return uiModel;
+					}
+				}
+				
+				// Rule 1: Stop stock deletion operation if the stock is already returned
+				if(retailStockEntryRepository.checkIfAnyChildRecordExists(stockId) > 0) {
+					log.error("Stock can not be deleted because it is partially/completely returned for stockId: " + stockId);
+					uiModel.setErrorMsg("Stock can not be deleted because it is partially/completely returned for stockId: " + stockId);
+					return uiModel;
+					
+				} else {
+					retailStockEntryMappingImpl.mapBean(stockBean, stock);
+					stocks.add(stock);
+				}
+			}
+			if(stocks.size() > 0) {
+				retailStockEntryRepository.save(stocks);
+				if(log.isDebugEnabled()) {
+					log.debug("All stocks updated with update user and updated date");
+				}
+				
+				retailStockEntryRepository.delete(stocks);
+				if(log.isDebugEnabled()) {
+					log.debug("Selected stocks are deleted");
+				}
+			}
+		}		
+		return uiModel;
+	}
+	
+	@Transactional(value="retailTransactionManager")
+	public UIModel getStockReturns(int materialId, Date startDate, Date endDate, int pageNo, int recordsPerPage) {
+		UIModel uiModel = new UIModel();
+		List<StockReturn> stocks = null;
+		
+		if(pageNo == 0) pageNo = 1;
+		if(recordsPerPage == 0) recordsPerPage = 1000000;
+		
+		PageRequest pageRequest = new PageRequest(pageNo - 1, recordsPerPage, Sort.Direction.DESC, "returnDate");
+		int recordCount = 0;
+		if(materialId > 0) {
+			stocks = retailStockReturnRepository.findStocksByMaterialId(materialId, startDate, endDate, pageRequest);
+			recordCount = retailStockReturnRepository.countStocksByMaterialId(materialId, startDate, endDate);
+		} else {
+			stocks = retailStockReturnRepository.findStocksByDateRange(startDate, endDate, pageRequest);
+			recordCount = retailStockReturnRepository.countStocksByDateRange(startDate, endDate);
+		}
+		
+		if(stocks != null && stocks.size() > 0) {
+			uiModel.setRecordCount(recordCount);
+			uiModel.setPageNo(pageNo);
+			uiModel.setRecordsPerPage(recordsPerPage);
+			
+			List<RetailStockReturnBean> stocksBean = new ArrayList<RetailStockReturnBean>();
+			for(StockReturn stock : stocks) {
+				RetailStockReturnBean stockBean = new RetailStockReturnBean();
+				retailStockReturnMappingImpl.mapBean(stock, stockBean);
+				stocksBean.add(stockBean);
+			}
+			
+			uiModel.setBranchBean(new BranchBean());
+			uiModel.getBranchBean().setStockReturns(stocksBean);
+			if(log.isDebugEnabled()) {
+				log.debug("Retrieved Stock-return records for the given input");
+			}
+		} else {
+			if(log.isDebugEnabled()) {
+				log.debug("No Stock-return records found for given input");
+			}
+		}
+		return uiModel;
+	}
+	
+	@Transactional(value="retailTransactionManager")
+	public UIModel saveStockReturns(UIModel uiModel) {
+		if(uiModel.getBranchBean().getStockReturns() != null && uiModel.getBranchBean().getStockReturns().size() > 0 ) {
+			
+			List<RetailStockReturnBean> stocksBean = uiModel.getBranchBean().getStockReturns();
+			List<StockReturn> stocks = new ArrayList<StockReturn>();
+			for(RetailStockReturnBean stockBean : stocksBean) {
+				int stockReturnId = stockBean.getStockReturnId();
+				StockReturn stock = null;
+				if(stockReturnId == 0) {
+					if(log.isDebugEnabled()) {
+						log.debug("New stock to be returned for stockId: " + stockBean.getStockId());
+					}
+					stock = new StockReturn();
+				} else {
+					stock = retailStockReturnRepository.findOne(stockReturnId);
+					if(stock == null) {
+						log.error("Incorrect stockReturnId passed: " + stockReturnId);
+						uiModel.setErrorMsg("Incorrect stockReturnId passed: " + stockReturnId);
+						return uiModel;
+					}
+				}
+				
+				//TODO: Need to add all validations here. Example delete stock is possible if the stock is not sold.
+				// Modification of stock is possible if the sold stock is not greater than the modification qty
+				retailStockReturnMappingImpl.mapBean(stockBean, stock);
+				stocks.add(stock);
+			}
+			if(stocks.size() > 0) {
+				retailStockReturnRepository.save(stocks);
+				if(log.isDebugEnabled()) {
+					log.debug("All stocks returned");
+				}
+				
+				// stockBean and stocks size has to be same
+				if(stocksBean.size() == stocks.size()) {
+					int i = 0;
+					for(StockReturn stock : stocks) {
+						RetailStockReturnBean stockBean = stocksBean.get(i++);
+						retailStockReturnMappingImpl.mapBean(stock, stockBean);
+					}
+				}
+			}
+		}		
+		return uiModel;
+	}
+	
+	@Transactional(value="retailTransactionManager")
+	public UIModel deleteStockReturns(UIModel uiModel) {
+		if(uiModel.getBranchBean().getStockReturns() != null && uiModel.getBranchBean().getStockReturns().size() > 0 ) {
+			
+			List<RetailStockReturnBean> stockReturnsBean = uiModel.getBranchBean().getStockReturns();
+			List<StockReturn> stockReturns = new ArrayList<StockReturn>();
+			for(RetailStockReturnBean stockReturnBean : stockReturnsBean) {
+				int stockReturnId = stockReturnBean.getStockReturnId();
+				StockReturn stockReturn = null;
+				if(stockReturnId == 0) {
+					log.error("StockReturnId can not be zero");
+					uiModel.setErrorMsg("StockReturnId can not be zero");
+					return uiModel;
+				} else {
+					stockReturn = retailStockReturnRepository.findOne(stockReturnId);
+					if(stockReturn == null) {
+						log.error("Incorrect stockReturnId passed: " + stockReturnId);
+						uiModel.setErrorMsg("Incorrect stockReturnId passed: " + stockReturnId);
+						return uiModel;
+					}
+					retailStockReturnMappingImpl.mapBean(stockReturnBean, stockReturn);
+					stockReturns.add(stockReturn);
+				}
+				
+				// Rule 1: Update the qty and availableQty of the corresponding stock if the year is not closed
+				// TODO: Rule 2: If the year is already closed then insert as a new stock entry
+				
+				int stockId = stockReturnBean.getStockId();
+				StockEntry stockEntry = retailStockEntryRepository.findOne(stockId);
+				
+				if(stockEntry == null) {
+					log.error("There is no corresponding stock entry record for the stock return id " + stockReturnId);
+					uiModel.setErrorMsg("There is no corresponding stock entry record for the stock return id " + stockReturnId);
+					return uiModel;
+				}
+				
+				if(stockEntry.getStockId() != stockReturn.getStockEntry().getStockId()) {
+					log.error("Corresponding stockId  " + stockId + " for stockReturnId " + stockReturnId + " is incorrect");
+					uiModel.setErrorMsg("Corresponding stockId  " + stockId + " for stockReturnId " + stockReturnId + " is incorrect");
+					return uiModel;
+				}
+				
+				BigDecimal qty = stockEntry.getQty();
+				BigDecimal availableQty = stockEntry.getAvailableQty();
+				
+				if(qty != null && stockReturn.getQty() != null) qty = qty.add(qty);
+				if(availableQty != null && stockReturn.getQty() != null) availableQty = availableQty.add(qty);
+				
+				stockEntry.setAvailableQty(availableQty);
+				stockEntry.setQty(qty);
+				retailStockEntryRepository.saveAndFlush(stockEntry);
+			}
+			if(stockReturns.size() > 0) {
+				retailStockReturnRepository.save(stockReturns);
+				if(log.isDebugEnabled()) {
+					log.debug("All stock returns are updated with update user and update date");
+				}
+				retailStockReturnRepository.delete(stockReturns);
+				if(log.isDebugEnabled()) {
+					log.debug("Selected stock returns are deleted");
+				}
+			}
+		} else {
+			log.error("Incorrect details passed to delete stock returns");
+			uiModel.setErrorMsg("Incorrect details passed to delete stock returns");
+			return uiModel;
+		}
+		return uiModel;
+	}
+	
+	private void log(String msg) {
+		if(log.isDebugEnabled()) {
+			log.debug(msg);
+		}
+	}
+}

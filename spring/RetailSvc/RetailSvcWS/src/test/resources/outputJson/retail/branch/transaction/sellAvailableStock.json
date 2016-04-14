@@ -44,7 +44,7 @@
       "customerName" : "ASHISH MONDAL",
       "billAmt" : 190.00,
       "billDate" : 1459276200000,
-      "createDate" : 1460482963000,
+      "createDate" : 1460567710000,
       "createUser" : "ashish",
       "deleteInd" : null,
       "deleteReason" : null,
@@ -54,9 +54,9 @@
       "paidBy" : null,
       "passingAuthInd" : null,
       "passingAuthRemark" : null,
-      "tranNo" : "12042016/1",
+      "tranNo" : "13042016/1",
       "tranType" : "SELL",
-      "updateDate" : 1460482963000,
+      "updateDate" : 1460567710000,
       "updateUser" : null,
       "vat" : 12.00,
       "materialTranDtls" : [ {
@@ -66,7 +66,7 @@
         "materialName" : "CASTROL",
         "batch" : "AZ1002",
         "uom" : "ml",
-        "createDate" : 1460482963000,
+        "createDate" : 1460567710000,
         "createUser" : "ashish",
         "deleteInd" : null,
         "deleteReason" : null,
@@ -76,7 +76,7 @@
         "qty" : 9.00,
         "rate" : 10.00,
         "total" : 90.00,
-        "updateDate" : 1460482963000,
+        "updateDate" : 1460567710000,
         "updateUser" : null
       }, {
         "tranDtlId" : 2,
@@ -85,7 +85,7 @@
         "materialName" : "CASTROL",
         "batch" : "AZ1002",
         "uom" : "ml",
-        "createDate" : 1460482963000,
+        "createDate" : 1460567710000,
         "createUser" : "ashish",
         "deleteInd" : null,
         "deleteReason" : null,
@@ -95,7 +95,7 @@
         "qty" : 1.00,
         "rate" : 10.00,
         "total" : 10.00,
-        "updateDate" : 1460482963000,
+        "updateDate" : 1460567710000,
         "updateUser" : null
       }, {
         "tranDtlId" : 3,
@@ -104,7 +104,7 @@
         "materialName" : "CASTROL",
         "batch" : "AB1002",
         "uom" : "ml",
-        "createDate" : 1460482963000,
+        "createDate" : 1460567710000,
         "createUser" : "ashish",
         "deleteInd" : null,
         "deleteReason" : null,
@@ -114,13 +114,13 @@
         "qty" : 9.00,
         "rate" : 10.00,
         "total" : 90.00,
-        "updateDate" : 1460482963000,
+        "updateDate" : 1460567710000,
         "updateUser" : null
       } ]
     } ],
     "fyCloses" : [ ],
-    "fyClosed" : false,
-    "branchActive" : false
+    "branchActive" : false,
+    "fyClosed" : false
   },
   "branches" : [ ],
   "errorMsg" : null,

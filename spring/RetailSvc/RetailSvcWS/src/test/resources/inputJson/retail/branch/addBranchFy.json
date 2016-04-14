@@ -1,0 +1,15 @@
+{
+  "branchBean" : {
+    "branchId" : 2,
+    "fyCloses" : [
+    	{	
+    		"fyId" : 0,
+    		"branchId" : 2,
+    		"fy" : "2015-2016",
+    		"startDate" : "01/04/2015 00:00:00",
+    		"endDate" : "31/03/2016 23:59:59",
+    		"createUser" : "ashish"
+    	}
+    ]
+  }
+}

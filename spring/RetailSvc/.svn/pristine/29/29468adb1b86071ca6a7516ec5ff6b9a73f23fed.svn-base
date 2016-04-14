@@ -1,0 +1,53 @@
+{
+  "branchBean": {
+    "branchId": 2,
+    "stockEntries": [
+      {
+        "stockId": 0,
+        "branchId": 2,
+        "materialId": 1,
+        "vendorId": 1,
+        "batch" : "MZ1001",
+        "challanDate" : "28/01/2016 00:00:00",
+        "actionDate" : "28/01/2016 00:00:00",
+        "qty" : 100,
+        "challanNo" : "80/123",
+        "purchasePrice" : "100.50",
+        "entryType" : "OPENING",
+        "mfgDate" : "31/01/2015 00:00:00",
+        "expDate" : "31/01/2018 00:00:00",
+        "createUser": "ashish"
+      },
+      {
+        "stockId": 0,
+        "branchId": 2,
+        "materialId": 1,
+        "vendorId": 2,
+        "batch" : "MB1001",
+        "challanDate" : "28/01/2016 00:00:00",
+        "actionDate" : "28/01/2016 00:00:00",
+        "qty" : 100,
+        "challanNo" : "80/123",
+        "purchasePrice" : "100.50",
+        "entryType" : "OPENING",
+        "createUser": "ashish"
+      },
+      {
+        "stockId": 0,
+        "branchId": 2,
+        "materialId": 2,
+        "vendorId": 1,
+        "batch" : "MA1001",
+        "challanDate" : "28/01/2016 00:00:00",
+        "actionDate" : "28/01/2016 00:00:00",
+        "qty" : 100,
+        "challanNo" : "80/123",
+        "billNo" : "80-124",
+        "billDate" : "28/03/2016 00:00:00",
+        "purchasePrice" : "9.00",
+        "entryType" : "OPENING",
+        "createUser": "ashish"
+      }
+    ]
+  }
+}

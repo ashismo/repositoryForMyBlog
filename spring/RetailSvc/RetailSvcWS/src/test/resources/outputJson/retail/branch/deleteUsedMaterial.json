@@ -68,8 +68,8 @@
     "stockReturns" : [ ],
     "materialTranHrds" : [ ],
     "fyCloses" : [ ],
-    "fyClosed" : false,
-    "branchActive" : false
+    "branchActive" : false,
+    "fyClosed" : false
   },
   "branches" : [ ],
   "errorMsg" : "Material is in use for materialId = 1",

@@ -21,6 +21,7 @@
     "licenseRemaining" : -1,
     "gracePeriod" : 10,
     "licenseOverDays" : 1,
+    "fy" : null,
     "addresses" : [ {
       "addressId" : 1,
       "addressName" : "Queen Palace",
@@ -59,8 +60,8 @@
     "branchLicenseDtlsBeans" : [ {
       "branchId" : 1,
       "branchLicenseId" : 1,
-      "startDate" : 1397845800000,
-      "endDate" : 1428345000000,
+      "startDate" : 1398364200000,
+      "endDate" : 1428863400000,
       "graceDay" : 10,
       "createUser" : "ashish",
       "updateUser" : null,
@@ -68,8 +69,8 @@
     }, {
       "branchId" : 1,
       "branchLicenseId" : 2,
-      "startDate" : 1428431400000,
-      "endDate" : 1459967400000,
+      "startDate" : 1428949800000,
+      "endDate" : 1460485800000,
       "graceDay" : 10,
       "createUser" : "ashish",
       "updateUser" : null,
@@ -103,7 +104,7 @@
       "branchId" : 1,
       "userName" : "ashish",
       "password" : "ashish",
-      "transactionPassword" : "$2a$10$ieWtyfFGyxAK95WF521b4.okdO8o.tZUwF6vfKaxZBiisqc7/6mma",
+      "transactionPassword" : "$2a$10$6JhkoZItX2D0B84hmBexKul1Gnkno1abexXlh0YiVS6vlFyKcszSe",
       "firstName" : "Ashish",
       "middleName" : null,
       "lastName" : null,
@@ -229,7 +230,9 @@
     "stockEntries" : [ ],
     "stockReturns" : [ ],
     "materialTranHrds" : [ ],
-    "branchActive" : true
+    "fyCloses" : [ ],
+    "branchActive" : true,
+    "fyClosed" : false
   },
   "branches" : [ ],
   "errorMsg" : null,

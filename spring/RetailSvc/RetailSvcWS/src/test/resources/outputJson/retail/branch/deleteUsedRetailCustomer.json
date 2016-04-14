@@ -58,8 +58,8 @@
     "stockReturns" : [ ],
     "materialTranHrds" : [ ],
     "fyCloses" : [ ],
-    "fyClosed" : false,
-    "branchActive" : false
+    "branchActive" : false,
+    "fyClosed" : false
   },
   "branches" : [ ],
   "errorMsg" : "Vendor is in use for customerId = 1",

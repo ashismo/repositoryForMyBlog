@@ -122,8 +122,8 @@
     "stockReturns" : [ ],
     "materialTranHrds" : [ ],
     "fyCloses" : [ ],
-    "fyClosed" : false,
-    "branchActive" : false
+    "branchActive" : false,
+    "fyClosed" : false
   },
   "branches" : [ ],
   "errorMsg" : "Stock can not be deleted because it is partially/completely returned for stockId: 1",

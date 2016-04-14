@@ -1,0 +1,21 @@
+{
+  "branchBean": {
+    "branchId": 1,
+    "materialGroups": [
+      {
+        "materialGrpId": 6,
+        "materials" : [
+        	{
+        		"materialId" : 0,
+        		"materialGrpId": 6,
+        		"materialName" : "SeatCover",
+        		"materialDescription" : "Seat Cover",
+        		"uom" : "pcs",
+        		"mrp" : "1000.00",
+        		"createUser": "ashish"
+        	}
+        ]
+      }
+    ]
+  }
+}

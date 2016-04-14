@@ -1,0 +1,21 @@
+{
+  "branchBean": {
+    "branchId": 1,
+    "materialGroups": [
+      {
+        "materialGrpId": 5,
+        "materials" : [
+        	{
+        		"materialId" : 0,
+        		"materialGrpId": 5,
+        		"materialName" : "Castrol",
+        		"uom" : "ml",
+        		"mrp" : "100.00",
+        		"materialDescription" : "Castrol Engine oil",
+        		"createUser": "ashish"
+        	}
+        ]
+      }
+    ]
+  }
+}

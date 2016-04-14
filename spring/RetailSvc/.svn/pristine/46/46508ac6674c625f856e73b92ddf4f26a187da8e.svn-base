@@ -1,0 +1,64 @@
+package com.org.coop.retail.repositories;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import com.org.coop.retail.entities.StockEntry;
+
+public interface RetailStockEntryRepository extends JpaRepository<StockEntry, Integer> {
+	
+	@Query("select se from StockEntry se where se.branchMaster.branchId = :branchId order by se.vendorMaster.vendorId desc")
+	public List<StockEntry> findByBranchId(@Param("branchId") int branchId, Pageable pageable);
+	
+	@Query("select se from StockEntry se where se.branchMaster.branchId = :branchId and se.vendorMaster.vendorId = :vendorId")
+	public List<StockEntry> findByVendorId(@Param("branchId") int branchId, @Param("vendorId") int vendorId, Pageable pageable);
+	
+	@Query("select se from StockEntry se where se.branchMaster.branchId = :branchId and se.materialMaster.materialId = :materialId")
+	public List<StockEntry> findByMaterialId(@Param("branchId") int branchId, @Param("materialId") int materialId, Pageable pageable);
+	
+	@Query("select count(se) from StockEntry se where se.branchMaster.branchId = :branchId")
+	public int countByBranchId(@Param("branchId") int branchId);
+	
+	@Query("select count(se) from StockEntry se where se.branchMaster.branchId = :branchId and se.vendorMaster.vendorId = :vendorId")
+	public int countByVendorId(@Param("branchId") int branchId, @Param("vendorId") int vendorId);
+	
+	@Query("select count(se) from StockEntry se where se.branchMaster.branchId = :branchId and se.materialMaster.materialId = :materialId")
+	public int countByMaterialId(@Param("branchId") int branchId, @Param("materialId") int materialId);
+	
+	@Query(value = "select sum(c1) from " +
+					"(select count(*) as c1 from stock_entry where " + 
+					"exists(select * from material_tran_dtl where stock_id = :stockId limit 1) " + 
+					"and stock_id = :stockId " +
+					"UNION " + 
+					"select count(*) as c1 from stock_entry where parent_stock_id = :stockId) stock_entry_count", nativeQuery=true)
+	public int checkIfAnyChildRecordExists(@Param("stockId") int stockId);
+	
+	/**
+	 *  // As the bill is not received so the purchased price is either of the following (whichever matches first) <br/>
+	 *	//	1. Last price of the same material of same batch (same branch) <br/>
+	 *	//	2. Last price of the same material from the same vendor (same branch) <br/>
+	 *	//  3. Last price of the same material from another vendor (same branch) <br/>
+	 *	//  4. MRP of the material <br/>
+	 * @param branchId
+	 * @param materialId
+	 * @param vendorId
+	 * @param batch
+	 * @return
+	 */
+	@Query(value = "select coalesce( " +
+		   "(select purchase_price from stock_entry where parent_stock_id = 0 and branch_id = :branchId and material_id = :materialId and vendor_id = :vendorId and batch= :batch order by challan_date desc limit 1), " +
+		   "(select purchase_price from stock_entry where parent_stock_id = 0 and branch_id = :branchId and material_id = :materialId and vendor_id = :vendorId order by challan_date desc limit 1), " +
+		   "(select purchase_price from stock_entry where parent_stock_id = 0 and branch_id = :branchId and material_id = :materialId order by challan_date desc limit 1), " +
+		   "(select mrp from material_master where material_id = :materialId limit 1), " +
+		   "0.00) as purchase_price  " +
+		   "from dual", nativeQuery=true)
+	public BigDecimal getStockEntryPrice(@Param("branchId") int branchId, @Param("materialId") int materialId, @Param("vendorId") int vendorId, @Param("batch") String batch);
+	
+	@Query("select se from StockEntry se where se.parentStockId = :stockId")
+	public List<StockEntry> findAllChildrenByStockId(@Param("stockId") int stockId);
+}
