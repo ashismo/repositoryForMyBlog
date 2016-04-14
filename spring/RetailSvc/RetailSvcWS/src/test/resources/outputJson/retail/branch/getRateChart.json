@@ -35,7 +35,7 @@
       "rateId" : 3,
       "branchId" : 2,
       "materialId" : 1,
-      "createDate" : 1460652913000,
+      "createDate" : 1460657000000,
       "createUser" : "ashish",
       "deleteInd" : null,
       "deleteReason" : null,
@@ -43,7 +43,7 @@
       "passingAuthRemark" : null,
       "startDate" : 1458412200000,
       "unitRate" : 200.00,
-      "updateDate" : 1460652913000,
+      "updateDate" : 1460657000000,
       "updateUser" : null
     } ],
     "documents" : [ ],
@@ -55,11 +55,12 @@
     "materialTranHrds" : [ ],
     "fyCloses" : [ ],
     "materialAvailabilities" : [ ],
-    "branchActive" : false,
-    "fyClosed" : false
+    "fyClosed" : false,
+    "branchActive" : false
   },
   "branches" : [ ],
   "errorMsg" : null,
+  "errorCode" : null,
   "recordCount" : 0,
   "pageNo" : 0,
   "recordsPerPage" : 0

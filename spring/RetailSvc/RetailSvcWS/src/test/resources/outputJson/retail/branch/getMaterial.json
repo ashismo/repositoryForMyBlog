@@ -55,8 +55,8 @@
         "mrp" : 100.00,
         "uom" : "ml",
         "updateUser" : null,
-        "createDate" : 1460652912000,
-        "updateDate" : 1460652912000,
+        "createDate" : 1460656999000,
+        "updateDate" : 1460656999000,
         "deleteInd" : null,
         "deleteReason" : null
       } ]
@@ -71,11 +71,12 @@
     "materialTranHrds" : [ ],
     "fyCloses" : [ ],
     "materialAvailabilities" : [ ],
-    "branchActive" : false,
-    "fyClosed" : false
+    "fyClosed" : false,
+    "branchActive" : false
   },
   "branches" : [ ],
   "errorMsg" : null,
+  "errorCode" : null,
   "recordCount" : 0,
   "pageNo" : 0,
   "recordsPerPage" : 0

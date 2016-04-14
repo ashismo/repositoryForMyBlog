@@ -55,8 +55,8 @@ import com.org.test.coop.society.data.transaction.config.TestDataAppConfig;
 	  @ContextConfiguration(classes={TestDataAppConfig.class, RetailDozerConfig.class})
 })
 @WebAppConfiguration
-public class RetailStockEntryWSTest {
-	private static final Logger logger = Logger.getLogger(RetailStockEntryWSTest.class);
+public class RetailStockEntryAfterYearCloseWSTest {
+	private static final Logger logger = Logger.getLogger(RetailStockEntryAfterYearCloseWSTest.class);
 	
 	private MockMvc mockMvc;
 	@Autowired
@@ -110,87 +110,33 @@ public class RetailStockEntryWSTest {
 	}
 	@Test
 	public void stockEntryTest() {
-		addStockEntry();
-		addAnotherStockEntry();
-//		addAnotherStockEntry1();
-		purchaseAStock();
-		purchaseReturnOfAStock();
-		entryReturnOfAStock();
-		entryTransferOfAStock();
-		purchasedTransferOfAStock();
-		addTransferReturnOfAStock();
-		addOpeningStockEntry();
-		getAllStocksForABranch();
+		addStockEntryForPreviousFY();
+//		addAnotherStockEntry();
+////		addAnotherStockEntry1();
+//		purchaseAStock();
+//		purchaseReturnOfAStock();
+//		entryReturnOfAStock();
+//		entryTransferOfAStock();
+//		purchasedTransferOfAStock();
+//		addTransferReturnOfAStock();
+//		addOpeningStockEntry();
+//		getAllStocksForABranch();
 	}
 
 	
-	private void addStockEntry() {
+	private void addStockEntryForPreviousFY() {
 		try {
 			MvcResult result = this.mockMvc.perform(post("/rest/saveStockEntries")
 				 .contentType("application/json").header("Authorization", "Basic " + Base64.getEncoder().encodeToString("ashish:ashish".getBytes()))
 				 .content(addStockEntryJson)
-				).andExpect(status().isOk())
+				).andExpect(status().is4xxClientError())
 				.andExpect(content().contentType("application/json"))
 				.andReturn();
+			UIModel uiModel = getUIModel(result, "outputJson/retail/branch/stockin/addStockEntryForPreviousFY.json");
 			
-			UIModel uiModel = getUIModel(result, "outputJson/retail/branch/stockin/addStockEntry.json");
-			
-			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-			String dateInString = "28-03-2016";
-			Date date = formatter.parse(dateInString);
-
-			
-			assertNull(uiModel.getErrorMsg());
-			assertEquals(3, uiModel.getBranchBean().getStockEntries().size());
-			for(RetailStockEntryBean stockBean : uiModel.getBranchBean().getStockEntries()) {
-				switch (stockBean.getStockId()) {
-					case 1: 
-						assertEquals(1, stockBean.getStockId());
-						assertEquals(2, stockBean.getBranchId());
-						assertEquals(1, stockBean.getMaterialId());
-						assertEquals(1, stockBean.getVendorId());
-						assertEquals(date, stockBean.getChallanDate());
-						assertEquals("AZ1001", stockBean.getBatch());
-						assertEquals(new BigDecimal("100"), stockBean.getQty());
-						assertEquals(new BigDecimal("100.00"), stockBean.getPurchasePrice());
-						assertEquals("86/123", stockBean.getChallanNo());
-//						assertEquals("86-123", stockBean.getBillNo());
-						assertEquals("NEW", stockBean.getEntryType());
-						
-						break;
-					case 2: 
-						assertEquals(2, stockBean.getStockId());
-						assertEquals(2, stockBean.getBranchId());
-						assertEquals(1, stockBean.getMaterialId());
-						assertEquals(2, stockBean.getVendorId());
-						assertEquals(date, stockBean.getChallanDate());
-						assertEquals("AB1001", stockBean.getBatch());
-						assertEquals(new BigDecimal("100"), stockBean.getQty());
-						assertEquals(new BigDecimal("100.00"), stockBean.getPurchasePrice());
-						assertEquals("86/123", stockBean.getChallanNo());
-//						assertEquals("86-123", stockBean.getBillNo());
-						assertEquals("NEW", stockBean.getEntryType());
-						break;
-						
-					case 3: 
-						assertEquals(3, stockBean.getStockId());
-						assertEquals(2, stockBean.getBranchId());
-						assertEquals(2, stockBean.getMaterialId());
-						assertEquals(1, stockBean.getVendorId());
-						assertEquals(date, stockBean.getChallanDate());
-						assertEquals("AA1001", stockBean.getBatch());
-						assertEquals(new BigDecimal("100"), stockBean.getQty());
-						assertEquals(new BigDecimal("10.00"), stockBean.getPurchasePrice());
-						assertEquals("86/123", stockBean.getChallanNo());
-//						assertEquals("86-124", stockBean.getBillNo());
-						assertEquals("PURCHASED", stockBean.getEntryType());
-						break;
-				}
-				
-			}
 		} catch(Exception e) {
-			logger.error("Error while adding stock entry", e);
-			Assert.fail("Error while adding stock entry");
+			logger.error("Error while adding stock entry for prevous FY", e);
+			Assert.fail("Error while adding stock entry for prevous FY");
 		}
 	}
 	

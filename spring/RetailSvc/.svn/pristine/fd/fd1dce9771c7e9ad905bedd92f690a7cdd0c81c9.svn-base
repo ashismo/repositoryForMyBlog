@@ -1,0 +1,9 @@
+{
+  "branchBean" : null,
+  "branches" : [ ],
+  "errorMsg" : "Financial year closed for the selected date: Mon Mar 28 00:00:00 IST 2016",
+  "errorCode" : "1240",
+  "recordCount" : 0,
+  "pageNo" : 0,
+  "recordsPerPage" : 0
+}
