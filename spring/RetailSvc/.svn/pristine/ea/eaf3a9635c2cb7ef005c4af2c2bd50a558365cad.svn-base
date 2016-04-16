@@ -1,0 +1,110 @@
+package com.org.coop.retail.servicehelper;
+
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.coop.org.exception.RetailException;
+import com.org.coop.bs.util.AdminSvcCommonUtil;
+import com.org.coop.bs.util.RetailBusinessConstants;
+import com.org.coop.canonical.beans.RetailStockEntryBean;
+import com.org.coop.canonical.beans.UIModel;
+import com.org.coop.retail.bs.mapper.RetailStockEntryMappingImpl;
+import com.org.coop.retail.entities.FyClose;
+import com.org.coop.retail.entities.StockEntry;
+import com.org.coop.retail.repositories.FyCloseRepository;
+import com.org.coop.retail.repositories.RetailStockEntryRepository;
+
+@Service
+public class FinancialYearCloseServiceHelperImpl {
+
+	private static final Logger log = Logger.getLogger(FinancialYearCloseServiceHelperImpl.class); 
+	
+	@Autowired
+	private FyCloseRepository fyCloseRepository;
+	
+	@Autowired
+	private AdminSvcCommonUtil adminSvcCommonUtil;
+	
+	@Autowired
+	private RetailStockEntryRepository retailStockEntryRepository; 
+	@Autowired
+	private RetailStockEntryMappingImpl retailStockEntryMappingImpl;
+	
+	@Transactional(value="retailTransactionManager")
+	public boolean isFinancialYearClosed(int branchId, String financialYear) {
+		FyClose fyClose = fyCloseRepository.fyCloseData(branchId, financialYear);
+		byte isFyClosed = (fyClose == null) ? 0 :fyClose.getIsClosed();
+		
+		if(isFyClosed == 0) {
+			return false;
+		}
+		return true;
+	}
+	
+	@Transactional(value="retailTransactionManager")
+	public UIModel closeFinancialYearData(UIModel uiModel) {
+		
+		// VALIDATION: Check if the year is already closed
+		String fy = uiModel.getBranchBean().getFy();
+		int branchId = uiModel.getBranchBean().getBranchId();
+		boolean isYearClosed = isFinancialYearClosed(branchId, fy);
+		
+		if(isYearClosed) {
+			String msg = "Financial year " + fy + " is already closed.";
+			log.error(msg);
+			throw new RetailException(msg, RetailBusinessConstants.EXCEPTION_RETAIL_YEAR_CLOSED);
+		}
+		
+		// Year close for Stock entry data
+		// RULE1: All NEW/PURCHASED/OPENING stocks will be transferred to YR_CLOSE_STOCK
+		PageRequest pageable = new PageRequest(0, 1000000);
+		uiModel = adminSvcCommonUtil.getFYStartAndEndDate(uiModel, fy);
+		Date fyStartDate = uiModel.getBranchBean().getFyStartDate();
+		Date fyEndDate = uiModel.getBranchBean().getFyEndDate();
+		List<StockEntry> stocks = retailStockEntryRepository.findFYClosableStocksByBranchId(branchId, fyStartDate, fyEndDate, pageable);
+		
+		List<StockEntry> fyClosedStocks = new ArrayList<StockEntry>();
+		for(StockEntry stock : stocks) {
+			RetailStockEntryBean stockBean = new RetailStockEntryBean();
+			retailStockEntryMappingImpl.mapBean(stock, stockBean);
+			stockBean.setParentStockId(stock.getStockId());
+			stockBean.setStockId(0);
+			
+			// Transfer the available quantity to the next year 
+			stockBean.setQty(stock.getAvailableQty());
+			stock.setAvailableQty(new BigDecimal(0));
+			
+			stockBean.setEntryType(RetailBusinessConstants.ENTRY_TYPE_YR_CLOSE_OPENING);
+			stockBean.setActionDate(new Date());
+			StockEntry stk = new StockEntry();
+			retailStockEntryMappingImpl.mapBean(stockBean, stk);
+			fyClosedStocks.add(stk);
+		}
+		if(stocks.size() > 0) {
+			retailStockEntryRepository.save(stocks);
+		}
+		if(fyClosedStocks.size() > 0) {
+			retailStockEntryRepository.save(fyClosedStocks);
+			if(log.isDebugEnabled()) {
+				log.debug("Stocks are transferred to next financial year");
+			}
+		}
+		
+		// RULE 2: Update isClosed=1 in fy_close table
+		FyClose fyClose = fyCloseRepository.fyCloseData(branchId, fy);
+		fyClose.setIsClosed((byte)1);
+		fyClose.setYearClosedOn(new Timestamp(System.currentTimeMillis()));
+		fyCloseRepository.saveAndFlush(fyClose);
+		return uiModel;
+	}
+	
+}

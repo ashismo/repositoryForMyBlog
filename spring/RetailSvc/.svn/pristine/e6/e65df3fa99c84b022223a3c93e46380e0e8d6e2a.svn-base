@@ -1,0 +1,286 @@
+package com.org.coop.retail.entities;
+
+import java.io.Serializable;
+
+import javax.persistence.*;
+
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
+import java.sql.Timestamp;
+import java.math.BigDecimal;
+import java.util.Date;
+
+
+/**
+ * The persistent class for the cheque_register database table.
+ * 
+ */
+@Entity
+@Table(name="cheque_register")
+@NamedQuery(name="ChequeRegister.findAll", query="SELECT c FROM ChequeRegister c")
+@SQLDelete(sql="update cheque_register set delete_ind='Y' where cheque_id = ?")
+@Where(clause="delete_ind is NULL")
+public class ChequeRegister implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="cheque_id")
+	private int chequeId;
+
+	private BigDecimal amount;
+
+	@Column(name="bank_name")
+	private String bankName;
+
+	@Column(name="branch_name")
+	private String branchName;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="cheque_bounce_date")
+	private Date chequeBounceDate;
+
+	@Column(name="cheque_charge")
+	private BigDecimal chequeCharge;
+
+	@Column(name="cheque_clear_amt")
+	private BigDecimal chequeClearAmt;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="cheque_clear_date")
+	private Date chequeClearDate;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="cheque_date")
+	private Date chequeDate;
+
+	@Column(name="cheque_no")
+	private String chequeNo;
+
+	@Column(name="create_date")
+	private Timestamp createDate;
+
+	@Column(name="create_user")
+	private String createUser;
+
+	@Column(name="delete_ind")
+	private String deleteInd;
+
+	@Column(name="delete_reason")
+	private String deleteReason;
+
+	@Column(name="passing_auth_ind")
+	private String passingAuthInd;
+
+	@Column(name="passing_auth_remark")
+	private String passingAuthRemark;
+
+	@Column(name="update_date")
+	private Timestamp updateDate;
+
+	@Column(name="update_user")
+	private String updateUser;
+
+	@Column(name="upper_bank_charge")
+	private BigDecimal upperBankCharge;
+
+	//bi-directional many-to-one association to GlLedgerHrd
+	@ManyToOne
+	@JoinColumn(name="gl_tran_id")
+	private GlLedgerHrd glLedgerHrd;
+
+	public ChequeRegister() {
+	}
+
+	public int getChequeId() {
+		return this.chequeId;
+	}
+
+	public void setChequeId(int chequeId) {
+		this.chequeId = chequeId;
+	}
+
+	public BigDecimal getAmount() {
+		return this.amount;
+	}
+
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
+
+	public String getBankName() {
+		return this.bankName;
+	}
+
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
+	}
+
+	public String getBranchName() {
+		return this.branchName;
+	}
+
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
+	}
+
+	public Date getChequeBounceDate() {
+		return this.chequeBounceDate;
+	}
+
+	public void setChequeBounceDate(Date chequeBounceDate) {
+		this.chequeBounceDate = chequeBounceDate;
+	}
+
+	public BigDecimal getChequeCharge() {
+		return this.chequeCharge;
+	}
+
+	public void setChequeCharge(BigDecimal chequeCharge) {
+		this.chequeCharge = chequeCharge;
+	}
+
+	public BigDecimal getChequeClearAmt() {
+		return this.chequeClearAmt;
+	}
+
+	public void setChequeClearAmt(BigDecimal chequeClearAmt) {
+		this.chequeClearAmt = chequeClearAmt;
+	}
+
+	public Date getChequeClearDate() {
+		return this.chequeClearDate;
+	}
+
+	public void setChequeClearDate(Date chequeClearDate) {
+		this.chequeClearDate = chequeClearDate;
+	}
+
+	public Date getChequeDate() {
+		return this.chequeDate;
+	}
+
+	public void setChequeDate(Date chequeDate) {
+		this.chequeDate = chequeDate;
+	}
+
+	public String getChequeNo() {
+		return this.chequeNo;
+	}
+
+	public void setChequeNo(String chequeNo) {
+		this.chequeNo = chequeNo;
+	}
+
+	public Timestamp getCreateDate() {
+		return this.createDate;
+	}
+
+	public void setCreateDate(Timestamp createDate) {
+		this.createDate = createDate;
+	}
+
+	public String getCreateUser() {
+		return this.createUser;
+	}
+
+	public void setCreateUser(String createUser) {
+		this.createUser = createUser;
+	}
+
+	public String getDeleteInd() {
+		return this.deleteInd;
+	}
+
+	public void setDeleteInd(String deleteInd) {
+		this.deleteInd = deleteInd;
+	}
+
+	public String getDeleteReason() {
+		return this.deleteReason;
+	}
+
+	public void setDeleteReason(String deleteReason) {
+		this.deleteReason = deleteReason;
+	}
+
+	public String getPassingAuthInd() {
+		return this.passingAuthInd;
+	}
+
+	public void setPassingAuthInd(String passingAuthInd) {
+		this.passingAuthInd = passingAuthInd;
+	}
+
+	public String getPassingAuthRemark() {
+		return this.passingAuthRemark;
+	}
+
+	public void setPassingAuthRemark(String passingAuthRemark) {
+		this.passingAuthRemark = passingAuthRemark;
+	}
+
+	public Timestamp getUpdateDate() {
+		return this.updateDate;
+	}
+
+	public void setUpdateDate(Timestamp updateDate) {
+		this.updateDate = updateDate;
+	}
+
+	public String getUpdateUser() {
+		return this.updateUser;
+	}
+
+	public void setUpdateUser(String updateUser) {
+		this.updateUser = updateUser;
+	}
+
+	public BigDecimal getUpperBankCharge() {
+		return this.upperBankCharge;
+	}
+
+	public void setUpperBankCharge(BigDecimal upperBankCharge) {
+		this.upperBankCharge = upperBankCharge;
+	}
+
+	public GlLedgerHrd getGlLedgerHrd() {
+		return this.glLedgerHrd;
+	}
+
+	public void setGlLedgerHrd(GlLedgerHrd glLedgerHrd) {
+		this.glLedgerHrd = glLedgerHrd;
+	}
+	@PreUpdate
+	@PrePersist
+	public void updateTimeStamps() {
+		long currentTime = System.currentTimeMillis();
+	    updateDate = new Timestamp(currentTime);
+	    if (createDate == null) {
+	    	createDate = new Timestamp(currentTime);
+	    }
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + chequeId;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ChequeRegister other = (ChequeRegister) obj;
+		if (chequeId != other.chequeId)
+			return false;
+		return true;
+	}
+}

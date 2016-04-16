@@ -1,0 +1,179 @@
+package com.org.coop.retail.entities;
+
+import java.io.Serializable;
+
+import javax.persistence.*;
+
+import java.sql.Timestamp;
+
+
+/**
+ * The persistent class for the stock_purchase database table.
+ * 
+ */
+@Entity
+@Table(name="stock_purchase")
+@NamedQuery(name="StockPurchase.findAll", query="SELECT s FROM StockPurchase s")
+public class StockPurchase implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="purchase_id")
+	private int purchaseId;
+
+	@Column(name="create_date")
+	private Timestamp createDate;
+
+	@Column(name="create_user")
+	private String createUser;
+
+	@Column(name="delete_ind")
+	private String deleteInd;
+
+	@Column(name="delete_reason")
+	private String deleteReason;
+
+	@Column(name="passing_auth_ind")
+	private String passingAuthInd;
+
+	@Column(name="passing_remark")
+	private String passingRemark;
+
+	@Column(name="update_date")
+	private Timestamp updateDate;
+
+	@Column(name="update_user")
+	private String updateUser;
+
+	//bi-directional many-to-one association to MaterialTranHrd
+	@ManyToOne
+	@JoinColumn(name="tran_id")
+	private MaterialTranHrd materialTranHrd;
+
+	//bi-directional many-to-one association to VendorMaster
+	@ManyToOne
+	@JoinColumn(name="vendor_id")
+	private VendorMaster vendorMaster;
+
+	public StockPurchase() {
+	}
+
+	public int getPurchaseId() {
+		return this.purchaseId;
+	}
+
+	public void setPurchaseId(int purchaseId) {
+		this.purchaseId = purchaseId;
+	}
+
+	public Timestamp getCreateDate() {
+		return this.createDate;
+	}
+
+	public void setCreateDate(Timestamp createDate) {
+		this.createDate = createDate;
+	}
+
+	public String getCreateUser() {
+		return this.createUser;
+	}
+
+	public void setCreateUser(String createUser) {
+		this.createUser = createUser;
+	}
+
+	public String getDeleteInd() {
+		return this.deleteInd;
+	}
+
+	public void setDeleteInd(String deleteInd) {
+		this.deleteInd = deleteInd;
+	}
+
+	public String getDeleteReason() {
+		return this.deleteReason;
+	}
+
+	public void setDeleteReason(String deleteReason) {
+		this.deleteReason = deleteReason;
+	}
+
+	public String getPassingAuthInd() {
+		return this.passingAuthInd;
+	}
+
+	public void setPassingAuthInd(String passingAuthInd) {
+		this.passingAuthInd = passingAuthInd;
+	}
+
+	public String getPassingRemark() {
+		return this.passingRemark;
+	}
+
+	public void setPassingRemark(String passingRemark) {
+		this.passingRemark = passingRemark;
+	}
+
+	public Timestamp getUpdateDate() {
+		return this.updateDate;
+	}
+
+	public void setUpdateDate(Timestamp updateDate) {
+		this.updateDate = updateDate;
+	}
+
+	public String getUpdateUser() {
+		return this.updateUser;
+	}
+
+	public void setUpdateUser(String updateUser) {
+		this.updateUser = updateUser;
+	}
+
+	public MaterialTranHrd getMaterialTranHrd() {
+		return this.materialTranHrd;
+	}
+
+	public void setMaterialTranHrd(MaterialTranHrd materialTranHrd) {
+		this.materialTranHrd = materialTranHrd;
+	}
+
+	public VendorMaster getVendorMaster() {
+		return this.vendorMaster;
+	}
+
+	public void setVendorMaster(VendorMaster vendorMaster) {
+		this.vendorMaster = vendorMaster;
+	}
+	@PreUpdate
+	@PrePersist
+	public void updateTimeStamps() {
+	    updateDate = new Timestamp(System.currentTimeMillis());
+	    if (createDate == null) {
+	    	createDate = new Timestamp(System.currentTimeMillis());
+	    }
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + purchaseId;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		StockPurchase other = (StockPurchase) obj;
+		if (purchaseId != other.purchaseId)
+			return false;
+		return true;
+	}
+}
