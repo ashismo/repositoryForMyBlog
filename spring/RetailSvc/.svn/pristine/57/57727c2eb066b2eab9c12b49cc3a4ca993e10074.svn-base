@@ -7,33 +7,31 @@ import javax.persistence.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.math.BigDecimal;
 
 
 /**
- * The persistent class for the retail_rate_chart database table.
+ * The persistent class for the retail_ledger_code database table.
  * 
  */
 @Entity
-@Table(name="retail_rate_chart")
-@NamedQuery(name="RetailRateChart.findAll", query="SELECT r FROM RetailRateChart r")
-@SQLDelete(sql="update retail_rate_chart set delete_ind='Y' where rate_id = ?")
+@Table(name="retail_ledger_code")
+@NamedQuery(name="RetailLedgerCode.findAll", query="SELECT r FROM RetailLedgerCode r")
+@SQLDelete(sql="update retail_ledger_code set delete_ind='Y' where retail_ledger_code_id = ?")
 @Where(clause="delete_ind is NULL")
-public class RetailRateChart implements Serializable {
+public class RetailLedgerCode implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="rate_id")
-	private int rateId;
+	@Column(name="retail_ledger_code_id")
+	private int retailLedgerCodeId;
 
 	@Column(name="create_date")
 	private Timestamp createDate;
 
 	@Column(name="create_user")
-	private String createUser;
+	private int createUser;
 
 	@Column(name="delete_ind")
 	private String deleteInd;
@@ -47,11 +45,11 @@ public class RetailRateChart implements Serializable {
 	@Column(name="passing_auth_remark")
 	private String passingAuthRemark;
 
-	@Column(name="start_date")
-	private Date startDate;
+	@Column(name="purchase_code")
+	private int purchaseCode;
 
-	@Column(name="unit_rate")
-	private BigDecimal unitRate;
+	@Column(name="sell_code")
+	private int sellCode;
 
 	@Column(name="update_date")
 	private Timestamp updateDate;
@@ -59,25 +57,25 @@ public class RetailRateChart implements Serializable {
 	@Column(name="update_user")
 	private String updateUser;
 
-	//bi-directional many-to-one association to BranchMaster
+	//bi-directional many-to-one association to MaterialGroup
 	@ManyToOne
-	@JoinColumn(name="branch_id")
-	private BranchMaster branchMaster;
+	@JoinColumn(name="material_grp_id")
+	private MaterialGroup materialGroup;
 
-	//bi-directional many-to-one association to MaterialMaster
+	//bi-directional many-to-one association to VendorMaster
 	@ManyToOne
-	@JoinColumn(name="material_id")
-	private MaterialMaster materialMaster;
+	@JoinColumn(name="vendor_id")
+	private VendorMaster vendorMaster;
 
-	public RetailRateChart() {
+	public RetailLedgerCode() {
 	}
 
-	public int getRateId() {
-		return this.rateId;
+	public int getRetailLedgerCodeId() {
+		return this.retailLedgerCodeId;
 	}
 
-	public void setRateId(int rateId) {
-		this.rateId = rateId;
+	public void setRetailLedgerCodeId(int retailLedgerCodeId) {
+		this.retailLedgerCodeId = retailLedgerCodeId;
 	}
 
 	public Timestamp getCreateDate() {
@@ -88,11 +86,11 @@ public class RetailRateChart implements Serializable {
 		this.createDate = createDate;
 	}
 
-	public String getCreateUser() {
+	public int getCreateUser() {
 		return this.createUser;
 	}
 
-	public void setCreateUser(String createUser) {
+	public void setCreateUser(int createUser) {
 		this.createUser = createUser;
 	}
 
@@ -128,20 +126,20 @@ public class RetailRateChart implements Serializable {
 		this.passingAuthRemark = passingAuthRemark;
 	}
 
-	public Date getStartDate() {
-		return startDate;
+	public int getPurchaseCode() {
+		return this.purchaseCode;
 	}
 
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
+	public void setPurchaseCode(int purchaseCode) {
+		this.purchaseCode = purchaseCode;
 	}
 
-	public BigDecimal getUnitRate() {
-		return this.unitRate;
+	public int getSellCode() {
+		return this.sellCode;
 	}
 
-	public void setUnitRate(BigDecimal unitRate) {
-		this.unitRate = unitRate;
+	public void setSellCode(int sellCode) {
+		this.sellCode = sellCode;
 	}
 
 	public Timestamp getUpdateDate() {
@@ -160,27 +158,35 @@ public class RetailRateChart implements Serializable {
 		this.updateUser = updateUser;
 	}
 
-	public BranchMaster getBranchMaster() {
-		return this.branchMaster;
+	public MaterialGroup getMaterialGroup() {
+		return this.materialGroup;
 	}
 
-	public void setBranchMaster(BranchMaster branchMaster) {
-		this.branchMaster = branchMaster;
+	public void setMaterialGroup(MaterialGroup materialGroup) {
+		this.materialGroup = materialGroup;
 	}
 
-	public MaterialMaster getMaterialMaster() {
-		return this.materialMaster;
+	public VendorMaster getVendorMaster() {
+		return this.vendorMaster;
 	}
 
-	public void setMaterialMaster(MaterialMaster materialMaster) {
-		this.materialMaster = materialMaster;
+	public void setVendorMaster(VendorMaster vendorMaster) {
+		this.vendorMaster = vendorMaster;
+	}
+	@PreUpdate
+	@PrePersist
+	public void updateTimeStamps() {
+	    updateDate = new Timestamp(System.currentTimeMillis());
+	    if (createDate == null) {
+	    	createDate = new Timestamp(System.currentTimeMillis());
+	    }
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + rateId;
+		result = prime * result + retailLedgerCodeId;
 		return result;
 	}
 
@@ -192,18 +198,9 @@ public class RetailRateChart implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		RetailRateChart other = (RetailRateChart) obj;
-		if (rateId != other.rateId)
+		RetailLedgerCode other = (RetailLedgerCode) obj;
+		if (retailLedgerCodeId != other.retailLedgerCodeId)
 			return false;
 		return true;
-	}
-
-	@PreUpdate
-	@PrePersist
-	public void updateTimeStamps() {
-	    updateDate = new Timestamp(System.currentTimeMillis());
-	    if (createDate == null) {
-	    	createDate = new Timestamp(System.currentTimeMillis());
-	    }
 	}
 }
