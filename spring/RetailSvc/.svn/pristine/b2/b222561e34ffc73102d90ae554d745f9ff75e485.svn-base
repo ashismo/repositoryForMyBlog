@@ -1,0 +1,23 @@
+{
+  "branchBean": {
+    "branchId": 1,
+    "retailLedgerCodes": [
+      {
+      	"retailLedgerCodeId" : 0,
+        "materialGrpId": 2,
+        "vendorId" : 3,
+        "purchaseCode" : 34114,
+        "sellCode" : 41114,
+        "createUser": "ashish"
+      },
+      {
+      	"retailLedgerCodeId" : 0,
+        "materialGrpId": 3,
+        "vendorId" : 3,
+        "purchaseCode" : 34115,
+        "sellCode" : 41115,
+        "createUser": "ashish"
+      }
+    ]
+  }
+}

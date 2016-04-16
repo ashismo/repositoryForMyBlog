@@ -1,0 +1,163 @@
+package com.org.coop.retail.servicehelper;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.coop.org.exception.RetailException;
+import com.org.coop.bs.util.RetailBusinessConstants;
+import com.org.coop.canonical.beans.BranchBean;
+import com.org.coop.canonical.beans.UIModel;
+import com.org.coop.canonical.retail.beans.RetailLedgerCodeBean;
+import com.org.coop.canonical.retail.beans.RetailVendorBean;
+import com.org.coop.retail.bs.mapper.RetailLedgerCodeMappingImpl;
+import com.org.coop.retail.entities.MaterialGroup;
+import com.org.coop.retail.entities.RetailLedgerCode;
+import com.org.coop.retail.entities.VendorMaster;
+import com.org.coop.retail.repositories.RetailBranchMasterRepository;
+import com.org.coop.retail.repositories.RetailLedgerCodeRepository;
+import com.org.coop.retail.repositories.RetailMaterialGroupMasterRepository;
+import com.org.coop.retail.repositories.RetailVendorMasterRepository;
+
+@Service
+public class RetailLedgerCodeSetupServiceHelperImpl {
+
+	private static final Logger log = Logger.getLogger(RetailLedgerCodeSetupServiceHelperImpl.class); 
+	
+	@Autowired
+	private RetailBranchMasterRepository branchMasterRepository;
+	
+	@Autowired
+	private RetailLedgerCodeMappingImpl retailLedgerCodeMappingImpl;
+	
+	@Autowired
+	private RetailVendorMasterRepository retailVendorMasterRepository;
+	
+	@Autowired
+	private RetailLedgerCodeRepository retailLedgerCodeRepository;
+	
+	@Autowired
+	private RetailMaterialGroupMasterRepository retailMaterialGroupMasterRepository;
+	
+	@Transactional(value="retailTransactionManager")
+	public UIModel getRetailLedgerCode(int vendorId, int materialGrpId, int pageNo, int recordsPerPage) {
+		UIModel uiModel = new UIModel();
+		
+		// Ruel 1: If materialGrpId = 0 and vendorId = 0 then retrieve all retail ledger code
+		List<RetailLedgerCodeBean> ledgerCodeBeans = new ArrayList<RetailLedgerCodeBean>();
+		List<RetailLedgerCode> retailLedgerCodes = null;
+		
+		Pageable  pagable = new PageRequest(pageNo - 1, recordsPerPage, Sort.Direction.DESC, "materialGroup.materialGrpId", "vendorMaster.vendorId");
+		
+		if(vendorId == 0 && materialGrpId == 0) {
+			retailLedgerCodes = retailLedgerCodeRepository.findAllLedgerCodes(pagable);
+		}else if(vendorId > 0 && materialGrpId > 0) {
+			pagable = new PageRequest(pageNo - 1, recordsPerPage, Sort.Direction.DESC, "materialGroup.materialGrpId", "vendorMaster.vendorId");
+			retailLedgerCodes = retailLedgerCodeRepository.findRetailLedgerByMaterialGrpIdAndVendorId(materialGrpId, vendorId, pagable);
+		} else if(vendorId > 0) {
+			pagable = new PageRequest(pageNo - 1, recordsPerPage, Sort.Direction.DESC, "vendorMaster.vendorId");
+			retailLedgerCodes = retailLedgerCodeRepository.findRetailLedgerByVendorId(vendorId, pagable);
+		} else if(materialGrpId > 0) {
+			pagable = new PageRequest(pageNo - 1, recordsPerPage, Sort.Direction.DESC, "materialGroup.materialGrpId", "vendorMaster.vendorId");
+			retailLedgerCodes = retailLedgerCodeRepository.findRetailLedgerByMaterialGrpId(materialGrpId, pagable);
+		}
+		BranchBean branchBean = new BranchBean();
+		uiModel.setBranchBean(branchBean);
+		uiModel.setPageNo(pageNo);
+		uiModel.setRecordsPerPage(retailLedgerCodes.size());
+		uiModel.setRecordCount(retailLedgerCodes.size());
+		for(RetailLedgerCode ledgerCode : retailLedgerCodes) {
+			RetailLedgerCodeBean ledgerCodeBean = new RetailLedgerCodeBean();
+			retailLedgerCodeMappingImpl.mapBean(ledgerCode, ledgerCodeBean);
+			branchBean.setBranchId(ledgerCode.getMaterialGroup().getBranchMaster().getBranchId());
+			ledgerCodeBeans.add(ledgerCodeBean);
+		}
+		branchBean.setRetailLedgerCodes(ledgerCodeBeans);
+		
+		
+		if(log.isDebugEnabled()) {
+			log.debug("Retail Ledger details has been retrieved from database for vendorId: " + vendorId);
+		}
+		return uiModel;
+	}
+	
+	@Transactional(value="retailTransactionManager")
+	public UIModel saveRetailLedgerCode(UIModel uiModel) {
+		if(uiModel.getBranchBean().getRetailLedgerCodes() != null && uiModel.getBranchBean().getRetailLedgerCodes().size() > 0 ) {
+			List<RetailLedgerCodeBean> retailLedgerCodeBeans = uiModel.getBranchBean().getRetailLedgerCodes();
+			
+//			List<RetailLedgerCode> retailLedgerCodes = new ArrayList<RetailLedgerCode>();
+			
+			for(RetailLedgerCodeBean retailLedgerCodeBean : retailLedgerCodeBeans) {
+				int vendorId = retailLedgerCodeBean.getVendorId();
+				int materialGrpId = retailLedgerCodeBean.getMaterialGrpId();
+				
+				VendorMaster vendor = retailVendorMasterRepository.findOne(vendorId);
+				if(vendor == null) {
+					String msg = "Vendor does not exist for vendor Id: " + vendorId;
+					log.error(msg);
+					throw new RetailException(msg, RetailBusinessConstants.EXCEPTION_RETAIL);
+				}
+				
+				MaterialGroup materialGroup = retailMaterialGroupMasterRepository.findOne(materialGrpId);
+				if(materialGroup == null) {
+					String msg = "Material Group does not exist for material group Id: " + materialGrpId;
+					log.error(msg);
+					throw new RetailException(msg, RetailBusinessConstants.EXCEPTION_RETAIL);
+				}
+				
+				RetailLedgerCode retailLedgerCode = new RetailLedgerCode();
+				retailLedgerCodeMappingImpl.mapBean(retailLedgerCodeBean, retailLedgerCode);
+				retailLedgerCodeRepository.saveAndFlush(retailLedgerCode);
+//				retailLedgerCodes.add(retailLedgerCode);
+			}
+		} else {
+			uiModel.setErrorMsg("Retail Ledger code details not passed correctly");
+		}
+		return uiModel;
+	}
+	
+	@Transactional(value="retailTransactionManager")
+	public UIModel deleteVendor(UIModel uiModel) {
+		if(uiModel.getBranchBean().getRetailVendors() != null && uiModel.getBranchBean().getRetailVendors().size() > 0 ) {
+			RetailVendorBean vendorBean = uiModel.getBranchBean().getRetailVendors().get(0);
+			int vendorId = vendorBean.getVendorId();
+			VendorMaster vendor = retailVendorMasterRepository.findOne(vendorId);
+			if(vendor == null) {
+				log.error("Vendor does not exists for vendorId: " + vendorId);
+				uiModel.setErrorMsg("Vendor does not exists for vendorId: " + vendorId);
+				return uiModel;
+			}
+			
+			try {
+				if(retailVendorMasterRepository.checkIfAnyChildRecordExists(vendorId) > 0) {
+					log.error("Vendor is in use for vendorId = " + vendorId);
+					uiModel.setErrorMsg("Vendor is in use for vendorId = " + vendorId);
+					return uiModel;
+				} else {
+//					retailVendorMappingImpl.mapBean(vendorBean, vendor);
+					retailVendorMasterRepository.saveAndFlush(vendor);
+					retailVendorMasterRepository.delete(vendor);
+				}
+			} catch (Exception e) {
+				log.error("Unable to delete vendor for vendorId = " + vendorId);
+				uiModel.setErrorMsg("Unable to delete vendor for vendorId = " + vendorId);
+				return uiModel;
+			}
+			if(log.isDebugEnabled()) {
+				log.debug("Vendor deleted for vendorId = " + vendorId);
+			}
+		} else {
+			uiModel.setErrorMsg("Vendor can not be deleted because the details has not passed correctly");
+		}
+		return uiModel;
+	}
+	
+}

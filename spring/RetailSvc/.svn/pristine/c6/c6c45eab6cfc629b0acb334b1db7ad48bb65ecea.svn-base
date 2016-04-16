@@ -1,0 +1,245 @@
+package com.org.test.coop.master.junit;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Base64;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.ContextHierarchy;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.org.coop.bs.config.DozerConfig;
+import com.org.coop.canonical.beans.UIModel;
+import com.org.coop.canonical.retail.beans.RetailLedgerCodeBean;
+import com.org.coop.retail.bs.config.RetailDozerConfig;
+import com.org.coop.society.data.transaction.config.DataAppConfig;
+import com.org.test.coop.junit.JunitTestUtil;
+import com.org.test.coop.society.data.transaction.config.TestDataAppConfig;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ComponentScan(basePackages = "com.org.test.coop")
+@EnableAutoConfiguration(exclude = { DataAppConfig.class, DozerConfig.class})
+@ContextHierarchy({
+	  @ContextConfiguration(classes={TestDataAppConfig.class, RetailDozerConfig.class})
+})
+@WebAppConfiguration
+public class RetailLedgerCodeWSTest {
+	private static final Logger logger = Logger.getLogger(RetailLedgerCodeWSTest.class);
+	
+	private MockMvc mockMvc;
+	@Autowired
+	private WebApplicationContext wac;
+	
+	private String addRetailLedgerCodeJson = null;
+	private String addAnotherRetailLedgerCodeJson = null;
+	
+	private ObjectMapper om = null;
+	
+	@Before
+	public void runBefore() throws Exception {
+		try {
+			this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+
+			DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			om = new ObjectMapper();
+			om.setSerializationInclusion(Include.NON_NULL);
+			om.setDateFormat(df);
+			addRetailLedgerCodeJson = JunitTestUtil.getFileContent("inputJson/retail/branch/addRetailLedgerCode.json");
+			addAnotherRetailLedgerCodeJson = JunitTestUtil.getFileContent("inputJson/retail/branch/addAnotherRetailLedgerCode.json");
+		} catch (Exception e) {
+			logger.error("Error while initializing RetailLedgerCodeWSTest: ", e);
+			Assert.fail("Error while initializing RetailLedgerCodeWSTest: ");
+		}
+	}
+	@Test
+	public void testRetailLedgerCode() {
+		addRetailLedgerCode();
+		addAnotherRetailLedgerCode();
+		getRetailLedgerCodesByMaterialGroupId();
+		getRetailLedgerCodesByMaterialGroupIdAndVendorId();
+		getRetailLedgerCodesByVendorId();
+		getAllRetailLedgerCodes();
+	}
+
+	private void addRetailLedgerCode() {
+		try {
+			assertNotNull(addRetailLedgerCodeJson);
+			MvcResult result = this.mockMvc.perform(post("/rest/saveRetailLedgerCode")
+				 .contentType("application/json").header("Authorization", "Basic " + Base64.getEncoder().encodeToString("ashish:ashish".getBytes()))
+				 .content(addRetailLedgerCodeJson)
+				).andExpect(status().isOk())
+				.andExpect(content().contentType("application/json"))
+				.andReturn();
+			
+			UIModel uiModel = getUIModel(result, "outputJson/retail/branch/addRetailLedgerCode.json");
+			
+			assertNull(uiModel.getErrorMsg());
+			for(RetailLedgerCodeBean retailLedgerCode : uiModel.getBranchBean().getRetailLedgerCodes()) {
+				switch(retailLedgerCode.getRetailLedgerCodeId()) {
+					case 1:
+						assertEquals(1, retailLedgerCode.getVendorId());
+						assertEquals(1, retailLedgerCode.getMaterialGrpId());
+						assertEquals(34112, retailLedgerCode.getPurchaseCode());
+						assertEquals(41112, retailLedgerCode.getSellCode());
+						assertEquals("ashish", retailLedgerCode.getCreateUser());
+					break;
+					case 2:
+						assertEquals(2, retailLedgerCode.getVendorId());
+						assertEquals(1, retailLedgerCode.getMaterialGrpId());
+						assertEquals(34113, retailLedgerCode.getPurchaseCode());
+						assertEquals(41113, retailLedgerCode.getSellCode());
+						assertEquals("ashish", retailLedgerCode.getCreateUser());
+					break;
+				}
+			}
+			
+		} catch(Exception e) {
+			logger.error("Error while adding retail ledger code", e);
+			Assert.fail("Error while adding  retail ledger code");
+		}
+	}
+	
+	private void addAnotherRetailLedgerCode() {
+		try {
+			assertNotNull(addRetailLedgerCodeJson);
+			MvcResult result = this.mockMvc.perform(post("/rest/saveRetailLedgerCode")
+				 .contentType("application/json").header("Authorization", "Basic " + Base64.getEncoder().encodeToString("ashish:ashish".getBytes()))
+				 .content(addAnotherRetailLedgerCodeJson)
+				).andExpect(status().isOk())
+				.andExpect(content().contentType("application/json"))
+				.andReturn();
+			
+			UIModel uiModel = getUIModel(result, "outputJson/retail/branch/addAnotherRetailLedgerCode.json");
+			
+			assertNull(uiModel.getErrorMsg());
+		} catch(Exception e) {
+			logger.error("Error while adding retail ledger code", e);
+			Assert.fail("Error while adding  retail ledger code");
+		}
+	}
+	
+	private void getRetailLedgerCodesByMaterialGroupId() {
+		try {
+			MvcResult result = this.mockMvc.perform(get("/rest/getRetailLedgerCode?materialGrpId=1")
+					 .contentType("application/json").header("Authorization", "Basic " + Base64.getEncoder().encodeToString("ashish:ashish".getBytes()))
+					).andExpect(status().isOk())
+					.andExpect(content().contentType("application/json"))
+					.andReturn();
+				
+			UIModel uiModel = getUIModel(result, "outputJson/retail/branch/getRetailLedgerCodesByMaterialGroupId.json");
+			
+			assertNull(uiModel.getErrorMsg());
+			
+			List<RetailLedgerCodeBean> retailLedgerCodes = uiModel.getBranchBean().getRetailLedgerCodes();
+			assertEquals(2, uiModel.getRecordCount());
+		} catch(Exception e) {
+			logger.error("Error while retrieving retail ledger code", e);
+			Assert.fail("Error while retrieving retail ledger code");
+		}
+	}
+	
+	private void getRetailLedgerCodesByVendorId() {
+		try {
+			MvcResult result = this.mockMvc.perform(get("/rest/getRetailLedgerCode?vendorId=3")
+					 .contentType("application/json").header("Authorization", "Basic " + Base64.getEncoder().encodeToString("ashish:ashish".getBytes()))
+					).andExpect(status().isOk())
+					.andExpect(content().contentType("application/json"))
+					.andReturn();
+				
+			UIModel uiModel = getUIModel(result, "outputJson/retail/branch/getRetailLedgerCodesByVendorId.json");
+			assertNull(uiModel.getErrorMsg());
+			
+			List<RetailLedgerCodeBean> retailLedgerCodes = uiModel.getBranchBean().getRetailLedgerCodes();
+			assertEquals(2, uiModel.getRecordCount());
+			assertEquals(2, retailLedgerCodes.size());
+		} catch(Exception e) {
+			logger.error("Error while retrieving retail ledger code", e);
+			Assert.fail("Error while retrieving retail ledger code");
+		}
+	}
+	
+	private void getAllRetailLedgerCodes() {
+		try {
+			MvcResult result = this.mockMvc.perform(get("/rest/getRetailLedgerCode")
+					 .contentType("application/json").header("Authorization", "Basic " + Base64.getEncoder().encodeToString("ashish:ashish".getBytes()))
+					).andExpect(status().isOk())
+					.andExpect(content().contentType("application/json"))
+					.andReturn();
+				
+			UIModel uiModel = getUIModel(result, "outputJson/retail/branch/getAllRetailLedgerCodes.json");
+			assertNull(uiModel.getErrorMsg());
+			
+			List<RetailLedgerCodeBean> retailLedgerCodes = uiModel.getBranchBean().getRetailLedgerCodes();
+			assertEquals(4, uiModel.getRecordCount());
+			assertEquals(4, retailLedgerCodes.size());
+		} catch(Exception e) {
+			logger.error("Error while retrieving retail ledger code", e);
+			Assert.fail("Error while retrieving retail ledger code");
+		}
+	}
+	
+	private void getRetailLedgerCodesByMaterialGroupIdAndVendorId() {
+		try {
+			MvcResult result = this.mockMvc.perform(get("/rest/getRetailLedgerCode?materialGrpId=1&vendorId=1")
+					 .contentType("application/json").header("Authorization", "Basic " + Base64.getEncoder().encodeToString("ashish:ashish".getBytes()))
+					).andExpect(status().isOk())
+					.andExpect(content().contentType("application/json"))
+					.andReturn();
+				
+			UIModel uiModel = getUIModel(result, "outputJson/retail/branch/getRetailLedgerCodesByMaterialGroupIdAndVendorId.json");
+			assertNull(uiModel.getErrorMsg());
+			
+			List<RetailLedgerCodeBean> retailLedgerCodes = uiModel.getBranchBean().getRetailLedgerCodes();
+			assertEquals(1, uiModel.getRecordCount());
+			assertEquals(1, retailLedgerCodes.size());
+		} catch(Exception e) {
+			logger.error("Error while retrieving retail ledger code", e);
+			Assert.fail("Error while retrieving retail ledger code");
+		}
+	}
+	
+	private UIModel getUIModel(MvcResult result)
+			throws UnsupportedEncodingException, IOException,
+			JsonParseException, JsonMappingException {
+		String json = result.getResponse().getContentAsString();
+		UIModel createBranchBean = om.readValue(json, UIModel.class);
+		return createBranchBean;
+	}
+	
+	private UIModel getUIModel(MvcResult result, String path)
+			throws UnsupportedEncodingException, IOException,
+			JsonParseException, JsonMappingException {
+		UIModel createBranchBean = getUIModel(result);
+		JunitTestUtil.writeJSONToFile(createBranchBean, path);
+		return createBranchBean;
+	}
+	
+}
