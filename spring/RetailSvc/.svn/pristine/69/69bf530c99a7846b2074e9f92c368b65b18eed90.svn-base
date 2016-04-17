@@ -1,0 +1,180 @@
+package com.org.coop.retail.entities;
+
+import java.io.Serializable;
+
+import javax.persistence.*;
+
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
+import java.sql.Timestamp;
+
+
+/**
+ * The persistent class for the ledger_code_payment database table.
+ * 
+ */
+@Entity
+@Table(name="ledger_code_payment")
+@NamedQuery(name="LedgerCodePayment.findAll", query="SELECT l FROM LedgerCodePayment l")
+@SQLDelete(sql="update ledger_code_payment set delete_ind='Y' where payment_ledger_id = ?")
+@Where(clause="delete_ind is NULL")
+public class LedgerCodePayment implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="payment_ledger_id")
+	private int paymentLedgerId;
+
+	@Column(name="create_date")
+	private Timestamp createDate;
+
+	@Column(name="create_user")
+	private String createUser;
+
+	@Column(name="delete_ind")
+	private String deleteInd;
+
+	@Column(name="delete_reason")
+	private String deleteReason;
+
+	@Column(name="gl_code")
+	private int glCode;
+
+	@Column(name="passing_auth_ind")
+	private String passingAuthInd;
+
+	@Column(name="passing_auth_remark")
+	private String passingAuthRemark;
+
+	@Column(name="payment_type")
+	private String paymentType;
+
+	@Column(name="update_date")
+	private Timestamp updateDate;
+
+	@Column(name="update_user")
+	private String updateUser;
+
+	public LedgerCodePayment() {
+	}
+
+	public int getPaymentLedgerId() {
+		return this.paymentLedgerId;
+	}
+
+	public void setPaymentLedgerId(int paymentLedgerId) {
+		this.paymentLedgerId = paymentLedgerId;
+	}
+
+	public Timestamp getCreateDate() {
+		return this.createDate;
+	}
+
+	public void setCreateDate(Timestamp createDate) {
+		this.createDate = createDate;
+	}
+
+	public String getCreateUser() {
+		return this.createUser;
+	}
+
+	public void setCreateUser(String createUser) {
+		this.createUser = createUser;
+	}
+
+	public String getDeleteInd() {
+		return this.deleteInd;
+	}
+
+	public void setDeleteInd(String deleteInd) {
+		this.deleteInd = deleteInd;
+	}
+
+	public String getDeleteReason() {
+		return this.deleteReason;
+	}
+
+	public void setDeleteReason(String deleteReason) {
+		this.deleteReason = deleteReason;
+	}
+
+	public int getGlCode() {
+		return this.glCode;
+	}
+
+	public void setGlCode(int glCode) {
+		this.glCode = glCode;
+	}
+
+	public String getPassingAuthInd() {
+		return this.passingAuthInd;
+	}
+
+	public void setPassingAuthInd(String passingAuthInd) {
+		this.passingAuthInd = passingAuthInd;
+	}
+
+	public String getPassingAuthRemark() {
+		return this.passingAuthRemark;
+	}
+
+	public void setPassingAuthRemark(String passingAuthRemark) {
+		this.passingAuthRemark = passingAuthRemark;
+	}
+
+	public String getPaymentType() {
+		return this.paymentType;
+	}
+
+	public void setPaymentType(String paymentType) {
+		this.paymentType = paymentType;
+	}
+
+	public Timestamp getUpdateDate() {
+		return this.updateDate;
+	}
+
+	public void setUpdateDate(Timestamp updateDate) {
+		this.updateDate = updateDate;
+	}
+
+	public String getUpdateUser() {
+		return this.updateUser;
+	}
+
+	public void setUpdateUser(String updateUser) {
+		this.updateUser = updateUser;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + paymentLedgerId;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		LedgerCodePayment other = (LedgerCodePayment) obj;
+		if (paymentLedgerId != other.paymentLedgerId)
+			return false;
+		return true;
+	}
+	@PreUpdate
+	@PrePersist
+	public void updateTimeStamps() {
+	    updateDate = new Timestamp(System.currentTimeMillis());
+	    if (createDate == null) {
+	    	createDate = new Timestamp(System.currentTimeMillis());
+	    }
+	}
+}

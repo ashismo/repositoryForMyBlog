@@ -101,11 +101,6 @@ public class MaterialMaster implements Serializable {
 //	@SQLDelete(sql="update stock_entry set delete_ind='Y' where stock_id = ?")
 	private List<StockEntry> stockEntries;
 
-	//bi-directional many-to-one association to MaterialAvailability
-	@OneToMany(mappedBy="materialMaster", fetch = FetchType.LAZY, cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
-	//@Where(clause="delete_ind is NULL")
-	private List<MaterialAvailability> materialAvailabilities;
-	
 	public MaterialMaster() {
 	}
 
@@ -318,26 +313,5 @@ public class MaterialMaster implements Serializable {
 
 	public void setMrp(BigDecimal mrp) {
 		this.mrp = mrp;
-	}
-	public List<MaterialAvailability> getMaterialAvailabilities() {
-		return this.materialAvailabilities;
-	}
-
-	public void setMaterialAvailabilities(List<MaterialAvailability> materialAvailabilities) {
-		this.materialAvailabilities = materialAvailabilities;
-	}
-
-	public MaterialAvailability addMaterialAvailability(MaterialAvailability materialAvailability) {
-		getMaterialAvailabilities().add(materialAvailability);
-		materialAvailability.setMaterialMaster(this);
-
-		return materialAvailability;
-	}
-
-	public MaterialAvailability removeMaterialAvailability(MaterialAvailability materialAvailability) {
-		getMaterialAvailabilities().remove(materialAvailability);
-		materialAvailability.setMaterialMaster(null);
-
-		return materialAvailability;
 	}
 }

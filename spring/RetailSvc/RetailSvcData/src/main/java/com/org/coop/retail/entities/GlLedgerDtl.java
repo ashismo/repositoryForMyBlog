@@ -1,0 +1,231 @@
+package com.org.coop.retail.entities;
+
+import java.io.Serializable;
+
+import javax.persistence.*;
+
+import java.sql.Timestamp;
+import java.util.List;
+
+
+/**
+ * The persistent class for the gl_ledger_dtl database table.
+ * 
+ */
+@Entity
+@Table(name="gl_ledger_dtl")
+@NamedQuery(name="GlLedgerDtl.findAll", query="SELECT g FROM GlLedgerDtl g")
+public class GlLedgerDtl implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="gl_tran_dtl_id")
+	private int glTranDtlId;
+
+	@Column(name="account_no")
+	private int accountNo;
+
+	@Column(name="create_date")
+	private Timestamp createDate;
+
+	@Column(name="create_user")
+	private String createUser;
+
+	@Column(name="delete_ind")
+	private String deleteInd;
+
+	@Column(name="delete_reason")
+	private String deleteReason;
+
+	@Column(name="dr_cr")
+	private String drCr;
+
+	@Column(name="passin_auth_remarks")
+	private String passinAuthRemarks;
+
+	@Column(name="passing_auth_ind")
+	private String passingAuthInd;
+
+	private String remarks;
+
+	@Column(name="update_date")
+	private Timestamp updateDate;
+
+	@Column(name="update_user")
+	private String updateUser;
+
+	//bi-directional many-to-one association to GlLedgerDtl
+	@ManyToOne
+	@JoinColumn(name="gl_tran_id")
+	private GlLedgerDtl glLedgerDtl;
+
+	//bi-directional many-to-one association to GlLedgerDtl
+	@OneToMany(mappedBy="glLedgerDtl")
+	private List<GlLedgerDtl> glLedgerDtls;
+
+	//bi-directional many-to-one association to GlMaster
+	@ManyToOne
+	@JoinColumn(name="gl_mas_code")
+	private GlMaster glMaster;
+
+	public GlLedgerDtl() {
+	}
+
+	public int getGlTranDtlId() {
+		return this.glTranDtlId;
+	}
+
+	public void setGlTranDtlId(int glTranDtlId) {
+		this.glTranDtlId = glTranDtlId;
+	}
+
+	public int getAccountNo() {
+		return this.accountNo;
+	}
+
+	public void setAccountNo(int accountNo) {
+		this.accountNo = accountNo;
+	}
+
+	public Timestamp getCreateDate() {
+		return this.createDate;
+	}
+
+	public void setCreateDate(Timestamp createDate) {
+		this.createDate = createDate;
+	}
+
+	public String getCreateUser() {
+		return this.createUser;
+	}
+
+	public void setCreateUser(String createUser) {
+		this.createUser = createUser;
+	}
+
+	public String getDeleteInd() {
+		return this.deleteInd;
+	}
+
+	public void setDeleteInd(String deleteInd) {
+		this.deleteInd = deleteInd;
+	}
+
+	public String getDeleteReason() {
+		return this.deleteReason;
+	}
+
+	public void setDeleteReason(String deleteReason) {
+		this.deleteReason = deleteReason;
+	}
+
+	public String getDrCr() {
+		return this.drCr;
+	}
+
+	public void setDrCr(String drCr) {
+		this.drCr = drCr;
+	}
+
+	public String getPassinAuthRemarks() {
+		return this.passinAuthRemarks;
+	}
+
+	public void setPassinAuthRemarks(String passinAuthRemarks) {
+		this.passinAuthRemarks = passinAuthRemarks;
+	}
+
+	public String getPassingAuthInd() {
+		return this.passingAuthInd;
+	}
+
+	public void setPassingAuthInd(String passingAuthInd) {
+		this.passingAuthInd = passingAuthInd;
+	}
+
+	public String getRemarks() {
+		return this.remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
+	public Timestamp getUpdateDate() {
+		return this.updateDate;
+	}
+
+	public void setUpdateDate(Timestamp updateDate) {
+		this.updateDate = updateDate;
+	}
+
+	public String getUpdateUser() {
+		return this.updateUser;
+	}
+
+	public void setUpdateUser(String updateUser) {
+		this.updateUser = updateUser;
+	}
+
+	public GlLedgerDtl getGlLedgerDtl() {
+		return this.glLedgerDtl;
+	}
+
+	public void setGlLedgerDtl(GlLedgerDtl glLedgerDtl) {
+		this.glLedgerDtl = glLedgerDtl;
+	}
+
+	public List<GlLedgerDtl> getGlLedgerDtls() {
+		return this.glLedgerDtls;
+	}
+
+	public void setGlLedgerDtls(List<GlLedgerDtl> glLedgerDtls) {
+		this.glLedgerDtls = glLedgerDtls;
+	}
+
+	public GlLedgerDtl addGlLedgerDtl(GlLedgerDtl glLedgerDtl) {
+		getGlLedgerDtls().add(glLedgerDtl);
+		glLedgerDtl.setGlLedgerDtl(this);
+
+		return glLedgerDtl;
+	}
+
+	public GlLedgerDtl removeGlLedgerDtl(GlLedgerDtl glLedgerDtl) {
+		getGlLedgerDtls().remove(glLedgerDtl);
+		glLedgerDtl.setGlLedgerDtl(null);
+
+		return glLedgerDtl;
+	}
+
+	public GlMaster getGlMaster() {
+		return this.glMaster;
+	}
+
+	public void setGlMaster(GlMaster glMaster) {
+		this.glMaster = glMaster;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + glTranDtlId;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GlLedgerDtl other = (GlLedgerDtl) obj;
+		if (glTranDtlId != other.glTranDtlId)
+			return false;
+		return true;
+	}
+
+}
