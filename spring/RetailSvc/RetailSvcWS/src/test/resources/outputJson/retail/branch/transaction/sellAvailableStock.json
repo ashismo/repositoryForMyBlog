@@ -54,7 +54,7 @@
       "billNo" : null,
       "billDate" : 1459276200000,
       "discount" : null,
-      "createDate" : 1460915600000,
+      "createDate" : 1460942498000,
       "createUser" : "ashish",
       "deleteInd" : null,
       "deleteReason" : null,
@@ -64,9 +64,9 @@
       "paidBy" : null,
       "passingAuthInd" : null,
       "passingAuthRemark" : null,
-      "tranNo" : "17042016/1",
+      "tranNo" : "18042016/1",
       "tranType" : "SELL",
-      "updateDate" : 1460915600000,
+      "updateDate" : 1460942499000,
       "updateUser" : null,
       "vat" : 12.00,
       "materialTranDtls" : [ {
@@ -76,7 +76,7 @@
         "materialName" : "CASTROL",
         "batch" : "AZ1002",
         "uom" : "ml",
-        "createDate" : 1460915600000,
+        "createDate" : 1460942499000,
         "createUser" : "ashish",
         "deleteInd" : null,
         "deleteReason" : null,
@@ -86,7 +86,7 @@
         "qty" : 9.00,
         "rate" : 10.00,
         "total" : 90.00,
-        "updateDate" : 1460915600000,
+        "updateDate" : 1460942499000,
         "updateUser" : null
       }, {
         "tranDtlId" : 2,
@@ -95,7 +95,7 @@
         "materialName" : "CASTROL",
         "batch" : "AZ1002",
         "uom" : "ml",
-        "createDate" : 1460915600000,
+        "createDate" : 1460942499000,
         "createUser" : "ashish",
         "deleteInd" : null,
         "deleteReason" : null,
@@ -105,7 +105,7 @@
         "qty" : 1.00,
         "rate" : 10.00,
         "total" : 10.00,
-        "updateDate" : 1460915600000,
+        "updateDate" : 1460942499000,
         "updateUser" : null
       }, {
         "tranDtlId" : 3,
@@ -114,7 +114,7 @@
         "materialName" : "CASTROL",
         "batch" : "AB1002",
         "uom" : "ml",
-        "createDate" : 1460915600000,
+        "createDate" : 1460942499000,
         "createUser" : "ashish",
         "deleteInd" : null,
         "deleteReason" : null,
@@ -124,7 +124,7 @@
         "qty" : 9.00,
         "rate" : 10.00,
         "total" : 90.00,
-        "updateDate" : 1460915600000,
+        "updateDate" : 1460942499000,
         "updateUser" : null
       } ],
       "payment" : null
@@ -133,8 +133,9 @@
     "materialAvailabilities" : [ ],
     "glLedgerHrds" : [ ],
     "retailLedgerCodes" : [ ],
-    "branchActive" : false,
-    "fyClosed" : false
+    "payments" : [ ],
+    "fyClosed" : false,
+    "branchActive" : false
   },
   "branches" : [ ],
   "errorMsg" : null,
