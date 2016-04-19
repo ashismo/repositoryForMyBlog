@@ -1,0 +1,71 @@
+package com.org.coop.retail.entities;
+
+import static com.mysema.query.types.PathMetadataFactory.*;
+
+import com.mysema.query.types.path.*;
+
+import com.mysema.query.types.PathMetadata;
+import javax.annotation.Generated;
+import com.mysema.query.types.Path;
+import com.mysema.query.types.path.PathInits;
+
+
+/**
+ * QAdvanceRegister is a Querydsl query type for AdvanceRegister
+ */
+@Generated("com.mysema.query.codegen.EntitySerializer")
+public class QAdvanceRegister extends EntityPathBase<AdvanceRegister> {
+
+    private static final long serialVersionUID = 411318137L;
+
+    private static final PathInits INITS = PathInits.DIRECT2;
+
+    public static final QAdvanceRegister advanceRegister = new QAdvanceRegister("advanceRegister");
+
+    public final DatePath<java.util.Date> actionDate = createDate("actionDate", java.util.Date.class);
+
+    public final NumberPath<Integer> advanceId = createNumber("advanceId", Integer.class);
+
+    public final NumberPath<java.math.BigDecimal> amount = createNumber("amount", java.math.BigDecimal.class);
+
+    public final DateTimePath<java.sql.Timestamp> createDate = createDateTime("createDate", java.sql.Timestamp.class);
+
+    public final StringPath createUser = createString("createUser");
+
+    public final StringPath deleteInd = createString("deleteInd");
+
+    public final StringPath deleteReason = createString("deleteReason");
+
+    public final StringPath passingAuthInd = createString("passingAuthInd");
+
+    public final StringPath passingAuthRemark = createString("passingAuthRemark");
+
+    public final QTransactionPayment transactionPayment;
+
+    public final DateTimePath<java.sql.Timestamp> updateDate = createDateTime("updateDate", java.sql.Timestamp.class);
+
+    public final StringPath updateUser = createString("updateUser");
+
+    public QAdvanceRegister(String variable) {
+        this(AdvanceRegister.class, forVariable(variable), INITS);
+    }
+
+    public QAdvanceRegister(Path<? extends AdvanceRegister> path) {
+        this(path.getType(), path.getMetadata(), path.getMetadata().isRoot() ? INITS : PathInits.DEFAULT);
+    }
+
+    public QAdvanceRegister(PathMetadata<?> metadata) {
+        this(metadata, metadata.isRoot() ? INITS : PathInits.DEFAULT);
+    }
+
+    public QAdvanceRegister(PathMetadata<?> metadata, PathInits inits) {
+        this(AdvanceRegister.class, metadata, inits);
+    }
+
+    public QAdvanceRegister(Class<? extends AdvanceRegister> type, PathMetadata<?> metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.transactionPayment = inits.isInitialized("transactionPayment") ? new QTransactionPayment(forProperty("transactionPayment"), inits.get("transactionPayment")) : null;
+    }
+
+}
+
