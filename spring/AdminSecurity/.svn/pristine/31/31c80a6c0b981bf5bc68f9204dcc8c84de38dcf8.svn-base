@@ -1,16 +1,16 @@
-package com.org.coop.canonical.account.beans;
+package com.org.coop.canonical.retail.beans;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
-public class CashRegisterBean implements Serializable {
-	protected int cashId;
-	protected int glTranId;
-	protected String tranNo;
+
+public class RetailPaymentBean implements Serializable {
+	protected static final long serialVersionUID = 1L;
+	
+	protected int retailPaymentId;
+	protected int tranId;
 	protected int paymentId;
 	protected Date actionDate;
-	protected BigDecimal amount;
 	protected Date createDate;
 	protected String createUser;
 	protected String deleteInd;
@@ -19,17 +19,37 @@ public class CashRegisterBean implements Serializable {
 	protected String passingAuthRemark;
 	protected Date updateDate;
 	protected String updateUser;
-	public int getCashId() {
-		return cashId;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + retailPaymentId;
+		return result;
 	}
-	public void setCashId(int cashId) {
-		this.cashId = cashId;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RetailPaymentBean other = (RetailPaymentBean) obj;
+		if (retailPaymentId != other.retailPaymentId)
+			return false;
+		return true;
 	}
-	public int getGlTranId() {
-		return glTranId;
+	public int getRetailPaymentId() {
+		return retailPaymentId;
 	}
-	public void setGlTranId(int glTranId) {
-		this.glTranId = glTranId;
+	public void setRetailPaymentId(int retailPaymentId) {
+		this.retailPaymentId = retailPaymentId;
+	}
+	public int getTranId() {
+		return tranId;
+	}
+	public void setTranId(int tranId) {
+		this.tranId = tranId;
 	}
 	public int getPaymentId() {
 		return paymentId;
@@ -42,12 +62,6 @@ public class CashRegisterBean implements Serializable {
 	}
 	public void setActionDate(Date actionDate) {
 		this.actionDate = actionDate;
-	}
-	public BigDecimal getAmount() {
-		return amount;
-	}
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
 	}
 	public Date getCreateDate() {
 		return createDate;
@@ -96,31 +110,5 @@ public class CashRegisterBean implements Serializable {
 	}
 	public void setUpdateUser(String updateUser) {
 		this.updateUser = updateUser;
-	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + cashId;
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		CashRegisterBean other = (CashRegisterBean) obj;
-		if (cashId != other.cashId)
-			return false;
-		return true;
-	}
-	public String getTranNo() {
-		return tranNo;
-	}
-	public void setTranNo(String tranNo) {
-		this.tranNo = tranNo;
 	}
 }

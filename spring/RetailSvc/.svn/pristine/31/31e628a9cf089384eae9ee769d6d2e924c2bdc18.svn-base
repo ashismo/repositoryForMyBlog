@@ -8,24 +8,29 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 
 /**
- * The persistent class for the retail_transactions database table.
+ * The persistent class for the retail_payment database table.
  * 
  */
 @Entity
-@Table(name="retail_transactions")
-@NamedQuery(name="RetailTransaction.findAll", query="SELECT r FROM RetailTransaction r")
-@SQLDelete(sql="update retail_transactions set delete_ind='Y' where retail_tran_id = ?")
+@Table(name="retail_payment")
+@NamedQuery(name="RetailPayment.findAll", query="SELECT r FROM RetailPayment r")
+@SQLDelete(sql="update retail_payment set delete_ind='Y' where retail_payment_id = ?")
 @Where(clause="delete_ind is NULL")
-public class RetailTransaction implements Serializable {
+public class RetailPayment implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="retail_tran_id")
-	private int retailTranId;
+	@Column(name="retail_payment_id")
+	private int retailPaymentId;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="action_date")
+	private Date actionDate;
 
 	@Column(name="create_date")
 	private Timestamp createDate;
@@ -51,25 +56,33 @@ public class RetailTransaction implements Serializable {
 	@Column(name="update_user")
 	private String updateUser;
 
-	//bi-directional many-to-one association to GlLedgerHrd
-	@ManyToOne
-	@JoinColumn(name="gl_tran_id")
-	private GlLedgerHrd glLedgerHrd;
-
 	//bi-directional many-to-one association to MaterialTranHrd
 	@ManyToOne
 	@JoinColumn(name="tran_id")
 	private MaterialTranHrd materialTranHrd;
 
-	public RetailTransaction() {
+	//bi-directional many-to-one association to TransactionPayment
+	@ManyToOne
+	@JoinColumn(name="payment_id")
+	private TransactionPayment transactionPayment;
+
+	public RetailPayment() {
 	}
 
-	public int getRetailTranId() {
-		return this.retailTranId;
+	public int getRetailPaymentId() {
+		return this.retailPaymentId;
 	}
 
-	public void setRetailTranId(int retailTranId) {
-		this.retailTranId = retailTranId;
+	public void setRetailPaymentId(int retailPaymentId) {
+		this.retailPaymentId = retailPaymentId;
+	}
+
+	public Date getActionDate() {
+		return this.actionDate;
+	}
+
+	public void setActionDate(Date actionDate) {
+		this.actionDate = actionDate;
 	}
 
 	public Timestamp getCreateDate() {
@@ -136,14 +149,6 @@ public class RetailTransaction implements Serializable {
 		this.updateUser = updateUser;
 	}
 
-	public GlLedgerHrd getGlLedgerHrd() {
-		return this.glLedgerHrd;
-	}
-
-	public void setGlLedgerHrd(GlLedgerHrd glLedgerHrd) {
-		this.glLedgerHrd = glLedgerHrd;
-	}
-
 	public MaterialTranHrd getMaterialTranHrd() {
 		return this.materialTranHrd;
 	}
@@ -151,8 +156,16 @@ public class RetailTransaction implements Serializable {
 	public void setMaterialTranHrd(MaterialTranHrd materialTranHrd) {
 		this.materialTranHrd = materialTranHrd;
 	}
+
+	public TransactionPayment getTransactionPayment() {
+		return this.transactionPayment;
+	}
+
+	public void setTransactionPayment(TransactionPayment transactionPayment) {
+		this.transactionPayment = transactionPayment;
+	}
+
 	@PreUpdate
-	
 	public void updateTimeStamps() {
 	    updateDate = new Timestamp(System.currentTimeMillis());
 	    if (createDate == null) {
@@ -164,7 +177,7 @@ public class RetailTransaction implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + retailTranId;
+		result = prime * result + retailPaymentId;
 		return result;
 	}
 
@@ -176,8 +189,8 @@ public class RetailTransaction implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		RetailTransaction other = (RetailTransaction) obj;
-		if (retailTranId != other.retailTranId)
+		RetailPayment other = (RetailPayment) obj;
+		if (retailPaymentId != other.retailPaymentId)
 			return false;
 		return true;
 	}
