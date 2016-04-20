@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+	<mapping  map-id="paymentMap" wildcard="true" map-null="false" trim-strings="true">
+		<class-a>com.org.coop.canonical.account.beans.CashRegisterBean</class-a>
+		<class-b>com.org.coop.retail.entities.TransactionPayment</class-b>
+		<field-exclude type="one-way">
+			<a>branchId</a>
+			<b>branchMaster.branchId</b>
+		</field-exclude>
+		<field-exclude type="one-way">
+			<a>branchName</a>
+			<b>branchMaster.branchName</b>
+		</field-exclude>
+		<field type="one-way" custom-converter-id="transactionPaymentCC" custom-converter-param="CASH_PAYMENT">
+			<a>this</a>
+			<b>this</b>
+		</field>
+		<field-exclude type="one-way">
+		    <a>deleteInd</a>
+		    <b>deleteInd</b>
+		</field-exclude>
+	</mapping>
+	
+	<mapping  map-id="cashPaymentMap" wildcard="true" map-null="false" trim-strings="true">
+		<class-a>com.org.coop.canonical.account.beans.CashRegisterBean</class-a>
+		<class-b>com.org.coop.retail.entities.CashRegister</class-b>
+		<field-exclude type="one-way">
+			<a>branchId</a>
+			<b>branchMaster.branchId</b>
+		</field-exclude>
+		<field-exclude type="one-way">
+			<a>branchName</a>
+			<b>branchMaster.branchName</b>
+		</field-exclude>
+		<field type="one-way" custom-converter-id="transactionPaymentCC" custom-converter-param="CASH_PAYMENT_MODE">
+			<a>this</a>
+			<b>this</b>
+		</field>
+		<field-exclude type="one-way">
+		    <a>deleteInd</a>
+		    <b>deleteInd</b>
+		</field-exclude>
+	</mapping>
+</mappings>

@@ -26,6 +26,8 @@ public class QTransactionPayment extends EntityPathBase<TransactionPayment> {
 
     public final ListPath<AdvanceRegister, QAdvanceRegister> advanceRegisters = this.<AdvanceRegister, QAdvanceRegister>createList("advanceRegisters", AdvanceRegister.class, QAdvanceRegister.class, PathInits.DIRECT2);
 
+    public final NumberPath<java.math.BigDecimal> amount = createNumber("amount", java.math.BigDecimal.class);
+
     public final QBranchMaster branchMaster;
 
     public final ListPath<CardRegister, QCardRegister> cardRegisters = this.<CardRegister, QCardRegister>createList("cardRegisters", CardRegister.class, QCardRegister.class, PathInits.DIRECT2);
@@ -45,8 +47,6 @@ public class QTransactionPayment extends EntityPathBase<TransactionPayment> {
     public final StringPath deleteReason = createString("deleteReason");
 
     public final QGlLedgerHrd glLedgerHrd;
-
-    public final NumberPath<java.math.BigDecimal> paidAmt = createNumber("paidAmt", java.math.BigDecimal.class);
 
     public final StringPath passingAuthInd = createString("passingAuthInd");
 

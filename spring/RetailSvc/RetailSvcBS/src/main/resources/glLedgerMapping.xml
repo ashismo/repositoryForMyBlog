@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+	<mapping  map-id="glLedgerHrdMap" wildcard="true" map-null="false" trim-strings="true">
+		<class-a>com.org.coop.canonical.account.beans.GlLedgerHrdBean</class-a>
+		<class-b>com.org.coop.retail.entities.GlLedgerHrd</class-b>
+		<field-exclude type="one-way">
+			<a>branchId</a>
+			<b>branchMaster.branchId</b>
+		</field-exclude>
+		<field-exclude type="one-way">
+			<a>branchName</a>
+			<b>branchMaster.branchName</b>
+		</field-exclude>
+		<field type="one-way" custom-converter-id="glLedgerHrdCC">
+			<a>this</a>
+			<b>this</b>
+		</field>
+		<field-exclude type="one-way">
+		    <a>deleteInd</a>
+		    <b>deleteInd</b>
+		</field-exclude>
+	</mapping>
+</mappings>
