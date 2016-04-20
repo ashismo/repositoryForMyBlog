@@ -35,7 +35,7 @@
       "rateId" : 3,
       "branchId" : 2,
       "materialId" : 1,
-      "createDate" : 1461086175000,
+      "createDate" : 1461115528000,
       "createUser" : "ashish",
       "deleteInd" : null,
       "deleteReason" : null,
@@ -60,8 +60,8 @@
     "glLedgerHrds" : [ ],
     "retailLedgerCodes" : [ ],
     "payments" : [ ],
-    "fyClosed" : false,
-    "branchActive" : false
+    "branchActive" : false,
+    "fyClosed" : false
   },
   "branches" : [ ],
   "errorMsg" : null,

@@ -40,7 +40,7 @@
       "refCustomerId" : 0,
       "addressLine1" : "Kalipur",
       "addressLine2" : null,
-      "createDate" : 1461086175000,
+      "createDate" : 1461115528000,
       "createUser" : "ashish",
       "customerName" : "ASHISH MONDAL",
       "customerType" : "Running",
@@ -49,7 +49,7 @@
       "phone1" : "9830625559",
       "phone2" : null,
       "pin" : "712708",
-      "updateDate" : 1461086175000,
+      "updateDate" : 1461115528000,
       "updateUser" : "ashish",
       "website" : null,
       "deleteInd" : null,
@@ -66,8 +66,8 @@
     "glLedgerHrds" : [ ],
     "retailLedgerCodes" : [ ],
     "payments" : [ ],
-    "fyClosed" : false,
-    "branchActive" : false
+    "branchActive" : false,
+    "fyClosed" : false
   },
   "branches" : [ ],
   "errorMsg" : null,

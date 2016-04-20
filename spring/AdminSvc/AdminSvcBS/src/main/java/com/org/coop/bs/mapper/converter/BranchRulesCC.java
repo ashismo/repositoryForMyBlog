@@ -58,7 +58,6 @@ public class BranchRulesCC extends DozerConverter<BranchRule, BranchRuleBean> im
 			dest.setBranchName(src.getBranchMaster().getBranchName());
 			dest.setRuleId(src.getRuleMaster().getRuleId());
 			dest.setRuleName(src.getRuleMaster().getRuleName());
-			dest.setRuleDescription(src.getRuleMaster().getRuleDescription());
 		}
 		return dest;
 	}

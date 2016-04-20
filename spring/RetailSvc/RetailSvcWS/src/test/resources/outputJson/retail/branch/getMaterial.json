@@ -55,7 +55,7 @@
         "mrp" : 100.00,
         "uom" : "ml",
         "updateUser" : null,
-        "createDate" : 1461086172000,
+        "createDate" : 1461115525000,
         "updateDate" : null,
         "deleteInd" : null,
         "deleteReason" : null
@@ -76,8 +76,8 @@
     "glLedgerHrds" : [ ],
     "retailLedgerCodes" : [ ],
     "payments" : [ ],
-    "fyClosed" : false,
-    "branchActive" : false
+    "branchActive" : false,
+    "fyClosed" : false
   },
   "branches" : [ ],
   "errorMsg" : null,
