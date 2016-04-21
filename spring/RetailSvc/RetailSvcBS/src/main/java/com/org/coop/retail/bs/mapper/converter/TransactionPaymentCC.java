@@ -7,6 +7,7 @@ import org.dozer.MapperAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.org.coop.bs.util.RetailBusinessConstants;
 import com.org.coop.canonical.account.beans.CardRegisterBean;
 import com.org.coop.canonical.account.beans.CashRegisterBean;
 import com.org.coop.canonical.account.beans.ChequeRegisterBean;
@@ -51,14 +52,17 @@ public class TransactionPaymentCC extends DozerConverter<Object, TransactionPaym
 				CashRegisterBean cash = (CashRegisterBean) src;
 				branchId = cash.getBranchId();
 				glTranId = cash.getGlTranId();
+				dest.setPaymentType(RetailBusinessConstants.MODE_OF_PAYMENT_CASH);
 			} else if("CHEQUE_PAYMENT".equalsIgnoreCase(getParameter())) {
 				ChequeRegisterBean cheque = (ChequeRegisterBean) src;
 				branchId = cheque.getBranchId();
 				glTranId = cheque.getGlTranId();
+				dest.setPaymentType(RetailBusinessConstants.MODE_OF_PAYMENT_CHEQUE);
 			} else if("CARD_PAYMENT".equalsIgnoreCase(getParameter())) {
 				CardRegisterBean card = (CardRegisterBean) src;
 				branchId = card.getBranchId();
 				glTranId = card.getGlTranId();
+				dest.setPaymentType(RetailBusinessConstants.MODE_OF_PAYMENT_CARD);
 			}
 			BranchMaster branch = retailBranchMasterRepository.findOne(branchId);
 			GlLedgerHrd glLedgerHrd = glLedgerHeaderRepository.findOne(glTranId);
