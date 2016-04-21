@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class CreditPaymentBean implements Serializable {
+public class CreditRegisterBean implements Serializable {
 	protected static final long serialVersionUID = 1L;
 	protected int creditPaymentId;
 	protected int glTranId;
@@ -15,7 +15,7 @@ public class CreditPaymentBean implements Serializable {
 	protected Date actionDate;
 	protected Date createDate;
 	protected String createUser;
-	protected BigDecimal creditAmt;
+	protected BigDecimal amount;
 	protected String deleteInd;
 	protected String deleteReason;
 	protected String passingAuthInd;
@@ -37,7 +37,7 @@ public class CreditPaymentBean implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CreditPaymentBean other = (CreditPaymentBean) obj;
+		CreditRegisterBean other = (CreditRegisterBean) obj;
 		if (creditPaymentId != other.creditPaymentId)
 			return false;
 		return true;
@@ -72,11 +72,11 @@ public class CreditPaymentBean implements Serializable {
 	public void setCreateUser(String createUser) {
 		this.createUser = createUser;
 	}
-	public BigDecimal getCreditAmt() {
-		return creditAmt;
+	public BigDecimal getAmount() {
+		return amount;
 	}
-	public void setCreditAmt(BigDecimal creditAmt) {
-		this.creditAmt = creditAmt;
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
 	}
 	public String getDeleteInd() {
 		return deleteInd;
