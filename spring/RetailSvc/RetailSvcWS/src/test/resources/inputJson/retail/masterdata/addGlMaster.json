@@ -1,0 +1,25 @@
+{
+  "glMasters": [
+      {
+    		"glMasCode" : 11100,
+    		"glMasDesc" :"share (state govt)",
+    		"annexureId" : 1,
+    		"glSubHeaderCode" : 11000,
+    		"glSubHeaderDesc" : "share capital",
+    		"glHeaderCode" : 11000,
+    		"glHeaderDesc" : "share capital1",
+    		"status" : "LA",
+    		"createUser": "ashish"
+      },
+      {
+    		"glMasCode" : 11200,
+    		"glMasDesc" :"share (individual)",
+    		"annexureId" : 1,
+    		"glSubHeaderCode" : 11000,
+    		"glSubHeaderDesc" : "share capital",
+    		"glHeaderCode" : 11000,
+    		"status" : "LA",
+    		"createUser": "ashish"
+      }
+    ]
+}

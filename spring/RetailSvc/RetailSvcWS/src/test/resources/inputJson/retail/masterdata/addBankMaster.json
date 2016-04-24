@@ -1,0 +1,16 @@
+{
+  "bankMasters": [
+      {
+    		"bankId" : 0,
+    		"glMasCode": 100,
+    		"bankName" : "SBI",
+    		"createUser": "ashish"
+      },
+      {
+    		"bankId" : 0,
+    		"glMasCode": 100,
+    		"bankName" : "UBI",
+    		"createUser": "ashish"
+      }
+    ]
+}

@@ -33,11 +33,11 @@
 	</root>
 
 	<logger name="org.hibernate.SQL" >
-		<level value="OFF" />
+		<level value="TRACE" />
 		<appender-ref ref="console" />
 	</logger>
 	<logger name="org.hibernate.type">
-		<level value="OFF" />
+		<level value="TRACE" />
 		<appender-ref ref="console" />
 	</logger>
 	<logger name="org.springframework">

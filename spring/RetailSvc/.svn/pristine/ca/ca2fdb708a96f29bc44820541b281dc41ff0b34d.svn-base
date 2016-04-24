@@ -1,0 +1,59 @@
+package com.org.coop.retail.servicehelper;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.coop.org.exception.RetailException;
+import com.org.coop.bs.util.RetailBusinessConstants;
+import com.org.coop.canonical.account.beans.AdvanceRegisterBean;
+import com.org.coop.canonical.account.beans.CardRegisterBean;
+import com.org.coop.canonical.account.beans.CashRegisterBean;
+import com.org.coop.canonical.account.beans.ChequeRegisterBean;
+import com.org.coop.canonical.account.beans.CreditRegisterBean;
+import com.org.coop.canonical.account.beans.TransactionPaymentBean;
+import com.org.coop.canonical.beans.BranchBean;
+import com.org.coop.canonical.beans.UIModel;
+import com.org.coop.retail.bs.mapper.PaymentMappingImpl;
+import com.org.coop.retail.entities.AdvanceRegister;
+import com.org.coop.retail.entities.CardRegister;
+import com.org.coop.retail.entities.CashRegister;
+import com.org.coop.retail.entities.ChequeRegister;
+import com.org.coop.retail.entities.CreditRegister;
+import com.org.coop.retail.entities.Transaction;
+import com.org.coop.retail.entities.TransactionPayment;
+import com.org.coop.retail.repositories.AdvanceRegisterRepository;
+import com.org.coop.retail.repositories.CardRegisterRepository;
+import com.org.coop.retail.repositories.CashRegisterRepository;
+import com.org.coop.retail.repositories.ChequeRegisterRepository;
+import com.org.coop.retail.repositories.CreditRegisterRepository;
+import com.org.coop.retail.repositories.TransactionPaymentRepository;
+import com.org.coop.retail.repositories.TransactionsRepository;
+
+@Service
+public class TransactionsServiceHelperImpl {
+
+	private static final Logger log = Logger.getLogger(TransactionsServiceHelperImpl.class); 
+	
+	@Autowired
+	private TransactionsRepository transactionsRepository;
+	
+	
+	
+	@Transactional(value="retailTransactionManager", propagation=Propagation.REQUIRES_NEW)
+	public String getTransactionNumber(String user, Date actionDate) {
+		String tranNo = transactionsRepository.getTransactionNumber(actionDate);
+		Transaction tx = new Transaction();
+		tx.setCreateUser(user);
+		tx.setTranNo(tranNo);
+		tx.setActionDate(actionDate);
+		transactionsRepository.saveAndFlush(tx);
+		return tranNo;
+	}
+}

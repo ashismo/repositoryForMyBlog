@@ -1,0 +1,74 @@
+{
+  "branchBean": {
+    "branchId": 2,
+    "payments" : [
+    	{
+    		"branchId": 2,
+    		"glTranId" : 1,
+    		"billNo" : "86-1233",
+    		"actionDate" : "29/04/2016 00:00:00",
+    		"updateUser": "ashish",
+    		"deleteReason" : "Wrong payment",
+    		"cardRegisters" : [
+    			{
+    				"cardId" : 1,
+    				"glTranId" : 1,
+    				"paymentId" : 2,
+    				"branchId": 2,
+    				"actionDate" : "29/04/2016 00:00:00",
+    				"deleteReason" : "Wrong payment",
+    				"updateUser": "ashish"
+    			},
+    			{
+    				"cardId" : 2,
+    				"glTranId" : 1,
+    				"paymentId" : 3,
+    				"branchId": 2,
+    				"deleteReason" : "Wrong payment",
+    				"updateUser": "ashish"
+    			}
+    		],
+    		"cashRegisters" : [
+    			{
+    				"cashId" : 1,
+    				"glTranId" : 1,
+    				"paymentId" : 1,
+    				"branchId": 2,
+    				"deleteReason" : "Wrong payment",
+    				"updateUser": "ashish"
+    			}
+    		],
+    		"chequeRegisters" : [
+    			{
+    				"chequeId" : 1,
+    				"glTranId" : 1,
+    				"paymentId" : 5,
+    				"branchId": 2,
+    				"deleteReason" : "Wrong payment",
+    				"updateUser": "ashish"
+    			}
+    		],
+    		"creditRegisters" : [
+    			{
+    				"creditId" : 1,
+    				"glTranId" : 1,
+    				"paymentId" : 4,
+    				"branchId": 2,
+    				"deleteReason" : "Wrong payment",
+    				"updateUser": "ashish"
+    			}
+    		],
+    		"advanceRegisters" : [
+    			{
+    				"advanceId" : 1,
+    				"glTranId" : 1,
+    				"paymentId" : 6,
+    				"branchId": 2,
+    				"deleteReason" : "Wrong payment",
+    				"updateUser": "ashish"
+    			}
+    		]
+    	}
+    ]
+  }
+}

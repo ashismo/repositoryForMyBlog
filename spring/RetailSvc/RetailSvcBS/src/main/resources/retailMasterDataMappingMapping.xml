@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+	
+    <mapping  map-id="glHeaderMap" wildcard="true" map-null="false" trim-strings="true">
+		<class-a>com.org.coop.canonical.account.beans.GlMasterBean</class-a>
+		<class-b>com.org.coop.retail.entities.GlHeader</class-b>
+		<field-exclude type="one-way">
+		    <a>deleteInd</a>
+		    <b>deleteInd</b>
+		</field-exclude>
+	</mapping>
+	
+    <mapping  map-id="glSubHeaderMap" wildcard="true" map-null="false" trim-strings="true">
+		<class-a>com.org.coop.canonical.account.beans.GlMasterBean</class-a>
+		<class-b>com.org.coop.retail.entities.GlSubHeader</class-b>
+		<field type="one-way" custom-converter-id="retailMasterDataCC" custom-converter-param="GL_SUB_HEADER">
+			<a>this</a>
+			<b>this</b>
+		</field>
+		<field-exclude type="one-way">
+		    <a>deleteInd</a>
+		    <b>deleteInd</b>
+		</field-exclude>
+	</mapping>
+	
+	 <mapping  map-id="glMasterMap" wildcard="true" map-null="false" trim-strings="true">
+		<class-a>com.org.coop.canonical.account.beans.GlMasterBean</class-a>
+		<class-b>com.org.coop.retail.entities.GlMaster</class-b>
+		<field-exclude type="one-way">
+		    <a>deleteInd</a>
+		    <b>deleteInd</b>
+		</field-exclude>
+	</mapping>
+	
+     <mapping  map-id="bankMasterMap" wildcard="true" map-null="false" trim-strings="true">
+		<class-a>com.org.coop.canonical.retail.beans.BankMasterBean</class-a>
+		<class-b>com.org.coop.retail.entities.BankMaster</class-b>
+		<field-exclude type="one-way">
+		    <a>glMasCode</a>
+		    <b>glMaster.glMasCode</b>
+		</field-exclude>
+		<field-exclude type="one-way">
+		    <a>glMasDesc</a>
+		    <b>glMaster.glMasDesc</b>
+		</field-exclude>
+		<field type="one-way" custom-converter-id="retailMasterDataCC" custom-converter-param="BANK_MASTER">
+			<a>this</a>
+			<b>this</b>
+		</field>
+		<field-exclude type="one-way">
+		    <a>deleteInd</a>
+		    <b>deleteInd</b>
+		</field-exclude>
+	</mapping>
+</mappings>

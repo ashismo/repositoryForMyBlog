@@ -1,0 +1,40 @@
+{
+  "branchBean" : null,
+  "branches" : [ ],
+  "bankMasters" : [ {
+    "bankId" : 1,
+    "glMasCode" : 100,
+    "glMasDesc" : null,
+    "bankAddress" : null,
+    "bankName" : "SBI",
+    "createDate" : null,
+    "createUser" : "ashish",
+    "deleteInd" : null,
+    "deleteReason" : null,
+    "passingAuthInd" : null,
+    "passingAuthRemarks" : null,
+    "phone1" : null,
+    "updateDate" : null,
+    "updateUser" : null
+  }, {
+    "bankId" : 2,
+    "glMasCode" : 100,
+    "glMasDesc" : null,
+    "bankAddress" : null,
+    "bankName" : "UBI",
+    "createDate" : null,
+    "createUser" : "ashish",
+    "deleteInd" : null,
+    "deleteReason" : null,
+    "passingAuthInd" : null,
+    "passingAuthRemarks" : null,
+    "phone1" : null,
+    "updateDate" : null,
+    "updateUser" : null
+  } ],
+  "errorMsg" : null,
+  "errorCode" : null,
+  "recordCount" : 0,
+  "pageNo" : 0,
+  "recordsPerPage" : 0
+}
