@@ -56,7 +56,7 @@
         "mrp" : 100.00,
         "uom" : "ml",
         "updateUser" : null,
-        "createDate" : 1461481860000,
+        "createDate" : 1461519385000,
         "updateDate" : null,
         "deleteInd" : null,
         "deleteReason" : null
@@ -82,6 +82,7 @@
   },
   "branches" : [ ],
   "bankMasters" : [ ],
+  "glMasters" : [ ],
   "errorMsg" : null,
   "errorCode" : null,
   "recordCount" : 0,
