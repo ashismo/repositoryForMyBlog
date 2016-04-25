@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+	<mapping  map-id="ledgerCodeRetailMap" wildcard="true" map-null="false" trim-strings="true">
+		<class-a>com.org.coop.canonical.account.beans.LedgerCodeRetailBean</class-a>
+		<class-b>com.org.coop.retail.entities.LedgerCodeRetail</class-b>
+		<field-exclude type="one-way">
+			<a>materialGrpId</a>
+			<b>materialGroup.materialGrpId</b>
+		</field-exclude>
+		<field-exclude type="one-way">
+			<a>groupName</a>
+			<b>materialGroup.groupName</b>
+		</field-exclude>
+		<field-exclude type="one-way">
+			<a>vendorId</a>
+			<b>vendorMaster.vendorId</b>
+		</field-exclude>
+		<field-exclude type="one-way">
+			<a>vendorName</a>
+			<b>vendorMaster.vendorName</b>
+		</field-exclude>
+		<field type="one-way" custom-converter-id="ledgerCodeRetailCC">
+			<a>this</a>
+			<b>this</b>
+		</field>
+		<field-exclude type="one-way">
+		    <a>deleteInd</a>
+		    <b>deleteInd</b>
+		</field-exclude>
+	</mapping>
+	<mapping  map-id="paymentLedgerCodeMap" wildcard="true" map-null="false" trim-strings="true">
+		<class-a>com.org.coop.canonical.account.beans.LedgerCodePaymentBean</class-a>
+		<class-b>com.org.coop.retail.entities.LedgerCodePayment</class-b>
+		<field-exclude type="one-way">
+		    <a>deleteInd</a>
+		    <b>deleteInd</b>
+		</field-exclude>
+	</mapping>
+</mappings>

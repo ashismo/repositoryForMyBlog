@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -13,35 +14,41 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.coop.org.exception.RetailException;
 import com.org.coop.bs.util.RetailBusinessConstants;
+import com.org.coop.canonical.account.beans.LedgerCodePaymentBean;
+import com.org.coop.canonical.account.beans.LedgerCodeRetailBean;
 import com.org.coop.canonical.beans.BranchBean;
 import com.org.coop.canonical.beans.UIModel;
-import com.org.coop.canonical.retail.beans.LedgerCodeRetailBean;
 import com.org.coop.canonical.retail.beans.RetailVendorBean;
-import com.org.coop.retail.bs.mapper.LedgerCodeRetailMappingImpl;
+import com.org.coop.retail.bs.mapper.LedgerCodeSetupMappingImpl;
+import com.org.coop.retail.entities.LedgerCodePayment;
 import com.org.coop.retail.entities.LedgerCodeRetail;
 import com.org.coop.retail.entities.MaterialGroup;
 import com.org.coop.retail.entities.VendorMaster;
+import com.org.coop.retail.repositories.LedgerCodePaymentRepository;
 import com.org.coop.retail.repositories.LedgerCodeRetailRepository;
 import com.org.coop.retail.repositories.RetailBranchMasterRepository;
 import com.org.coop.retail.repositories.RetailMaterialGroupMasterRepository;
 import com.org.coop.retail.repositories.RetailVendorMasterRepository;
 
 @Service
-public class RetailLedgerCodeSetupServiceHelperImpl {
+public class LedgerCodeSetupServiceHelperImpl {
 
-	private static final Logger log = Logger.getLogger(RetailLedgerCodeSetupServiceHelperImpl.class); 
+	private static final Logger log = Logger.getLogger(LedgerCodeSetupServiceHelperImpl.class); 
 	
 	@Autowired
 	private RetailBranchMasterRepository branchMasterRepository;
 	
 	@Autowired
-	private LedgerCodeRetailMappingImpl ledgerCodeRetailMappingImpl;
+	private LedgerCodeSetupMappingImpl ledgerCodeSetupMappingImpl;
 	
 	@Autowired
 	private RetailVendorMasterRepository retailVendorMasterRepository;
 	
 	@Autowired
 	private LedgerCodeRetailRepository retailLedgerCodeRepository;
+	
+	@Autowired
+	private LedgerCodePaymentRepository ledgerCodePaymentRepository;
 	
 	@Autowired
 	private RetailMaterialGroupMasterRepository retailMaterialGroupMasterRepository;
@@ -75,7 +82,7 @@ public class RetailLedgerCodeSetupServiceHelperImpl {
 		uiModel.setRecordCount(retailLedgerCodes.size());
 		for(LedgerCodeRetail ledgerCode : retailLedgerCodes) {
 			LedgerCodeRetailBean ledgerCodeBean = new LedgerCodeRetailBean();
-			ledgerCodeRetailMappingImpl.mapBean(ledgerCode, ledgerCodeBean);
+			ledgerCodeSetupMappingImpl.mapRetailLedgerCodeBean(ledgerCode, ledgerCodeBean);
 			branchBean.setBranchId(ledgerCode.getMaterialGroup().getBranchMaster().getBranchId());
 			ledgerCodeBeans.add(ledgerCodeBean);
 		}
@@ -92,8 +99,6 @@ public class RetailLedgerCodeSetupServiceHelperImpl {
 	public UIModel saveRetailLedgerCode(UIModel uiModel) {
 		if(uiModel.getBranchBean().getRetailLedgerCodes() != null && uiModel.getBranchBean().getRetailLedgerCodes().size() > 0 ) {
 			List<LedgerCodeRetailBean> retailLedgerCodeBeans = uiModel.getBranchBean().getRetailLedgerCodes();
-			
-//			List<RetailLedgerCode> retailLedgerCodes = new ArrayList<RetailLedgerCode>();
 			
 			for(LedgerCodeRetailBean retailLedgerCodeBean : retailLedgerCodeBeans) {
 				int vendorId = retailLedgerCodeBean.getVendorId();
@@ -114,7 +119,7 @@ public class RetailLedgerCodeSetupServiceHelperImpl {
 				}
 				
 				LedgerCodeRetail LedgerCodeRetail = new LedgerCodeRetail();
-				ledgerCodeRetailMappingImpl.mapBean(retailLedgerCodeBean, LedgerCodeRetail);
+				ledgerCodeSetupMappingImpl.mapRetailLedgerCodeBean(retailLedgerCodeBean, LedgerCodeRetail);
 				retailLedgerCodeRepository.saveAndFlush(LedgerCodeRetail);
 //				retailLedgerCodes.add(retailLedgerCode);
 			}
@@ -160,4 +165,44 @@ public class RetailLedgerCodeSetupServiceHelperImpl {
 		return uiModel;
 	}
 	
+	@Transactional(value="retailTransactionManager")
+	public UIModel getPaymentLedgerCode() {
+		UIModel uiModel = new UIModel();
+		BranchBean branchBean = new BranchBean();
+		uiModel.setBranchBean(branchBean);
+		List<LedgerCodePaymentBean> ledgerCodePaymentBeans = new ArrayList<LedgerCodePaymentBean>();
+		Pageable  pagable = new PageRequest(1, 1000, Sort.Direction.DESC, "glCode");
+		Page<LedgerCodePayment> paymentLedgerCodes = ledgerCodePaymentRepository.findAll(pagable);
+		
+		for(LedgerCodePayment ledgerCodePayment : paymentLedgerCodes) {
+			LedgerCodePaymentBean ledgerCodePaymentBean = new LedgerCodePaymentBean();
+			ledgerCodeSetupMappingImpl.mapRetailLedgerCodeBean(ledgerCodePayment, ledgerCodePaymentBean);
+			ledgerCodePaymentBeans.add(ledgerCodePaymentBean);
+		}
+		branchBean.setPaymentLedgerCodes(ledgerCodePaymentBeans);
+		
+		
+		if(log.isDebugEnabled()) {
+			log.debug("Payment Retail Ledger details has been retrieved from database");
+		}
+		return uiModel;
+	}
+	
+	@Transactional(value="retailTransactionManager")
+	public UIModel savePaymentLedgerCode(UIModel uiModel) {
+		if(uiModel.getBranchBean().getPaymentLedgerCodes() != null && uiModel.getBranchBean().getPaymentLedgerCodes().size() > 0 ) {
+			List<LedgerCodePaymentBean> paymentLedgerCodeBeans = uiModel.getBranchBean().getPaymentLedgerCodes();
+			
+			if(paymentLedgerCodeBeans != null && paymentLedgerCodeBeans.size() > 0) {
+				for(LedgerCodePaymentBean paymentLedgerCodeBean : paymentLedgerCodeBeans) {
+					LedgerCodePayment paymentLedgerCode = new LedgerCodePayment();
+					ledgerCodeSetupMappingImpl.mapPaymentLedgerCodeBean(paymentLedgerCodeBean, paymentLedgerCode);
+					ledgerCodePaymentRepository.saveAndFlush(paymentLedgerCode);
+				}
+			}
+		} else {
+			uiModel.setErrorMsg("Payment Ledger code details not passed correctly");
+		}
+		return uiModel;
+	}
 }

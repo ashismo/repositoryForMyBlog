@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.org.coop.canonical.beans.UIModel;
-import com.org.coop.retail.service.RetailLedgerCodeSetupServiceImpl;
+import com.org.coop.retail.service.LedgerCodeSetupServiceImpl;
 import com.org.coop.retail.service.RetailVendorSetupServiceImpl;
 
 @RestController
 @RequestMapping("/rest")
-public class RetailLedgerCodeSetupWSImpl {
+public class LedgerCodeSetupWSImpl {
 	
-	private static final Logger log = Logger.getLogger(RetailLedgerCodeSetupWSImpl.class); 
+	private static final Logger log = Logger.getLogger(LedgerCodeSetupWSImpl.class); 
 	
 	@Autowired
-	private RetailLedgerCodeSetupServiceImpl retailLedgerCodeSetupServiceImpl;
+	private LedgerCodeSetupServiceImpl retailLedgerCodeSetupServiceImpl;
 	
 	@RequestMapping(value = "/getRetailLedgerCode", method = RequestMethod.GET, headers="Accept=application/json",produces="application/json")
 	public UIModel getRetailLedgerCode(@RequestParam(value = "vendorId",required = true,defaultValue = "0") Integer vendorId,
@@ -40,6 +40,20 @@ public class RetailLedgerCodeSetupWSImpl {
 	@RequestMapping(value = "/deleteRetailLedgerCode", method = RequestMethod.DELETE, headers="Accept=application/json",produces="application/json")
 	public UIModel deleteRetailLedgerCode(@RequestBody UIModel uiModel) {
 		uiModel = retailLedgerCodeSetupServiceImpl.deleteRetailLedgerCode(uiModel);
+		return uiModel;
+	}
+	
+	@RequestMapping(value = "/getPaymentLedgerCode", method = RequestMethod.GET, headers="Accept=application/json",produces="application/json")
+	public UIModel getPaymentLedgerCode(@RequestParam(value = "vendorId",required = true,defaultValue = "0") Integer vendorId,
+							@RequestParam(value = "materialGrpId",required = true,defaultValue = "0") Integer materialGrpId) {
+		UIModel uiModel = new UIModel();
+		uiModel = retailLedgerCodeSetupServiceImpl.getPaymentLedgerCode();
+		return uiModel;
+	}
+	
+	@RequestMapping(value = "/savePaymentLedgerCode", method = RequestMethod.POST, headers="Accept=application/json",produces="application/json")
+	public UIModel savePaymentLedgerCode(@RequestBody UIModel uiModel) {
+		uiModel = retailLedgerCodeSetupServiceImpl.savePaymentLedgerCode(uiModel);
 		return uiModel;
 	}
 	

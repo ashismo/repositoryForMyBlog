@@ -1,0 +1,19 @@
+{
+  "branchBean": {
+    "branchId": 1,
+    "paymentLedgerCodes": [
+      {
+      	"paymentLedgerId" : 0,
+        "glCode": 11100,
+        "paymentType" : "CASH",
+        "createUser": "ashish"
+      },
+      {
+      	"paymentLedgerId" : 0,
+        "glCode": 11200,
+        "paymentType" : "CARD",
+        "createUser": "ashish"
+      }
+    ]
+  }
+}
