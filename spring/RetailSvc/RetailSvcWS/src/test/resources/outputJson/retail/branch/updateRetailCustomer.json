@@ -40,7 +40,7 @@
       "refCustomerId" : 0,
       "addressLine1" : "Kalipur",
       "addressLine2" : null,
-      "createDate" : 1461679628000,
+      "createDate" : 1461686550000,
       "createUser" : "ashish",
       "customerName" : "ASHISH MONDAL",
       "customerType" : "Running",
@@ -49,7 +49,7 @@
       "phone1" : "9830625559",
       "phone2" : null,
       "pin" : "712708",
-      "updateDate" : 1461679628000,
+      "updateDate" : 1461686551000,
       "updateUser" : "ashish",
       "website" : null,
       "deleteInd" : null,
@@ -70,8 +70,8 @@
     "customers" : [ ],
     "accounts" : [ ],
     "customerAccounts" : [ ],
-    "fyClosed" : false,
-    "branchActive" : false
+    "branchActive" : false,
+    "fyClosed" : false
   },
   "branches" : [ ],
   "bankMasters" : [ ],

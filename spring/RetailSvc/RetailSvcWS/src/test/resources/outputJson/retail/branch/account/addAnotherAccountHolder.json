@@ -58,7 +58,7 @@
       "accountType" : "CRDR",
       "actionDate" : 1461868200000,
       "activeInd" : null,
-      "createDate" : 1461679627000,
+      "createDate" : 1461686549000,
       "createUser" : "ashish",
       "deleteInd" : null,
       "deleteReason" : null,
@@ -77,7 +77,7 @@
       "accountType" : "CRDR",
       "actionDate" : 1461868200000,
       "activeInd" : null,
-      "createDate" : 1461679627000,
+      "createDate" : 1461686550000,
       "createUser" : "ashish",
       "deleteInd" : null,
       "deleteReason" : null,
@@ -88,8 +88,8 @@
       "updateUser" : null
     } ],
     "customerAccounts" : [ ],
-    "fyClosed" : false,
-    "branchActive" : false
+    "branchActive" : false,
+    "fyClosed" : false
   },
   "branches" : [ ],
   "bankMasters" : [ ],
