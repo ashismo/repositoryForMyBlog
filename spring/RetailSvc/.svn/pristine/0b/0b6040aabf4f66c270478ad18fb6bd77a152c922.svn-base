@@ -1,50 +1,37 @@
 package com.org.coop.retail.entities;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
+import java.sql.Timestamp;
+import java.math.BigDecimal;
+import java.util.Date;
+
 
 /**
- * The persistent class for the advance_register database table.
+ * The persistent class for the credit_register database table.
  * 
  */
 @Entity
-@Table(name="advance_register")
-@NamedQuery(name="AdvanceRegister.findAll", query="SELECT a FROM AdvanceRegister a")
-@SQLDelete(sql="update advance_register set delete_ind='Y' where advance_id = ?")
+@Table(name="credit_register")
+@NamedQuery(name="CreditRegister.findAll", query="SELECT c FROM CreditRegister c")
+@SQLDelete(sql="update credit_register set delete_ind='Y' where credit_id = ?")
 @Where(clause="delete_ind is NULL")
-public class AdvanceRegister implements Serializable {
+public class CreditRegister implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="advance_id")
-	private int advanceId;
+	@Column(name="credit_id")
+	private int creditId;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="action_date")
 	private Date actionDate;
-
-	private BigDecimal amount;
 
 	@Column(name="create_date")
 	private Timestamp createDate;
@@ -52,8 +39,13 @@ public class AdvanceRegister implements Serializable {
 	@Column(name="create_user")
 	private String createUser;
 
+	private BigDecimal amount;
+
 	@Column(name="delete_ind")
 	private String deleteInd;
+	
+	@Column(name="credit_type")
+	private String creditType;
 
 	@Column(name="delete_reason")
 	private String deleteReason;
@@ -79,15 +71,20 @@ public class AdvanceRegister implements Serializable {
 	@JoinColumn(name="branch_id")
 	private BranchMaster branchMaster;
 	
-	public AdvanceRegister() {
+	//bi-directional many-to-one association to Account
+	@ManyToOne
+	@JoinColumn(name="account_id")
+	private Account account;
+		
+	public CreditRegister() {
 	}
 
-	public int getAdvanceId() {
-		return this.advanceId;
+	public int getCreditId() {
+		return this.creditId;
 	}
 
-	public void setAdvanceId(int advanceId) {
-		this.advanceId = advanceId;
+	public void setCreditId(int creditId) {
+		this.creditId = creditId;
 	}
 
 	public Date getActionDate() {
@@ -96,14 +93,6 @@ public class AdvanceRegister implements Serializable {
 
 	public void setActionDate(Date actionDate) {
 		this.actionDate = actionDate;
-	}
-
-	public BigDecimal getAmount() {
-		return this.amount;
-	}
-
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
 	}
 
 	public Timestamp getCreateDate() {
@@ -120,6 +109,14 @@ public class AdvanceRegister implements Serializable {
 
 	public void setCreateUser(String createUser) {
 		this.createUser = createUser;
+	}
+
+	public BigDecimal getAmount() {
+		return amount;
+	}
+
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
 	}
 
 	public String getDeleteInd() {
@@ -178,7 +175,16 @@ public class AdvanceRegister implements Serializable {
 		this.transactionPayment = transactionPayment;
 	}
 
-public BranchMaster getBranchMaster() {
+	@PreUpdate
+	public void updateTimeStamps() {
+		long currentTime = System.currentTimeMillis();
+	    updateDate = new Timestamp(currentTime);
+	    if (createDate == null) {
+	    	createDate = new Timestamp(currentTime);
+	    }
+	}
+
+	public BranchMaster getBranchMaster() {
 		return branchMaster;
 	}
 
@@ -186,11 +192,11 @@ public BranchMaster getBranchMaster() {
 		this.branchMaster = branchMaster;
 	}
 
-@Override
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + advanceId;
+		result = prime * result + creditId;
 		return result;
 	}
 
@@ -202,18 +208,25 @@ public BranchMaster getBranchMaster() {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AdvanceRegister other = (AdvanceRegister) obj;
-		if (advanceId != other.advanceId)
+		CreditRegister other = (CreditRegister) obj;
+		if (creditId != other.creditId)
 			return false;
 		return true;
 	}
+
+	public String getCreditType() {
+		return creditType;
+	}
+
+	public void setCreditType(String creditType) {
+		this.creditType = creditType;
+	}
 	
-	@PreUpdate
-	public void updateTimeStamps() {
-		long currentTime = System.currentTimeMillis();
-	    updateDate = new Timestamp(currentTime);
-	    if (createDate == null) {
-	    	createDate = new Timestamp(currentTime);
-	    }
+	public Account getAccount() {
+		return this.account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 }

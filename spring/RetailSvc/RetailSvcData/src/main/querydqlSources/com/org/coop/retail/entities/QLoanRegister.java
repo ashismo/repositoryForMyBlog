@@ -1,0 +1,83 @@
+package com.org.coop.retail.entities;
+
+import static com.mysema.query.types.PathMetadataFactory.*;
+
+import com.mysema.query.types.path.*;
+
+import com.mysema.query.types.PathMetadata;
+import javax.annotation.Generated;
+import com.mysema.query.types.Path;
+import com.mysema.query.types.path.PathInits;
+
+
+/**
+ * QLoanRegister is a Querydsl query type for LoanRegister
+ */
+@Generated("com.mysema.query.codegen.EntitySerializer")
+public class QLoanRegister extends EntityPathBase<LoanRegister> {
+
+    private static final long serialVersionUID = 502371839L;
+
+    private static final PathInits INITS = PathInits.DIRECT2;
+
+    public static final QLoanRegister loanRegister = new QLoanRegister("loanRegister");
+
+    public final QAccount account;
+
+    public final DatePath<java.util.Date> actionDate = createDate("actionDate", java.util.Date.class);
+
+    public final NumberPath<java.math.BigDecimal> amount = createNumber("amount", java.math.BigDecimal.class);
+
+    public final QBranchMaster branchMaster;
+
+    public final DateTimePath<java.sql.Timestamp> createDate = createDateTime("createDate", java.sql.Timestamp.class);
+
+    public final StringPath createUser = createString("createUser");
+
+    public final StringPath deleteInd = createString("deleteInd");
+
+    public final StringPath deleteReason = createString("deleteReason");
+
+    public final NumberPath<Integer> loanId = createNumber("loanId", Integer.class);
+
+    public final StringPath loanIssuingBank = createString("loanIssuingBank");
+
+    public final StringPath loanIssuingBranch = createString("loanIssuingBranch");
+
+    public final StringPath passingAuthInd = createString("passingAuthInd");
+
+    public final StringPath passingAuthRemark = createString("passingAuthRemark");
+
+    public final NumberPath<Integer> tenure = createNumber("tenure", Integer.class);
+
+    public final QTransactionPayment transactionPayment;
+
+    public final DateTimePath<java.sql.Timestamp> updateDate = createDateTime("updateDate", java.sql.Timestamp.class);
+
+    public final StringPath updateUser = createString("updateUser");
+
+    public QLoanRegister(String variable) {
+        this(LoanRegister.class, forVariable(variable), INITS);
+    }
+
+    public QLoanRegister(Path<? extends LoanRegister> path) {
+        this(path.getType(), path.getMetadata(), path.getMetadata().isRoot() ? INITS : PathInits.DEFAULT);
+    }
+
+    public QLoanRegister(PathMetadata<?> metadata) {
+        this(metadata, metadata.isRoot() ? INITS : PathInits.DEFAULT);
+    }
+
+    public QLoanRegister(PathMetadata<?> metadata, PathInits inits) {
+        this(LoanRegister.class, metadata, inits);
+    }
+
+    public QLoanRegister(Class<? extends LoanRegister> type, PathMetadata<?> metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.account = inits.isInitialized("account") ? new QAccount(forProperty("account"), inits.get("account")) : null;
+        this.branchMaster = inits.isInitialized("branchMaster") ? new QBranchMaster(forProperty("branchMaster")) : null;
+        this.transactionPayment = inits.isInitialized("transactionPayment") ? new QTransactionPayment(forProperty("transactionPayment"), inits.get("transactionPayment")) : null;
+    }
+
+}
+

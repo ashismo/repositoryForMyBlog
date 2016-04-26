@@ -22,6 +22,8 @@ public class QCreditRegister extends EntityPathBase<CreditRegister> {
 
     public static final QCreditRegister creditRegister = new QCreditRegister("creditRegister");
 
+    public final QAccount account;
+
     public final DatePath<java.util.Date> actionDate = createDate("actionDate", java.util.Date.class);
 
     public final NumberPath<java.math.BigDecimal> amount = createNumber("amount", java.math.BigDecimal.class);
@@ -68,6 +70,7 @@ public class QCreditRegister extends EntityPathBase<CreditRegister> {
 
     public QCreditRegister(Class<? extends CreditRegister> type, PathMetadata<?> metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.account = inits.isInitialized("account") ? new QAccount(forProperty("account"), inits.get("account")) : null;
         this.branchMaster = inits.isInitialized("branchMaster") ? new QBranchMaster(forProperty("branchMaster")) : null;
         this.transactionPayment = inits.isInitialized("transactionPayment") ? new QTransactionPayment(forProperty("transactionPayment"), inits.get("transactionPayment")) : null;
     }

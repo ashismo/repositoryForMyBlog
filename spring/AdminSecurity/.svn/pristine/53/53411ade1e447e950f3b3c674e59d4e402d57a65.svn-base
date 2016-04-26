@@ -4,8 +4,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class AdvanceRegisterBean implements Serializable {
-	protected int advanceId;
+public class LoanRegisterBean implements Serializable {
+	protected int loanId;
+	protected int accountId;
 	protected int glTranId;
 	protected String tranNo;
 	protected int paymentId;
@@ -13,6 +14,9 @@ public class AdvanceRegisterBean implements Serializable {
 	protected String branchName;
 	protected Date actionDate;
 	protected BigDecimal amount;
+	private String loanIssuingBank;
+	private String loanIssuingBranch;
+	private int tenure;
 	protected Date createDate;
 	protected String createUser;
 	protected String deleteInd;
@@ -21,11 +25,11 @@ public class AdvanceRegisterBean implements Serializable {
 	protected String passingAuthRemark;
 	protected Date updateDate;
 	protected String updateUser;
-	public int getAdvanceId() {
-		return advanceId;
+	public int getLoanId() {
+		return loanId;
 	}
-	public void setAdvanceId(int advanceId) {
-		this.advanceId = advanceId;
+	public void setLoanId(int loanId) {
+		this.loanId = loanId;
 	}
 	public int getGlTranId() {
 		return glTranId;
@@ -103,7 +107,7 @@ public class AdvanceRegisterBean implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + advanceId;
+		result = prime * result + loanId;
 		return result;
 	}
 	@Override
@@ -114,8 +118,8 @@ public class AdvanceRegisterBean implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AdvanceRegisterBean other = (AdvanceRegisterBean) obj;
-		if (advanceId != other.advanceId)
+		LoanRegisterBean other = (LoanRegisterBean) obj;
+		if (loanId != other.loanId)
 			return false;
 		return true;
 	}
@@ -136,5 +140,29 @@ public class AdvanceRegisterBean implements Serializable {
 	}
 	public void setBranchName(String branchName) {
 		this.branchName = branchName;
+	}
+	public String getLoanIssuingBank() {
+		return loanIssuingBank;
+	}
+	public void setLoanIssuingBank(String loanIssuingBank) {
+		this.loanIssuingBank = loanIssuingBank;
+	}
+	public String getLoanIssuingBranch() {
+		return loanIssuingBranch;
+	}
+	public void setLoanIssuingBranch(String loanIssuingBranch) {
+		this.loanIssuingBranch = loanIssuingBranch;
+	}
+	public int getTenure() {
+		return tenure;
+	}
+	public void setTenure(int tenure) {
+		this.tenure = tenure;
+	}
+	public int getAccountId() {
+		return accountId;
+	}
+	public void setAccountId(int accountId) {
+		this.accountId = accountId;
 	}
 }

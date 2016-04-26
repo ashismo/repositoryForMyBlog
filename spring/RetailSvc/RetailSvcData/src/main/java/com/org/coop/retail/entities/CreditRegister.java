@@ -71,6 +71,11 @@ public class CreditRegister implements Serializable {
 	@JoinColumn(name="branch_id")
 	private BranchMaster branchMaster;
 	
+	//bi-directional many-to-one association to Account
+	@ManyToOne
+	@JoinColumn(name="account_id")
+	private Account account;
+		
 	public CreditRegister() {
 	}
 
@@ -215,5 +220,13 @@ public class CreditRegister implements Serializable {
 
 	public void setCreditType(String creditType) {
 		this.creditType = creditType;
+	}
+	
+	public Account getAccount() {
+		return this.account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 }
