@@ -1,0 +1,21 @@
+{
+  "branchBean": {
+    "branchId": 1,
+    "retailLedgerCodes": [
+      {
+      	"retailLedgerCodeId" : 0,
+        "materialGrpId": 1,
+        "vendorId" : 1,
+        "glMasCode" : 34112,
+        "createUser": "ashish"
+      },
+      {
+      	"retailLedgerCodeId" : 0,
+        "materialGrpId": 1,
+        "vendorId" : 2,
+        "glMasCode" : 34113,
+        "createUser": "ashish"
+      }
+    ]
+  }
+}

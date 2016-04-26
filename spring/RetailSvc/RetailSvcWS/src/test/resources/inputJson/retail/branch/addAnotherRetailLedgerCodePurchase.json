@@ -6,16 +6,14 @@
       	"retailLedgerCodeId" : 0,
         "materialGrpId": 2,
         "vendorId" : 3,
-        "purchaseCode" : 34114,
-        "sellCode" : 41114,
+        "glMasCode" : 34114,
         "createUser": "ashish"
       },
       {
       	"retailLedgerCodeId" : 0,
         "materialGrpId": 3,
         "vendorId" : 3,
-        "purchaseCode" : 34115,
-        "sellCode" : 41115,
+        "glMasCode" : 34115,
         "createUser": "ashish"
       }
     ]

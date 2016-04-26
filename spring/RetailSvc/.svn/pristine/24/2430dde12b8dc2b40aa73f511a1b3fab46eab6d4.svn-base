@@ -15,11 +15,11 @@ import java.sql.Timestamp;
  * 
  */
 @Entity
-@Table(name="ledger_code_retail")
-@NamedQuery(name="LedgerCodeRetail.findAll", query="SELECT l FROM LedgerCodeRetail l")
-@SQLDelete(sql="update ledger_code_retail set delete_ind='Y' where retail_ledger_code_id = ?")
+@Table(name="ledger_code_retail_purchase")
+@NamedQuery(name="LedgerCodeRetailPurchase.findAll", query="SELECT l FROM LedgerCodeRetailPurchase l")
+@SQLDelete(sql="update ledger_code_retail_purchase set delete_ind='Y' where retail_ledger_code_id = ?")
 @Where(clause="delete_ind is NULL")
-public class LedgerCodeRetail implements Serializable {
+public class LedgerCodeRetailPurchase implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -45,11 +45,8 @@ public class LedgerCodeRetail implements Serializable {
 	@Column(name="passing_auth_remark")
 	private String passingAuthRemark;
 
-	@Column(name="purchase_code")
-	private int purchaseCode;
-
-	@Column(name="sell_code")
-	private int sellCode;
+	@Column(name="gl_mas_code")
+	private int glMasCode;
 
 	@Column(name="update_date")
 	private Timestamp updateDate;
@@ -67,7 +64,7 @@ public class LedgerCodeRetail implements Serializable {
 	@JoinColumn(name="vendor_id")
 	private VendorMaster vendorMaster;
 
-	public LedgerCodeRetail() {
+	public LedgerCodeRetailPurchase() {
 	}
 
 	public int getRetailLedgerCodeId() {
@@ -126,20 +123,12 @@ public class LedgerCodeRetail implements Serializable {
 		this.passingAuthRemark = passingAuthRemark;
 	}
 
-	public int getPurchaseCode() {
-		return this.purchaseCode;
+	public int getGlMasCode() {
+		return glMasCode;
 	}
 
-	public void setPurchaseCode(int purchaseCode) {
-		this.purchaseCode = purchaseCode;
-	}
-
-	public int getSellCode() {
-		return this.sellCode;
-	}
-
-	public void setSellCode(int sellCode) {
-		this.sellCode = sellCode;
+	public void setGlMasCode(int glMasCode) {
+		this.glMasCode = glMasCode;
 	}
 
 	public Timestamp getUpdateDate() {
@@ -199,7 +188,7 @@ public class LedgerCodeRetail implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		LedgerCodeRetail other = (LedgerCodeRetail) obj;
+		LedgerCodeRetailPurchase other = (LedgerCodeRetailPurchase) obj;
 		if (retailLedgerCodeId != other.retailLedgerCodeId)
 			return false;
 		return true;

@@ -2,7 +2,9 @@ package com.org.coop.canonical.account.beans;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class CashRegisterBean implements Serializable {
 	protected int cashId;
@@ -21,6 +23,9 @@ public class CashRegisterBean implements Serializable {
 	protected String passingAuthRemark;
 	protected Date updateDate;
 	protected String updateUser;
+	
+	protected List<DenominationRegisterBean> denominations = new ArrayList<DenominationRegisterBean>();
+	
 	public int getCashId() {
 		return cashId;
 	}
@@ -136,5 +141,11 @@ public class CashRegisterBean implements Serializable {
 	}
 	public void setBranchName(String branchName) {
 		this.branchName = branchName;
+	}
+	public List<DenominationRegisterBean> getDenominations() {
+		return denominations;
+	}
+	public void setDenominations(List<DenominationRegisterBean> denominations) {
+		this.denominations = denominations;
 	}
 }
