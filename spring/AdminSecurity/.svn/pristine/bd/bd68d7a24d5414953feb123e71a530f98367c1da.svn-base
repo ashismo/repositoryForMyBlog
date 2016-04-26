@@ -1,24 +1,25 @@
-package com.org.coop.canonical.account.beans;
+package com.org.coop.canonical.beans;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class CreditRegisterBean implements Serializable {
-	protected static final long serialVersionUID = 1L;
-	protected int creditId;
-	protected int glTranId;
-	protected String tranNo;
-	protected String creditType;
-	protected int paymentId;
+
+public class AccountBean {
+	protected int accountId;
+	protected int customerId;
+	protected int customerName;
 	protected int branchId;
 	protected String branchName;
+	protected String accountNo;
+	protected String accountType;
 	protected Date actionDate;
+	protected String activeInd;
 	protected Date createDate;
 	protected String createUser;
-	protected BigDecimal amount;
 	protected String deleteInd;
 	protected String deleteReason;
+	protected Date lastUsedDate;
 	protected String passingAuthInd;
 	protected String passingAuthRemark;
 	protected Date updateDate;
@@ -28,7 +29,7 @@ public class CreditRegisterBean implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + creditId;
+		result = prime * result + accountId;
 		return result;
 	}
 	@Override
@@ -39,28 +40,52 @@ public class CreditRegisterBean implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CreditRegisterBean other = (CreditRegisterBean) obj;
-		if (creditId != other.creditId)
+		AccountBean other = (AccountBean) obj;
+		if (accountId != other.accountId)
 			return false;
 		return true;
 	}
-	public int getCreditId() {
-		return creditId;
+	public int getAccountId() {
+		return accountId;
 	}
-	public void setCreditId(int creditId) {
-		this.creditId = creditId;
+	public void setAccountId(int accountId) {
+		this.accountId = accountId;
 	}
-	public int getGlTranId() {
-		return glTranId;
+	public int getBranchId() {
+		return branchId;
 	}
-	public void setGlTranId(int glTranId) {
-		this.glTranId = glTranId;
+	public void setBranchId(int branchId) {
+		this.branchId = branchId;
+	}
+	public String getBranchName() {
+		return branchName;
+	}
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
+	}
+	public String getAccountNo() {
+		return accountNo;
+	}
+	public void setAccountNo(String accountNo) {
+		this.accountNo = accountNo;
+	}
+	public String getAccountType() {
+		return accountType;
+	}
+	public void setAccountType(String accountType) {
+		this.accountType = accountType;
 	}
 	public Date getActionDate() {
 		return actionDate;
 	}
 	public void setActionDate(Date actionDate) {
 		this.actionDate = actionDate;
+	}
+	public String getActiveInd() {
+		return activeInd;
+	}
+	public void setActiveInd(String activeInd) {
+		this.activeInd = activeInd;
 	}
 	public Date getCreateDate() {
 		return createDate;
@@ -74,12 +99,6 @@ public class CreditRegisterBean implements Serializable {
 	public void setCreateUser(String createUser) {
 		this.createUser = createUser;
 	}
-	public BigDecimal getAmount() {
-		return amount;
-	}
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
-	}
 	public String getDeleteInd() {
 		return deleteInd;
 	}
@@ -91,6 +110,12 @@ public class CreditRegisterBean implements Serializable {
 	}
 	public void setDeleteReason(String deleteReason) {
 		this.deleteReason = deleteReason;
+	}
+	public Date getLastUsedDate() {
+		return lastUsedDate;
+	}
+	public void setLastUsedDate(Date lastUsedDate) {
+		this.lastUsedDate = lastUsedDate;
 	}
 	public String getPassingAuthInd() {
 		return passingAuthInd;
@@ -116,37 +141,16 @@ public class CreditRegisterBean implements Serializable {
 	public void setUpdateUser(String updateUser) {
 		this.updateUser = updateUser;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public int getCustomerId() {
+		return customerId;
 	}
-	public int getPaymentId() {
-		return paymentId;
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
 	}
-	public void setPaymentId(int paymentId) {
-		this.paymentId = paymentId;
+	public int getCustomerName() {
+		return customerName;
 	}
-	public String getTranNo() {
-		return tranNo;
-	}
-	public void setTranNo(String tranNo) {
-		this.tranNo = tranNo;
-	}
-	public int getBranchId() {
-		return branchId;
-	}
-	public void setBranchId(int branchId) {
-		this.branchId = branchId;
-	}
-	public String getBranchName() {
-		return branchName;
-	}
-	public void setBranchName(String branchName) {
-		this.branchName = branchName;
-	}
-	public String getCreditType() {
-		return creditType;
-	}
-	public void setCreditType(String creditType) {
-		this.creditType = creditType;
+	public void setCustomerName(int customerName) {
+		this.customerName = customerName;
 	}
 }
