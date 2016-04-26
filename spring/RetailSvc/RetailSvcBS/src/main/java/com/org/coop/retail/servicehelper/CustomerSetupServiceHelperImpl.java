@@ -1,0 +1,266 @@
+package com.org.coop.retail.servicehelper;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.querydsl.QSort;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.coop.org.exception.RetailException;
+import com.mysema.query.types.Predicate;
+import com.mysema.query.types.expr.BooleanExpression;
+import com.org.coop.bs.util.RetailBusinessConstants;
+import com.org.coop.canonical.beans.AccountBean;
+import com.org.coop.canonical.beans.BranchBean;
+import com.org.coop.canonical.beans.CustomerAccountBean;
+import com.org.coop.canonical.beans.CustomerBean;
+import com.org.coop.canonical.beans.UIModel;
+import com.org.coop.retail.bs.mapper.CustomerAccountMappingImpl;
+import com.org.coop.retail.entities.Account;
+import com.org.coop.retail.entities.Customer;
+import com.org.coop.retail.entities.CustomerAccount;
+import com.org.coop.retail.entities.QAccount;
+import com.org.coop.retail.entities.QCustomer;
+import com.org.coop.retail.entities.QCustomerAccount;
+import com.org.coop.retail.repositories.AccountRepository;
+import com.org.coop.retail.repositories.CustomerAccountRepository;
+import com.org.coop.retail.repositories.CustomerRepository;
+import com.org.coop.retail.repositories.RetailBranchMasterRepository;
+
+@Service
+public class CustomerSetupServiceHelperImpl {
+
+	private static final Logger log = Logger.getLogger(CustomerSetupServiceHelperImpl.class); 
+	
+	@Autowired
+	private RetailBranchMasterRepository branchMasterRepository;
+	
+	@Autowired
+	private CustomerAccountMappingImpl customerAccountMappingImpl;
+	
+	@Autowired
+	private AccountRepository accountRepository;
+	
+	@Autowired
+	private CustomerRepository customerRepository;
+	
+	@Autowired
+	private CustomerAccountRepository customerAccountRepository;
+	
+	@Transactional(value="retailTransactionManager", propagation=Propagation.REQUIRED)
+	public UIModel getCustomerAccounts(int branchId, int customerId, int accountId, String panNo, 
+			String aadharNo, String mobileNo, Date startDate, Date endDate,int pageNo, int recordsPerPage) {
+		UIModel uiModel = new UIModel();
+		uiModel.setBranchBean(new BranchBean());
+		uiModel.getBranchBean().setBranchId(branchId);
+		Predicate predicate = null;
+		
+		int recordCount = 0;
+		if(branchId > 0 && (customerId > 0 || accountId > 0 || StringUtils.isNotBlank(panNo) || StringUtils.isNotBlank(aadharNo) || StringUtils.isNotBlank(mobileNo))) {
+			Page<CustomerAccount> customerAccounts = null;
+			QCustomerAccount customerAccount = QCustomerAccount.customerAccount;
+			PageRequest pageable = new PageRequest(pageNo - 1, recordsPerPage, new QSort(customerAccount.account.accountId.asc()));
+			
+			BooleanExpression branchAccounts = customerAccount.branchMaster.branchId.eq(branchId);
+			if(customerId > 0) branchAccounts = branchAccounts.and(customerAccount.customer.customerId.eq(customerId));
+			if(accountId > 0) branchAccounts = branchAccounts.and(customerAccount.account.accountId.eq(accountId));
+			if(StringUtils.isNotBlank(panNo)) branchAccounts = branchAccounts.and(customerAccount.customer.panNo.eq(panNo));
+			if(StringUtils.isNotBlank(aadharNo)) branchAccounts = branchAccounts.and(customerAccount.customer.aadharNo.eq(aadharNo));
+			if(StringUtils.isNotBlank(mobileNo)) branchAccounts = branchAccounts.and(customerAccount.customer.mobile1.eq(mobileNo).or(customerAccount.customer.mobile2.eq(mobileNo)));
+			predicate = branchAccounts;
+			customerAccounts = customerAccountRepository.findAll(predicate, pageable);
+			recordCount = (int)customerAccounts.getTotalElements();
+			
+			if(accountId > 0) {
+				// Populate an account
+				List<AccountBean> accountBeans = new ArrayList<AccountBean>();
+				Account account = accountRepository.findOne(accountId);
+				if(account == null) {
+					String errorMsg = "Account does not exists for the account Id: " + accountId;
+					log.error(errorMsg);
+					throw new RetailException(errorMsg, RetailBusinessConstants.EXCEPTION_RETAIL_CUSTOMER_MGMT);
+				}
+				AccountBean accountBean = new AccountBean();
+				customerAccountMappingImpl.mapAccountBean(account, accountBean);
+				accountBeans.add(accountBean);
+				uiModel.getBranchBean().setAccounts(accountBeans);
+				
+				// Populate customers
+				List<CustomerBean> customerBeans  = new ArrayList<CustomerBean>();
+				uiModel.getBranchBean().setCustomers(customerBeans);
+				for(CustomerAccount custAcc : customerAccounts) {
+					Customer cust = custAcc.getCustomer();
+					CustomerBean custBean = new CustomerBean();
+					customerAccountMappingImpl.mapCustomerBean(cust, custBean);
+					customerBeans.add(custBean);
+				}
+			}
+			
+			if(customerId > 0 || StringUtils.isNotBlank(panNo) || StringUtils.isNotBlank(aadharNo) || StringUtils.isNotBlank(mobileNo)) {
+				List<Customer> customersByMob = null;
+				// Populate a customer
+				List<CustomerBean> customerBeans = new ArrayList<CustomerBean>();
+				Customer customer = null;
+				
+				if(customerId > 0) {
+					customer = customerRepository.findOne(customerId);
+				} else if (StringUtils.isNotBlank(panNo)) {
+					customer = customerRepository.findByPanNo(panNo);
+				} else if (StringUtils.isNotBlank(aadharNo)) {
+					customer = customerRepository.findByAadharNo(aadharNo);
+				} else if (StringUtils.isNotBlank(mobileNo)) { // Mobile number may not be always unique
+					customersByMob = customerRepository.findByMobile1(mobileNo);
+					if(customersByMob == null || customersByMob.size() == 0) {
+						customersByMob = customerRepository.findByMobile2(mobileNo);
+					}
+					if(customersByMob != null && customersByMob.size() == 1) {
+						customer = customersByMob.get(0);
+					}
+				} 
+				
+				boolean isAccountNumbersPopulated = true;
+				if(customersByMob != null && customersByMob.size() > 1) {
+					// Multiple customer found
+					log.debug("Multile customer found for the given mobile no : " + mobileNo);
+					isAccountNumbersPopulated =false;
+					
+					for(Customer cust : customersByMob) {
+						CustomerBean customerBean = new CustomerBean();
+						customerAccountMappingImpl.mapCustomerBean(cust, customerBean);
+						customerBeans.add(customerBean);
+					}
+					uiModel.getBranchBean().setCustomers(customerBeans);
+				} else if(customer == null) {
+					String errorMsg = "Customer does not exists for the customer Id: " + customerId;
+					log.error(errorMsg);
+					throw new RetailException(errorMsg, RetailBusinessConstants.EXCEPTION_RETAIL_CUSTOMER_MGMT);
+				} else {
+					CustomerBean customerBean = new CustomerBean();
+					customerAccountMappingImpl.mapCustomerBean(customer, customerBean);
+					customerBeans.add(customerBean);
+					uiModel.getBranchBean().setCustomers(customerBeans);
+				}
+				
+				if(isAccountNumbersPopulated) {
+					// Populate all accounts against the customer
+					List<AccountBean> accountBeans  = new ArrayList<AccountBean>();
+					uiModel.getBranchBean().setAccounts(accountBeans);
+					for(CustomerAccount custAcc : customerAccounts) {
+						Account account = custAcc.getAccount();
+						AccountBean accountBean = new AccountBean();
+						customerAccountMappingImpl.mapAccountBean(account, accountBean);
+						accountBeans.add(accountBean);
+					}
+				}
+			}
+		} else if (branchId  > 0) { // GET ALL ACCOUNTS FOR A GIVEN BRANCH
+			Page<Account> accounts = null;
+			QAccount account = QAccount.account;
+			PageRequest pageable = new PageRequest(pageNo - 1, recordsPerPage, new QSort(account.accountId.asc()));
+			
+			BooleanExpression accountExp = account.branchMaster.branchId.eq(branchId);
+			
+			if(endDate == null) endDate = new Date();
+			if(startDate != null) accountExp = accountExp.and(account.actionDate.between(startDate, endDate));
+			predicate = accountExp;
+			accounts = accountRepository.findAll(predicate, pageable);
+			List<AccountBean> accountBeans = new ArrayList<AccountBean>(); 
+			
+			for(Account acc : accounts) {
+				AccountBean accBean = new AccountBean();
+				customerAccountMappingImpl.mapAccountBean(acc, accBean);
+				accountBeans.add(accBean);
+			}
+			uiModel.getBranchBean().setAccounts(accountBeans);
+			recordCount = (int)accounts.getTotalElements();
+		}
+		if(log.isDebugEnabled()) {
+			log.debug("Customer account details has been retrieved from database for customerId: " + customerId);
+		}
+		
+		uiModel.setRecordCount(recordCount);
+		uiModel.setPageNo(pageNo);
+		uiModel.setRecordsPerPage(recordsPerPage);
+		
+		if(recordsPerPage == 0) {
+			uiModel.setErrorMsg("No records found");
+		}
+		
+		return uiModel;
+	}
+	
+	@Transactional(value="retailTransactionManager", readOnly=false, propagation=Propagation.REQUIRED)
+	public UIModel saveCustomerAccounts(UIModel uiModel) {
+		
+		List<CustomerAccountBean> customerAccountBeans = new ArrayList<CustomerAccountBean>();
+		AccountBean accountBean = null;
+		if(uiModel.getBranchBean().getAccounts() != null && uiModel.getBranchBean().getAccounts().size() > 0) {
+			accountBean = uiModel.getBranchBean().getAccounts().get(0);
+			Account account = null;
+			if(accountBean.getAccountId() == 0) {
+				account = new Account();
+			} else {
+				account = accountRepository.findOne(accountBean.getAccountId());
+			}
+			customerAccountMappingImpl.mapAccountBean(accountBean, account);
+			accountRepository.saveAndFlush(account);
+			accountBean.setAccountId(account.getAccountId());
+		}
+		
+		if(uiModel.getBranchBean().getCustomers() != null && uiModel.getBranchBean().getCustomers().size() > 0) {
+			for(CustomerBean customerBean : uiModel.getBranchBean().getCustomers()) {
+				Customer customer = null;
+				if(customerBean.getCustomerId() == 0) {
+					customer = new Customer();
+				} else {
+					customer = customerRepository.findOne(customerBean.getCustomerId());
+				}
+				customerAccountMappingImpl.mapCustomerBean(customerBean, customer);
+				customerRepository.saveAndFlush(customer);
+				customerBean.setCustomerId(customer.getCustomerId());
+				
+				// Populate customer account bean to associate customers with account
+				CustomerAccountBean customerAccBean = new CustomerAccountBean();
+				customerAccountBeans.add(customerAccBean);
+				customerAccBean.setBranchId(customerBean.getBranchId());
+				customerAccBean.setCustomerId(customerBean.getCustomerId());
+				customerAccBean.setAccountId(accountBean.getAccountId());
+				String primaryAccountHolder = (customerBean.getPrimaryHolderInd() == null) ? "N" : customerBean.getPrimaryHolderInd();
+				customerAccBean.setPrimaryHolderInd(primaryAccountHolder);
+				customerAccBean.setCreateUser(customerBean.getCreateUser());
+				customerAccBean.setUpdateUser(customerBean.getUpdateUser());
+				customerAccBean.setActionDate(customerBean.getActionDate());
+			}
+		}
+		
+		if(customerAccountBeans != null && customerAccountBeans.size() > 0) {
+			for(CustomerAccountBean custAccBean : customerAccountBeans) {
+				CustomerAccount customerAccount = null;
+				if(custAccBean.getCustomerAccountId() == 0) {
+					customerAccount = new CustomerAccount();
+				} else {
+					customerAccount = customerAccountRepository.findOne(custAccBean.getCustomerAccountId());
+				}
+				customerAccountMappingImpl.mapCustomerAccountBean(custAccBean, customerAccount);
+				customerAccountRepository.saveAndFlush(customerAccount);
+				customerAccount.setCustomerAccountId(customerAccount.getCustomerAccountId());
+			}
+		}
+		
+		uiModel.getBranchBean().setCustomerAccounts(customerAccountBeans);
+		return uiModel;
+	}
+	
+	@Transactional(value="retailTransactionManager")
+	public UIModel deleteCustomerAccounts(UIModel uiModel) {
+		return uiModel;
+	}
+}

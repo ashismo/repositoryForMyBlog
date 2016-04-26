@@ -1,0 +1,28 @@
+{
+  "branchBean": {
+    "branchId": 2,
+    "accounts" : [
+    	{
+    		"accountId" : 2,
+    		"branchId" : 2,
+    		"accountType" : "CRDR",
+    		"actionDate" : "29/04/2016 00:00:00",
+        	"createUser": "ashish"
+    	}
+    ],
+    "customers" : [
+    	{
+    		"customerId" : 0,
+    		"branchId" : 2,
+    		"primaryHolderInd" : "Y",
+    		"salute" : "MR",
+    		"firstName" : "Ujan",
+    		"lastName" : "Mondal",
+    		"panNo" : "AAZPP1111P",
+    		"mobile1" : "9830525559",
+    		"actionDate" : "29/04/2016 00:00:00",
+        	"createUser": "ashish"
+    	}
+    ]
+  }
+}

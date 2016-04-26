@@ -1,0 +1,37 @@
+{
+  "branchBean": {
+    "branchId": 2,
+    "accounts" : [
+    	{
+    		"accountId" : 0,
+    		"branchId" : 2,
+    		"accountType" : "CRDR",
+    		"actionDate" : "29/04/2016 00:00:00",
+        	"createUser": "ashish"
+    	}
+    ],
+    "customers" : [
+    	{
+    		"customerId" : 0,
+    		"branchId" : 2,
+    		"primaryHolderInd" : "Y",
+    		"salute" : "MR",
+    		"firstName" : "Ashish",
+    		"lastName" : "Mondal",
+    		"mobile1" : "9830525559",
+    		"actionDate" : "29/04/2016 00:00:00",
+        	"createUser": "ashish"
+    	},
+    	{
+    		"customerId" : 0,
+    		"branchId" : 2,
+    		"salute" : "MR",
+    		"firstName" : "Ujan",
+    		"lastName" : "Mondal",
+    		"mobile1" : "9830625559",
+    		"actionDate" : "29/04/2016 00:00:00",
+        	"createUser": "ashish"
+    	}
+    ]
+  }
+}
