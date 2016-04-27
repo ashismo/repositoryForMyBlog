@@ -1,0 +1,24 @@
+{
+  "branchBean": {
+    "retailLedgerCodeSales": [
+      {
+      	"retailLedgerCodeSaleId" : 0,
+      	"customerType" : "MEMBER",
+        "glMasCode" : 44112,
+        "createUser": "ashish"
+      },
+      {
+      	"retailLedgerCodeSaleId" : 0,
+      	"customerType" : "NONMEMBER",
+        "glMasCode" : 44113,
+        "createUser": "ashish"
+      },
+      {
+      	"retailLedgerCodeSaleId" : 0,
+      	"customerType" : "RUNNING",
+        "glMasCode" : 44114,
+        "createUser": "ashish"
+      }
+    ]
+  }
+}
