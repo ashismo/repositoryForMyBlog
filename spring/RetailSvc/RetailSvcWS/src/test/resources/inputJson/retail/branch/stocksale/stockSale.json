@@ -1,0 +1,76 @@
+{
+  "branchBean": {
+    "branchId": 2,
+     "customers" : [
+    	{
+    		"customerId" : 0,
+    		"branchId" : 2,
+    		"salute" : "MR",
+    		"firstName" : "Rajesh",
+    		"lastName" : "Karmakar",
+    		"mobile1" : "9830525559",
+    		"actionDate" : "29/04/2016 00:00:00",
+        	"createUser": "ashish"
+    	}
+    ],
+    "stockSales": [
+      {
+        "stockId": 1,
+        "branchId": 2,
+        "batch" : "AZ1001",
+        "actionDate" : "28/04/2016 00:00:00",
+        "qty" : 10,
+        "rate" : "12.00",
+        "total" : "120.00",
+        "createUser": "ashish"
+      },
+      {
+        "stockId": 2,
+        "branchId": 2,
+        "batch" : "AZ1001",
+        "actionDate" : "28/04/2016 00:00:00",
+        "qty" : 10,
+        "rate" : "13.00",
+        "total" : "130.00",
+        "createUser": "ashish"
+      },
+      {
+        "stockId": 3,
+        "branchId": 2,
+        "batch" : "AZ1001",
+        "actionDate" : "28/04/2016 00:00:00",
+        "qty" : 10,
+        "rate" : "14.00",
+        "total" : "140.00",
+        "createUser": "ashish"
+      }
+    ],
+    
+    "payments" : [
+    	{
+    		"branchId": 2,
+    		"glTranId" : 0,
+    		"billNo" : "86-1239",
+    		"actionDate" : "29/04/2016 00:00:00",
+    		"billDate" : "29/04/2016 00:00:00",
+    		"billAmt" : 390,
+    		"vat" : 10.50,
+    		"discount" : 0.50,
+    		"grossTotal" : 400.00,
+    		"paidAmt" : 400.00,
+    		"createUser": "ashish",
+    		"cashRegisters" : [
+    			{
+    				"cashId" : 0,
+    				"glTranId" : 0,
+    				"paymentId" : 0,
+    				"branchId": 2,
+    				"actionDate" : "29/04/2016 00:00:00",
+    				"amount" : 400,
+    				"createUser": "ashish"
+    			}
+    		]
+    	}
+    ]
+  }
+}
