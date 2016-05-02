@@ -2,6 +2,14 @@ Mysql prompt
 ============
 /opt/lampp/bin/mysql -u root
 
+
+Incase you get the below error even if your password is correct 
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)
+--------------------------------------------------------------------------------------
+Then skip password check. Open /opt/lampp/etc/my.cnf file and add the below line under [mysqld]
+
+skip-grant-tables
+
 Add password for root
 =========================
 SET PASSWORD FOR 'root'@'localhost' = PASSWORD('password');
