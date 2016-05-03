@@ -36,7 +36,7 @@
       "branchName" : "Kalipur",
       "groupDescription" : "Lubricant (Engine Oil)",
       "groupName" : "LUBRICANT",
-      "createDate" : 1462207837000,
+      "createDate" : 1462238087000,
       "updateDate" : null,
       "createUser" : "ashish",
       "updateUser" : null,
@@ -62,8 +62,8 @@
     "customers" : [ ],
     "accounts" : [ ],
     "customerAccounts" : [ ],
-    "branchActive" : false,
-    "fyClosed" : false
+    "fyClosed" : false,
+    "branchActive" : false
   },
   "branches" : [ ],
   "bankMasters" : [ ],
