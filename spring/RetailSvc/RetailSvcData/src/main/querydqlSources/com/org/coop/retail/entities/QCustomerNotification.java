@@ -1,0 +1,80 @@
+package com.org.coop.retail.entities;
+
+import static com.mysema.query.types.PathMetadataFactory.*;
+
+import com.mysema.query.types.path.*;
+
+import com.mysema.query.types.PathMetadata;
+import javax.annotation.Generated;
+import com.mysema.query.types.Path;
+import com.mysema.query.types.path.PathInits;
+
+
+/**
+ * QCustomerNotification is a Querydsl query type for CustomerNotification
+ */
+@Generated("com.mysema.query.codegen.EntitySerializer")
+public class QCustomerNotification extends EntityPathBase<CustomerNotification> {
+
+    private static final long serialVersionUID = 1508352565L;
+
+    private static final PathInits INITS = PathInits.DIRECT2;
+
+    public static final QCustomerNotification customerNotification = new QCustomerNotification("customerNotification");
+
+    public final DatePath<java.util.Date> actionDate = createDate("actionDate", java.util.Date.class);
+
+    public final QBranchMaster branchMaster;
+
+    public final DateTimePath<java.sql.Timestamp> createDate = createDateTime("createDate", java.sql.Timestamp.class);
+
+    public final StringPath createUser = createString("createUser");
+
+    public final QCustomer customer;
+
+    public final StringPath deleteInd = createString("deleteInd");
+
+    public final StringPath deleteReason = createString("deleteReason");
+
+    public final DatePath<java.util.Date> endDate = createDate("endDate", java.util.Date.class);
+
+    public final StringPath notificationDetail = createString("notificationDetail");
+
+    public final NumberPath<Integer> notificationId = createNumber("notificationId", Integer.class);
+
+    public final StringPath notificationType = createString("notificationType");
+
+    public final StringPath passingAuthInd = createString("passingAuthInd");
+
+    public final StringPath passingAuthRemark = createString("passingAuthRemark");
+
+    public final DatePath<java.util.Date> startDate = createDate("startDate", java.util.Date.class);
+
+    public final DateTimePath<java.sql.Timestamp> updateDate = createDateTime("updateDate", java.sql.Timestamp.class);
+
+    public final StringPath updateUser = createString("updateUser");
+
+    public QCustomerNotification(String variable) {
+        this(CustomerNotification.class, forVariable(variable), INITS);
+    }
+
+    public QCustomerNotification(Path<? extends CustomerNotification> path) {
+        this(path.getType(), path.getMetadata(), path.getMetadata().isRoot() ? INITS : PathInits.DEFAULT);
+    }
+
+    public QCustomerNotification(PathMetadata<?> metadata) {
+        this(metadata, metadata.isRoot() ? INITS : PathInits.DEFAULT);
+    }
+
+    public QCustomerNotification(PathMetadata<?> metadata, PathInits inits) {
+        this(CustomerNotification.class, metadata, inits);
+    }
+
+    public QCustomerNotification(Class<? extends CustomerNotification> type, PathMetadata<?> metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.branchMaster = inits.isInitialized("branchMaster") ? new QBranchMaster(forProperty("branchMaster")) : null;
+        this.customer = inits.isInitialized("customer") ? new QCustomer(forProperty("customer"), inits.get("customer")) : null;
+    }
+
+}
+
