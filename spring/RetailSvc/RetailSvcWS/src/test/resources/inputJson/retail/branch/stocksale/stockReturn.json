@@ -1,0 +1,56 @@
+{
+  "branchBean": {
+    "branchId": 2,
+     "customers" : [
+    	{
+    		"customerId" : 1,
+    		"branchId" : 2,
+    		"actionDate" : "29/04/2016 00:00:00",
+        	"createUser": "ashish"
+    	}
+    ],
+    "stockSales": [
+      {
+        "stockId": 3,
+        "actionDate" : "28/04/2016 00:00:00",
+        "qty" : 20,
+        "createUser": "ashish"
+      },
+      {
+        "stockId": 11,
+        "actionDate" : "28/04/2016 00:00:00",
+        "qty" : 20,
+        "createUser": "ashish"
+      }
+    ],
+    
+    "payments" : [
+    	{
+    		"branchId": 2,
+    		"glTranId" : 0,
+    		"billNo" : "86-1240",
+    		"actionDate" : "29/04/2016 00:00:00",
+    		"billDate" : "29/04/2016 00:00:00",
+    		"billAmt" : 390,
+    		"vat" : 10.50,
+    		"discount" : 0.50,
+    		"grossTotal" : 400.00,
+    		"paidAmt" : 400.00,
+    		"createUser": "ashish",
+    		"creditRegisters" : [
+    			{
+    				"creditId" : 0,
+    				"glTranId" : 0,
+    				"paymentId" : 0,
+    				"accountId": 1,
+    				"branchId": 2,
+    				"actionDate" : "29/04/2016 00:00:00",
+    				"amount" : 400,
+    				"creditType" : "CREDIT",
+    				"createUser": "ashish"
+    			}
+    		]
+    	}
+    ]
+  }
+}

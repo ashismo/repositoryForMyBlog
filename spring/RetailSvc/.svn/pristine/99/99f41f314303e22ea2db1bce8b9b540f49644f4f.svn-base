@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.org.coop.retail.entities.Transaction;
 
-public interface TransactionsRepository extends JpaRepository<Transaction, Integer> {
+public interface TransactionRepository extends JpaRepository<Transaction, Integer> {
 	
 	@Query(value="SELECT CONCAT(DATE_FORMAT(:actionDate, '%d%m%Y'), '/', COUNT(*)+1) AS TRAN_ID "
 			+ "FROM transactions WHERE "
