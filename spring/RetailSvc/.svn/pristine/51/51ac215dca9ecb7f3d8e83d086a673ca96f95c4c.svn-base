@@ -1,0 +1,20 @@
+{
+  "branchBean": {
+    "branchId": 2,
+    "customers" : [
+    	{
+    		"customerId" : 4,
+    		 "branchId": 2,
+        	"notifications" : [
+        		{
+        			"notificationId" : 1,
+        			"endDate" : "28/04/2017 00:00:00",
+        			"actionDate" : "29/04/2016 00:00:00",
+        			"notificationDetail" : "HDFC ERGO insurance #0987654321",
+        			"updateUser": "ashish"
+        		}
+        	]
+    	}
+    ]
+  }
+}
