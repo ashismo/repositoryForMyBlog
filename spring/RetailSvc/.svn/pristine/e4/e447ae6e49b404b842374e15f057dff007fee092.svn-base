@@ -1,0 +1,17 @@
+{
+  "branchBean": {
+    "branchId": 1,
+    "retailVendors": [
+      {
+        "vendorId": 0,
+        "branchId": 1,
+        "vendorName": "BRANCH OFFICE",
+        "vendorType" : "BRANCH",
+        "addressLine1": "Kalipur",
+        "pin": "712304",
+        "phone1": "9830525559",
+        "createUser": "ashish"
+      }
+    ]
+  }
+}
