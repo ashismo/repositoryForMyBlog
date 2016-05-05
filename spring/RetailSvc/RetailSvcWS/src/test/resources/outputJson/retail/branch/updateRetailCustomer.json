@@ -1,6 +1,7 @@
 {
   "branchBean" : {
     "branchId" : 2,
+    "transferToBranchId" : 0,
     "parentId" : 0,
     "bankName" : null,
     "branchName" : null,
@@ -40,7 +41,7 @@
       "refCustomerId" : 0,
       "addressLine1" : "Kalipur",
       "addressLine2" : null,
-      "createDate" : 1462383287000,
+      "createDate" : 1462411037000,
       "createUser" : "ashish",
       "customerName" : "ASHISH MONDAL",
       "customerType" : "Running",
@@ -49,7 +50,7 @@
       "phone1" : "9830625559",
       "phone2" : null,
       "pin" : "712708",
-      "updateDate" : 1462383287000,
+      "updateDate" : 1462411037000,
       "updateUser" : "ashish",
       "website" : null,
       "deleteInd" : null,
@@ -69,8 +70,8 @@
     "customers" : [ ],
     "accounts" : [ ],
     "customerAccounts" : [ ],
-    "branchActive" : false,
-    "fyClosed" : false
+    "fyClosed" : false,
+    "branchActive" : false
   },
   "branches" : [ ],
   "bankMasters" : [ ],
