@@ -2,6 +2,7 @@
   "branchBean" : {
     "branchId" : 0,
     "transferToBranchId" : 0,
+    "transferFromVendorId" : 0,
     "parentId" : 0,
     "bankName" : null,
     "branchName" : null,
@@ -37,7 +38,7 @@
       "branchName" : "Kalipur",
       "groupDescription" : "Lubricant (Engine Oil)",
       "groupName" : "LUBRICANT",
-      "createDate" : 1462411033000,
+      "createDate" : 1462464957000,
       "updateDate" : null,
       "createUser" : "ashish",
       "updateUser" : null,
@@ -63,8 +64,8 @@
     "customers" : [ ],
     "accounts" : [ ],
     "customerAccounts" : [ ],
-    "fyClosed" : false,
-    "branchActive" : false
+    "branchActive" : false,
+    "fyClosed" : false
   },
   "branches" : [ ],
   "bankMasters" : [ ],

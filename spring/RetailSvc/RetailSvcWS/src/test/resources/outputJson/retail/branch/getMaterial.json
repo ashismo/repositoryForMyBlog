@@ -2,6 +2,7 @@
   "branchBean" : {
     "branchId" : 0,
     "transferToBranchId" : 0,
+    "transferFromVendorId" : 0,
     "parentId" : 0,
     "bankName" : null,
     "branchName" : null,
@@ -57,7 +58,7 @@
         "mrp" : 100.00,
         "uom" : "ml",
         "updateUser" : null,
-        "createDate" : 1462411034000,
+        "createDate" : 1462464957000,
         "updateDate" : null,
         "deleteInd" : null,
         "deleteReason" : null
@@ -81,8 +82,8 @@
     "customers" : [ ],
     "accounts" : [ ],
     "customerAccounts" : [ ],
-    "fyClosed" : false,
-    "branchActive" : false
+    "branchActive" : false,
+    "fyClosed" : false
   },
   "branches" : [ ],
   "bankMasters" : [ ],

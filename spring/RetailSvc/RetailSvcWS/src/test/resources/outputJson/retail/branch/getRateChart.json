@@ -2,6 +2,7 @@
   "branchBean" : {
     "branchId" : 2,
     "transferToBranchId" : 0,
+    "transferFromVendorId" : 0,
     "parentId" : 0,
     "bankName" : null,
     "branchName" : null,
@@ -36,7 +37,7 @@
       "rateId" : 3,
       "branchId" : 2,
       "materialId" : 1,
-      "createDate" : 1462411036000,
+      "createDate" : 1462464959000,
       "createUser" : "ashish",
       "deleteInd" : null,
       "deleteReason" : null,
@@ -64,8 +65,8 @@
     "customers" : [ ],
     "accounts" : [ ],
     "customerAccounts" : [ ],
-    "fyClosed" : false,
-    "branchActive" : false
+    "branchActive" : false,
+    "fyClosed" : false
   },
   "branches" : [ ],
   "bankMasters" : [ ],
