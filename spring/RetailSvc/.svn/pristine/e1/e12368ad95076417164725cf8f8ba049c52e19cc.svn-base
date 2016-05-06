@@ -1,0 +1,27 @@
+{
+  "branchBean": {
+    "branchId": 2,
+    "payments" : [
+    	{
+    		"branchId": 2,
+    		"glTranId" : 1,
+    		"billNo" : "86-1233",
+    		"actionDate" : "01/05/2016 00:00:00",
+    		"createUser": "ashish",
+    		"chequeRegisters" : [
+    			{
+    				"chequeId" : 1,
+    				"glTranId" : 1,
+    				"glTranDtlId" : 10,
+    				"paymentId" : 5,
+    				"branchId": 2,
+    				"actionDate" : "01/05/2016 00:00:00",
+    				"chequeClearDate" : "01/05/2016 00:00:00",
+    				"chequeClearAmt" : 21.00,
+    				"updateUser": "ashish"
+    			}
+    		]
+    	}
+    ]
+  }
+}
