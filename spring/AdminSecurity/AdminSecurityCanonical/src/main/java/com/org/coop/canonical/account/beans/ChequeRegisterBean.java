@@ -7,7 +7,6 @@ import java.util.Date;
 public class ChequeRegisterBean implements Serializable {
 	protected int chequeId;
 	protected int glTranId;
-	protected int glTranDtlId;
 	protected String tranNo;
 	protected int paymentId;
 	protected int branchId;
@@ -201,11 +200,5 @@ public class ChequeRegisterBean implements Serializable {
 	}
 	public void setActionDate(Date actionDate) {
 		this.actionDate = actionDate;
-	}
-	public int getGlTranDtlId() {
-		return glTranDtlId;
-	}
-	public void setGlTranDtlId(int glTranDtlId) {
-		this.glTranDtlId = glTranDtlId;
 	}
 }

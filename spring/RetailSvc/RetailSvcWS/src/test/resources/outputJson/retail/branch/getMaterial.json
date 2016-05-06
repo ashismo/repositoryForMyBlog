@@ -58,7 +58,7 @@
         "mrp" : 100.00,
         "uom" : "ml",
         "updateUser" : null,
-        "createDate" : 1462498158000,
+        "createDate" : 1462552844000,
         "updateDate" : null,
         "deleteInd" : null,
         "deleteReason" : null
@@ -82,8 +82,8 @@
     "customers" : [ ],
     "accounts" : [ ],
     "customerAccounts" : [ ],
-    "branchActive" : false,
-    "fyClosed" : false
+    "fyClosed" : false,
+    "branchActive" : false
   },
   "branches" : [ ],
   "bankMasters" : [ ],
