@@ -1,6 +1,6 @@
 {
   "branchBean" : {
-    "branchId" : 2,
+    "branchId" : 1,
     "transferToBranchId" : 0,
     "transferFromVendorId" : 0,
     "parentId" : 0,
@@ -37,10 +37,10 @@
     "documents" : [ ],
     "retailVendors" : [ {
       "vendorId" : 1,
-      "branchId" : 2,
+      "branchId" : 1,
       "addressLine1" : "Kolkata",
       "addressLine2" : null,
-      "createDate" : 1462552845000,
+      "createDate" : 1462590657000,
       "createUser" : "ashish",
       "vendorType" : null,
       "email1" : null,
@@ -48,7 +48,7 @@
       "phone1" : "9830525559",
       "phone2" : null,
       "pin" : "743502",
-      "updateDate" : 1462552845000,
+      "updateDate" : 1462590657000,
       "updateUser" : "ashish",
       "vendorName" : "CTS",
       "website" : null,
@@ -70,8 +70,8 @@
     "customers" : [ ],
     "accounts" : [ ],
     "customerAccounts" : [ ],
-    "fyClosed" : false,
-    "branchActive" : false
+    "branchActive" : false,
+    "fyClosed" : false
   },
   "branches" : [ ],
   "bankMasters" : [ ],
