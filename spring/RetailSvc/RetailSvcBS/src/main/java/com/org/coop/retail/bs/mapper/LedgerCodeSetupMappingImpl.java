@@ -11,14 +11,9 @@ public class LedgerCodeSetupMappingImpl {
 	@Autowired
 	private RetailDozerConfig retailDozerConfig;
 	
-	public void mapRetailLedgerCodePurchaseBean(Object src, Object dest) {
+	public void mapRetailLedgerCodeBean(Object src, Object dest) {
 		Mapper dozerBeanMapper = (Mapper) retailDozerConfig.dozerBean();
-		dozerBeanMapper.map(src, dest, "ledgerCodeRetailPurchaseMap");
-	}
-	
-	public void mapRetailLedgerCodeSaleBean(Object src, Object dest) {
-		Mapper dozerBeanMapper = (Mapper) retailDozerConfig.dozerBean();
-		dozerBeanMapper.map(src, dest, "ledgerCodeRetailSaleMap");
+		dozerBeanMapper.map(src, dest, "ledgerCodeRetailMap");
 	}
 	
 	public void mapPaymentLedgerCodeBean(Object src, Object dest) {

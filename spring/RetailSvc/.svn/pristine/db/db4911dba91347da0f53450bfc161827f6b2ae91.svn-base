@@ -15,11 +15,11 @@ import java.sql.Timestamp;
  * 
  */
 @Entity
-@Table(name="ledger_code_retail_purchase")
-@NamedQuery(name="LedgerCodeRetailPurchase.findAll", query="SELECT l FROM LedgerCodeRetailPurchase l")
-@SQLDelete(sql="update ledger_code_retail_purchase set delete_ind='Y' where retail_ledger_code_id = ?")
+@Table(name="ledger_code_retail")
+@NamedQuery(name="LedgerCodeRetail.findAll", query="SELECT l FROM LedgerCodeRetail l")
+@SQLDelete(sql="update ledger_code_retail set delete_ind='Y' where retail_ledger_code_id = ?")
 @Where(clause="delete_ind is NULL")
-public class LedgerCodeRetailPurchase implements Serializable {
+public class LedgerCodeRetail implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -53,6 +53,12 @@ public class LedgerCodeRetailPurchase implements Serializable {
 
 	@Column(name="update_user")
 	private String updateUser;
+	
+	@Column(name="purchase_sale")
+	private String purchaseSale;
+	
+	@Column(name="customer_type")
+	private String customerType;
 
 	//bi-directional many-to-one association to MaterialGroup
 	@ManyToOne
@@ -64,7 +70,7 @@ public class LedgerCodeRetailPurchase implements Serializable {
 	@JoinColumn(name="vendor_id")
 	private VendorMaster vendorMaster;
 
-	public LedgerCodeRetailPurchase() {
+	public LedgerCodeRetail() {
 	}
 
 	public int getRetailLedgerCodeId() {
@@ -163,8 +169,23 @@ public class LedgerCodeRetailPurchase implements Serializable {
 		this.vendorMaster = vendorMaster;
 	}
 
+	public String getPurchaseSale() {
+		return purchaseSale;
+	}
+
+	public void setPurchaseSale(String purchaseSale) {
+		this.purchaseSale = purchaseSale;
+	}
+
+	public String getCustomerType() {
+		return customerType;
+	}
+
+	public void setCustomerType(String customerType) {
+		this.customerType = customerType;
+	}
+
 	@PreUpdate
-	
 	public void updateTimeStamps() {
 	    updateDate = new Timestamp(System.currentTimeMillis());
 	    if (createDate == null) {
@@ -188,7 +209,7 @@ public class LedgerCodeRetailPurchase implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		LedgerCodeRetailPurchase other = (LedgerCodeRetailPurchase) obj;
+		LedgerCodeRetail other = (LedgerCodeRetail) obj;
 		if (retailLedgerCodeId != other.retailLedgerCodeId)
 			return false;
 		return true;

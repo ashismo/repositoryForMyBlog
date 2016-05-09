@@ -36,7 +36,7 @@ public class QMaterialGroup extends EntityPathBase<MaterialGroup> {
 
     public final StringPath groupName = createString("groupName");
 
-    public final ListPath<LedgerCodeRetailPurchase, QLedgerCodeRetailPurchase> ledgerCodeRetails = this.<LedgerCodeRetailPurchase, QLedgerCodeRetailPurchase>createList("ledgerCodeRetails", LedgerCodeRetailPurchase.class, QLedgerCodeRetailPurchase.class, PathInits.DIRECT2);
+    public final ListPath<LedgerCodeRetail, QLedgerCodeRetail> ledgerCodeRetails = this.<LedgerCodeRetail, QLedgerCodeRetail>createList("ledgerCodeRetails", LedgerCodeRetail.class, QLedgerCodeRetail.class, PathInits.DIRECT2);
 
     public final NumberPath<Integer> materialGrpId = createNumber("materialGrpId", Integer.class);
 

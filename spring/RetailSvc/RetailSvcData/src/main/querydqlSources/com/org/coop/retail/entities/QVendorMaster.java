@@ -42,7 +42,7 @@ public class QVendorMaster extends EntityPathBase<VendorMaster> {
 
     public final StringPath email2 = createString("email2");
 
-    public final ListPath<LedgerCodeRetailPurchase, QLedgerCodeRetailPurchase> ledgerCodeRetails = this.<LedgerCodeRetailPurchase, QLedgerCodeRetailPurchase>createList("ledgerCodeRetails", LedgerCodeRetailPurchase.class, QLedgerCodeRetailPurchase.class, PathInits.DIRECT2);
+    public final ListPath<LedgerCodeRetail, QLedgerCodeRetail> ledgerCodeRetails = this.<LedgerCodeRetail, QLedgerCodeRetail>createList("ledgerCodeRetails", LedgerCodeRetail.class, QLedgerCodeRetail.class, PathInits.DIRECT2);
 
     public final StringPath phone1 = createString("phone1");
 

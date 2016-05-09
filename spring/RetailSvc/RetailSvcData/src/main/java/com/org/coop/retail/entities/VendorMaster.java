@@ -86,7 +86,7 @@ public class VendorMaster implements Serializable {
 	//bi-directional many-to-one association to LedgerCodeRetail
 	@OneToMany(mappedBy="vendorMaster", fetch = FetchType.LAZY, cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
 	@Where(clause="delete_ind is NULL")
-	private List<LedgerCodeRetailPurchase> ledgerCodeRetails;
+	private List<LedgerCodeRetail> ledgerCodeRetails;
 	
 	//bi-directional many-to-one association to StockEntry
 	@OneToMany(mappedBy="vendorMaster", fetch = FetchType.LAZY, cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
@@ -280,11 +280,11 @@ public class VendorMaster implements Serializable {
 		this.branchMaster = branchMaster;
 	}
 
-	public List<LedgerCodeRetailPurchase> getLedgerCodeRetails() {
+	public List<LedgerCodeRetail> getLedgerCodeRetails() {
 		return ledgerCodeRetails;
 	}
 
-	public void setLedgerCodeRetails(List<LedgerCodeRetailPurchase> ledgerCodeRetails) {
+	public void setLedgerCodeRetails(List<LedgerCodeRetail> ledgerCodeRetails) {
 		this.ledgerCodeRetails = ledgerCodeRetails;
 	}
 

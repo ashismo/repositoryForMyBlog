@@ -54,7 +54,7 @@ public class MaterialGroup implements Serializable {
 
 	//bi-directional many-to-one association to LedgerCodeRetail
 	@OneToMany(mappedBy="materialGroup" , fetch = FetchType.LAZY, cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
-	private List<LedgerCodeRetailPurchase> ledgerCodeRetails;
+	private List<LedgerCodeRetail> ledgerCodeRetails;
 	//bi-directional many-to-one association to BranchMaster
 	@ManyToOne
 	@JoinColumn(name="branch_id")
@@ -132,22 +132,22 @@ public class MaterialGroup implements Serializable {
 		this.updateUser = updateUser;
 	}
 
-	public List<LedgerCodeRetailPurchase> getLedgerCodeRetails() {
+	public List<LedgerCodeRetail> getLedgerCodeRetails() {
 		return this.ledgerCodeRetails;
 	}
 
-	public void setLedgerCodeRetails(List<LedgerCodeRetailPurchase> ledgerCodeRetails) {
+	public void setLedgerCodeRetails(List<LedgerCodeRetail> ledgerCodeRetails) {
 		this.ledgerCodeRetails = ledgerCodeRetails;
 	}
 
-	public LedgerCodeRetailPurchase addLedgerCodeRetail(LedgerCodeRetailPurchase ledgerCodeRetail) {
+	public LedgerCodeRetail addLedgerCodeRetail(LedgerCodeRetail ledgerCodeRetail) {
 		getLedgerCodeRetails().add(ledgerCodeRetail);
 		ledgerCodeRetail.setMaterialGroup(this);
 
 		return ledgerCodeRetail;
 	}
 
-	public LedgerCodeRetailPurchase removeLedgerCodeRetail(LedgerCodeRetailPurchase ledgerCodeRetail) {
+	public LedgerCodeRetail removeLedgerCodeRetail(LedgerCodeRetail ledgerCodeRetail) {
 		getLedgerCodeRetails().remove(ledgerCodeRetail);
 		ledgerCodeRetail.setMaterialGroup(null);
 
