@@ -1,0 +1,20 @@
+{
+  "branchBean": {
+    "branchId": 2,
+    "customers" : [
+    	{
+    		"customerId" : 4,
+    		 "branchId": 2,
+        	"smsNotifications" : [
+        		{
+        			"smsId" : 0,
+        			"notificationId" : 2,
+        			"customerId" : 4,
+        			"branchId" : 2,
+        			"createUser": "ashish"
+        		}
+        	]
+    	}
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "branchBean": {
+    "branchId": 2,
+    "customers" : [
+    	{
+    		"customerId" : 4,
+    		 "branchId": 2,
+        	"smsNotifications" : [
+        		{
+        			"smsId" : 0,
+        			"customerId" : 1,
+        			"smsPurpose" : "PROMOTIONAL",
+        			"smsSubject" : "Additional 3% off on Hero genuine parts",
+        			"branchId" : 2,
+        			"createUser": "ashish"
+        		}
+        	]
+    	}
+    ]
+  }
+}
