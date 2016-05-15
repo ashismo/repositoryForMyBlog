@@ -12,6 +12,9 @@
     "email2" : null,
     "phone1" : null,
     "phone2" : null,
+    "gmailId" : null,
+    "gmailPassword" : null,
+    "smsSenderId" : null,
     "startDate" : null,
     "endDate" : null,
     "createUser" : null,
@@ -58,7 +61,7 @@
         "mrp" : 100.00,
         "uom" : "ml",
         "updateUser" : null,
-        "createDate" : 1463280413000,
+        "createDate" : 1463332035000,
         "updateDate" : null,
         "deleteInd" : null,
         "deleteReason" : null
