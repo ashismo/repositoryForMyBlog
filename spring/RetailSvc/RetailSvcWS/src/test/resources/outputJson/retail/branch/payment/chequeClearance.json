@@ -117,8 +117,8 @@
     "customers" : [ ],
     "accounts" : [ ],
     "customerAccounts" : [ ],
-    "branchActive" : false,
-    "fyClosed" : false
+    "fyClosed" : false,
+    "branchActive" : false
   },
   "branches" : [ ],
   "bankMasters" : [ ],

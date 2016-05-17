@@ -117,13 +117,13 @@ public class CommonAdminServiceHelperImpl {
 		}
 		
 		Properties javaMailProperties = new Properties();
-		javaMailProperties.put("mail.smtp.host", env.getProperty("email.host").trim());
-		javaMailProperties.put("mail.smtp.port", env.getProperty("email.port").trim());
-		javaMailProperties.put("mail.transport.protocol", env.getProperty("email.transport.protocol").trim());
-		javaMailProperties.put("mail.smtp.auth", env.getProperty("email.smtp.auth").trim());
-		javaMailProperties.put("mail.smtp.starttls.enable", env.getProperty("email.smtp.starttls.enable").trim());
-		javaMailProperties.put("mail.smtp.starttls.required", env.getProperty("email.smtp.starttls.required").trim());
-		javaMailProperties.put("mail.debug", env.getProperty("email.debug").trim());
+		javaMailProperties.put("mail.smtp.host", env.getProperty("email.host"));
+		javaMailProperties.put("mail.smtp.port", env.getProperty("email.port"));
+		javaMailProperties.put("mail.transport.protocol", env.getProperty("email.transport.protocol"));
+		javaMailProperties.put("mail.smtp.auth", env.getProperty("email.smtp.auth"));
+		javaMailProperties.put("mail.smtp.starttls.enable", env.getProperty("email.smtp.starttls.enable"));
+		javaMailProperties.put("mail.smtp.starttls.required", env.getProperty("email.smtp.starttls.required"));
+		javaMailProperties.put("mail.debug", env.getProperty("email.debug"));
 		
 		final String uName = gmailId;
 		final String pwd = gmailPassword;
@@ -207,9 +207,9 @@ public class CommonAdminServiceHelperImpl {
         
         
 		//Your authentication key
-		String authkey = env.getProperty("sms.authkey").trim();
+		String authkey = env.getProperty("sms.authkey");
 		//define route
-		String route=env.getProperty("sms.route").trim();
+		String route=env.getProperty("sms.route");
 
 		//Prepare Url
 		URLConnection myURLConnection=null;
@@ -220,7 +220,7 @@ public class CommonAdminServiceHelperImpl {
 		String encoded_message=URLEncoder.encode(message);
 
 		//Send SMS API
-		String mainUrl=env.getProperty("sms.url").trim();
+		String mainUrl=env.getProperty("sms.url");
 
 		//Prepare parameter string 
 		StringBuilder sbPostData= new StringBuilder(mainUrl);
@@ -246,9 +246,6 @@ public class CommonAdminServiceHelperImpl {
 		    String response;
 		    while ((response = reader.readLine()) != null) {
 			    //print response 
-		    	if(log.isDebugEnabled()) {
-		    		log.debug("SMS server Response: " + response);
-		    	}
 			    //finally close connection
 			    reader.close();
 		    }

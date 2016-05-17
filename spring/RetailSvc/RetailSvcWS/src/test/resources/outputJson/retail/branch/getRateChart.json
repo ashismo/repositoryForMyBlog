@@ -40,7 +40,7 @@
       "rateId" : 3,
       "branchId" : 2,
       "materialId" : 1,
-      "createDate" : 1463333781000,
+      "createDate" : 1463449501000,
       "createUser" : "ashish",
       "deleteInd" : null,
       "deleteReason" : null,
@@ -66,8 +66,8 @@
     "customers" : [ ],
     "accounts" : [ ],
     "customerAccounts" : [ ],
-    "branchActive" : false,
-    "fyClosed" : false
+    "fyClosed" : false,
+    "branchActive" : false
   },
   "branches" : [ ],
   "bankMasters" : [ ],
