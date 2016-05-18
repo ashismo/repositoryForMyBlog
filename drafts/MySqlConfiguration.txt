@@ -25,3 +25,9 @@ How to make MySQL table name case insensitive
 Open /opt/lampp/etc/my.cnf file and add the following line under [mysqld]  and restart
 
 lower_case_table_names = 1
+
+Allow Max packet size
+======================
+
+[mysqld]
+max_allowed_packet=10M
