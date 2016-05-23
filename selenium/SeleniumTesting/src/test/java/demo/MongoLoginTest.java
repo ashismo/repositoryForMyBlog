@@ -16,7 +16,7 @@ public class MongoLoginTest {
 	@Before
 	public void before() {
 //		driver = new FirefoxDriver();
-//		driver.get("https://localhost/modelphp/");
+//		driver.get("https://university.mongodb.com/");
 	}
 	
 	@Test
