@@ -11,13 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.org.coop.canonical.beans.UserProfile;
 import com.org.coop.society.data.admin.entities.BranchRule;
 import com.org.coop.society.data.admin.entities.User;
-import com.org.coop.society.data.admin.repositories.UserAdminRepository;
+import com.org.coop.society.data.admin.repositories.UserRepository;
 
 @Service
 public class UserProfileAdminServiceImpl {
 	
 	@Autowired
-	private UserAdminRepository userAdminRepository;
+	private UserRepository userAdminRepository;
 	
 	@Transactional(value="adminTransactionManager", propagation=Propagation.REQUIRED)
 	public UserProfile getUserProfile(String userName) {

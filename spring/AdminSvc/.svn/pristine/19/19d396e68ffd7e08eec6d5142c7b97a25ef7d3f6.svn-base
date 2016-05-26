@@ -1,4 +1,4 @@
-package com.org.coop.admin.service;
+package com.org.coop.admin.servicehelper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,15 +14,15 @@ import com.org.coop.society.data.admin.entities.User;
 import com.org.coop.society.data.admin.repositories.UserRepository;
 
 @Service
-public class UserProfileAdminServiceImpl {
+public class UserProfileAdminServiceHelperImpl {
 	
 	@Autowired
-	private UserRepository userAdminRepository;
+	private UserRepository userRepository;
 	
 	@Transactional(value="adminTransactionManager", propagation=Propagation.REQUIRED)
 	public UserProfile getUserProfile(String userName) {
 		UserProfile userProfile = new UserProfile();
-		User user = userAdminRepository.findByUserName(userName);
+		User user = userRepository.findByUserName(userName);
 		Map<String, String> ruleIdValMap =new HashMap<String, String>();
 		for(BranchRule branchRule: user.getBranchMaster().getBranchRules()) {
 			ruleIdValMap.put(branchRule.getRuleMaster().getModuleMaster().getModuleName(), branchRule.getRuleMaster().getRuleName());

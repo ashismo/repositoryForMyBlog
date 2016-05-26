@@ -1,4 +1,4 @@
-package com.org.coop.admin.service;
+package com.org.coop.admin.servicehelper;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -15,28 +15,34 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.coop.org.exception.SecurityQuestionNotSetException;
+import com.org.coop.bs.mapper.BranchMappingImpl;
 import com.org.coop.bs.util.BusinessConstants;
+import com.org.coop.canonical.beans.BranchBean;
 import com.org.coop.canonical.beans.SecurityQnA;
+import com.org.coop.canonical.beans.UIModel;
+import com.org.coop.society.data.admin.entities.BranchMaster;
 import com.org.coop.society.data.admin.entities.RolePermission;
 import com.org.coop.society.data.admin.entities.User;
-import com.org.coop.society.data.admin.entities.UserCredentialOtp;
 import com.org.coop.society.data.admin.entities.UserRole;
 import com.org.coop.society.data.admin.entities.UserSecurityQuestion;
+import com.org.coop.society.data.admin.repositories.BranchMasterRepository;
 import com.org.coop.society.data.admin.repositories.UserRepository;
-import com.org.coop.society.data.admin.repositories.UserCredentialOtpRepository;
 
 @Service
-public class AdminLoginServiceImpl implements AdminLoginService {
-	private static final Logger log = Logger.getLogger(AdminLoginServiceImpl.class); 
+public class AdminLoginServiceHelperImpl implements AdminLoginServiceHelper {
+	private static final Logger log = Logger.getLogger(AdminLoginServiceHelperImpl.class); 
 
 	@Autowired
-	private UserRepository userAdminRepository;
+	private UserRepository userRepository;
 	
 	@Autowired
-	private CommonAdminServiceImpl commonAdminServiceImpl;
+	private CommonAdminServiceHelperImpl commonAdminServiceHelperImpl;
 	
 	@Autowired
-	private UserCredentialOtpRepository userCredentialOtpRepository;
+	private BranchMasterRepository branchMasterRepository;
+	
+	@Autowired
+	private BranchMappingImpl branchMappingImpl;
 	
 	/**
 	 * This method returns list of roles for a given user name
@@ -44,7 +50,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	@Transactional(value="adminTransactionManager")
 	public List<String> getRole(String username) {
 		List<String> roleList = new ArrayList<String>();
-		User user = userAdminRepository.findByUserName(username);
+		User user = userRepository.findByUserName(username);
 		if(user != null) {
 			for(UserRole userRole : user.getUserRoles()) {
 				roleList.add(userRole.getRoleMaster().getRoleName().toUpperCase());
@@ -59,7 +65,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	@Transactional(value="adminTransactionManager")
 	public List<String> getRolePermissions(String username) {
 		List<String> permissionList = new ArrayList<String>();
-		User user = userAdminRepository.findByUserName(username);
+		User user = userRepository.findByUserName(username);
 		if(user != null) {
 			for(UserRole userRole : user.getUserRoles()) {
 				for(RolePermission rolePerm : userRole.getRoleMaster().getRolePermissions()) {
@@ -78,7 +84,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	@Transactional(value="adminTransactionManager")
 	public void successfulLogin(String username) {
 		if(username != null) {
-			User user = userAdminRepository.findByUserName(username);
+			User user = userRepository.findByUserName(username);
 			user.getUserCredential().setUnsuccessfulLoginCount(0);
 			user.getUserCredential().setLastLogin(new Timestamp(System.currentTimeMillis()));
 			user.getUserCredential().setUpdateUser(username);
@@ -92,14 +98,12 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	@Transactional(value="adminTransactionManager")
 	public void unsuccessfulLogin(String username) {
 		if(username != null) {
-			User user = userAdminRepository.findByUserName(username);
-			if(user != null) {
-				int unsuccessfulLoginCounter = user.getUserCredential().getUnsuccessfulLoginCount();
-				user.getUserCredential().setUnsuccessfulLoginCount(++unsuccessfulLoginCounter);
-				user.getUserCredential().setLastUnsuccessfulLogin(new Timestamp(System.currentTimeMillis()));
-				user.getUserCredential().setUpdateUser(username);
-				user.getUserCredential().setSuccessfulLogin(0);
-			}
+			User user = userRepository.findByUserName(username);
+			int unsuccessfulLoginCounter = user.getUserCredential().getUnsuccessfulLoginCount();
+			user.getUserCredential().setUnsuccessfulLoginCount(++unsuccessfulLoginCounter);
+			user.getUserCredential().setLastUnsuccessfulLogin(new Timestamp(System.currentTimeMillis()));
+			user.getUserCredential().setUpdateUser(username);
+			user.getUserCredential().setSuccessfulLogin(0);
 		}
 	}
 	
@@ -110,18 +114,8 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	 */
 	@Transactional(value="adminTransactionManager")
 	public void setOTP(String username) {
-		User user = userAdminRepository.findByUserName(username);
-		long expTime = 0;
-		boolean isCredAvailable = false;
-		UserCredentialOtp userCred = user.getUserCredentialOtp();
-		if(userCred != null && userCred.getEndDate() != null) {
-			expTime = userCred.getEndDate().getTime();
-			isCredAvailable = true;
-		} else {
-			userCred = new UserCredentialOtp();
-			userCred.setUser(user);
-			userCred.setUserId(user.getUserId());
-		}
+		User user = userRepository.findByUserName(username);
+		long expTime = user.getUserCredentialOtp().getEndDate().getTime();
 		long currentTime = System.currentTimeMillis();
 		
 		if(currentTime - expTime < 0) {
@@ -131,12 +125,9 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 		
 		Random rnd = new Random();
 		int otp = 100000 + rnd.nextInt(900000);
-		userCred.setOtp(String.valueOf(otp));
-		userCred.setStartDate(new Timestamp(System.currentTimeMillis()));
-		userCred.setEndDate(new Timestamp(System.currentTimeMillis() + (BusinessConstants.OTP_VALIDITY)));
-		if(!isCredAvailable) {
-			userCredentialOtpRepository.saveAndFlush(userCred);
-		}
+		user.getUserCredentialOtp().setOtp(String.valueOf(otp));
+		user.getUserCredentialOtp().setStartDate(new Timestamp(System.currentTimeMillis()));
+		user.getUserCredentialOtp().setEndDate(new Timestamp(System.currentTimeMillis() + (BusinessConstants.OTP_VALIDITY)));
 	}
 	
 	/**
@@ -145,7 +136,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	 */
 	@Transactional(value="adminTransactionManager")
 	public boolean isOTPMatched(String username, String otp) {
-		User user = userAdminRepository.findByUserName(username);
+		User user = userRepository.findByUserName(username);
 		long expTime = user.getUserCredentialOtp().getEndDate().getTime();
 		long currentTime = System.currentTimeMillis();
 		
@@ -173,10 +164,10 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	 */
 	@Transactional(value="adminTransactionManager")
 	public boolean resendOTP(String username) {
-		User user = userAdminRepository.findByUserName(username);
+		User user = userRepository.findByUserName(username);
 		int noOfTimesOtpToBeResend = BusinessConstants.NUMBER_OF_TIMES_OTP_TO_BE_RESEND_VAL;
 		
-		String ruleVal = commonAdminServiceImpl.getBranchRuleValueByKey(username, BusinessConstants.RULE_NUMBER_OF_TIMES_OTP_TO_BE_RESEND);
+		String ruleVal = commonAdminServiceHelperImpl.getBranchRuleValueByKey(username, BusinessConstants.RULE_NUMBER_OF_TIMES_OTP_TO_BE_RESEND);
 		noOfTimesOtpToBeResend = Integer.valueOf(ruleVal);
 		
 		int otpResendCounter = user.getUserCredentialOtp().getOtpResendCounter();
@@ -195,7 +186,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	 */
 	@Transactional(value="adminTransactionManager")
 	public void expireOTP(String username) {
-		User user = userAdminRepository.findByUserName(username);
+		User user = userRepository.findByUserName(username);
 		user.getUserCredentialOtp().setEndDate(new Timestamp(System.currentTimeMillis()));
 		log.debug("Expired the OTP for user: " + username);
 	}
@@ -205,14 +196,14 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	 */
 	@Transactional(value="adminTransactionManager")
 	public String checkOTPOrSecurityQuestion(String username) throws SecurityQuestionNotSetException {
-		String loginOption = commonAdminServiceImpl.getBranchRuleValueByKey(username, BusinessConstants.RULE_LOGIN_OPTION);
+		String loginOption = commonAdminServiceHelperImpl.getBranchRuleValueByKey(username, BusinessConstants.RULE_LOGIN_OPTION);
 		log.debug("Login option: " + loginOption);
 		
 		if(BusinessConstants.RULE_LOGIN_OPTION_ENUM.OTP_BASED_LOGIN.name().equals(loginOption)) {
 			setOTP(username);
 		} else if(BusinessConstants.RULE_LOGIN_OPTION_ENUM.SECURITY_QUESTION_BASED_LOGIN.name().equals(loginOption)) {
 			// Check if security question is set for the user.
-			User user = userAdminRepository.findByUserName(username);
+			User user = userRepository.findByUserName(username);
 			List<UserSecurityQuestion> userSecQues = user.getUserSecurityQuestions();
 			if(userSecQues == null || userSecQues.size() == 0) {
 				log.debug("Security question is not set for the user : " + username);
@@ -236,7 +227,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 		for(SecurityQnA securityQnA : securityQnAList) {
 			qnaMap.put(securityQnA.getQuestion(), securityQnA.getAnswer());
 		}
-		User user = userAdminRepository.findByUserName(username);
+		User user = userRepository.findByUserName(username);
 		List<UserSecurityQuestion> userSecQues = user.getUserSecurityQuestions();
 		boolean isUserAnswerAvailable = false;
 		if(userSecQues != null && userSecQues.size() > 0 ) {
@@ -269,7 +260,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	@Transactional(value="adminTransactionManager")
 	public List<SecurityQnA> getRandomSecurityQuestion(String username) {
 		List<SecurityQnA> securityQuesAnswerList = new ArrayList<SecurityQnA>();
-		User user = userAdminRepository.findByUserName(username);
+		User user = userRepository.findByUserName(username);
 		List<UserSecurityQuestion> userSecQues = user.getUserSecurityQuestions();
 		if(userSecQues != null && userSecQues.size() > 0) {
 			Random rnd = new Random();
@@ -290,8 +281,8 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	 */
 	@Transactional(value="adminTransactionManager")
 	public boolean isAccountLocked(String username) {
-		User user = userAdminRepository.findByUserName(username);
-		String ruleVal = commonAdminServiceImpl.getBranchRuleValueByKey(username, BusinessConstants.RULE_LOCK_AFTER_NO_OF_ATTEMPTS);
+		User user = userRepository.findByUserName(username);
+		String ruleVal = commonAdminServiceHelperImpl.getBranchRuleValueByKey(username, BusinessConstants.RULE_LOCK_AFTER_NO_OF_ATTEMPTS);
 		int lockAfterWrongAttempt = BusinessConstants.RULE_LOCK_AFTER_NO_OF_ATTEMPTS_VAL;
 		
 		try {
@@ -317,7 +308,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 			log.debug("Username or password is null: " + username);
 			return false;
 		}
-		User user = userAdminRepository.findByUserName(username);
+		User user = userRepository.findByUserName(username);
 		if(user == null) {
 			log.debug("User name doesn't exist in our record: " + username);
 			return false;
@@ -328,5 +319,63 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 			return true;
 		}
 		return false;
+	}
+	
+	@Transactional(value="adminTransactionManager")
+	public UIModel getBranchConfig(String username) {
+		UIModel uiModel = new UIModel();
+
+		User user = userRepository.findByUserName(username);
+		if(user == null) {
+			uiModel.setErrorMsg("User, " + username + " does not exists in the database");
+			return uiModel;
+		}
+		int branchId = user.getBranchMaster().getBranchId();
+		
+		BranchMaster branch = branchMasterRepository.findOne(branchId);
+		if(branch == null) {
+			uiModel.setErrorMsg("Branch does not exist for Branch Id: " + branchId);
+			return uiModel;
+		}
+		
+		BranchBean branchBean = new BranchBean();
+		branchMappingImpl.mapBean(branch, branchBean);
+		
+		uiModel.setBranchBean(branchBean);
+		
+		// If user has access to ADMIN module then return all branches
+		boolean isAccessToAllBranches = false;
+		if(user.getUserRoles() != null && user.getUserRoles().size() > 0) {
+			for(UserRole userRole : user.getUserRoles()) {
+				for(RolePermission rolePerm : userRole.getRoleMaster().getRolePermissions()) {
+					String moduleName = rolePerm.getPermissionMaster().getModuleMaster().getModuleName();
+					if(moduleName != null && moduleName.equalsIgnoreCase("ADMIN")) {
+						isAccessToAllBranches = true;
+						if(log.isDebugEnabled()) {
+							log.debug("Admin user will be able to view/edit all branches");
+						}
+					}
+				}
+			}
+			if(isAccessToAllBranches) {
+				List<BranchBean> branchBeanList = new ArrayList<BranchBean>();
+				List<BranchMaster> branches = branchMasterRepository.findAll();
+				for(BranchMaster bm : branches) {
+					branchBean = new BranchBean();
+					branchMappingImpl.mapAllBranchesBean(bm, branchBean);
+					branchBeanList.add(branchBean);
+				}
+				uiModel.setBranches(branchBeanList);
+				if(log.isDebugEnabled()) {
+					log.debug("All branches are populated for the given user: " + username);
+				}
+			} else {
+				if(log.isDebugEnabled()) {
+					log.debug("User does not have access to all the given user: " + username);
+				}
+			}
+		}
+		log.debug("Branch details has been retrieved from database for branchId: " + branchId);
+		return uiModel;
 	}
 }
