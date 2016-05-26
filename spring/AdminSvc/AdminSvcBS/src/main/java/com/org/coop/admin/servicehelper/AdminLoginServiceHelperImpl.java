@@ -26,14 +26,14 @@ import com.org.coop.society.data.admin.entities.User;
 import com.org.coop.society.data.admin.entities.UserRole;
 import com.org.coop.society.data.admin.entities.UserSecurityQuestion;
 import com.org.coop.society.data.admin.repositories.BranchMasterRepository;
-import com.org.coop.society.data.admin.repositories.UserAdminRepository;
+import com.org.coop.society.data.admin.repositories.UserRepository;
 
 @Service
 public class AdminLoginServiceHelperImpl implements AdminLoginServiceHelper {
 	private static final Logger log = Logger.getLogger(AdminLoginServiceHelperImpl.class); 
 
 	@Autowired
-	private UserAdminRepository userAdminRepository;
+	private UserRepository userRepository;
 	
 	@Autowired
 	private CommonAdminServiceHelperImpl commonAdminServiceHelperImpl;
@@ -50,7 +50,7 @@ public class AdminLoginServiceHelperImpl implements AdminLoginServiceHelper {
 	@Transactional(value="adminTransactionManager")
 	public List<String> getRole(String username) {
 		List<String> roleList = new ArrayList<String>();
-		User user = userAdminRepository.findByUserName(username);
+		User user = userRepository.findByUserName(username);
 		if(user != null) {
 			for(UserRole userRole : user.getUserRoles()) {
 				roleList.add(userRole.getRoleMaster().getRoleName().toUpperCase());
@@ -65,7 +65,7 @@ public class AdminLoginServiceHelperImpl implements AdminLoginServiceHelper {
 	@Transactional(value="adminTransactionManager")
 	public List<String> getRolePermissions(String username) {
 		List<String> permissionList = new ArrayList<String>();
-		User user = userAdminRepository.findByUserName(username);
+		User user = userRepository.findByUserName(username);
 		if(user != null) {
 			for(UserRole userRole : user.getUserRoles()) {
 				for(RolePermission rolePerm : userRole.getRoleMaster().getRolePermissions()) {
@@ -84,7 +84,7 @@ public class AdminLoginServiceHelperImpl implements AdminLoginServiceHelper {
 	@Transactional(value="adminTransactionManager")
 	public void successfulLogin(String username) {
 		if(username != null) {
-			User user = userAdminRepository.findByUserName(username);
+			User user = userRepository.findByUserName(username);
 			user.getUserCredential().setUnsuccessfulLoginCount(0);
 			user.getUserCredential().setLastLogin(new Timestamp(System.currentTimeMillis()));
 			user.getUserCredential().setUpdateUser(username);
@@ -98,7 +98,7 @@ public class AdminLoginServiceHelperImpl implements AdminLoginServiceHelper {
 	@Transactional(value="adminTransactionManager")
 	public void unsuccessfulLogin(String username) {
 		if(username != null) {
-			User user = userAdminRepository.findByUserName(username);
+			User user = userRepository.findByUserName(username);
 			int unsuccessfulLoginCounter = user.getUserCredential().getUnsuccessfulLoginCount();
 			user.getUserCredential().setUnsuccessfulLoginCount(++unsuccessfulLoginCounter);
 			user.getUserCredential().setLastUnsuccessfulLogin(new Timestamp(System.currentTimeMillis()));
@@ -114,7 +114,7 @@ public class AdminLoginServiceHelperImpl implements AdminLoginServiceHelper {
 	 */
 	@Transactional(value="adminTransactionManager")
 	public void setOTP(String username) {
-		User user = userAdminRepository.findByUserName(username);
+		User user = userRepository.findByUserName(username);
 		long expTime = user.getUserCredentialOtp().getEndDate().getTime();
 		long currentTime = System.currentTimeMillis();
 		
@@ -136,7 +136,7 @@ public class AdminLoginServiceHelperImpl implements AdminLoginServiceHelper {
 	 */
 	@Transactional(value="adminTransactionManager")
 	public boolean isOTPMatched(String username, String otp) {
-		User user = userAdminRepository.findByUserName(username);
+		User user = userRepository.findByUserName(username);
 		long expTime = user.getUserCredentialOtp().getEndDate().getTime();
 		long currentTime = System.currentTimeMillis();
 		
@@ -164,7 +164,7 @@ public class AdminLoginServiceHelperImpl implements AdminLoginServiceHelper {
 	 */
 	@Transactional(value="adminTransactionManager")
 	public boolean resendOTP(String username) {
-		User user = userAdminRepository.findByUserName(username);
+		User user = userRepository.findByUserName(username);
 		int noOfTimesOtpToBeResend = BusinessConstants.NUMBER_OF_TIMES_OTP_TO_BE_RESEND_VAL;
 		
 		String ruleVal = commonAdminServiceHelperImpl.getBranchRuleValueByKey(username, BusinessConstants.RULE_NUMBER_OF_TIMES_OTP_TO_BE_RESEND);
@@ -186,7 +186,7 @@ public class AdminLoginServiceHelperImpl implements AdminLoginServiceHelper {
 	 */
 	@Transactional(value="adminTransactionManager")
 	public void expireOTP(String username) {
-		User user = userAdminRepository.findByUserName(username);
+		User user = userRepository.findByUserName(username);
 		user.getUserCredentialOtp().setEndDate(new Timestamp(System.currentTimeMillis()));
 		log.debug("Expired the OTP for user: " + username);
 	}
@@ -203,7 +203,7 @@ public class AdminLoginServiceHelperImpl implements AdminLoginServiceHelper {
 			setOTP(username);
 		} else if(BusinessConstants.RULE_LOGIN_OPTION_ENUM.SECURITY_QUESTION_BASED_LOGIN.name().equals(loginOption)) {
 			// Check if security question is set for the user.
-			User user = userAdminRepository.findByUserName(username);
+			User user = userRepository.findByUserName(username);
 			List<UserSecurityQuestion> userSecQues = user.getUserSecurityQuestions();
 			if(userSecQues == null || userSecQues.size() == 0) {
 				log.debug("Security question is not set for the user : " + username);
@@ -227,7 +227,7 @@ public class AdminLoginServiceHelperImpl implements AdminLoginServiceHelper {
 		for(SecurityQnA securityQnA : securityQnAList) {
 			qnaMap.put(securityQnA.getQuestion(), securityQnA.getAnswer());
 		}
-		User user = userAdminRepository.findByUserName(username);
+		User user = userRepository.findByUserName(username);
 		List<UserSecurityQuestion> userSecQues = user.getUserSecurityQuestions();
 		boolean isUserAnswerAvailable = false;
 		if(userSecQues != null && userSecQues.size() > 0 ) {
@@ -260,7 +260,7 @@ public class AdminLoginServiceHelperImpl implements AdminLoginServiceHelper {
 	@Transactional(value="adminTransactionManager")
 	public List<SecurityQnA> getRandomSecurityQuestion(String username) {
 		List<SecurityQnA> securityQuesAnswerList = new ArrayList<SecurityQnA>();
-		User user = userAdminRepository.findByUserName(username);
+		User user = userRepository.findByUserName(username);
 		List<UserSecurityQuestion> userSecQues = user.getUserSecurityQuestions();
 		if(userSecQues != null && userSecQues.size() > 0) {
 			Random rnd = new Random();
@@ -281,7 +281,7 @@ public class AdminLoginServiceHelperImpl implements AdminLoginServiceHelper {
 	 */
 	@Transactional(value="adminTransactionManager")
 	public boolean isAccountLocked(String username) {
-		User user = userAdminRepository.findByUserName(username);
+		User user = userRepository.findByUserName(username);
 		String ruleVal = commonAdminServiceHelperImpl.getBranchRuleValueByKey(username, BusinessConstants.RULE_LOCK_AFTER_NO_OF_ATTEMPTS);
 		int lockAfterWrongAttempt = BusinessConstants.RULE_LOCK_AFTER_NO_OF_ATTEMPTS_VAL;
 		
@@ -308,7 +308,7 @@ public class AdminLoginServiceHelperImpl implements AdminLoginServiceHelper {
 			log.debug("Username or password is null: " + username);
 			return false;
 		}
-		User user = userAdminRepository.findByUserName(username);
+		User user = userRepository.findByUserName(username);
 		if(user == null) {
 			log.debug("User name doesn't exist in our record: " + username);
 			return false;
@@ -325,7 +325,7 @@ public class AdminLoginServiceHelperImpl implements AdminLoginServiceHelper {
 	public UIModel getBranchConfig(String username) {
 		UIModel uiModel = new UIModel();
 
-		User user = userAdminRepository.findByUserName(username);
+		User user = userRepository.findByUserName(username);
 		if(user == null) {
 			uiModel.setErrorMsg("User, " + username + " does not exists in the database");
 			return uiModel;

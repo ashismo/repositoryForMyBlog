@@ -11,18 +11,18 @@ import org.springframework.transaction.annotation.Transactional;
 import com.org.coop.canonical.beans.UserProfile;
 import com.org.coop.society.data.admin.entities.BranchRule;
 import com.org.coop.society.data.admin.entities.User;
-import com.org.coop.society.data.admin.repositories.UserAdminRepository;
+import com.org.coop.society.data.admin.repositories.UserRepository;
 
 @Service
 public class UserProfileAdminServiceHelperImpl {
 	
 	@Autowired
-	private UserAdminRepository userAdminRepository;
+	private UserRepository userRepository;
 	
 	@Transactional(value="adminTransactionManager", propagation=Propagation.REQUIRED)
 	public UserProfile getUserProfile(String userName) {
 		UserProfile userProfile = new UserProfile();
-		User user = userAdminRepository.findByUserName(userName);
+		User user = userRepository.findByUserName(userName);
 		Map<String, String> ruleIdValMap =new HashMap<String, String>();
 		for(BranchRule branchRule: user.getBranchMaster().getBranchRules()) {
 			ruleIdValMap.put(branchRule.getRuleMaster().getModuleMaster().getModuleName(), branchRule.getRuleMaster().getRuleName());
