@@ -1,6 +1,6 @@
 package com.ashish.java8.defaultMethods;
 
-public class SonyExperiaZPhone implements SonyPhone {
+public class SonyExperiaZPhone implements SonyPhoneIntf {
 	
 	/**
 	 * Below method overrides the makeCall() method in parent interface
