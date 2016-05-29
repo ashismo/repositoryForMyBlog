@@ -18,10 +18,8 @@ public class LoggingAspect {
 //		log.debug(">>>>>>>>>>" + joinPoint.getSignature().toShortString() + " START >>>>>>>>>>>>");
 //	}
 	
-	@Around("execution(* com.org.coop.admin.ws..*(..)) || "
+	@Around("execution(* com.org.coop.admin.controller..*(..)) || "
 			+ "execution(* com.org.coop.security.service..*(..)) || "
-			+ "execution(* com.org.coop.admin.servicehelper..*(..)) || "
-			+ "execution(* com.org.coop.bs.mapper..*(..)) || "
 			+ "execution(* com.org.coop.admin.service..*(..))")
     public Object doBasicProfiling(ProceedingJoinPoint pjp) throws Throwable {
         long start = System.currentTimeMillis();
