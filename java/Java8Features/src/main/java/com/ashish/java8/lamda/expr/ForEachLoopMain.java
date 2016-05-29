@@ -21,5 +21,11 @@ public class ForEachLoopMain {
 		list.forEach(n -> {System.out.println(n);});
 		
 		System.out.println("ForEach Loop END");
+		
+		System.out.println("Another way to write ForEach Loop START");
+		
+		list.forEach(System.out::println);
+		
+		System.out.println("Another way to write ForEach Loop END");
 	}
 }
