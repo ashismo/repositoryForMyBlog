@@ -1,0 +1,14 @@
+{
+	"dropdowns": [
+		{
+			"branchId" : 1,
+			"code" : "LOAN-LONGTERM",
+			"createUser": "ashish"
+		},
+		{
+			"branchId" : 1,
+			"code" : "LOAN-MIDTERM",
+			"createUser": "ashish"
+		}
+	]
+}

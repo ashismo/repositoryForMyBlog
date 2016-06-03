@@ -1,0 +1,22 @@
+{
+	"dropdowns": [
+		{
+			"code" : "LOAN-LONGTERM",
+		    "category" : "Payment",
+		    "description" : "Payment by long term loan from same bank",
+			"createUser": "ashish"
+		},
+		{
+			"code" : "LOAN-MIDTERM",
+		    "category" : "Payment",
+		    "description" : "Payment by mid term loan from same bank",
+			"createUser": "ashish"
+		},
+		{
+			"code" : "LOAN-SHORTTERM",
+		    "category" : "Payment",
+		    "description" : "Payment by short term loan from same bank",
+			"createUser": "ashish"
+		}
+	]
+}

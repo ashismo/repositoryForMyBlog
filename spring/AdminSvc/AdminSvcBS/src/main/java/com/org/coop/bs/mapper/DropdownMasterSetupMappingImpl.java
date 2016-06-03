@@ -1,0 +1,18 @@
+package com.org.coop.bs.mapper;
+
+import org.dozer.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.org.coop.bs.config.DozerConfig;
+
+@Component
+public class DropdownMasterSetupMappingImpl {
+	@Autowired
+	private DozerConfig dozerConfig;
+	
+	public void mapBean(Object src, Object dest) {
+		Mapper dozerBeanMapper = (Mapper) dozerConfig.dozerBean();
+		dozerBeanMapper.map(src, dest, "dropdownMasterMap");
+	}
+}
