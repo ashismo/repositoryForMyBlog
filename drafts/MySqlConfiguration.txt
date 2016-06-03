@@ -31,3 +31,7 @@ Allow Max packet size
 
 [mysqld]
 max_allowed_packet=10M
+
+Else 
+
+SET GLOBAL max_allowed_packet = 1024 * 1024 * 14 --14MB
