@@ -42,20 +42,10 @@ CREATE TABLE IF NOT EXISTS `address` (
   PRIMARY KEY (`address_id`),
   KEY `FK_address_district_master` (`dist_id`),
   CONSTRAINT `FK_address_district_master` FOREIGN KEY (`dist_id`) REFERENCES `district_master` (`dist_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table coopadmin.address: ~8 rows (approximately)
+-- Dumping data for table coopadmin.address: ~0 rows (approximately)
 /*!40000 ALTER TABLE `address` DISABLE KEYS */;
-INSERT INTO `address` (`address_id`, `address_name`, `address_type`, `address_line1`, `address_line2`, `address_line3`, `pin`, `dist_id`, `email_id1`, `email_id2`, `phone_no1`, `phone_no2`, `website`, `start_date`, `end_date`, `delete_ind`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, NULL, 'HOME', 'Kalipur', NULL, NULL, '712708', 1, 'ashismo@gmail.com', NULL, '9830525559', NULL, NULL, '2015-12-07', NULL, NULL, 'ashish', '2015-12-07 08:10:11', NULL, NULL),
-	(26, 'Test Address1', NULL, 'Kalipur333', NULL, NULL, '712708', 1, NULL, NULL, '9830525559', NULL, NULL, '2015-12-17', NULL, NULL, 'ashish', '2015-12-17 10:44:39', NULL, '2016-01-23 07:56:06'),
-	(27, 'Test Address2', NULL, 'Naldighi1', NULL, NULL, '712304', 1, NULL, NULL, '9830525559', NULL, NULL, '2015-12-17', NULL, NULL, 'ashish', '2015-12-17 10:43:58', NULL, NULL),
-	(28, 'Test Address3', NULL, 'Naldighi145', NULL, NULL, '712304', 1, NULL, NULL, '9830525559', NULL, NULL, '2015-12-17', NULL, NULL, 'ashish', '2015-12-17 22:01:52', NULL, NULL),
-	(29, 'Test Address3', NULL, 'Naldighi', NULL, NULL, '712304', 1, NULL, NULL, '9830525559', NULL, NULL, '2015-12-17', NULL, NULL, 'ashish', '2015-12-17 10:46:14', NULL, NULL),
-	(30, 'Test Address3', NULL, 'Naldighi17', NULL, NULL, '712304', 1, NULL, NULL, '9830525559', NULL, NULL, '2015-12-18', NULL, NULL, 'ashish', '2015-12-22 22:24:31', NULL, '2016-01-01 09:11:57'),
-	(31, 'Queen Palace', NULL, 'Kalipur', NULL, NULL, '712708', 1, NULL, NULL, '9830525559', NULL, NULL, '2015-12-17', NULL, NULL, 'ashish', '2016-01-23 21:56:26', NULL, NULL),
-	(32, 'Queen Palace', NULL, 'Kalipur', NULL, NULL, '712708', 1, NULL, NULL, '9830525559', NULL, NULL, '2015-12-17', NULL, NULL, 'ashish', '2016-01-23 22:02:04', NULL, '2016-01-23 22:33:00'),
-	(33, 'Queen Palace', NULL, 'Kalipur', NULL, NULL, '712708', 1, NULL, NULL, '9830525559', NULL, NULL, '2015-12-17', NULL, NULL, 'ashish', '2016-02-14 22:08:06', NULL, NULL);
 /*!40000 ALTER TABLE `address` ENABLE KEYS */;
 
 
@@ -77,20 +67,10 @@ CREATE TABLE IF NOT EXISTS `branch_address` (
   KEY `FK_company_address_address` (`address_id`),
   CONSTRAINT `FK_company_address_address` FOREIGN KEY (`address_id`) REFERENCES `address` (`address_id`),
   CONSTRAINT `FK_company_address_company_master` FOREIGN KEY (`branch_id`) REFERENCES `branch_master` (`branch_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table coopadmin.branch_address: ~8 rows (approximately)
+-- Dumping data for table coopadmin.branch_address: ~0 rows (approximately)
 /*!40000 ALTER TABLE `branch_address` DISABLE KEYS */;
-INSERT INTO `branch_address` (`company_addr_id`, `branch_id`, `address_id`, `start_date`, `end_date`, `delete_ind`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 1, 1, '2015-12-07', NULL, NULL, 'ashish', '2015-12-17 09:43:24', NULL, '2016-01-05 23:15:29'),
-	(16, 25, 26, '2015-12-17', NULL, NULL, 'ashish', '2015-12-17 09:43:24', NULL, NULL),
-	(17, 25, 27, '2015-12-17', NULL, NULL, 'ashish', '2015-12-17 09:43:24', NULL, NULL),
-	(28, 25, 28, '2015-12-17', '2015-12-17', NULL, 'ashish', '2015-12-17 10:44:39', NULL, '2015-12-17 22:02:01'),
-	(29, 25, 29, '2015-12-17', NULL, NULL, 'ashish', '2015-12-17 10:46:14', NULL, NULL),
-	(30, 25, 30, '2015-12-18', NULL, NULL, 'ashish', '2015-12-17 22:03:20', NULL, '2016-01-01 09:11:58'),
-	(31, 26, 31, '2015-12-17', NULL, NULL, 'ashish', '2016-01-23 21:56:26', NULL, NULL),
-	(32, 27, 32, '2015-12-17', NULL, NULL, 'ashish', '2016-01-23 22:02:04', NULL, NULL),
-	(33, 28, 33, '2015-12-17', NULL, NULL, 'ashish', '2016-02-14 22:08:07', NULL, NULL);
 /*!40000 ALTER TABLE `branch_address` ENABLE KEYS */;
 
 
@@ -110,16 +90,10 @@ CREATE TABLE IF NOT EXISTS `branch_license_dtl` (
   PRIMARY KEY (`branch_license_id`),
   KEY `FK_branch_license_dtl_branch_master` (`branch_id`),
   CONSTRAINT `FK_branch_license_dtl_branch_master` FOREIGN KEY (`branch_id`) REFERENCES `branch_master` (`branch_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table coopadmin.branch_license_dtl: ~5 rows (approximately)
+-- Dumping data for table coopadmin.branch_license_dtl: ~0 rows (approximately)
 /*!40000 ALTER TABLE `branch_license_dtl` DISABLE KEYS */;
-INSERT INTO `branch_license_dtl` (`branch_license_id`, `branch_id`, `start_date`, `end_date`, `grace_day`, `delete_ind`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 25, '2016-01-10', '2017-02-10', 11, '', 'ashish', '2016-01-11 23:02:57', NULL, '2016-01-23 22:34:03'),
-	(2, 25, '2017-01-10', '2018-01-10', 10, '', 'ashish', '2016-01-11 23:12:27', NULL, '2016-01-23 22:34:05'),
-	(3, 25, '2016-01-10', '2017-02-10', 10, NULL, 'ashish', '2016-01-23 22:33:00', NULL, NULL),
-	(4, 27, '2016-01-10', '2017-02-10', 10, NULL, 'ashish', '2016-01-23 22:34:40', NULL, NULL),
-	(5, 27, '2016-01-10', '2017-02-10', 10, NULL, 'ashish', '2016-01-23 22:38:46', NULL, NULL);
 /*!40000 ALTER TABLE `branch_license_dtl` ENABLE KEYS */;
 
 
@@ -151,18 +125,12 @@ CREATE TABLE IF NOT EXISTS `branch_master` (
   `update_user` varchar(50) DEFAULT NULL,
   `update_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`branch_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Dumping data for table coopadmin.branch_master: ~7 rows (approximately)
+-- Dumping data for table coopadmin.branch_master: ~1 rows (approximately)
 /*!40000 ALTER TABLE `branch_master` DISABLE KEYS */;
 INSERT INTO `branch_master` (`branch_id`, `parent_id`, `bank_name`, `branch_name`, `ifsc_code`, `micr_code`, `db_name`, `context_root`, `email1`, `email2`, `phone1`, `phone2`, `gmail_id`, `gmail_password`, `sms_sender_id`, `remarks`, `start_date`, `end_date`, `delete_ind`, `delete_reason`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 0, 'ABC', 'ABC', '111111', '111111', 'coopadmin2', 'CustomerSvcWS', 'ashismo@gmail.com', NULL, '98305255559', NULL, NULL, NULL, NULL, NULL, '2015-12-07', NULL, NULL, NULL, 'ashish', '2015-12-07 08:13:00', NULL, '2016-01-06 07:15:25'),
-	(2, 0, 'Test Branch', 'Test Branch', '11AA12', '11AA11', 'coopadmin', 'CustomerSvcWS', 'ujan@gmail.com', NULL, '9830625559', NULL, NULL, NULL, NULL, NULL, '2015-12-10', NULL, NULL, NULL, 'ashish', '2015-12-10 22:33:33', NULL, '2016-03-14 22:33:16'),
-	(25, 0, 'Test Bank', 'Branch1', '12345678', '87654321', 'coopadmin', 'CustomerSvcWS', 'ashismo@gmail.com', NULL, '9830625559', NULL, NULL, NULL, NULL, NULL, '2015-12-18', NULL, NULL, NULL, 'ashish', '2015-12-17 09:43:24', NULL, '2016-01-05 23:03:44'),
-	(26, 0, 'Kalipur', 'Kalipur', '12345743', '87656321', 'coopadmin', 'CustomerSvcWS', 'ashismo@gmail.com', NULL, '9830625559', NULL, NULL, NULL, NULL, NULL, '2015-12-18', NULL, NULL, NULL, 'ashish', '2016-01-23 21:56:26', NULL, NULL),
-	(27, 0, 'Kalipur1', 'Kalipur1', '12345744', '87656324', 'coopadmin', 'CustomerSvcWS', 'ashismo@gmail.com', NULL, '9830625559', NULL, NULL, NULL, NULL, NULL, '2015-12-18', NULL, NULL, NULL, 'ashish', '2016-01-23 22:02:04', NULL, NULL),
-	(28, 0, 'Kalipur', 'Kalipur', '12345723', '87656311', 'retail', 'RetailSvcWS', 'ashismo@gmail.com', NULL, '9830625559', NULL, NULL, NULL, NULL, NULL, '2015-12-18', NULL, NULL, NULL, 'ashish', '2016-02-14 22:03:57', NULL, '2016-03-10 21:55:08'),
-	(29, 0, 'Pandua', 'Pandua', '42345743', '86656321', 'coop_kalipur', 'CustomerSvcWS', 'ashismo@gmail.com', NULL, '9830625559', NULL, NULL, NULL, NULL, NULL, '2015-12-18', NULL, NULL, NULL, 'ashish', '2016-03-29 22:46:40', NULL, NULL);
+	(1, 0, 'Newtown', 'Newtown', '12345743', '87656321', 'coop_kalipur', 'CustomerSvcWS', 'ashismo@gmail.com', NULL, '9830625559', NULL, NULL, NULL, NULL, NULL, '2016-03-23', NULL, NULL, NULL, 'ashish', '2016-06-01 01:04:19', NULL, NULL);
 /*!40000 ALTER TABLE `branch_master` ENABLE KEYS */;
 
 
@@ -185,20 +153,10 @@ CREATE TABLE IF NOT EXISTS `branch_rule` (
   KEY `FK_company_rule_rule_master` (`rule_id`),
   CONSTRAINT `FK_company_rule_company_master` FOREIGN KEY (`branch_id`) REFERENCES `branch_master` (`branch_id`),
   CONSTRAINT `FK_company_rule_rule_master` FOREIGN KEY (`rule_id`) REFERENCES `rule_master` (`rule_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table coopadmin.branch_rule: ~8 rows (approximately)
+-- Dumping data for table coopadmin.branch_rule: ~0 rows (approximately)
 /*!40000 ALTER TABLE `branch_rule` DISABLE KEYS */;
-INSERT INTO `branch_rule` (`branch_rule_id`, `branch_id`, `rule_id`, `rule_value`, `start_date`, `end_date`, `delete_ind`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 1, 6, '3', '2015-12-11', NULL, NULL, 'ashish', '2016-04-03 07:02:27', NULL, NULL),
-	(2, 1, 2, '4', '2015-12-10', NULL, NULL, 'ashish', '2015-12-14 13:24:36', NULL, NULL),
-	(3, 1, 1, 'OTP_BASED_LOGIN', '2015-12-11', NULL, NULL, 'ashish', '2015-12-15 15:09:39', NULL, NULL),
-	(4, 2, 1, 'SECURITY_QUESTION_BASED_LOGIN', '2015-12-13', NULL, NULL, 'ashish', '2015-12-13 23:05:30', NULL, NULL),
-	(5, 25, 5, '3', '2015-12-11', NULL, NULL, 'ashish', '2016-01-23 07:56:06', NULL, NULL),
-	(6, 27, 5, '4', '2015-12-11', NULL, NULL, 'ashish', '2016-01-23 22:33:00', NULL, NULL),
-	(7, 29, 1, '12', '2015-12-09', NULL, NULL, 'ashish', '2016-05-25 21:51:35', 'ashish', '2016-05-25 21:51:35'),
-	(8, 26, 1, NULL, '2015-12-09', NULL, NULL, 'ashish', '2016-05-30 00:32:15', NULL, NULL),
-	(9, 25, 7, NULL, '2015-12-10', NULL, NULL, 'ashish', '2016-05-31 23:53:10', NULL, NULL);
 /*!40000 ALTER TABLE `branch_rule` ENABLE KEYS */;
 
 
@@ -215,13 +173,10 @@ CREATE TABLE IF NOT EXISTS `country_master` (
   `update_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`country_id`),
   UNIQUE KEY `country_code` (`country_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table coopadmin.country_master: ~2 rows (approximately)
+-- Dumping data for table coopadmin.country_master: ~0 rows (approximately)
 /*!40000 ALTER TABLE `country_master` DISABLE KEYS */;
-INSERT INTO `country_master` (`country_id`, `country_code`, `country_name`, `delete_ind`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 'IND', 'INDIA', NULL, 'ashish', '2016-01-12 21:49:35', NULL, '2016-01-24 19:06:34'),
-	(2, 'USA', 'USA', NULL, 'ashish', '2016-01-24 08:44:06', 'ashish', '2016-01-30 20:16:24');
 /*!40000 ALTER TABLE `country_master` ENABLE KEYS */;
 
 
@@ -241,17 +196,68 @@ CREATE TABLE IF NOT EXISTS `district_master` (
   UNIQUE KEY `state_id_district_code` (`state_id`,`district_code`),
   KEY `FK_district_master_state_master` (`state_id`),
   CONSTRAINT `FK_district_master_state_master` FOREIGN KEY (`state_id`) REFERENCES `state_master` (`state_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table coopadmin.district_master: ~5 rows (approximately)
+-- Dumping data for table coopadmin.district_master: ~0 rows (approximately)
 /*!40000 ALTER TABLE `district_master` DISABLE KEYS */;
-INSERT INTO `district_master` (`dist_id`, `state_id`, `district_code`, `district_name`, `delete_ind`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 1, 'HLY', 'Hooghly', NULL, 'ashish', '2016-01-12 21:51:02', NULL, '2016-01-26 20:17:53'),
-	(2, 1, 'HOW', 'Howrah', NULL, 'ashish', '2016-01-14 06:58:09', NULL, NULL),
-	(3, 2, 'BLR', 'Bangalore', NULL, 'ashish', '2016-01-14 06:58:32', NULL, NULL),
-	(5, 1, 'BWN', 'Burdwan', NULL, 'ashish', '2016-01-15 08:22:02', NULL, NULL),
-	(6, 4, 'HLY', 'Hooghly', 'Y', 'ashish', '2016-01-24 08:54:41', NULL, '2016-01-30 22:20:26');
 /*!40000 ALTER TABLE `district_master` ENABLE KEYS */;
+
+
+-- Dumping structure for table coopadmin.dropdown_master
+DROP TABLE IF EXISTS `dropdown_master`;
+CREATE TABLE IF NOT EXISTS `dropdown_master` (
+  `code` varchar(50) NOT NULL,
+  `category` varchar(100) NOT NULL,
+  `description` varchar(100) DEFAULT NULL,
+  `delete_ind` varchar(4) DEFAULT NULL,
+  `delete_reason` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='This table will be used to store all master data to be shown in UI dropdowns';
+
+-- Dumping data for table coopadmin.dropdown_master: ~12 rows (approximately)
+/*!40000 ALTER TABLE `dropdown_master` DISABLE KEYS */;
+INSERT INTO `dropdown_master` (`code`, `category`, `description`, `delete_ind`, `delete_reason`) VALUES
+	('CARD', 'Payment', 'Card Payment', NULL, NULL),
+	('CASH', 'Payment', 'Cash Payment', NULL, NULL),
+	('CHEQUE', 'Payment', 'Cheque Payment', NULL, NULL),
+	('CRDR', 'Payment', 'Creditor Debtor Payment', NULL, NULL),
+	('LOAN-LONGTERM', 'Payment', 'Payment by long term loan from same bank', NULL, NULL),
+	('LOAN-MIDTERM', 'Payment', 'Payment by mid term loan from same bank', NULL, NULL),
+	('LOAN-OTHERBANK', 'Payment', 'Payment by loan from other bank', NULL, NULL),
+	('LOAN-SHORTTERM', 'Payment', 'Payment by short term loan from same bank', NULL, NULL),
+	('MEMBER', 'Customer', 'Member Customer', NULL, NULL),
+	('NONMEMBER', 'Customer', 'Non member Customer', NULL, NULL),
+	('RUNNING', 'Customer', 'Running Customer', NULL, NULL),
+	('SB', 'Account', 'Savings Bank Account', NULL, NULL);
+/*!40000 ALTER TABLE `dropdown_master` ENABLE KEYS */;
+
+
+-- Dumping structure for table coopadmin.inactive_dropdown
+DROP TABLE IF EXISTS `inactive_dropdown`;
+CREATE TABLE IF NOT EXISTS `inactive_dropdown` (
+  `inactive_dd_id` int(11) NOT NULL AUTO_INCREMENT,
+  `branch_id` int(11) NOT NULL,
+  `code` varchar(50) NOT NULL,
+  `delete_ind` varchar(4) DEFAULT NULL,
+  `delete_reason` varchar(255) DEFAULT NULL,
+  `passing_auth_ind` varchar(4) DEFAULT NULL,
+  `passing_auth_remark` varchar(255) DEFAULT NULL,
+  `create_user` varchar(255) NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_user` varchar(255) DEFAULT NULL,
+  `update_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`inactive_dd_id`),
+  KEY `FK_inactive_dropdown_branch_master` (`branch_id`),
+  KEY `FK_inactive_dropdown_dropdown_master` (`code`),
+  CONSTRAINT `FK_inactive_dropdown_branch_master` FOREIGN KEY (`branch_id`) REFERENCES `branch_master` (`branch_id`),
+  CONSTRAINT `FK_inactive_dropdown_dropdown_master` FOREIGN KEY (`code`) REFERENCES `dropdown_master` (`code`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table coopadmin.inactive_dropdown: ~1 rows (approximately)
+/*!40000 ALTER TABLE `inactive_dropdown` DISABLE KEYS */;
+INSERT INTO `inactive_dropdown` (`inactive_dd_id`, `branch_id`, `code`, `delete_ind`, `delete_reason`, `passing_auth_ind`, `passing_auth_remark`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
+	(1, 1, 'SB', 'Y', NULL, NULL, NULL, 'ashish', '2016-06-03 08:42:12', NULL, '2016-06-03 09:29:29');
+/*!40000 ALTER TABLE `inactive_dropdown` ENABLE KEYS */;
 
 
 -- Dumping structure for table coopadmin.module_master
@@ -268,17 +274,13 @@ CREATE TABLE IF NOT EXISTS `module_master` (
   `update_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`module_id`),
   UNIQUE KEY `module_name` (`module_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Dumping data for table coopadmin.module_master: ~4 rows (approximately)
+-- Dumping data for table coopadmin.module_master: ~2 rows (approximately)
 /*!40000 ALTER TABLE `module_master` DISABLE KEYS */;
 INSERT INTO `module_master` (`module_id`, `module_name`, `start_date`, `end_date`, `delete_ind`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 'ADMIN', '2015-12-08', NULL, NULL, 'ashish', '2015-12-08 06:22:46', 'ashish', '2015-12-22 22:03:43'),
-	(2, 'GENERAL', '2015-12-09', NULL, NULL, 'ashish', '2015-12-09 07:19:32', NULL, '2015-12-22 22:04:06'),
-	(3, 'SB', '2015-12-09', NULL, NULL, 'ashish', '2015-12-09 07:19:32', NULL, '2015-12-22 22:04:10'),
-	(4, 'HOCONTROLLER', '2016-05-31', NULL, NULL, 'ashish', '2016-05-31 23:00:42', NULL, NULL),
-	(5, 'RD', '2015-12-08', NULL, NULL, 'ashish', '2016-01-24 08:20:33', NULL, NULL),
-	(6, 'Retail', '2015-12-08', NULL, NULL, 'ashish', '2016-04-02 12:17:56', NULL, NULL);
+	(1, 'ADMIN', '2016-06-01', NULL, NULL, 'ashish', '2016-06-01 01:05:38', NULL, NULL),
+	(2, 'HOCONTROLLER', '2016-06-01', NULL, NULL, 'ashish', '2016-06-01 01:05:56', NULL, NULL);
 /*!40000 ALTER TABLE `module_master` ENABLE KEYS */;
 
 
@@ -299,28 +301,19 @@ CREATE TABLE IF NOT EXISTS `permission_master` (
   UNIQUE KEY `module_id_permission` (`module_id`,`permission`),
   KEY `FK_permission_master_module_master` (`module_id`),
   CONSTRAINT `FK_permission_master_module_master` FOREIGN KEY (`module_id`) REFERENCES `module_master` (`module_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
--- Dumping data for table coopadmin.permission_master: ~13 rows (approximately)
+-- Dumping data for table coopadmin.permission_master: ~8 rows (approximately)
 /*!40000 ALTER TABLE `permission_master` DISABLE KEYS */;
 INSERT INTO `permission_master` (`permission_id`, `module_id`, `permission`, `start_date`, `end_date`, `delete_ind`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 1, 'CREATE', '2015-12-08', NULL, NULL, 'ashish', '2015-12-08 06:55:41', NULL, '2015-12-22 22:04:24'),
-	(2, 1, 'READ', '2015-12-08', NULL, NULL, 'ashish', '2015-12-08 06:55:41', NULL, '2015-12-22 22:04:28'),
-	(3, 1, 'UPDATE', '2015-12-08', NULL, NULL, 'ashish', '2015-12-08 06:55:41', NULL, '2016-01-17 22:21:35'),
-	(4, 1, 'DELETE', '2015-12-08', NULL, NULL, 'ashish', '2015-12-08 06:55:41', NULL, '2015-12-22 22:04:33'),
-	(5, 2, 'CREATE', '2015-12-08', NULL, NULL, 'ashish', '2015-12-08 06:55:41', NULL, '2015-12-22 22:04:33'),
-	(6, 2, 'READ', '2015-12-22', NULL, NULL, 'ashish', '2015-12-22 22:05:45', NULL, NULL),
-	(7, 2, 'UPDATE', '2015-12-22', NULL, NULL, 'ashish', '2015-12-22 22:05:45', NULL, NULL),
-	(8, 2, 'DELETE', '2015-12-22', NULL, NULL, 'ashish', '2015-12-22 22:05:45', NULL, NULL),
-	(9, 3, 'CREATE', '2015-12-22', NULL, NULL, 'ashish', '2015-12-22 22:05:45', NULL, NULL),
-	(10, 3, 'READ', '2015-12-22', NULL, NULL, 'ashish', '2015-12-22 22:05:45', NULL, NULL),
-	(11, 3, 'UPDATE', '2015-12-22', NULL, NULL, 'ashish', '2015-12-22 22:05:45', NULL, NULL),
-	(12, 3, 'DELETE', '2015-12-22', NULL, NULL, 'ashish', '2015-12-22 22:05:45', NULL, NULL),
-	(13, 5, 'CREATE', '2015-12-08', NULL, NULL, 'ashish', '2016-01-24 08:30:24', NULL, NULL),
-	(14, 4, 'CREATE', '2016-05-31', NULL, NULL, 'ashish', '2016-05-31 23:04:39', NULL, NULL),
-	(15, 4, 'READ', '2016-05-31', NULL, NULL, 'ashish', '2016-05-31 23:04:58', NULL, NULL),
-	(16, 4, 'DELETE', '2016-05-31', NULL, NULL, 'ashish', '2016-05-31 23:58:03', NULL, NULL),
-	(17, 4, 'UPDATE', '2016-05-31', NULL, NULL, 'ashish', '2016-05-31 23:58:20', NULL, NULL);
+	(1, 1, 'CREATE', '2016-06-01', NULL, NULL, 'ashish', '2016-06-01 01:06:17', NULL, NULL),
+	(2, 1, 'READ', '2016-06-01', NULL, NULL, 'ashish', '2016-06-01 01:06:17', NULL, NULL),
+	(3, 1, 'UPDATE', '2016-06-01', NULL, NULL, 'ashish', '2016-06-01 01:06:17', NULL, NULL),
+	(4, 1, 'DELETE', '2016-06-01', NULL, NULL, 'ashish', '2016-06-01 01:06:17', NULL, NULL),
+	(5, 2, 'CREATE', '2016-06-01', NULL, NULL, 'ashish', '2016-06-01 01:06:17', NULL, NULL),
+	(6, 2, 'READ', '2016-06-01', NULL, NULL, 'ashish', '2016-06-01 01:06:17', NULL, NULL),
+	(7, 2, 'UPDATE', '2016-06-01', NULL, NULL, 'ashish', '2016-06-01 01:06:17', NULL, NULL),
+	(8, 2, 'DELETE', '2016-06-01', NULL, NULL, 'ashish', '2016-06-01 01:06:17', NULL, NULL);
 /*!40000 ALTER TABLE `permission_master` ENABLE KEYS */;
 
 
@@ -341,18 +334,12 @@ CREATE TABLE IF NOT EXISTS `role_master` (
   PRIMARY KEY (`role_id`),
   KEY `FK_role_master_company_master` (`branch_id`),
   CONSTRAINT `FK_role_master_company_master` FOREIGN KEY (`branch_id`) REFERENCES `branch_master` (`branch_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Dumping data for table coopadmin.role_master: ~5 rows (approximately)
+-- Dumping data for table coopadmin.role_master: ~1 rows (approximately)
 /*!40000 ALTER TABLE `role_master` DISABLE KEYS */;
 INSERT INTO `role_master` (`role_id`, `branch_id`, `role_name`, `role_description`, `start_date`, `end_date`, `delete_ind`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 1, 'ADMIN', 'Admin User', '2015-12-08', NULL, NULL, 'ashish', '2015-12-22 22:15:41', NULL, '2015-12-22 22:15:41'),
-	(2, 1, 'AUDITOR', 'Auditor', '2015-12-08', NULL, NULL, 'ashish', '2015-12-08 06:40:45', NULL, NULL),
-	(3, 1, 'USER', 'Normal User', '2015-12-08', NULL, NULL, 'ashish', '2015-12-22 22:15:34', NULL, '2015-12-22 22:15:34'),
-	(4, 29, 'USER', 'Normal User', '2016-03-23', NULL, NULL, 'ashish', '2016-05-25 21:52:01', NULL, '2016-05-25 21:52:01'),
-	(5, 26, 'USER', 'Normal User', '2016-03-23', NULL, NULL, 'ashish', '2016-05-30 00:31:37', NULL, '2016-05-30 00:31:37'),
-	(6, 26, 'ADMIN', 'Admin User', '2016-03-23', NULL, NULL, 'ashish', '2016-05-30 01:04:41', NULL, '2016-05-30 01:04:41'),
-	(15, 25, 'HO Controller', 'Head Office Controller', '2016-03-23', NULL, NULL, 'ashish', '2016-05-31 23:34:33', NULL, '2016-05-31 23:34:33');
+	(1, 1, 'Cactus', 'Master roll', '2016-06-01', NULL, NULL, 'ashish', '2016-06-01 01:08:15', NULL, NULL);
 /*!40000 ALTER TABLE `role_master` ENABLE KEYS */;
 
 
@@ -374,26 +361,19 @@ CREATE TABLE IF NOT EXISTS `role_permission` (
   KEY `FK_role_permission_permission_master` (`permission_id`),
   CONSTRAINT `FK_role_permission_permission_master` FOREIGN KEY (`permission_id`) REFERENCES `permission_master` (`permission_id`),
   CONSTRAINT `FK_role_permission_role_master` FOREIGN KEY (`role_id`) REFERENCES `role_master` (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
--- Dumping data for table coopadmin.role_permission: ~10 rows (approximately)
+-- Dumping data for table coopadmin.role_permission: ~8 rows (approximately)
 /*!40000 ALTER TABLE `role_permission` DISABLE KEYS */;
 INSERT INTO `role_permission` (`role_perm_id`, `role_id`, `permission_id`, `start_date`, `end_date`, `delete_ind`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 3, 5, '2015-12-08', NULL, NULL, 'ashish', '2015-12-08 06:56:13', NULL, '2015-12-22 22:18:58'),
-	(2, 1, 1, '2015-12-08', NULL, 'Y', 'ashish', '2015-12-08 06:57:55', NULL, '2016-05-24 21:54:12'),
-	(3, 1, 2, '2015-12-08', NULL, NULL, 'ashish', '2015-12-08 06:58:53', NULL, '2015-12-22 22:18:41'),
-	(4, 1, 3, '2015-12-08', NULL, NULL, 'ashish', '2015-12-08 06:58:59', NULL, '2015-12-22 22:18:46'),
-	(5, 1, 4, '2015-12-08', NULL, NULL, 'ashish', '2015-12-08 06:59:06', NULL, '2015-12-22 22:18:49'),
-	(6, 2, 9, '2015-12-08', NULL, NULL, 'ashish', '2015-12-08 06:59:44', NULL, '2015-12-24 08:11:12'),
-	(7, 4, 5, '2016-03-23', NULL, NULL, 'ashish', '2016-05-25 21:52:24', NULL, NULL),
-	(8, 4, 8, '2016-03-23', NULL, NULL, 'ashish', '2016-05-25 21:52:26', NULL, NULL),
-	(9, 4, 6, '2016-03-23', NULL, NULL, 'ashish', '2016-05-25 21:52:27', NULL, NULL),
-	(10, 4, 7, '2016-03-23', NULL, NULL, 'ashish', '2016-05-25 21:52:28', NULL, NULL),
-	(11, 3, 13, '2015-12-08', NULL, NULL, 'ashish', '2016-05-31 00:01:20', NULL, NULL),
-	(12, 3, 8, '2015-12-08', NULL, NULL, 'ashish', '2016-05-31 00:01:21', NULL, NULL),
-	(13, 15, 16, '2016-03-23', NULL, NULL, 'ashish', '2016-05-31 23:36:43', NULL, '2016-06-01 00:02:11'),
-	(14, 15, 15, '2016-03-23', NULL, NULL, 'ashish', '2016-05-31 23:36:47', NULL, '2016-06-01 00:02:08'),
-	(15, 15, 14, '2016-03-23', NULL, NULL, 'ashish', '2016-05-31 23:36:56', NULL, '2016-06-01 00:02:05');
+	(1, 1, 1, '2016-06-01', NULL, NULL, 'ashish', '2016-06-01 01:08:30', NULL, NULL),
+	(2, 1, 2, '2016-06-01', NULL, NULL, 'ashish', '2016-06-01 01:08:30', NULL, NULL),
+	(3, 1, 3, '2016-06-01', NULL, NULL, 'ashish', '2016-06-01 01:08:30', NULL, NULL),
+	(4, 1, 4, '2016-06-01', NULL, NULL, 'ashish', '2016-06-01 01:08:30', NULL, '2016-06-01 01:09:05'),
+	(5, 1, 5, '2016-06-01', NULL, NULL, 'ashish', '2016-06-01 01:08:30', NULL, '2016-06-01 01:09:05'),
+	(6, 1, 6, '2016-06-01', NULL, NULL, 'ashish', '2016-06-01 01:08:30', NULL, '2016-06-01 01:09:05'),
+	(7, 1, 7, '2016-06-01', NULL, NULL, 'ashish', '2016-06-01 01:08:30', NULL, '2016-06-01 01:09:05'),
+	(8, 1, 8, '2016-06-01', NULL, NULL, 'ashish', '2016-06-01 01:08:30', NULL, '2016-06-01 01:09:05');
 /*!40000 ALTER TABLE `role_permission` ENABLE KEYS */;
 
 
@@ -415,18 +395,10 @@ CREATE TABLE IF NOT EXISTS `rule_master` (
   UNIQUE KEY `module_id_rule_name` (`module_id`,`rule_name`),
   KEY `FK_rule_master_module_master` (`module_id`),
   CONSTRAINT `FK_rule_master_module_master` FOREIGN KEY (`module_id`) REFERENCES `module_master` (`module_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table coopadmin.rule_master: ~6 rows (approximately)
+-- Dumping data for table coopadmin.rule_master: ~0 rows (approximately)
 /*!40000 ALTER TABLE `rule_master` DISABLE KEYS */;
-INSERT INTO `rule_master` (`rule_id`, `module_id`, `rule_name`, `rule_description`, `start_date`, `end_date`, `delete_ind`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 2, 'LOGIN_OPTION', 'Login option', '2015-12-09', NULL, NULL, 'ashish', '2015-12-09 07:06:59', NULL, '2016-02-27 06:54:39'),
-	(2, 2, 'LOCK_AFTER_NO_OF_ATTEMPTS', 'Lock User After how many attempts', '2015-12-10', NULL, NULL, 'ashish', '2015-12-10 07:53:47', NULL, '2016-02-27 06:54:41'),
-	(3, 2, 'NUMBER_OF_SECURITY_QUESTIONS_TO_ASK', 'Number of Security Questions to be asked', '2015-12-10', NULL, NULL, 'ashish', '2015-12-10 07:53:47', NULL, '2016-02-27 06:54:44'),
-	(4, 2, 'NUMBER_OF_SECURITY_QUESTIONS_TO_ANSWER', 'Number of Security Questions to be answered', '2015-12-10', NULL, NULL, 'ashish', '2015-12-10 18:27:03', NULL, '2016-02-27 06:54:48'),
-	(5, 2, 'NUMBER_OF_TIMES_OTP_TO_BE_RESEND', 'Number of Times OTP will be resend', '2015-12-11', NULL, NULL, 'ashish', '2015-12-11 18:58:34', NULL, '2016-02-27 06:54:51'),
-	(6, 5, 'LOCK_AFTER_NO_OF_ATTEMPTS', 'Lock User After how many attempts', '2015-12-10', NULL, NULL, 'ashish', '2016-01-24 08:30:24', NULL, NULL),
-	(7, 4, 'HOController', 'HOController', '2015-12-10', NULL, NULL, 'ashish', '2016-05-31 23:52:39', NULL, NULL);
 /*!40000 ALTER TABLE `rule_master` ENABLE KEYS */;
 
 
@@ -448,16 +420,10 @@ CREATE TABLE IF NOT EXISTS `rule_master_values` (
   UNIQUE KEY `rule_id_rule_value` (`rule_id`,`rule_value`),
   KEY `FK_rule_master_values_rule_master` (`rule_id`),
   CONSTRAINT `FK_rule_master_values_rule_master` FOREIGN KEY (`rule_id`) REFERENCES `rule_master` (`rule_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table coopadmin.rule_master_values: ~4 rows (approximately)
+-- Dumping data for table coopadmin.rule_master_values: ~0 rows (approximately)
 /*!40000 ALTER TABLE `rule_master_values` DISABLE KEYS */;
-INSERT INTO `rule_master_values` (`rule_value_id`, `rule_id`, `rule_value`, `rule_value_description`, `start_date`, `end_date`, `delete_ind`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 1, 'OTP_BASED_LOGIN', 'OTP Based Loggedin', '2015-12-10', NULL, NULL, 'ashish', '2015-12-10 18:17:25', NULL, '2015-12-10 18:20:44'),
-	(2, 1, 'SECURITY_QUESTION_BASED_LOGIN', 'Security Question Based Login', '2015-12-10', NULL, NULL, 'ashish', '2015-12-10 18:18:52', NULL, '2015-12-10 18:20:51'),
-	(3, 1, 'ONE_STEP_LOGIN', 'Username password based login', '2015-12-10', NULL, NULL, 'ashish', '2015-12-10 18:20:13', NULL, '2015-12-10 18:21:00'),
-	(4, 2, '5', 'Testing data', '2015-12-10', NULL, NULL, 'ashish', '2016-01-24 08:36:45', NULL, '2016-02-27 07:02:14'),
-	(5, 7, NULL, NULL, '2015-12-10', NULL, NULL, 'ashish', '2016-05-31 23:52:39', NULL, NULL);
 /*!40000 ALTER TABLE `rule_master_values` ENABLE KEYS */;
 
 
@@ -474,20 +440,10 @@ CREATE TABLE IF NOT EXISTS `security_questions` (
   `update_user` varchar(50) DEFAULT NULL,
   `update_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`question_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table coopadmin.security_questions: ~9 rows (approximately)
+-- Dumping data for table coopadmin.security_questions: ~0 rows (approximately)
 /*!40000 ALTER TABLE `security_questions` DISABLE KEYS */;
-INSERT INTO `security_questions` (`question_id`, `question`, `start_date`, `end_date`, `delete_ind`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 'What is your PAN number', '2015-12-10', NULL, NULL, 'ashish', '2015-12-10 16:56:40', NULL, '2016-01-24 19:00:21'),
-	(2, 'What is your mother\'s maiden name', '2015-12-10', NULL, NULL, 'ashish', '2015-12-10 17:02:51', NULL, '2016-01-24 19:00:21'),
-	(3, 'What is your first Job', '2015-12-10', '2015-12-09', NULL, 'ashish', '2015-12-10 17:03:53', 'ashish', '2015-12-10 17:04:44'),
-	(4, 'What is the name of your best friend', '2015-12-10', NULL, 'Y', 'ashish', '2015-12-10 17:04:25', 'ashish', '2016-01-24 19:00:54'),
-	(5, 'Who is your best teacher1', '2015-12-10', NULL, NULL, 'ashish', '2015-12-10 17:06:39', 'ashish', '2016-01-24 19:00:21'),
-	(6, 'Who is your best teacher', '2015-12-10', '2015-12-10', NULL, 'ashish', '2016-01-23 06:46:45', NULL, NULL),
-	(7, 'What is your passport number', '2015-12-10', NULL, NULL, 'ashish', '2016-01-24 17:58:47', NULL, NULL),
-	(8, 'Who is your best teacher1', '2015-12-10', NULL, 'Y', 'ashish', '2016-01-24 18:26:27', 'ashish', '2016-01-24 19:00:54'),
-	(9, 'Who is your best teacher1', '2015-12-10', NULL, NULL, 'ashish', '2016-01-24 18:33:07', NULL, NULL);
 /*!40000 ALTER TABLE `security_questions` ENABLE KEYS */;
 
 
@@ -507,18 +463,47 @@ CREATE TABLE IF NOT EXISTS `state_master` (
   UNIQUE KEY `country_id_state_code` (`country_id`,`state_code`),
   KEY `FK_state_master_country_master` (`country_id`),
   CONSTRAINT `FK_state_master_country_master` FOREIGN KEY (`country_id`) REFERENCES `country_master` (`country_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table coopadmin.state_master: ~6 rows (approximately)
+-- Dumping data for table coopadmin.state_master: ~0 rows (approximately)
 /*!40000 ALTER TABLE `state_master` DISABLE KEYS */;
-INSERT INTO `state_master` (`state_id`, `country_id`, `state_code`, `state_name`, `delete_ind`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 1, 'WB', 'West Bengal', NULL, 'ashish', '2016-01-12 21:51:29', NULL, '2016-01-14 06:57:33'),
-	(2, 1, 'KA', 'Karnataka', NULL, 'ashish', '2016-01-14 06:57:26', NULL, NULL),
-	(3, 1, 'DL', 'Delhi', NULL, 'ashish', '2016-01-15 08:25:52', NULL, NULL),
-	(4, 2, 'NJ', 'New Jersey', 'Y', 'ashish', '2016-01-24 08:49:48', 'ashish', '2016-01-30 22:20:26'),
-	(5, 2, 'NY', 'New York', NULL, 'ashish', '2016-01-26 20:41:43', NULL, '2016-01-30 20:16:24'),
-	(6, 2, 'WD', 'Whashington DC', NULL, 'ashish', '2016-01-26 20:50:14', NULL, '2016-01-30 20:16:24');
 /*!40000 ALTER TABLE `state_master` ENABLE KEYS */;
+
+
+-- Dumping structure for procedure coopadmin.truncateTables_coopadmin
+DROP PROCEDURE IF EXISTS `truncateTables_coopadmin`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `truncateTables_coopadmin`()
+BEGIN
+
+  DECLARE n INT DEFAULT 0;
+  DECLARE i INT DEFAULT 0;
+  DECLARE q VARCHAR(2000);
+  
+  DROP TEMPORARY TABLE IF EXISTS tempTbl;
+  CREATE TEMPORARY TABLE IF NOT EXISTS tempTbl  (
+    `query` VARCHAR(50)
+  );
+  
+	INSERT INTO tempTbl SELECT CONCAT('truncate table ',table_name,';')
+	FROM INFORMATION_SCHEMA.TABLES
+	WHERE TABLE_SCHEMA = 'coopadmin'
+	AND TABLE_TYPE = 'BASE TABLE';
+	
+	SELECT COUNT(*) FROM tempTbl INTO n;
+	SET i=0;
+	
+	SET FOREIGN_KEY_CHECKS=0;
+	WHILE i<n DO 
+	  	SELECT query into @q FROM tempTbl LIMIT i,1;
+	  	PREPARE stmt3 FROM @q;
+		EXECUTE stmt3;
+		DEALLOCATE PREPARE stmt3;
+	  	SET i = i + 1;
+	END WHILE;
+	SET FOREIGN_KEY_CHECKS=1;
+END//
+DELIMITER ;
 
 
 -- Dumping structure for table coopadmin.user
@@ -546,25 +531,12 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `user_name` (`user_name`),
   KEY `FK_user_company_master` (`branch_id`),
   CONSTRAINT `FK_user_company_master` FOREIGN KEY (`branch_id`) REFERENCES `branch_master` (`branch_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Dumping data for table coopadmin.user: ~9 rows (approximately)
+-- Dumping data for table coopadmin.user: ~1 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`user_id`, `branch_id`, `user_name`, `first_name`, `middle_name`, `last_name`, `email1`, `email2`, `phone1`, `phone2`, `profile_pic`, `start_date`, `end_date`, `delete_ind`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 1, 'ashish', 'Ashish', 'Kumar', 'Mondal', 'ashismo@gmail.com', NULL, '9830525559', NULL, NULL, '2015-12-08 06:46:57', NULL, NULL, 'ashish', '2015-12-08 06:47:06', NULL, NULL),
-	(2, 2, 'ujan', 'Ujan', NULL, 'Mondal', 'ujan@gmail.com', NULL, '9830625559', NULL, NULL, '2015-12-10 22:29:59', NULL, NULL, 'ashish', '2015-12-10 22:30:11', NULL, '2015-12-13 23:01:00'),
-	(4, 1, 'ashish1', 'Ashish', NULL, NULL, NULL, NULL, '9830525559', NULL, NULL, '2015-12-11 00:00:00', NULL, NULL, 'ashish', '2016-02-19 08:49:15', NULL, '2016-02-19 08:49:15'),
-	(5, 27, 'ashish2', 'Ashish', NULL, NULL, NULL, NULL, '9830525559', NULL, NULL, '2015-12-11 00:00:00', NULL, NULL, 'ashish', '2016-02-19 08:51:06', NULL, '2016-02-19 08:51:06'),
-	(16, 1, 'ashismo', 'Ashish', NULL, NULL, NULL, NULL, '9830525559', NULL, NULL, '2016-05-29 11:54:46', NULL, NULL, 'ashish', '2016-05-29 11:54:53', NULL, NULL),
-	(19, 26, 'ashish123', 'Ashish', NULL, NULL, NULL, NULL, '9830525559', NULL, NULL, '2015-12-11 00:00:00', NULL, NULL, 'ashish', '2016-05-29 23:59:23', NULL, '2016-05-29 23:59:23'),
-	(27, 26, 'ashish12', 'Ashish', NULL, NULL, NULL, NULL, '9830525559', NULL, NULL, '2015-12-11 00:00:00', NULL, NULL, 'ashish', '2016-05-30 00:29:17', NULL, '2016-05-30 00:29:17'),
-	(28, 26, 'ashish1211', 'Ashish', NULL, NULL, NULL, NULL, '9830525559', NULL, NULL, '2015-12-11 00:00:00', NULL, NULL, 'ashish', '2016-05-30 01:04:02', NULL, '2016-05-30 01:04:02'),
-	(29, 1, 'dona', 'Ashish', NULL, 'Mondal', NULL, NULL, '9830525559', NULL, NULL, '2015-12-11 00:00:00', NULL, NULL, 'ashish', '2016-05-30 22:55:45', NULL, '2016-05-30 22:55:45'),
-	(30, 1, 'dona1', 'Dona', NULL, 'Mondal', NULL, NULL, '9830525559', NULL, NULL, '2015-12-11 00:00:00', NULL, NULL, 'ashish', '2016-05-30 22:56:29', NULL, '2016-05-30 22:56:29'),
-	(31, 25, 'banshi', 'Banshi', NULL, 'Mondal', NULL, NULL, '9830525559', NULL, NULL, '2015-12-11 00:00:00', NULL, NULL, 'ashish', '2016-05-31 22:12:53', NULL, '2016-05-31 22:12:53'),
-	(34, 25, 'ashishmo12321', 'Ashish', NULL, NULL, NULL, NULL, '9830525559', NULL, NULL, '2015-12-11 00:00:00', NULL, NULL, 'ashish', '2016-06-01 00:15:27', NULL, '2016-06-01 00:15:27'),
-	(41, 25, 'ashishmo1232', 'Ashish', NULL, NULL, NULL, NULL, '9830525559', NULL, NULL, '2015-12-11 00:00:00', NULL, NULL, 'ashish', '2016-06-01 00:31:41', NULL, '2016-06-01 00:31:41'),
-	(46, 25, 'ashishmo12325', 'Ashish', NULL, NULL, NULL, NULL, '9830525559', NULL, NULL, '2015-12-11 00:00:00', NULL, NULL, 'ashish', '2016-06-01 00:40:58', NULL, '2016-06-01 00:40:58');
+	(1, 1, 'ujan', 'Ujan', NULL, 'Mondal', NULL, NULL, '9830525559', NULL, NULL, NULL, NULL, NULL, 'ashish', '2016-06-01 01:11:03', NULL, NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 
@@ -585,21 +557,12 @@ CREATE TABLE IF NOT EXISTS `user_credential` (
   `update_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_id`),
   CONSTRAINT `FK_user_credential_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Dumping data for table coopadmin.user_credential: ~7 rows (approximately)
+-- Dumping data for table coopadmin.user_credential: ~1 rows (approximately)
 /*!40000 ALTER TABLE `user_credential` DISABLE KEYS */;
 INSERT INTO `user_credential` (`user_id`, `password`, `transaction_pwd`, `last_login`, `last_unsuccessful_login`, `unsuccessful_login_count`, `successful_login`, `delete_ind`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, '$2a$10$ZegdnnlLZQK62HAeBPjJee20AKlvVPMB2WiCkFr7L/k8c0QjvpE5e', NULL, '2016-02-27 07:03:24', '2016-01-02 10:34:18', 0, 1, '0', 'ashish', '2015-12-08 07:01:19', 'ashish', '2016-02-27 07:03:24'),
-	(2, '$2a$10$ZegdnnlLZQK62HAeBPjJee20AKlvVPMB2WiCkFr7L/k8c0QjvpE5e', NULL, '2016-05-24 23:10:51', '2016-05-24 22:49:28', 0, 1, '0', 'ashish', '2015-12-10 22:31:23', 'ujan', '2016-05-24 23:10:51'),
-	(4, '$2a$10$ebs474jub44p5y9Sj2B/eenZ0iOFSiOeVeLGNLnOdBegz4X6zIDam', '$2a$10$0WdIXag4Vo6Wl8HK3teUO.kZC/59xXvUuPTbNVp48QS5UxX5mkoTC', NULL, NULL, 0, 0, NULL, 'ashish', '2016-05-29 23:59:23', NULL, NULL),
-	(27, '$2a$10$GvrFZOCqU/6mVtP82w3.yey0CV7P/5z0oNSuHAS4izcIbEKbsgpEm', '$2a$10$MNYfq4NMd90WDCJ/0YLlTuWCmub4mcgpwz1Je8HMH.nC0fOIK0g6.', NULL, NULL, 0, 0, NULL, 'ashish', '2016-05-30 00:29:24', NULL, NULL),
-	(28, '$2a$10$yDyi.Fr6YkpOyslhxsd9dOiF8AmCyhfbkF6gTkvCiOS/IjzsNFSY2', '$2a$10$t0/c2WFkVe9.IkdbgOmq3.3BVQibaarCRoc5uSGpAV8t8KZ6ol9Nq', NULL, NULL, 0, 0, NULL, 'ashish', '2016-05-30 01:04:03', NULL, NULL),
-	(29, '$2a$10$90P1BzehvVxAw4eT4QHheeiodjg0yUTDr2Bwq9VSF/LyilRKtsn96', '$2a$10$qAYPeW.ZVkTceIAhdL7odeDXuUbWAtQdHm/jWUQUzGApCKVzvLyBi', NULL, NULL, 0, 0, NULL, 'ashish', '2016-05-30 22:55:46', NULL, NULL),
-	(30, '$2a$10$bjopFGMXotzuti373IIL3uHHEAjcfP0EKQ5CrHOLagYS.7NYcffuu', '$2a$10$u50UNO3LzsaH0f.AbYKfJehQbzcsjfspYVaGi/vWtMRqBf30o65sG', NULL, NULL, 0, 0, NULL, 'ashish', '2016-05-30 22:56:29', NULL, NULL),
-	(31, '$2a$10$Lc9JHPbqR6r7ORKKQzkSL.SgJjbJ3qsNN2UKPopCF39LNF2tXG9/i', '$2a$10$Z0ZESVu1KvOlkFDIurjjB.HfKtIjrywsUu5UTuMVjLe/rYaYVms0m', '2016-05-31 22:24:22', NULL, 0, 0, NULL, 'ashish', '2016-05-31 22:12:53', 'banshi', '2016-05-31 22:24:22'),
-	(34, '$2a$10$PqKjZhEsC5M.TwA7woLYiu8yXzpqvbmrEopHBrBlVWJRqC37PsRe2', '$2a$10$h80F5oJSQ28FJZhgStkg8OkzxUsMRA0F5tWL7aioxm9PYr.vVVVFS', NULL, NULL, 0, 0, NULL, 'ashish', '2016-06-01 00:32:48', NULL, NULL),
-	(46, '$2a$10$Afa6YIllet36aSo7ZAKgi.yy.FccnDv/uITTZGhh4QHNO/oq0du3G', '$2a$10$.MlUSI1acaZ3pBH05SGGceWvcOzMhE5JSI9oIiWiAYZK5RWP.aOTW', NULL, NULL, 0, 0, NULL, 'ashish', '2016-06-01 00:41:09', NULL, NULL);
+	(1, '$2a$10$ZegdnnlLZQK62HAeBPjJee20AKlvVPMB2WiCkFr7L/k8c0QjvpE5e', '$2a$10$ZegdnnlLZQK62HAeBPjJee20AKlvVPMB2WiCkFr7L/k8c0QjvpE5e', '2016-06-02 22:46:19', '2016-06-02 22:46:06', 0, 0, '0', 'ashish', '2016-06-01 01:14:17', 'ujan', '2016-06-02 22:46:19');
 /*!40000 ALTER TABLE `user_credential` ENABLE KEYS */;
 
 
@@ -615,10 +578,8 @@ CREATE TABLE IF NOT EXISTS `user_credential_otp` (
   CONSTRAINT `FK_user_credential_otp_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table coopadmin.user_credential_otp: ~1 rows (approximately)
+-- Dumping data for table coopadmin.user_credential_otp: ~0 rows (approximately)
 /*!40000 ALTER TABLE `user_credential_otp` DISABLE KEYS */;
-INSERT INTO `user_credential_otp` (`user_id`, `otp`, `otp_resend_counter`, `start_date`, `end_date`) VALUES
-	(1, '201951', 0, '2016-02-27 07:03:34', '2016-02-27 07:03:49');
 /*!40000 ALTER TABLE `user_credential_otp` ENABLE KEYS */;
 
 
@@ -640,24 +601,12 @@ CREATE TABLE IF NOT EXISTS `user_role` (
   KEY `FK_user_role_role_master` (`role_id`),
   CONSTRAINT `FK_user_role_role_master` FOREIGN KEY (`role_id`) REFERENCES `role_master` (`role_id`),
   CONSTRAINT `FK_user_role_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Dumping data for table coopadmin.user_role: ~11 rows (approximately)
+-- Dumping data for table coopadmin.user_role: ~1 rows (approximately)
 /*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
 INSERT INTO `user_role` (`user_role_id`, `user_id`, `role_id`, `start_date`, `end_date`, `delete_ind`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 1, 1, '2015-12-08', NULL, NULL, 'ashish', '2015-12-08 07:02:15', NULL, NULL),
-	(2, 1, 2, '2015-12-08', NULL, NULL, 'ashish', '2015-12-08 15:15:26', NULL, '2016-03-22 22:23:45'),
-	(3, 2, 1, '2015-12-08', NULL, NULL, 'ashish', '2015-12-08 15:15:26', NULL, '2016-05-24 23:07:55'),
-	(5, 1, 1, '2015-12-11', NULL, NULL, 'ashish', '2016-05-26 23:17:59', NULL, NULL),
-	(13, 27, 5, '2016-03-23', NULL, NULL, 'ashish', '2016-05-30 01:02:58', NULL, NULL),
-	(14, 28, 6, '2016-03-23', NULL, NULL, 'ashish', '2016-05-30 01:04:50', NULL, NULL),
-	(15, 28, 5, '2016-03-23', NULL, NULL, 'ashish', '2016-05-30 01:04:54', NULL, NULL),
-	(16, 30, 1, '2015-12-08', NULL, NULL, 'ashish', '2016-05-30 22:56:35', NULL, NULL),
-	(17, 30, 2, '2015-12-08', NULL, NULL, 'ashish', '2016-05-30 22:57:04', NULL, NULL),
-	(18, 30, 3, '2015-12-08', NULL, NULL, 'ashish', '2016-05-31 00:01:14', NULL, NULL),
-	(19, 30, 1, '2015-12-08', NULL, NULL, 'ashish', '2016-05-31 00:02:25', NULL, NULL),
-	(20, 31, 15, '2016-03-23', NULL, 'Y', 'ashish', '2016-05-31 23:46:00', NULL, '2016-05-31 23:53:33'),
-	(21, 31, 15, '2016-03-23', NULL, NULL, 'ashish', '2016-05-31 23:53:33', NULL, NULL);
+	(1, 1, 1, '2016-06-01', NULL, NULL, 'ashish', '2016-06-01 01:11:51', NULL, NULL);
 /*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
 
 
@@ -680,13 +629,10 @@ CREATE TABLE IF NOT EXISTS `user_security_question` (
   KEY `FK_user_sequrity_question_security_questions` (`question_id`),
   CONSTRAINT `FK_user_sequrity_question_security_questions` FOREIGN KEY (`question_id`) REFERENCES `security_questions` (`question_id`),
   CONSTRAINT `FK_user_sequrity_question_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table coopadmin.user_security_question: ~2 rows (approximately)
+-- Dumping data for table coopadmin.user_security_question: ~0 rows (approximately)
 /*!40000 ALTER TABLE `user_security_question` DISABLE KEYS */;
-INSERT INTO `user_security_question` (`user_sec_id`, `user_id`, `question_id`, `answer`, `start_date`, `end_date`, `delete_ind`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
-	(1, 2, 4, 'ashish', '2015-12-10', NULL, NULL, 'ashish', '2015-12-10 22:32:08', NULL, NULL),
-	(2, 2, 3, 'wipro', '2015-12-13', NULL, NULL, 'ashish', '2015-12-13 23:15:22', NULL, NULL);
 /*!40000 ALTER TABLE `user_security_question` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
