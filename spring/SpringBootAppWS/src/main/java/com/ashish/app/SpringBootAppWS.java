@@ -1,7 +1,11 @@
 package com.ashish.app;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,14 +19,22 @@ import com.ashish.exception.CustomException;
 public class SpringBootAppWS {
 	private static final Logger logger = LoggerFactory.getLogger(SpringBootAppWS.class);
 	
+	/**
+	 * This method returns PNR number for a given customer
+	 * @return
+	 */
 	@RequestMapping(path="/getPNR", method = RequestMethod.GET, headers="Accept=application/json",produces="application/json")
-    public SearchBean getPNR() {
+	public SearchBean getPNR() {
 		logger.info("Test");
 		SearchBean sb = new SearchBean();
 		sb.setPnr("PNR");
         return sb;
     }
 
+	/**
+	 * This method returns advantage number for a given customer
+	 * @return
+	 */
 	@RequestMapping(path="/getAdv", method = RequestMethod.GET, headers="Accept=application/json",produces="application/json")
     public SearchBean getAdv() {
 		SearchBean sb = new SearchBean();
