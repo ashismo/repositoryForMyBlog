@@ -1,0 +1,35 @@
+{
+  "countries" : [ ],
+  "modules" : [ ],
+  "securityQuestions" : [ ],
+  "dropdowns" : [ {
+    "code" : "LOAN-LONGTERM",
+    "category" : null,
+    "deleteInd" : null,
+    "deleteReason" : null,
+    "description" : null,
+    "branchId" : 1,
+    "branchName" : null,
+    "passingAuthInd" : null,
+    "passingAuthRemark" : null,
+    "createUser" : "ashish",
+    "updateUser" : null,
+    "createDate" : null,
+    "updateDate" : null
+  }, {
+    "code" : "LOAN-MIDTERM",
+    "category" : null,
+    "deleteInd" : null,
+    "deleteReason" : null,
+    "description" : null,
+    "branchId" : 1,
+    "branchName" : null,
+    "passingAuthInd" : null,
+    "passingAuthRemark" : null,
+    "createUser" : "ashish",
+    "updateUser" : null,
+    "createDate" : null,
+    "updateDate" : null
+  } ],
+  "errorMsg" : null
+}

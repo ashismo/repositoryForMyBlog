@@ -1,0 +1,49 @@
+{
+  "countries" : [ ],
+  "modules" : [ ],
+  "securityQuestions" : [ ],
+  "dropdowns" : [ {
+    "code" : "LOAN-LONGTERM",
+    "category" : "Payment",
+    "deleteInd" : null,
+    "deleteReason" : null,
+    "description" : "Payment by long term loan from same bank",
+    "branchId" : 0,
+    "branchName" : null,
+    "passingAuthInd" : null,
+    "passingAuthRemark" : null,
+    "createUser" : "ashish",
+    "updateUser" : null,
+    "createDate" : null,
+    "updateDate" : null
+  }, {
+    "code" : "LOAN-SHORTTERM",
+    "category" : "Payment",
+    "deleteInd" : null,
+    "deleteReason" : null,
+    "description" : "Payment by short term loan from same bank",
+    "branchId" : 0,
+    "branchName" : null,
+    "passingAuthInd" : null,
+    "passingAuthRemark" : null,
+    "createUser" : "ashish",
+    "updateUser" : null,
+    "createDate" : null,
+    "updateDate" : null
+  }, {
+    "code" : "LOAN-MIDTERM",
+    "category" : "Payment",
+    "deleteInd" : null,
+    "deleteReason" : null,
+    "description" : "Payment by mid term loan from same bank",
+    "branchId" : 0,
+    "branchName" : null,
+    "passingAuthInd" : null,
+    "passingAuthRemark" : null,
+    "createUser" : "ashish",
+    "updateUser" : null,
+    "createDate" : null,
+    "updateDate" : null
+  } ],
+  "errorMsg" : null
+}

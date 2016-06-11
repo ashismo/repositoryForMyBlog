@@ -43,7 +43,7 @@
       "branchId" : 1,
       "addressLine1" : "Kolkata",
       "addressLine2" : null,
-      "createDate" : 1464112795000,
+      "createDate" : 1465636547000,
       "createUser" : "ashish",
       "vendorType" : null,
       "email1" : null,
@@ -51,7 +51,7 @@
       "phone1" : "9830525559",
       "phone2" : null,
       "pin" : "743502",
-      "updateDate" : 1464112796000,
+      "updateDate" : 1465636548000,
       "updateUser" : "ashish",
       "vendorName" : "CTS",
       "website" : null,
@@ -71,8 +71,8 @@
     "customers" : [ ],
     "accounts" : [ ],
     "customerAccounts" : [ ],
-    "fyClosed" : false,
-    "branchActive" : false
+    "branchActive" : false,
+    "fyClosed" : false
   },
   "branches" : [ ],
   "bankMasters" : [ ],

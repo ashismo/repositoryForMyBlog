@@ -111,7 +111,7 @@ INSERT INTO `gl_header` (`gl_header_code`, `gl_header_desc`, `status`) VALUES
 	(31000, 'opening stock including transit trading commodities', 'PU'),
 	(32000, 'opening stock including transit processing', 'PU'),
 	(34000, 'purchase trading commodities', 'PU'),
-	(35000, 'purchase etc foe processing', 'PU'),
+	(35000, 'purchase etc for processing', 'PU'),
 	(36000, 'purchase etc for cold storage', 'PU'),
 	(37000, 'trade charges', 'PU'),
 	(39000, 'gross profit', 'PU'),
@@ -1541,6 +1541,61 @@ CREATE TABLE IF NOT EXISTS `material_tran_hrd` (
 /*!40000 ALTER TABLE `material_tran_hrd` ENABLE KEYS */;
 
 
+-- Dumping structure for table retail.retail_card_payment
+DROP TABLE IF EXISTS `retail_card_payment`;
+CREATE TABLE IF NOT EXISTS `retail_card_payment` (
+  `card_payment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `tran_id` int(11) NOT NULL,
+  `action_date` date NOT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  `card_no` varchar(20) DEFAULT NULL,
+  `card_holder_name` varchar(50) DEFAULT NULL,
+  `valid_month` int(11) DEFAULT NULL,
+  `valid_year` int(11) DEFAULT NULL,
+  `delete_ind` varchar(4) DEFAULT NULL,
+  `delete_reason` varchar(255) DEFAULT NULL,
+  `passing_auth_ind` varchar(4) DEFAULT NULL,
+  `passing_auth_remark` varchar(255) DEFAULT NULL,
+  `create_user` varchar(50) NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_user` varchar(50) DEFAULT NULL,
+  `update_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`card_payment_id`),
+  KEY `FK_retail_card_payment_material_tran_hrd` (`tran_id`),
+  CONSTRAINT `FK_retail_card_payment_material_tran_hrd` FOREIGN KEY (`tran_id`) REFERENCES `material_tran_hrd` (`tran_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table retail.retail_card_payment: ~0 rows (approximately)
+/*!40000 ALTER TABLE `retail_card_payment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `retail_card_payment` ENABLE KEYS */;
+
+
+-- Dumping structure for table retail.retail_cash_payment
+DROP TABLE IF EXISTS `retail_cash_payment`;
+CREATE TABLE IF NOT EXISTS `retail_cash_payment` (
+  `cash_payment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `tran_id` int(11) NOT NULL,
+  `payment_type` varchar(50) DEFAULT NULL,
+  `action_date` date DEFAULT NULL,
+  `cash_amt` decimal(10,0) DEFAULT NULL,
+  `delete_ind` varchar(4) DEFAULT NULL,
+  `delele_reason` varchar(255) DEFAULT NULL,
+  `passing_auth_ind` varchar(4) DEFAULT NULL,
+  `passing_auth_remark` varchar(255) DEFAULT NULL,
+  `create_user` varchar(50) NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_user` varchar(50) DEFAULT NULL,
+  `update_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`cash_payment_id`),
+  KEY `FK_retail_payment_material_tran_hrd` (`tran_id`),
+  CONSTRAINT `FK_retail_payment_material_tran_hrd` FOREIGN KEY (`tran_id`) REFERENCES `material_tran_hrd` (`tran_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table retail.retail_cash_payment: ~0 rows (approximately)
+/*!40000 ALTER TABLE `retail_cash_payment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `retail_cash_payment` ENABLE KEYS */;
+
+
 -- Dumping structure for table retail.retail_customer_master
 DROP TABLE IF EXISTS `retail_customer_master`;
 CREATE TABLE IF NOT EXISTS `retail_customer_master` (
@@ -1632,43 +1687,6 @@ CREATE TABLE IF NOT EXISTS `retail_master` (
 -- Dumping data for table retail.retail_master: ~0 rows (approximately)
 /*!40000 ALTER TABLE `retail_master` DISABLE KEYS */;
 /*!40000 ALTER TABLE `retail_master` ENABLE KEYS */;
-
-
--- Dumping structure for table retail.retail_payment
-DROP TABLE IF EXISTS `retail_payment`;
-CREATE TABLE IF NOT EXISTS `retail_payment` (
-  `payment_id` int(11) NOT NULL AUTO_INCREMENT,
-  `tran_id` int(11) NOT NULL,
-  `payment_type` varchar(50) DEFAULT NULL,
-  `action_date` date DEFAULT NULL,
-  `cash_amt` decimal(10,0) DEFAULT NULL,
-  `cheque_amt` decimal(10,0) DEFAULT NULL,
-  `cheque_no` varchar(50) DEFAULT NULL,
-  `card_amt` decimal(10,0) DEFAULT NULL,
-  `card_type` varchar(50) DEFAULT NULL,
-  `card_no` varchar(50) DEFAULT NULL,
-  `card_holder_name` varchar(50) DEFAULT NULL,
-  `credit_amt` decimal(10,0) DEFAULT NULL,
-  `adjust_amt` decimal(10,0) DEFAULT NULL,
-  `loan_amt` decimal(10,0) DEFAULT NULL,
-  `loan_no` varchar(50) DEFAULT NULL,
-  `loan_issuing_bank` varchar(255) DEFAULT NULL,
-  `delete_ind` varchar(4) DEFAULT NULL,
-  `delele_reason` varchar(255) DEFAULT NULL,
-  `passing_auth_ind` varchar(4) DEFAULT NULL,
-  `passing_auth_remark` varchar(255) DEFAULT NULL,
-  `create_user` varchar(50) NOT NULL,
-  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_user` varchar(50) DEFAULT NULL,
-  `update_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`payment_id`),
-  KEY `FK_retail_payment_material_tran_hrd` (`tran_id`),
-  CONSTRAINT `FK_retail_payment_material_tran_hrd` FOREIGN KEY (`tran_id`) REFERENCES `material_tran_hrd` (`tran_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- Dumping data for table retail.retail_payment: ~0 rows (approximately)
-/*!40000 ALTER TABLE `retail_payment` DISABLE KEYS */;
-/*!40000 ALTER TABLE `retail_payment` ENABLE KEYS */;
 
 
 -- Dumping structure for table retail.retail_rate_chart
