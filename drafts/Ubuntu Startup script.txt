@@ -1,0 +1,70 @@
+vi /etc/init.d/startupScript.sh    (chmod 755 startupScript.sh)
+
+#!/bin/sh
+# SAMPLE BASIC INIT SCRIPT
+#
+# Below is the chkconfig syntax for auto startup at different run levels
+# Note runlevel 1 2 and 3, 69 is the Start order and 68 is the Stop order
+# Make sure these are unique by looking into /etc/rc.d/*
+# Also below is the description which is necessary.
+#
+# chkconfig: 123 69 68
+# description: Description of the Service
+#
+# Below is the source function library
+#
+
+boot=$(date)
+
+sudo echo "System boot time @ $boot" >> /tmp/boot
+
+
+start() {
+  echo "Starting the lampp server, postgres, tomcat"
+  /opt/lampp/lampp start
+  service postgresql start
+  sh /opt/apache-tomcat-7.0.64/bin/startup.sh
+}
+
+stop() {
+        echo "Stopping lampp, postgres, tomcat"
+        service postgresql stop
+        /opt/lampp/lampp stop
+        sh /opt/apache-tomcat-7.0.64/bin/shutdown.sh
+}
+
+restart() {
+        echo "Restarting lampp, postgres, tomcat"
+        service postgresql restart
+        /opt/lampp/lampp restart
+        sh /opt/apache-tomcat-7.0.64/bin/shutdown.sh
+        sh /opt/apache-tomcat-7.0.64/bin/startup.sh
+}
+
+#
+# Below is the Script Goodness controlling the service
+#
+case "$1" in
+        start)
+                echo -n "Start service ec2startup" >> /tmp/boot
+                start
+        ;;
+        stop)
+                echo -n "Stop service ec2startup" >> /tmp/boot
+                stop
+        ;;
+        restart)
+                echo -n "Restart service ec2startup" >> /tmp/boot
+                restart
+        ;;
+        *)
+                echo "Usage: $0 {start|stop|restart}"
+                exit 1
+        ;;
+esac
+
+
+
+
+cd /etc/init.d/
+update-rc.d startupScript.sh defaults
