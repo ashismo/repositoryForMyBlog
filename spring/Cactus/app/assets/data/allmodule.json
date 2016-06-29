@@ -1,0 +1,220 @@
+{
+  "modules": [
+    {
+      "moduleId": 3,
+      "moduleName": "SB",
+      "startDate": "09/12/2015 00:00:00",
+      "createUser": "ashish",
+      "modulePermissions": [
+        {
+          "permissionId": 9,
+          "moduleName": "SB",
+          "permission": "CREATE",
+          "startDate": "22/12/2015 00:00:00",
+          "createUser": "ashish"
+        },
+        {
+          "permissionId": 11,
+          "moduleName": "SB",
+          "permission": "UPDATE",
+          "startDate": "22/12/2015 00:00:00",
+          "createUser": "ashish"
+        },
+        {
+          "permissionId": 12,
+          "moduleName": "SB",
+          "permission": "DELETE",
+          "startDate": "22/12/2015 00:00:00",
+          "createUser": "ashish"
+        },
+        {
+          "permissionId": 10,
+          "moduleName": "SB",
+          "permission": "READ",
+          "startDate": "22/12/2015 00:00:00",
+          "createUser": "ashish"
+        }
+      ]
+    },
+    {
+      "moduleId": 5,
+      "moduleName": "RD",
+      "startDate": "08/12/2015 00:00:00",
+      "createUser": "ashish",
+      "modulePermissions": [
+        {
+          "permissionId": 13,
+          "moduleName": "RD",
+          "permission": "CREATE",
+          "startDate": "08/12/2015 00:00:00",
+          "createUser": "ashish"
+        }
+      ],
+      "moduleRules": [
+        {
+          "ruleId": 6,
+          "moduleName": "RD",
+          "ruleName": "LOCK_AFTER_NO_OF_ATTEMPTS",
+          "ruleDescription": "Lock User After how many attempts",
+          "startDate": "10/12/2015 00:00:00",
+          "createUser": "ashish"
+        }
+      ]
+    },
+    {
+      "moduleId": 1,
+      "moduleName": "ADMIN",
+      "startDate": "08/12/2015 00:00:00",
+      "createUser": "ashish",
+      "updateUser": "ashish",
+      "modulePermissions": [
+        {
+          "permissionId": 3,
+          "moduleName": "ADMIN",
+          "permission": "UPDATE",
+          "startDate": "08/12/2015 00:00:00",
+          "createUser": "ashish"
+        },
+        {
+          "permissionId": 2,
+          "moduleName": "ADMIN",
+          "permission": "READ",
+          "startDate": "08/12/2015 00:00:00",
+          "createUser": "ashish"
+        },
+        {
+          "permissionId": 1,
+          "moduleName": "ADMIN",
+          "permission": "CREATE",
+          "startDate": "08/12/2015 00:00:00",
+          "createUser": "ashish"
+        },
+        {
+          "permissionId": 4,
+          "moduleName": "ADMIN",
+          "permission": "DELETE",
+          "startDate": "08/12/2015 00:00:00",
+          "createUser": "ashish"
+        }
+      ]
+    },
+    {
+      "moduleId": 2,
+      "moduleName": "GENERAL",
+      "startDate": "09/12/2015 00:00:00",
+      "createUser": "ashish",
+      "modulePermissions": [
+        {
+          "permissionId": 6,
+          "moduleName": "GENERAL",
+          "permission": "READ",
+          "startDate": "22/12/2015 00:00:00",
+          "createUser": "ashish"
+        },
+        {
+          "permissionId": 7,
+          "moduleName": "GENERAL",
+          "permission": "UPDATE",
+          "startDate": "22/12/2015 00:00:00",
+          "createUser": "ashish"
+        },
+        {
+          "permissionId": 8,
+          "moduleName": "GENERAL",
+          "permission": "DELETE",
+          "startDate": "22/12/2015 00:00:00",
+          "createUser": "ashish"
+        },
+        {
+          "permissionId": 5,
+          "moduleName": "GENERAL",
+          "permission": "CREATE",
+          "startDate": "08/12/2015 00:00:00",
+          "createUser": "ashish"
+        }
+      ],
+      "moduleRules": [
+        {
+          "ruleId": 3,
+          "moduleName": "GENERAL",
+          "ruleName": "NUMBER_OF_SECURITY_QUESTIONS_TO_ASK",
+          "ruleDescription": "Number of Security Questions to be asked",
+          "startDate": "10/12/2015 00:00:00",
+          "createUser": "ashish"
+        },
+        {
+          "ruleId": 5,
+          "moduleName": "GENERAL",
+          "ruleName": "NUMBER_OF_TIMES_OTP_TO_BE_RESEND",
+          "ruleDescription": "Number of Times OTP will be resend",
+          "startDate": "11/12/2015 00:00:00",
+          "createUser": "ashish"
+        },
+        {
+          "ruleId": 2,
+          "moduleName": "GENERAL",
+          "ruleName": "LOCK_AFTER_NO_OF_ATTEMPTS",
+          "ruleDescription": "Lock User After how many attempts",
+          "startDate": "10/12/2015 00:00:00",
+          "createUser": "ashish",
+          "ruleMasterValues": [
+            {
+              "ruleValueId": 4,
+              "moduleName": "GENERAL",
+              "ruleName": "LOCK_AFTER_NO_OF_ATTEMPTS",
+              "ruleValue": "5",
+              "ruleValueDescription": "Testing data",
+              "startDate": "10/12/2015 00:00:00",
+              "createUser": "ashish"
+            }
+          ]
+        },
+        {
+          "ruleId": 1,
+          "moduleName": "GENERAL",
+          "ruleName": "LOGIN_OPTION",
+          "ruleDescription": "Login option",
+          "startDate": "09/12/2015 00:00:00",
+          "createUser": "ashish",
+          "ruleMasterValues": [
+            {
+              "ruleValueId": 1,
+              "moduleName": "GENERAL",
+              "ruleName": "LOGIN_OPTION",
+              "ruleValue": "OTP_BASED_LOGIN",
+              "ruleValueDescription": "OTP Based Loggedin",
+              "startDate": "10/12/2015 00:00:00",
+              "createUser": "ashish"
+            },
+            {
+              "ruleValueId": 2,
+              "moduleName": "GENERAL",
+              "ruleName": "LOGIN_OPTION",
+              "ruleValue": "SECURITY_QUESTION_BASED_LOGIN",
+              "ruleValueDescription": "Security Question Based Login",
+              "startDate": "10/12/2015 00:00:00",
+              "createUser": "ashish"
+            },
+            {
+              "ruleValueId": 3,
+              "moduleName": "GENERAL",
+              "ruleName": "LOGIN_OPTION",
+              "ruleValue": "ONE_STEP_LOGIN",
+              "ruleValueDescription": "Username password based login",
+              "startDate": "10/12/2015 00:00:00",
+              "createUser": "ashish"
+            }
+          ]
+        },
+        {
+          "ruleId": 4,
+          "moduleName": "GENERAL",
+          "ruleName": "NUMBER_OF_SECURITY_QUESTIONS_TO_ANSWER",
+          "ruleDescription": "Number of Security Questions to be answered",
+          "startDate": "10/12/2015 00:00:00",
+          "createUser": "ashish"
+        }
+      ]
+    }
+  ]
+}

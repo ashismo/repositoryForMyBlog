@@ -1,0 +1,440 @@
+/*--------------------------------------------------------------------------------------------
+|    @desc:       The Ultimate Windows7 Desktop Using pure css3
+|    @author:     Aravind Buddha
+|    @url:        http://www.techumber.com
+|    @date:       24 march 2012
+|    @email:      aravind@techumber.com
+|    @license:    'Free, but Some rights received'
+|
+---------------------------------------------------------------------------------------------*/
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+html,body {
+	font-family: "Segoe UI", Arial, Sans-Serif;
+	font-size: 12px;
+	color: #4b4b4b;
+	background: #fff url(img/bg.jpg) no-repeat scroll center center;
+	margin: 0px;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+.logo {
+	background: white;
+	width: 268px;
+	margin: 0 auto;
+	border-radius: 78px;
+}
+
+.c {
+	clear: both;
+}
+
+/*Calculater UI*/
+.calc {
+	right: 0;
+	width: 228px;
+	height: 244px;
+	border: 1px solid #ddd;
+	border: solid 1px #102a3e;
+	overflow: visible;
+	display: inline-block;
+	border-radius: 5px;
+	position: absolute;
+	-webkit-box-shadow: inset 0 0 1px #fff;
+	box-shadow: inset 0 0 1px #fff;
+	background-color: #619bb9;
+	background: -webkit-linear-gradient(top, rgba(50, 123, 165, 0.75), rgba(46, 75, 90, 0.75) 50%, rgba(92, 176, 220, 0.75));
+	background: -moz-linear-gradient(top, rgba(50, 123, 165, 0.75), rgba(46, 75, 90, 0.75) 50%, rgba(92, 176, 220, 0.75));
+	background: -o-linear-gradient(top, rgba(50, 123, 165, 0.75), rgba(46, 75, 90, 0.75) 50%, rgba(92, 176, 220, 0.75));
+	background: -ms-linear-gradient(top, rgba(50, 123, 165, 0.75), rgba(46, 75, 90, 0.75) 50%, rgba(92, 176, 220, 0.75));
+	background: linear-gradient(top, rgba(50, 123, 165, 0.75), rgba(46, 75, 90, 0.75) 50%, rgba(92, 176, 220, 0.75));
+	top: 70px;
+}
+
+.calc .head {
+	width: 100%;
+	height: 27px;
+}
+
+.calc .calc-in {
+	width: 212px;
+	height: 205px;
+	background: #D9E4F1;
+	margin: 7px;
+	border: solid 1px #102a3e;
+	bottom: 0;
+	position: absolute;
+}
+
+.calc p {
+	background: url("img/calc-icon.png") no-repeat;
+	padding-left: 15px;
+	margin: 8px;
+	margin-top: 5px;
+	color: #fff;
+	float: left;
+}
+
+#display {
+	width: 190px;
+	margin: 0px;
+	border: 1px solid #aaa;
+	font-size: 40px;
+	color: #333;
+	text-align: right;
+	font-size: 40px;
+	position: relative;
+	top: 10px;
+	left: 10px;
+	height: 50px;
+	border-radius: 3px;
+	background: #fff;
+}
+
+.num-wrap {
+	margin: 20px auto;
+	width: 186px;
+}
+
+#n0 {
+	width: 71px;
+	height: 25px;
+}
+
+#neq {
+	width: 34px;
+	height: 59px;
+	float: right;
+}
+
+.calc button {
+	width: 34px;
+	height: 27px;
+	border: 1px solid #9EAABB;
+	border-radius: 3px;
+	margin-bottom: 5px;
+}
+
+button:hover {
+	cursor: pointer;
+}
+
+.margin-bottom-10{
+  margin-bottom: 10px!important;
+}
+.margin-right-10{
+  margin-right: 10px!important;
+}
+.display-block{
+  display: block;
+}
+/*start Menu*/
+#startmenu {
+	border-radius: 5px;
+
+	-webkit-box-shadow: inset 0 0 1px #fff;
+	box-shadow: inset 0 0 1px #fff;
+	background-color: #619bb9;
+
+	background: -webkit-linear-gradient(top, rgba(50, 123, 165, 0.75), rgba(46, 75, 90, 0.75) 50%, rgba(92, 176, 220, 0.75));
+	background: -moz-linear-gradient(top, rgba(50, 123, 165, 0.75), rgba(46, 75, 90, 0.75) 50%, rgba(92, 176, 220, 0.75));
+	background: -o-linear-gradient(top, rgba(50, 123, 165, 0.75), rgba(46, 75, 90, 0.75) 50%, rgba(92, 176, 220, 0.75));
+	background: -ms-linear-gradient(top, rgba(50, 123, 165, 0.75), rgba(46, 75, 90, 0.75) 50%, rgba(92, 176, 220, 0.75));
+	background: linear-gradient(top, rgba(50, 123, 165, 0.75), rgba(46, 75, 90, 0.75) 50%, rgba(92, 176, 220, 0.75));
+	border: solid 1px #102A3E;
+	display: inline-block;
+	margin: 100px 0 0 0px;
+	overflow: visible;
+	position: absolute;
+	bottom: 41px;
+	left: 0;
+}
+
+#applications {
+	-webkit-box-shadow: 0 0 1px #fff;
+	box-shadow: 0 0 1px #fff;
+	border-radius: 3px;
+	background: white;
+	border: solid 1px #365167;
+	display: block;
+	float: left;
+	list-style: none;
+	margin: 7px 0 7px 7px;
+	padding: 0;
+}
+
+#applications li {
+	list-style: none;
+}
+
+#applications li a {
+	border: solid 1px transparent;
+	color: #4b4b4b;
+	display: block;
+	margin: 3px;
+	min-width: 220px;
+	padding: 3px;
+	text-decoration: none;
+}
+
+#applications li a:hover {
+	border-radius: 3px;
+
+	-webkit-box-shadow: inset 0 0 1px #fff;
+	box-shadow: inset 0 0 1px #fff;
+	background-color: #cfe3fd;
+
+	background: -webkit-linear-gradient(top, #dcebfd, #c2dcfd);
+	background: -moz-linear-gradient(top, #dcebfd, #c2dcfd);
+	background: -o-linear-gradient(top, #dcebfd, #c2dcfd);
+	background: -ms-linear-gradient(top, #dcebfd, #c2dcfd);
+	background: linear-gradient(top, #dcebfd, #c2dcfd);
+	border: solid 1px #7da2ce;
+}
+
+#applications li a img {
+	border: 0;
+	margin: 0 5px 0 0;
+	vertical-align: middle;
+}
+
+.search form {
+	background: #E4F4FC;
+	border-top: 2px solid #BEE6FD;
+	padding: 10px 0;
+	border-radius: 0 0 5px 5px;
+	display: block;
+	padding: 3px;
+	height: 30px;
+}
+
+.search input {
+	background: white;
+	border: 1px solid #AAA;
+	padding: 3px 5px;
+	margin: 0 14px;
+	font: italic 12px Calibri,Arial,Sans-Serif;
+	color: #999;
+	width: 188px;
+	position: relative;
+	outline: none;
+	background: white url(img/search.png) no-repeat scroll 178px center;
+}
+
+#sysdir {
+	margin: 7px;
+	margin-top: -30px;
+	float: left;
+	display: block;
+	padding: 0;
+	list-style: none;
+}
+
+#sysdir li a {
+	border: solid 1px transparent;
+	display: block;
+	margin: 5px 0;
+	position: relative;
+	color: #fff;
+	text-decoration: none;
+	min-width: 120px;
+}
+
+#sysdir li a:hover {
+	border-radius: 3px;
+
+	-webkit-box-shadow: inset 0 0 1px #fff;
+	box-shadow: inset 0 0 1px #fff;
+	border: solid 1px #000;
+	background-color: #658da0;
+
+	background: -webkit-linear-gradient(center left, rgba(81,115,132,0.55), rgba(121,163,184,0.55) 50%, rgba(81,115,132,0.55));
+	background: -moz-linear-gradient(center left, rgba(81,115,132,0.55), rgba(121,163,184,0.55) 50%, rgba(81,115,132,0.55));
+	background: -o-linear-gradient(center left, rgba(81,115,132,0.55), rgba(121,163,184,0.55) 50%, rgba(81,115,132,0.55));
+	background: -ms-linear-gradient(center left, rgba(81,115,132,0.55), rgba(121,163,184,0.55) 50%, rgba(81,115,132,0.55));
+	background: linear-gradient(center left, rgba(81,115,132,0.55), rgba(121,163,184,0.55) 50%, rgba(81,115,132,0.55));
+}
+
+#sysdir li a span {
+	padding: 5px;
+	display: block;
+}
+
+#sysdir li a:hover span {
+	background: -webkit-linear-gradient(center top, transparent, transparent 49%, rgba(2,37,58,0.5) 50%, rgba(63,111,135,0.5));
+	background: -moz-linear-gradient(center top, transparent, transparent 49%, rgba(2,37,58,0.5) 50%, rgba(63,111,135,0.5));
+	background: -o-linear-gradient(center top, transparent, transparent 49%, rgba(2,37,58,0.5) 50%, rgba(63,111,135,0.5));
+	background: -ms-linear-gradient(center top, transparent, transparent 49%, rgba(2,37,58,0.5) 50%, rgba(63,111,135,0.5));
+	background: linear-gradient(center top, transparent, transparent 49%, rgba(2,37,58,0.5) 50%, rgba(63,111,135,0.5));
+}
+
+#sysdir li.user {
+	text-align: center;
+}
+
+/*start Button Buttom*/
+#bottom {
+	z-index: 1000;
+	width: 100%;
+	height: 40px;
+	background-color: #619bb9;
+
+	background: -webkit-linear-gradient(65deg,rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.9),rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.9));
+	background: -moz-linear-gradient(65deg,rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.9),rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.9));
+	background: -o-linear-gradient(65deg,rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.9),rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.9));
+	background: -ms-linear-gradient(65deg,rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.9),rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.9));
+	background: linear-gradient(65deg,rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.9),rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.9));
+	border-top: 1px solid rgba(0, 0, 0, 0.5);
+
+	-webkit-box-shadow: inset 0 1px 0px rgba(255,255,255,0.4);
+	box-shadow: inset 0 1px 0px rgba(255,255,255,0.4);
+	position: absolute;
+	bottom: 0;
+}
+
+#bottom .start {
+	background: url(img/start-button.png) no-repeat;
+	width: 40px;
+	height: 40px;
+	margin-left: 10px;
+	float: left;
+}
+
+#bottom .taskbar {
+	float: left;
+	width: 80%;
+	height: 100%;
+	margin-left: 20px;
+}
+
+.taskbar ul {
+	list-style: none;
+	height: 90%;
+	padding: 2px;
+}
+
+.taskbar ul li {
+	background: -webkit-linear-gradient(rgba(225, 225, 225, 0.6),rgba(52,38,66,0.6));
+	background: -moz-linear-gradient(rgba(225, 225, 225, 0.6),rgba(52,38,66,0.6));
+	background: -o-linear-gradient(rgba(225, 225, 225, 0.6),rgba(52,38,66,0.6));
+	background: -ms-linear-gradient(rgba(225, 225, 225, 0.6),rgba(52,38,66,0.6));
+	background: linear-gradient(rgba(225, 225, 225, 0.6),rgba(52,38,66,0.6));
+	border-radius: 3px;
+	-webkit-box-shadow: 0px 0px 3px #222;
+	box-shadow: 0px 0px 3px #222;
+	padding: 2px 15px 19px 13px;
+	border: 1px solid #7B7481;
+	float: left;
+	margin-left: 5px;
+}
+
+.taskbar ul li:hover {
+	background: -webkit-linear-gradient(rgba(225, 225, 225, 0.6),rgba(68,80,76,0.6));
+	background: -moz-linear-gradient(rgba(225, 225, 225, 0.6),rgba(68,80,76,0.6));
+	background: -o-linear-gradient(rgba(225, 225, 225, 0.6),rgba(68,80,76,0.6));
+	background: -ms-linear-gradient(rgba(225, 225, 225, 0.6),rgba(68,80,76,0.6));
+	background: linear-gradient(rgba(225, 225, 225, 0.6),rgba(68,80,76,0.6));
+}
+
+.taskbar ul li img {
+	width: 36px;
+	height: 32px;
+}
+
+#bottom .datetime {
+	width: 80px;
+	left: 0;
+	float: right;
+	height: 100%;
+	text-align: center;
+	color: #fff;
+	padding: 5px;
+}
+
+.user .frame {
+	padding: 3px 5px 5px 3px;
+	height: 48px;
+	width: 48px;
+	border-radius: 5px;
+
+	-webkit-box-shadow: 0px 0px 13px #333;
+	box-shadow: 0px 0px 13px #333;
+	border: 1px solid #272848;
+	margin: 0 auto;
+}
+
+.user .frame-inner {
+	/*background: url("img/myprofile.png") no-repeat;*/
+	border: 1px solid #333;
+	height: 100%;
+	width: 100%;
+}
+
+.likeit {
+	position: absolute;
+	right: 0px;
+}
+
+.likeit .swidget {
+	float: left;
+	width: 65px;
+	height: 76px;
+	overflow: hidden;
+	text-align: center;
+}
+.md-button.md-fab{
+  z-index:1;
+}
+.radioButtondemoBasicUsage body {
+  padding: 20px; }
+.radioButtondemoBasicUsage hr {
+  margin-left: -20px;
+  opacity: 0.3; }
+.radioButtondemoBasicUsage md-radio-group {
+  width: 150px; }
+.radioButtondemoBasicUsage p:last-child {
+  padding-bottom: 50px; }
+.radioButtondemoBasicUsage [ng-controller] {
+  padding-left: 20px; }
+.radioButtondemoBasicUsage .radioValue {
+  margin-left: 5px;
+  color: #0f9d58;
+  font-weight: bold;
+  padding: 5px; }
+.radioButtondemoBasicUsage md-icon {
+  margin: 20px;
+  margin-top: 0;
+  width: 128px;
+  height: 128px; }
+.radioButtondemoBasicUsage .ipsum {
+  color: saddlebrown;
+  font-size: 0.9em; }
+
+.data-grid-table-module{
+
+}
+.highlight{
+  background-color: rgba(192,210,192,0.3)!important;
+}
+.module-tr{
+  position: relative;
+}
+.modulePerLi{
+  list-style: none;
+}
+.modulePerUl{
+
+}
+.rolePerLi{
+  float: left;
+  width: 10%;
+}
+.rolePerUl{
+
+}

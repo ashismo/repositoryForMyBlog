@@ -1,0 +1,198 @@
+<md-dialog ng-controller="profileController" aria-label="My Profile"  ng-cloak>
+  <form>
+
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>My Profile</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+       <div layout="row" layout-xs="column">
+        <div flex>
+          <div class="md-dialog-content">
+            <div layout="column" ng-cloak>
+              <md-content layout-padding>
+                <form name="projectForm">
+                  <md-input-container class="md-block">
+                    <label>Designation</label>
+                    <input md-maxlength="30" required md-no-asterisk name="designation" ng-model="branchBean.designation">
+                    <div ng-messages="projectForm.designation.$error">
+                      <div ng-message="required">This is required.</div>
+                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+                    </div>
+                  </md-input-container>
+                  <md-input-container class="md-block">
+                    <label>First Name</label>
+                    <input required name="firstName" ng-model="branchBean.users[0].firstName">
+                    <div ng-messages="projectForm.firstName.$error">
+                      <div ng-message="required">This is required.</div>
+                    </div>
+                  </md-input-container>
+                  <md-input-container class="md-block">
+                    <label>Last Name</label>
+                    <input required name="lastName" ng-model="branchBean.users[0].lastName">
+                    <div ng-messages="projectForm.lastName.$error">
+                      <div ng-message="required">This is required.</div>
+                    </div>
+                  </md-input-container>
+                  <md-input-container class="md-block">
+                    <label>Client Email</label>
+                    <input required type="email" name="clientEmail" ng-model="branchBean.users[0].email1"
+                           minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
+                    <div ng-messages="projectForm.clientEmail.$error" role="alert">
+                      <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                        Your email must be between 10 and 100 characters long and look like an e-mail address.
+                      </div>
+                    </div>
+                  </md-input-container>
+                  <md-input-container class="md-block">
+                    <label>Phone no</label>
+                    <input required name="phone" ng-model="branchBean.users[0].phone1">
+                    <div ng-messages="projectForm.phone.$error">
+                      <div ng-message="required">This is required.</div>
+                    </div>
+                  </md-input-container>
+                  <md-input-container class="md-block">
+                    <label>Start Date</label>
+                    <input required name="startdate" ng-model="branchBean.users[0].startDate">
+                    <div ng-messages="projectForm.startdate.$error">
+                      <div ng-message="required">This is required.</div>
+                    </div>
+                  </md-input-container>
+                  <md-input-container class="md-block">
+                    <label>Created By</label>
+                    <input required name="createdby" ng-model="branchBean.users[0].createUser">
+                    <div ng-messages="projectForm.createdby.$error">
+                      <div ng-message="required">This is required.</div>
+                    </div>
+                  </md-input-container>
+                </form>
+              </md-content>
+            </div>
+          </div>
+        </div>
+        <div flex>
+          <div class="md-dialog-content">
+            <div layout="column" ng-cloak>
+              <md-content layout-padding>
+                <form name="projectForm">
+                  <md-input-container class="md-block">
+                    <label>Branch Id</label>
+                    <input md-maxlength="30" required md-no-asterisk name="branchid" ng-model="branchBean.branchId">
+                    <div ng-messages="projectForm.branchid.$error">
+                      <div ng-message="required">This is required.</div>
+                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+                    </div>
+                  </md-input-container>
+                  <md-input-container class="md-block">
+                    <label>Branch Name</label>
+                    <input required name="branchtName" ng-model="branchBean.branchName">
+                    <div ng-messages="projectForm.clientName.$error">
+                      <div ng-message="required">This is required.</div>
+                    </div>
+                  </md-input-container>
+                  <md-input-container class="md-block">
+                    <label>Bank Name</label>
+                    <input required name="bankname" ng-model="branchBean.bankName">
+                    <div ng-messages="projectForm.bankName.$error">
+                      <div ng-message="required">This is required.</div>
+                    </div>
+                  </md-input-container>
+                  <md-input-container class="md-block">
+                    <label>IFSC Code</label>
+                    <input required name="ifsccode" ng-model="branchBean.ifscCode">
+                    <div ng-messages="projectForm.clientName.$error">
+                      <div ng-message="required">This is required.</div>
+                    </div>
+                  </md-input-container>
+                  <md-input-container class="md-block">
+                    <label>MICR Code</label>
+                    <input required name="micrcode" ng-model="branchBean.micrCode">
+                    <div ng-messages="projectForm.micrcode.$error">
+                      <div ng-message="required">This is required.</div>
+                    </div>
+                  </md-input-container>
+                  <md-input-container class="md-block">
+                    <label>Branch Phone No</label>
+                    <input required name="phonrnobranch" ng-model="branchBean.phone1">
+                    <div ng-messages="projectForm.phonrnobranch.$error">
+                      <div ng-message="required">This is required.</div>
+                    </div>
+                  </md-input-container>
+                  <md-input-container class="md-block">
+                    <label>DB Name</label>
+                    <input required name="dbname" ng-model="branchBean.dbName">
+                    <div ng-messages="projectForm.dbname.$error">
+                      <div ng-message="required">This is required.</div>
+                    </div>
+                  </md-input-container>
+                  <md-input-container class="md-block">
+                    <label>Context Root</label>
+                    <input required name="contextroot" ng-model="branchBean.contextRoot">
+                    <div ng-messages="projectForm.contextroot.$error">
+                      <div ng-message="required">This is required.</div>
+                    </div>
+                  </md-input-container>
+                </form>
+              </md-content>
+            </div>
+          </div>
+        </div>
+        <div flex>
+          <div class="md-dialog-content">
+            <div layout="column" ng-cloak>
+              <md-content layout-padding>
+                <form name="projectForm123">
+                  <script type="text/ng-template" id="myModalContent.html">
+                    <div class="modal-header">
+                      <h3 class="modal-title">Profile Image Edit!</h3>
+                    </div>
+                    <div class="modal-body" ng-controller="profileController">
+
+                      <div>Select an image file: <input type="file" id="fileInput" /></div>
+                      <div class="cropArea">
+                        <img-crop image="myImage" result-image="myCroppedImage"></img-crop>
+                      </div>
+                      <div>Cropped Image:</div>
+                      <div><img ng-src="{{myCroppedImage}}" /></div>
+
+
+
+
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+                      <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+                    </div>
+                  </script>
+{{profile.profilePic}}
+                   <img class="profile-pic-edit" ng-src="data:png;base64,{{branchBean.users[0].profilePic}}" width="120" height="120"/>
+                  <button type="button" class="btn btn-default" ng-click="open()">Edit me!</button>
+                </form>
+              </md-content>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" md-autofocus>
+        Help
+      </md-button>
+      <span flex></span>
+      <md-button ng-click="answer('not useful')">
+       Undo
+      </md-button>
+      <md-button ng-click="answer('useful')" style="margin-right:20px;">
+       Edit
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

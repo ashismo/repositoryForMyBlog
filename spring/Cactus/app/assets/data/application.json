@@ -1,0 +1,60 @@
+[
+  {
+    "image": "chrome.png",
+    "application": "Google Chrome"
+  },
+  {
+    "image": "notepad.jpg",
+    "application": "Notepad"
+  },
+  {
+    "image": "firefox-32.png",
+    "application": "Mozilla Firefox"
+  },
+  {
+    "image": "firefox-32.png",
+    "application": "Mozilla Firefox"
+  },
+  {
+    "image": "firefox-32.png",
+    "application": "Mozilla Firefox"
+  },
+  {
+    "image": "ie.png",
+    "application": "Internet Explorer"
+  },
+  {
+    "image": "vs2010.jpg",
+    "application": "Microsoft Visual Studio 2010"
+  },
+  {
+    "image": "paint.jpg",
+    "application": "Paint"
+  },
+  {
+    "image": "firefox-32.png",
+    "appId":1,
+    "application":"Configuration",
+    "templateUrl":"scripts/modules/applications/config.tpl.html"
+  },
+  {
+    "image": "firefox-32.png",
+    "appId":2,
+    "application":"Retail",
+    "templateUrl":"scripts/modules/applications/retail.tpl.html"
+  },
+  {
+    "minimizeapp":[
+      {
+         "imgUrl":"../../../../assets/css/img/tb-explorer.png",
+         "id":"t-explor",
+         "appUrl":""
+      },
+      {
+         "imgUrl":"../../../../assets/css/img/Calc.png",
+         "id":"t-calc",
+         "appUrl":""
+      }
+    ]
+  }
+]

@@ -1,0 +1,184 @@
+{
+  "branchBean": {
+    "branchId": 2,
+    "bankName": "Test Branch",
+    "branchName": "Test Branch",
+    "ifscCode": "11AA11",
+    "micrCode": "11AA11",
+    "email1": "ujan@gmail.com",
+    "phone1": "9830625559",
+    "startDate": "10/12/2015 00:00:00",
+    "createUser": "ashish",
+    "dbName": "coopadmin",
+    "contextRoot": "CustomerSvcWS",
+    "branchRuleBeans": [
+      {
+        "branchRuleId": 4,
+        "branchId": 2,
+        "branchName": "Test Branch",
+        "ruleId": 1,
+        "ruleName": "LOGIN_OPTION",
+        "ruleValue": "SECURITY_QUESTION_BASED_LOGIN",
+        "startDate": "13/12/2015 00:00:00",
+        "createUser": "ashish"
+      }
+    ],
+    "users": [
+      {
+        "userId": 2,
+        "branchId": 2,
+        "userName": "ujan",
+        "password": "ashish",
+        "firstName": "Ujan",
+        "lastName": "Mondal",
+        "email1": "ujan@gmail.com",
+        "phone1": "9830625559",
+        "startDate": "10/12/2015 22:29:59",
+        "createUser": "ashish",
+        "userRoles": [
+          {
+            "userRoleId": 3,
+            "userId": 2,
+            "roleId": 1,
+            "startDate": "08/12/2015 00:00:00",
+            "createUser": "ashish"
+          }
+        ],
+        "userSecurityQuestions": [
+          {
+            "userSecId": 1,
+            "userId": 2,
+            "questionId": 4,
+            "answer": "ashish",
+            "startDate": "10/12/2015 00:00:00",
+            "createUser": "ashish"
+          },
+          {
+            "userSecId": 2,
+            "userId": 2,
+            "questionId": 3,
+            "answer": "wipro",
+            "startDate": "13/12/2015 00:00:00",
+            "createUser": "ashish"
+          }
+        ]
+      }
+    ],
+    "branchActive": false
+  },
+  "branches": [
+    {
+      "branchId": 1,
+      "bankName": "ABC",
+      "branchName": "ABC",
+      "ifscCode": "111111",
+      "micrCode": "111111",
+      "email1": "ashismo@gmail.com",
+      "phone1": "98305255559",
+      "startDate": "07/12/2015 00:00:00",
+      "createUser": "ashish",
+      "dbName": "coopadmin2",
+      "contextRoot": "CustomerSvcWS",
+      "users": [
+        {
+
+        }
+      ],
+      "branchActive": false
+    },
+    {
+      "branchId": 2,
+      "bankName": "Test Branch",
+      "branchName": "Test Branch",
+      "ifscCode": "11AA11",
+      "micrCode": "11AA11",
+      "email1": "ujan@gmail.com",
+      "phone1": "9830625559",
+      "startDate": "10/12/2015 00:00:00",
+      "createUser": "ashish",
+      "dbName": "coopadmin",
+      "contextRoot": "CustomerSvcWS",
+      "users": [
+        {
+
+        }
+      ],
+      "branchActive": false
+    },
+    {
+      "branchId": 25,
+      "bankName": "Test Bank",
+      "branchName": "Branch1",
+      "ifscCode": "12345678",
+      "micrCode": "87654321",
+      "email1": "ashismo@gmail.com",
+      "phone1": "9830625559",
+      "startDate": "18/12/2015 00:00:00",
+      "createUser": "ashish",
+      "dbName": "coopadmin",
+      "contextRoot": "CustomerSvcWS",
+      "branchActive": false
+    },
+    {
+      "branchId": 26,
+      "bankName": "Kalipur",
+      "branchName": "Kalipur",
+      "ifscCode": "12345743",
+      "micrCode": "87656321",
+      "email1": "ashismo@gmail.com",
+      "phone1": "9830625559",
+      "startDate": "18/12/2015 00:00:00",
+      "createUser": "ashish",
+      "dbName": "coopadmin",
+      "contextRoot": "CustomerSvcWS",
+      "branchActive": false
+    },
+    {
+      "branchId": 27,
+      "bankName": "Kalipur1",
+      "branchName": "Kalipur1",
+      "ifscCode": "12345744",
+      "micrCode": "87656324",
+      "email1": "ashismo@gmail.com",
+      "phone1": "9830625559",
+      "startDate": "18/12/2015 00:00:00",
+      "createUser": "ashish",
+      "dbName": "coopadmin",
+      "contextRoot": "CustomerSvcWS",
+      "users": [
+        {
+
+        }
+      ],
+      "branchActive": false
+    },
+    {
+      "branchId": 28,
+      "bankName": "Kalipur",
+      "branchName": "Kalipur",
+      "ifscCode": "12345723",
+      "micrCode": "87656311",
+      "email1": "ashismo@gmail.com",
+      "phone1": "9830625559",
+      "startDate": "18/12/2015 00:00:00",
+      "createUser": "ashish",
+      "dbName": "retail",
+      "contextRoot": "RetailSvcWS",
+      "branchActive": false
+    },
+    {
+      "branchId": 29,
+      "bankName": "Kalipur",
+      "branchName": "Kalipur",
+      "ifscCode": "123453",
+      "micrCode": "87656",
+      "email1": "ashismo@gmail.com",
+      "phone1": "9830625559",
+      "startDate": "18/12/2015 00:00:00",
+      "createUser": "ashish",
+      "dbName": "coop_kalipur",
+      "contextRoot": "CustomerSvcWS",
+      "branchActive": false
+    }
+  ]
+}

@@ -1,0 +1,586 @@
+<div ng-controller="configController as cc">
+  <div ng-hide="!progressActivated" class="progerss-wrapper">
+  <md-progress-circular ng-disabled="!progressActivated" class="md-hue-2" md-diameter="50px"></md-progress-circular>
+    </div>
+  <div ng-show="selectedIndex === 0">
+    <md-button class="md-raised md-button-right-top" ng-hide="!isOpenRight()" ng-click="cc.saveBranch()">Save
+    </md-button>
+    <md-button class="md-raised md-button-right-top-custom" ng-hide="!isOpenRight()" ng-click="cc.resetBranchForm()">New Form
+    </md-button>
+    <md-button class="md-fab md-button-right-top" aria-label="Eat cake" ng-click="toggleRight($mdTabsCtrl)"
+               ng-hide="isOpenRight()">
+      <md-icon md-svg-src="img/icons/cake.svg"></md-icon>
+    </md-button>
+  </div>
+  <div ng-show="selectedIndex === 1">
+    <md-button class="md-raised md-button-right-top" ng-hide="!isOpenRightRole()" ng-click="cc.saveRole()">Save
+    </md-button>
+    <md-button class="md-fab md-button-right-top" aria-label="Eat cake" ng-click="toggleRightRole($mdTabsCtrl)"
+               ng-hide="isOpenRightRole()">
+      <md-icon md-svg-src="img/icons/cake.svg"></md-icon>
+    </md-button>
+  </div>
+  <div ng-show="selectedIndex === 2">
+    <md-button class="md-raised md-button-right-top" ng-hide="!isOpenRightModule()" ng-click="cc.saveModule()">Save
+    </md-button>
+    <md-button class="md-fab md-button-right-top" aria-label="Eat cake" ng-click="toggleRightModule($mdTabsCtrl)"
+               ng-hide="isOpenRightModule()">
+      <md-icon md-svg-src="img/icons/cake.svg"></md-icon>
+    </md-button>
+  </div>
+  <div ng-show="selectedIndex === 3">
+    <md-button class="md-raised md-button-right-top" ng-hide="!isOpenRightUser()" ng-click="cc.saveUser()">Save
+    </md-button>
+    <md-button class="md-fab md-button-right-top" aria-label="Eat cake" ng-click="toggleRightUser($mdTabsCtrl)"
+               ng-hide="isOpenRightUser()">
+      <md-icon md-svg-src="img/icons/cake.svg"></md-icon>
+    </md-button>
+  </div>
+  <div ng-cloak>
+    <md-content>
+
+      <md-tabs md-dynamic-height md-border-bottom md-selected="selectedIndex">
+        <md-tab  label="Branch">
+          <md-content  class="md-padding tab-content-custom">
+<form>
+            <table class="data-grid-table" cellspacing="0" summary="The technical
+specifications of">
+
+              <tr class="nobg">
+                <th scope="col" abbr="Configurations"></th>
+                <th scope="col" abbr="Configurations">Bank Name</th>
+                <th scope="col" abbr="Dual 1.8GHz">Branch Name</th>
+                <th scope="col" abbr="Dual 2GHz">IFSC Code</th>
+                <th scope="col" abbr="Dual 2.5GHz">MICR Code</th>
+                <th scope="col" abbr="Dual 2.5GHz">Database</th>
+                <th scope="col" abbr="Dual 2.5GHz">Context Root</th>
+                <th scope="col" abbr="Dual 2.5GHz">Email</th>
+                <th scope="col" abbr="Dual 2.5GHz">Phone</th>
+                <th scope="col" abbr="Dual 2.5GHz">Branch Status</th>
+              </tr>
+              <tr ng-repeat="branch in userBranchData">
+                <td scope="row" class="spec"><input type="radio" name="branchIdRadio" ng-click="setBranch(branch)"  value="branch.branchId"/></td>
+                <td scope="row" class="spec">{{branch.bankName}}</td>
+                <td>{{branch.branchName}}</td>
+                <td>{{branch.ifscCode}}</td>
+                <td>{{branch.micrCode}}</td>
+                <td>{{branch.dbName}}</td>
+                <td>{{branch.contextRoot}}</td>
+                <td>{{branch.email1}}</td>
+                <td>{{branch.phone1}}</td>
+                <td>{{branch.branchActive}}</td>
+              </tr>
+            </table>
+</form>
+
+            <div layout="row">
+
+            </div>
+
+            <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
+              <md-toolbar class="md-theme-light">
+                <h3 class="md-toolbar-tools">Detail Input
+                  <md-button class="md-fab md-button-right" aria-label="Eat cake" ng-click="toggleRight()">
+                    <md-icon md-svg-src="img/icons/cake.svg"></md-icon>
+                  </md-button>
+                </h3>
+              </md-toolbar>
+              <md-content layout-padding>
+                <form>
+                  <md-input-container>
+                    <label for="testInput">Bank Name</label>
+                    <input type="text" id="bankName"
+                           ng-model="cc.addBranch.bankName" md-autofocus required>
+                  </md-input-container>
+                  <md-input-container>
+                    <label for="testInput">Branch Name</label>
+                    <input type="text" id="branchName"
+                           ng-model="cc.addBranch.branchName" required>
+                  </md-input-container>
+                  <md-input-container>
+                    <label for="testInput">IFSC Code</label>
+                    <input type="text" id="ifscCode"
+                           ng-model="cc.addBranch.ifscCode" required>
+                  </md-input-container>
+                  <md-input-container>
+                    <label for="testInput">MICR Code</label>
+                    <input type="text" id="micrCode"
+                           ng-model="cc.addBranch.micrCode" required>
+                  </md-input-container>
+                  <md-input-container>
+                    <label for="testInput">Email Id</label>
+                    <input type="text" id="emailId"
+                           ng-model="cc.addBranch.email1" required>
+                  </md-input-container>
+                  <md-input-container>
+                    <label for="testInput">Phone</label>
+                    <input type="text" id="phone"
+                           ng-model="cc.addBranch.phone1" required>
+                  </md-input-container>
+                  <md-input-container ng-show="cc.addBranch.parentId == 0">
+                    <label for="testInput">Database Name</label>
+                    <input type="text" id="dbName"
+                           ng-model="cc.addBranch.dbName" required>
+                  </md-input-container>
+                  <md-input-container ng-show="cc.addBranch.parentId == 0">
+                    <label for="testInput">Context Root</label>
+                    <input type="text" id="contextRoot"
+                           ng-model="cc.addBranch.contextRoot" required>
+                  </md-input-container>
+
+                  <md-input-container style="display:block;">
+                    <label for="testInput">Parent Branch</label>
+                      <md-select ng-model="cc.selectedParent">
+                        <md-option ng-repeat="parentBranch in parentBranchIdSelect"
+                                 ng-click="populateDataFromParent(parentBranch)"
+                                 value="{{parentBranch.branchId}}">{{parentBranch.branchName}}
+                        </md-option>
+                      </md-select>
+                  </md-input-container>
+
+                  <!-- Address fields added by ashish-->
+                  <!--<input type="radio" name="branchIdRadio"  value="cc.userBranchData.addresses[0].addressId" ng-click="cc.populateAddress()"/>-->
+                  <label for="testInput">Add Address <input type="checkbox"
+                                                            ng-checked="branchAddressAttached"
+                                                            ng-disabled="branchAddressAttached"
+                                                            ng-click="populateBranchAddress()"/></label>
+
+                    <md-div ng-repeat="address in branchAddress">
+                        <input type="hidden" name="branchId"  value="address.addressId"/>
+
+                        <md-input-container>
+                          <input type="hidden" id="addressName"
+                                 ng-model="address.addressName" value="OfficeAddress">
+                        </md-input-container>
+
+                        <md-input-container>
+
+                          <input type="hidden" id="addressType"
+                                 ng-model="address.addressType" value="OFFICE">
+                        </md-input-container>
+
+                        <md-input-container>
+                          <label for="testInput">Address Line1</label>
+                          <input type="text" id="addressLine1"
+                                 ng-model="address.addressLine1" required>
+                        </md-input-container>
+
+                        <md-input-container>
+                          <label for="testInput">Address Line2</label>
+                          <input type="text" id="addressLine2"
+                                 ng-model="address.addressLine2">
+                        </md-input-container>
+
+                        <md-input-container>
+                          <label for="testInput">District</label>
+                          <input type="text" id="distId"
+                                 ng-model="address.distId" required>
+                        </md-input-container>
+
+                        <md-input-container>
+                          <label for="testInput">PIN</label>
+                          <input type="text" id="pin"
+                                 ng-model="address.pin" required>
+                        </md-input-container>
+                    </md-div>
+                </form>
+
+              </md-content>
+            </md-sidenav>
+
+
+          </md-content>
+        </md-tab>
+        <md-tab  label="Role">
+          <md-content class="md-padding tab-content-custom">
+			<div ng-if="!attachtedBranchRoleBeans"> NO Role Available </div>
+          <uib-accordion ng-if="attachtedBranchRoleBeans" close-others="oneAtATime">
+              <uib-accordion-group heading="{{role.roleName}}" ng-repeat="role in attachtedBranchRoleBeans | orderBy : 'roleId'">
+                   <span class="display-block"><strong>Role Description:</strong> {{role.roleDescription}}</span>
+                   <!-- <ul class="rolePerUl" ng-repeat="per in role.rolePermissions">-->
+                      <div class="rolePerLi" ng-repeat="mod in modules">
+                        <strong>{{mod.moduleName}}</strong>
+                        <ul class="modulePerUl">
+                          <li class="modulePerLi" ng-repeat="attachModulePer in mod.branchModulePermissions | orderBy : 'permission'">
+                            <input type="checkbox" ng-model="rolePermissions.value" ng-checked="checkTrueOrFalse(attachModulePer,role)" ng-click="attachRolePermission(rolePermissions.value,attachModulePer,role)">
+                            <label>{{attachModulePer.permission}}</label>
+                          </li>
+                        </ul>
+                      </div>
+                   <!-- </ul>-->
+                </uib-accordion-group>
+              </uib-accordion>
+
+
+
+           <!-- <table ng-if="attachtedBranchRoleBeans" class="data-grid-table data-grid-table-module" cellspacing="0" summary="The technical specifications of">
+                  <tr class="nobg">
+                    <th scope="col" abbr="Configurations">Role Id</th>
+                    <th scope="col" abbr="Dual 1.8GHz">Role Name</th>
+                    <th scope="col" abbr="Dual 2GHz">Role Description</th>
+                    <th scope="col" abbr="Dual 2.5GHz">Role Start Date</th>
+                    <th scope="col" abbr="Dual 2.5GHz">create User</th>
+                  </tr>
+                  <tr class="module-tr" ng-repeat="role in attachtedBranchRoleBeans | orderBy : 'roleId'" ng-click="showAttachtedRolePermission(role)">
+                    <td scope="row" class="spec">{{role.roleId}}</td>
+                    <td>{{role.roleName}}</td>
+                    <td>{{role.roleDescription}}</td>
+                    <td>{{role.startDate}}</td>
+                    <td>{{role.createUser}}</td>
+                   </tr>
+                </table>-->
+				<role-permission ng-if="permissionrole" permissionrole="permissionrole"></role-permission>
+            <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="rightRole">
+              <md-toolbar class="md-theme-light">
+                <h3 class="md-toolbar-tools">Detail Input
+                  <md-button class="md-fab md-button-right" aria-label="Eat cake" ng-click="toggleRightRole()">
+                    <md-icon md-svg-src="img/icons/cake.svg"></md-icon>
+                  </md-button>
+                </h3>
+              </md-toolbar>
+              <md-content layout-padding>
+                <form>
+                  <md-input-container>
+                    <label for="testInput">Role Name</label>
+                    <input type="text" ng-model="cc.addRole.roleName" md-autofocus>
+                  </md-input-container>
+                  <md-input-container>
+                    <label for="testInput">Role Description</label>
+                    <input type="text" ng-model="cc.addRole.roleDescription">
+                  </md-input-container>
+                  <md-input-container style="display:block;">
+                    <label for="testInput">Branch</label>
+                    <md-select ng-model="cc.addRole.branchId">
+                      <md-option ng-repeat="item in branchIdSelect" value="{{item.bId}}">{{item.bName}}</md-option>
+                    </md-select>
+                  </md-input-container>
+
+                </form>
+
+              </md-content>
+            </md-sidenav>
+
+
+          </md-content>
+        </md-tab>
+        <md-tab  label="Module">
+          <md-content  class="md-padding tab-content-custom">
+            <input type="checkbox" ng-model="oneAtATime">
+            <label>Attachted Modules</label>
+            <uib-accordion close-others="oneAtATime">
+              <uib-accordion-group heading="{{module.moduleName}}" crud="module.branchModulePermissions" ng-repeat="module in modules">
+                <span class="add-module-rule"><i class="fa fa-plus-square fa-lg" aria-hidden="true"></i></span>
+                <div ng-if="!attachtedBranchRuleBeans"> NO Rule Available </div>
+                <table ng-if="attachtedBranchRuleBeans" class="data-grid-table data-grid-table-module" cellspacing="0" summary="The technical specifications of">
+                  <tr class="nobg">
+                    <th scope="col" abbr="Configurations">Rule Id</th>
+                    <th scope="col" abbr="Dual 1.8GHz">Rule Name</th>
+                    <th scope="col" abbr="Dual 1.8GHz">Rule Value</th>
+                    <th scope="col" abbr="Dual 2GHz">Rule Description</th>
+                    <th scope="col" abbr="Dual 2.5GHz">Rule Start Date</th>
+                  </tr>
+                  <tr class="module-tr" ng-show="rule.branchId === module.branchId" ng-repeat="rule in attachtedBranchRuleBeans | orderBy :'ruleId'"  ng-click="cc.attachtedRuleUpdate(rule,module)">
+                    <td scope="row" class="spec">{{rule.ruleId}}</td>
+                    <td>{{rule.ruleName}}</td>
+                    <td>{{rule.ruleValue}}</td>
+                    <td>{{rule.ruleDescription}}</td>
+                    <td>{{rule.startDate}}</td>
+                  </tr>
+                </table>
+              </uib-accordion-group>
+            </uib-accordion>
+            <div class="attachted-module" ng-show="editAttachtedModule">
+              <span class="close-popup" ng-click="editAttachtedModule = !editAttachtedModule">X</span>
+              <md-content layout-padding>
+                <form>
+                  {{editModule.moduleName}}
+                  <md-input-container>
+                    <label for="testInput">Rule Value Description</label>
+                    <input type="text" id="testInput"
+                           ng-model="editRule.ruleValueDescription" md-autofocus>
+                  </md-input-container>
+                  <md-input-container>
+                    <label for="testInput">Rule Value</label>
+                    <input type="text" id="testInput"
+                           ng-model="editRule.ruleValue" md-autofocus>
+                  </md-input-container>
+                  <button type="button" class="btn btn-primary pull-right margin-bottom-10 margin-right-10" ng-click="cc.updateModulePermission()">Add</button>
+                </form>
+              </md-content>
+            </div>
+
+
+            <label>Available Modules</label>
+            <uib-accordion close-others="oneAtATime">
+              <uib-accordion-group heading="{{avaiableModule.moduleName}}" crud="avaiableModule.modulePermissions" ng-repeat="avaiableModule in avaiableModules">
+                <span class="add-module-rule"><i class="fa fa-plus-square fa-lg" aria-hidden="true"></i></span>
+                <div class="add-module-rule-popup"><span class="close-popup"><i class="fa fa-times" aria-hidden="true"></i></span>
+                  <span class="header">Add New Module Permission</span>
+                  <md-content layout-padding>
+                    <form>
+                      {{avaiableModule.moduleName}}
+                      <md-input-container>
+                        <label for="testInput">Rule Name</label>
+                        <input type="text" id="testInput"
+                               ng-model="cc.moduleRules.ruleName" md-autofocus>
+                      </md-input-container>
+                      <md-input-container>
+                        <label for="testInput">Rule Description</label>
+                        <input type="text" id="testInput"
+                               ng-model="cc.moduleRules.ruleDescription" >
+                      </md-input-container>
+                      <md-input-container>
+                      <label for="testInput">Rule Value</label>
+                      <input type="text" id="testInput"
+                             ng-model="cc.moduleRules.ruleValue" >
+                    </md-input-container>
+                      <md-input-container>
+                        <label for="testInput">Rule Description</label>
+                        <input type="text" id="testInput"
+                               ng-model="cc.moduleRules.ruleValueDescription" >
+                      </md-input-container>
+                    </form>
+
+                  </md-content>
+                  <button type="button" class="btn btn-primary pull-right margin-bottom-10 margin-right-10" ng-click="cc.add_new_module_permission(avaiableModule)">Add</button>
+                </div>
+                <div ng-if="!avaiableModule.moduleRules"> NO Rule Available </div>
+                <table ng-if="avaiableModule.moduleRules" class="data-grid-table data-grid-table-module" cellspacing="0" summary="The technical specifications of">
+                  <tr class="nobg">
+                    <th scope="col" abbr="Configurations">Rule Id</th>
+                    <th scope="col" abbr="Dual 1.8GHz">Rule Name</th>
+                    <th scope="col" abbr="Dual 2GHz">Rule Description</th>
+                    <th scope="col" abbr="Dual 2.5GHz">Rule Start Date</th>
+                    <th scope="col" abbr="Dual 2.5GHz">Operations</th>
+                  </tr>
+                  <tr class="module-tr" ng-repeat="rule in avaiableModule.moduleRules | orderBy :'ruleId'"  ng-click="cc.modelPopup()">
+                    <td scope="row" class="spec">{{rule.ruleId}}</td>
+                    <td>{{rule.ruleName}}</td>
+                    <td>{{rule.ruleDescription}}
+                      <div class="rule-value-popup"><span class="close-rule-value">X</span>
+                        <div ng-if="!rule.ruleMasterValues">No value Available</div>
+                        <table ng-if="rule.ruleMasterValues" class="bordered">
+                        <thead>
+                        <tr>
+                          <th>Rule Name</th>
+                          <th>Rule Value</th>
+                          <th>Description</th>
+                        </tr>
+                        </thead>
+                        <tr ng-repeat="value in rule.ruleMasterValues">
+                          <td>{{value.ruleName}}</td>
+                          <td>{{value.ruleValue}}</td>
+                          <td>{{value.ruleValueDescription}}</td>
+                        </tr>
+                        </table>
+                    </div></td>
+                    <td>{{rule.startDate}}</td>
+                    <td><button type="button" ng-click="attachModuleToBranch(rule,'parent');$event.stopImmediatePropagation();" class="btn btn-info">Attach</button>
+
+
+
+
+                    </td>
+                  </tr>
+                </table>
+              </uib-accordion-group>
+            </uib-accordion>
+            <value-set ng-if="value" confirm-action="attachModuleToBranch(ruleValue,'child',ruleValue)"  value="value"></value-set>
+
+            <div layout="row">
+
+
+
+
+            </div>
+
+            <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="rightModule">
+              <md-toolbar class="md-theme-light">
+                <h3 class="md-toolbar-tools">Detail Input
+                  <md-button class="md-fab md-button-right" aria-label="Eat cake" ng-click="toggleRightModule()">
+                    <md-icon md-svg-src="img/icons/cake.svg"></md-icon>
+                  </md-button>
+                </h3>
+              </md-toolbar>
+              <md-content layout-padding>
+                <form>
+                  <md-input-container>
+                    <label for="testInput">Test input</label>
+                    <input type="text" id="testInput"
+                           ng-model="cc.addModule.moduleName" md-autofocus>
+                  </md-input-container>
+                  <md-input-container>
+                    <label for="testInput">Test input</label>
+                    <input type="text" id="testInput"
+                           ng-model="cc.addModule.startDate" >
+                  </md-input-container>
+                </form>
+
+              </md-content>
+            </md-sidenav>
+
+
+          </md-content>
+
+
+        </md-tab>
+        <md-tab  label="User">
+          <md-content class="md-padding tab-content-custom">
+            <div ng-if="!attachtedBranchUserBeans"> NO User Available </div>
+            <uib-accordion ng-if="attachtedBranchUserBeans" close-others="oneAtATime">
+              <uib-accordion-group heading="{{user.firstName}} {{user.middleName}} {{user.lastName}}" ng-repeat="user in attachtedBranchUserBeans | orderBy : 'userId'">
+                <table ng-if="user" class="data-grid-table data-grid-table-module" cellspacing="0" summary="The technical specifications of">
+                  <tr class="nobg">
+                    <th scope="col" abbr="User Name">User Name</th>
+                    <th scope="col" abbr="Contact">Contact</th>
+                    <th scope="col" abbr="No of Attached Role">No of Attached Role</th>
+                    <th scope="col" abbr="Start Date">Start Date</th>
+                    <th scope="col" abbr="Created By">Created By</th>
+                    <th scope="col" abbr="Operation">Operation</th>
+                  </tr>
+                  <tr class="module-tr">
+                    <td scope="row" class="spec">{{user.firstName}} {{user.middleName}} {{user.lastName}}</td>
+                    <td>{{user.email1}}<br/>{{user.phone1}}</td>
+                    <td>{{user.userRoles.length || 0}}</td>
+                    <td>{{user.startDate}}</td>
+                    <td>{{user.createUser}}</td>
+                    <td><button type="button" class="btn btn-primary pull-right margin-bottom-10 margin-right-10" ng-click="cc.editUser(user)">Edit</button></td>
+                  </tr>
+                </table>
+                <br/>
+                 <ul class="modulePerUl">
+                    <li class="modulePerLi" ng-repeat="attachableRole in attachtedBranchRoleBeans | orderBy : 'roleName'">
+                      <input type="checkbox" ng-model="roleUser.value" ng-checked="checkTrueOrFalseUser(attachableRole,user)" ng-click="attachRoleUser(roleUser.value,user,attachableRole)">
+                      <label>{{attachableRole.roleName}}</label>
+                    </li>
+                  </ul>
+
+                </uib-accordion-group>
+              </uib-accordion>
+
+
+            <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="rightUser">
+              <md-toolbar class="md-theme-light">
+                <h3 class="md-toolbar-tools">Detail Input
+                  <md-button class="md-fab md-button-right" aria-label="Eat cake" ng-click="toggleRightUser()">
+                    <md-icon md-svg-src="img/icons/cake.svg"></md-icon>
+                  </md-button>
+                </h3>
+              </md-toolbar>
+              <md-content layout-padding>
+                <form>
+                  <md-input-container>
+                    <label for="testInput">userName</label>
+                    <input type="text" id="testInput"
+                           ng-model="cc.addUser.userName" md-autofocus>
+                  </md-input-container>
+                  <md-input-container>
+                    <label for="testInput">password</label>
+                    <input type="text" id="testInput"
+                           ng-model="cc.addUser.password" md-autofocus>
+                  </md-input-container>
+                  <md-input-container>
+                    <label for="testInput">transactionPassword</label>
+                    <input type="text" id="testInput"
+                           ng-model="cc.addUser.transactionPassword" md-autofocus>
+                  </md-input-container>
+                  <md-input-container>
+                    <label for="testInput">firstName</label>
+                    <input type="text" id="testInput"
+                           ng-model="cc.addUser.firstName" md-autofocus>
+                  </md-input-container>
+                  <md-input-container>
+                    <label for="testInput">lastName</label>
+                    <input type="text" id="testInput"
+                           ng-model="cc.addUser.lastName" md-autofocus>
+                  </md-input-container>
+                  <md-input-container>
+                    <label for="testInput">phone</label>
+                    <input type="text" id="testInput"
+                           ng-model="cc.addUser.phone1" md-autofocus>
+                  </md-input-container>
+                  <md-input-container>
+                    <label for="testInput">email</label>
+                    <input type="text" id="testInput"
+                           ng-model="cc.addUser.email" md-autofocus>
+                  </md-input-container>
+                </form>
+
+              </md-content>
+            </md-sidenav>
+          </md-content>
+        </md-tab>
+        <md-tab  label="Settings">
+          <md-content class="md-padding tab-content-custom">
+            <table class="data-grid-table" cellspacing="0" summary="The technical
+specifications of">
+
+              <tr class="nobg">
+                <th scope="col" abbr="Configurations">Bank Name</th>
+                <th scope="col" abbr="Dual 1.8GHz">Branch Name</th>
+                <th scope="col" abbr="Dual 2GHz">IFSC Code</th>
+                <th scope="col" abbr="Dual 2.5GHz">MICR Code</th>
+              </tr>
+              <tr ng-repeat="branch in cc.branch">
+                <td scope="row" class="spec">{{branch.bankName}}</td>
+                <td>{{branch.branchName}}</td>
+                <td>{{branch.ifscCode}}</td>
+                <td>{{branch.micrCode}}</td>
+              </tr>
+            </table>
+
+
+            <div layout="row">
+
+            </div>
+
+            <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="rightUser">
+              <md-toolbar class="md-theme-light">
+                <h3 class="md-toolbar-tools">Detail Input
+                  <md-button class="md-fab md-button-right" aria-label="Eat cake" ng-click="toggleRightUser()">
+                    <md-icon md-svg-src="img/icons/cake.svg"></md-icon>
+                  </md-button>
+                </h3>
+              </md-toolbar>
+              <md-content layout-padding>
+                <form>
+                  <md-input-container>
+                    <label for="testInput">Test input</label>
+                    <input type="text" id="testInput"
+                           ng-model="cc.addBranch.bankName" md-autofocus>
+                  </md-input-container>
+                  <md-input-container>
+                    <label for="testInput">Test input</label>
+                    <input type="text" id="testInput"
+                           ng-model="cc.addBranch.branchName" md-autofocus>
+                  </md-input-container>
+                  <md-input-container>
+                    <label for="testInput">Test input</label>
+                    <input type="text" id="testInput"
+                           ng-model="cc.addBranch.ifscCode" md-autofocus>
+                  </md-input-container>
+                  <md-input-container>
+                    <label for="testInput">Test input</label>
+                    <input type="text" id="testInput"
+                           ng-model="cc.addBranch.micrCode" md-autofocus>
+                  </md-input-container>
+                  <md-input-container>
+                    <label for="testInput">Test input</label>
+                    <input type="text" id="testInput"
+                           ng-model="cc.addBranch.email1" md-autofocus>
+                  </md-input-container>
+                  <md-input-container>
+                    <label for="testInput">Test input</label>
+                    <input type="text" id="testInput"
+                           ng-model="cc.addBranch.phone1" md-autofocus>
+                  </md-input-container>
+                </form>
+
+              </md-content>
+            </md-sidenav>
+          </md-content>
+        </md-tab>
+      </md-tabs>
+    </md-content>
+  </div>
+</div>

@@ -1,0 +1,177 @@
+{
+  "branchBean": {
+    "branchId": 1,
+    "bankName": "ABC",
+    "branchName": "ABC",
+    "ifscCode": "111111",
+    "micrCode": "111111",
+    "email1": "ashismo@gmail.com",
+    "phone1": "98305255559",
+    "startDate": "07/12/2015 00:00:00",
+    "createUser": "ashish",
+    "dbName": "coopadmin2",
+    "contextRoot": "CustomerSvcWS",
+    "addresses": [
+      {
+        "addressId": 1,
+        "addressType": "HOME",
+        "addressLine1": "Kalipur",
+        "pin": "712708",
+        "distId": 1,
+        "emailId1": "ashismo@gmail.com",
+        "phoneNo1": "9830525559",
+        "startDate": "07/12/2015 00:00:00",
+        "createUser": "ashish"
+      }
+    ],
+    "branchRuleBeans": [
+      {
+        "branchRuleId": 1,
+        "branchId": 1,
+        "branchName": "ABC",
+        "ruleId": 5,
+        "ruleName": "NUMBER_OF_TIMES_OTP_TO_BE_RESEND",
+        "ruleValue": "3",
+        "startDate": "11/12/2015 00:00:00",
+        "createUser": "ashish"
+      },
+      {
+        "branchRuleId": 2,
+        "branchId": 1,
+        "branchName": "ABC",
+        "ruleId": 2,
+        "ruleName": "LOCK_AFTER_NO_OF_ATTEMPTS",
+        "ruleValue": "4",
+        "startDate": "10/12/2015 00:00:00",
+        "createUser": "ashish"
+      },
+      {
+        "branchRuleId": 3,
+        "branchId": 1,
+        "branchName": "ABC",
+        "ruleId": 1,
+        "ruleName": "LOGIN_OPTION",
+        "ruleValue": "OTP_BASED_LOGIN",
+        "startDate": "11/12/2015 00:00:00",
+        "createUser": "ashish"
+      }
+    ],
+    "users": [
+      {
+        "userId": 1,
+        "branchId": 1,
+        "userName": "ashish",
+        "password": "ashish",
+        "firstName": "Ashish",
+        "middleName": "Kumar",
+        "lastName": "Mondal",
+        "email1": "ashismo@gmail.com",
+        "phone1": "9830525559",
+        "startDate": "08/12/2015 06:46:57",
+        "createUser": "ashish",
+        "userRoles": [
+          {
+            "userRoleId": 1,
+            "userId": 1,
+            "roleId": 1,
+            "startDate": "08/12/2015 00:00:00",
+            "createUser": "ashish"
+          },
+          {
+            "userRoleId": 2,
+            "userId": 1,
+            "roleId": 2,
+            "startDate": "08/12/2015 00:00:00",
+            "createUser": "ashish"
+          }
+        ]
+      },
+      {
+        "userId": 4,
+        "branchId": 1,
+        "userName": "ashish1",
+        "firstName": "Ashish",
+        "phone1": "9830525559",
+        "startDate": "11/12/2015 00:00:00",
+        "createUser": "ashish"
+      }
+    ],
+    "modules": [
+      {
+        "moduleId": 2,
+        "branchId": 1,
+        "moduleName": "GENERAL",
+        "startDate": "09/12/2015 00:00:00"
+      }
+    ],
+    "roles": [
+      {
+        "roleId": 1,
+        "branchId": 1,
+        "roleName": "ADMIN",
+        "roleDescription": "Admin User",
+        "startDate": "08/12/2015 00:00:00",
+        "createUser": "ashish",
+        "rolePermissions": [
+          {
+            "rolePermId": 2,
+            "roleId": 1,
+            "startDate": "08/12/2015 00:00:00",
+            "createUser": "ashish"
+          },
+          {
+            "rolePermId": 3,
+            "roleId": 1,
+            "startDate": "08/12/2015 00:00:00",
+            "createUser": "ashish"
+          },
+          {
+            "rolePermId": 4,
+            "roleId": 1,
+            "startDate": "08/12/2015 00:00:00",
+            "createUser": "ashish"
+          },
+          {
+            "rolePermId": 5,
+            "roleId": 1,
+            "startDate": "08/12/2015 00:00:00",
+            "createUser": "ashish"
+          }
+        ]
+      },
+      {
+        "roleId": 2,
+        "branchId": 1,
+        "roleName": "AUDITOR",
+        "roleDescription": "Auditor",
+        "startDate": "08/12/2015 00:00:00",
+        "createUser": "ashish",
+        "rolePermissions": [
+          {
+            "rolePermId": 6,
+            "roleId": 2,
+            "startDate": "08/12/2015 00:00:00",
+            "createUser": "ashish"
+          }
+        ]
+      },
+      {
+        "roleId": 3,
+        "branchId": 1,
+        "roleName": "USER",
+        "roleDescription": "Normal User",
+        "startDate": "08/12/2015 00:00:00",
+        "createUser": "ashish",
+        "rolePermissions": [
+          {
+            "rolePermId": 1,
+            "roleId": 3,
+            "startDate": "08/12/2015 00:00:00",
+            "createUser": "ashish"
+          }
+        ]
+      }
+    ],
+    "branchActive": false
+  }
+}

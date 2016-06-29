@@ -1,0 +1,140 @@
+<div ng-controller="retailController as rc">
+  <div ng-cloak>
+    <md-content>
+      <md-tabs md-dynamic-height md-border-bottom>
+        <md-tab label="Transection">
+          <md-content class="md-padding">
+            <h1 class="md-display-2">Transection</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
+          </md-content>
+        </md-tab>
+        <md-tab label="two">
+          <md-content class="md-padding">
+            <h1 class="md-display-2">Tab Two</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor, orci enim rutrum enim, vel tempor sapien arcu a tellus. Vivamus convallis sodales ante varius gravida. Curabitur a purus vel augue ultrices ultricies id a nisl. Nullam malesuada consequat diam, a facilisis tortor volutpat et. Sed urna dolor, aliquet vitae posuere vulputate, euismod ac lorem. Sed felis risus, pulvinar at interdum quis, vehicula sed odio. Phasellus in enim venenatis, iaculis tortor eu, bibendum ante. Donec ac tellus dictum neque volutpat blandit. Praesent efficitur faucibus risus, ac auctor purus porttitor vitae. Phasellus ornare dui nec orci posuere, nec luctus mauris semper.</p>
+            <p>Morbi viverra, ante vel aliquet tincidunt, leo dolor pharetra quam, at semper massa orci nec magna. Donec posuere nec sapien sed laoreet. Etiam cursus nunc in condimentum facilisis. Etiam in tempor tortor. Vivamus faucibus egestas enim, at convallis diam pulvinar vel. Cras ac orci eget nisi maximus cursus. Nunc urna libero, viverra sit amet nisl at, hendrerit tempor turpis. Maecenas facilisis convallis mi vel tempor. Nullam vitae nunc leo. Cras sed nisl consectetur, rhoncus sapien sit amet, tempus sapien.</p>
+            <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+          </md-content>
+        </md-tab>
+        <md-tab label="Setup">
+          <md-content class="md-padding">
+
+            <uib-accordion close-others="oneAtATime">
+              <uib-accordion-group heading="Material Group">
+                <div class="material-group-search">
+                  <span ng-click="addMaterialGroupMaterial('group')" class="material-add">
+                    <i class="fa fa-plus-square-o fa-2x" aria-hidden="true"></i>
+                  </span>
+                  <md-input-container>
+                    <label>Search</label>
+                    <input type="text" ng-model="materialGroupSearch" />
+                  </md-input-container>
+                </div>
+                <table class="table material-group-table">
+                  <thead>
+                  <th>Material Group Code</th>
+                  <th>Material Group Description</th>
+                  <th>Create Date</th>
+                  <th>Operation</th>
+                  </thead>
+                  <tbody>
+                  <tr ng-repeat="materialGroup in model.materialGroups | filter : materialGroupSearch" ng-include="getTemplate('group',materialGroup)">
+                  </tr>
+                  </tbody>
+                </table>
+
+                <script type="text/ng-template" id="display">
+                  <td>{{materialGroup.groupName}}</td>
+                  <td>{{materialGroup.groupDescription}}</td>
+                  <td>{{materialGroup.createDate}}</td>
+                  <td>
+                    <button class="btn btn-xs btn-primary" ng-click="editMaterialGroup('group',materialGroup)">Edit</button>
+                  </td>
+                </script>
+                <script type="text/ng-template" id="edit">
+                  <td>
+                    <md-input-container>
+                      <label>Material Group Name</label>
+                      <input type="text" ng-model="model.selected.groupName" />
+                    </md-input-container>
+                  </td>
+                  <td>
+                    <md-input-container>
+                      <label>Material Group Description</label>
+                      <input type="text" ng-model="model.selected.groupDescription" />
+                    </md-input-container>
+                  </td>
+                  <td>
+                    <md-input-container>
+                      <label>Create Date</label>
+                      <input mdc-datetime-picker="" date="true" time="true" type="text" id="datetime"
+                             placeholder="Date" min-date="date" ng-model="model.selected.createDate" class=" md-input">
+                    </md-input-container>
+                  </td>
+                  <td>
+                    <button class="btn btn-xs btn-primary" ng-click="saveMaterialGroup('group',$index)">Save</button>
+                    <button class="btn btn-xs btn-warning" ng-click="reset('group')">Cancel</button>
+                  </td>
+                </script>
+
+
+              </uib-accordion-group>
+
+              <uib-accordion-group heading="Material">
+                <div class="material-group-search">
+                  <span ng-click="addMaterialGroupMaterial('material')" class="material-add">
+                    <i class="fa fa-plus-square-o fa-2x" aria-hidden="true"></i>
+                  </span>
+                  <md-input-container>
+                    <label>Search</label>
+                    <input type="text" ng-model="materialSearch" />
+                  </md-input-container>
+                </div>
+                <table class="table material-group-table">
+                  <thead>
+                  <th>Material Group Code</th>
+                  <th>Material Group Description</th>
+                  <th>Operation</th>
+                  </thead>
+                  <tbody>
+                  <tr ng-repeat="materialGroup in modelMaterial.materials | filter : materialSearch" ng-include="getTemplate('material',materialGroup)">
+                  </tr>
+                  </tbody>
+                </table>
+
+                <script type="text/ng-template" id="displayMat">
+                  <td>{{materialGroup.name}}</td>
+                  <td>{{materialGroup.glcode}}</td>
+                  <td>
+                    <button class="btn btn-xs btn-primary" ng-click="editMaterialGroup('material',materialGroup)">Edit</button>
+                  </td>
+                </script>
+                <script type="text/ng-template" id="editMat">
+                  <td>
+                    <md-input-container>
+                      <label>Material Group Code</label>
+                      <input type="text" ng-model="modelMaterial.selected.name" />
+                    </md-input-container>
+                  </td>
+                  <td>
+                    <md-input-container>
+                      <label>Material Group Description</label>
+                      <input type="text" ng-model="modelMaterial.selected.glcode" />
+                    </md-input-container>
+                  </td>
+                  <td>
+                    <button class="btn btn-xs btn-primary" ng-click="saveMaterialGroup('material',$index)">Save</button>
+                    <button class="btn btn-xs btn-warning" ng-click="reset('material')">Cancel</button>
+                  </td>
+                </script>
+
+
+              </uib-accordion-group>
+
+            </uib-accordion>
+          </md-content>
+        </md-tab>
+      </md-tabs>
+    </md-content>
+  </div>
+</div>

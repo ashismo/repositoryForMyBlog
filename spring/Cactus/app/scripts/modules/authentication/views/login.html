@@ -1,0 +1,79 @@
+﻿<!--<div class="alert alert-info">
+    Username: test<br />
+    Password: test
+</div>-->
+
+<section class="main">
+    <form class="form-2" name="form" ng-submit="login()" role="form">
+        <h1><span class="log-in">Log in</span> or <span class="sign-up">sign up</span></h1>
+        <p class="float">
+            <label for="login"><i class="icon-user"></i>Username</label>
+
+            <input type="text" name="username" placeholder="Username or email" id="username" class="form-control" ng-model="username" required />
+            <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
+        </p>
+        <p class="float">
+            <label for="password"><i class="icon-lock"></i>Password</label>
+            <input type="password" name="password" placeholder="Password"  id="password" class="form-control showpassword" ng-model="password" required />
+            <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+
+        </p>
+        <p class="clearfix">
+            <input type="submit" ng-disabled="form.$invalid || dataLoading" class="btn btn-danger" value="Login">
+            <img ng-if="dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        </p>
+    </form>​​
+</section>
+<div ng-show="error" class="alert alert-danger">{{error}}</div>
+
+
+
+
+<!-- <form name="form" ng-submit="login()" role="form">
+ <div class="form-group">
+       <label for="username">Username</label>
+       <i class="fa fa-key"></i>
+       <input type="text" name="username" id="username" class="form-control" ng-model="username" required />
+       <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
+   </div>
+   <div class="form-group">
+       <label for="password">Password</label>
+       <i class="fa fa-lock"></i>
+       <input type="password" name="password" id="password" class="form-control" ng-model="password" required />
+       <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+   </div>
+   <div class="form-actions">
+       <button type="submit" ng-disabled="form.$invalid || dataLoading" class="btn btn-danger">Login</button>
+       <img ng-if="dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+   </div>
+</form>-->
+<script type="text/javascript">
+    $(function(){
+        $(".showpassword").each(function(index,input) {
+            var $input = $(input);
+            $("<p class='opt'/>").append(
+                    $("<input type='checkbox' class='showpasswordcheckbox' id='showPassword' />").click(function() {
+                        var change = $(this).is(":checked") ? "text" : "password";
+                        var rep = $("<input placeholder='Password' type='" + change + "' />")
+                                .attr("id", $input.attr("id"))
+                                .attr("name", $input.attr("name"))
+                                .attr('class', $input.attr('class'))
+                                .val($input.val())
+                                .insertBefore($input);
+                        $input.remove();
+                        $input = rep;
+                    })
+            ).append($("<label for='showPassword'/>").text("Show password")).insertAfter($input.parent());
+        });
+
+        $('#showPassword').click(function(){
+            if($("#showPassword").is(":checked")) {
+                $('.icon-lock').addClass('icon-unlock');
+                $('.icon-unlock').removeClass('icon-lock');
+            } else {
+                $('.icon-unlock').addClass('icon-lock');
+                $('.icon-lock').removeClass('icon-unlock');
+            }
+        });
+    });
+</script>

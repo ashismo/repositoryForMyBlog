@@ -1,0 +1,70 @@
+{
+  "branchBean": {
+    "branchId": 2,
+    "bankName": "Test Branch",
+    "branchName": "Test Branch",
+    "ifscCode": "11AA11",
+    "micrCode": "11AA11",
+    "email1": "ujan@gmail.com",
+    "phone1": "9830625559",
+    "startDate": "10/12/2015 00:00:00",
+    "createUser": "ashish",
+    "dbName": "coopadmin",
+    "contextRoot": "CustomerSvcWS",
+    "branchRuleBeans": [
+      {
+        "branchRuleId": 4,
+        "branchId": 2,
+        "branchName": "Test Branch",
+        "ruleId": 1,
+        "ruleName": "LOGIN_OPTION",
+        "ruleValue": "SECURITY_QUESTION_BASED_LOGIN",
+        "startDate": "13/12/2015 00:00:00",
+        "createUser": "ashish"
+      }
+    ],
+    "users": [
+      {
+        "userId": 2,
+        "branchId": 2,
+        "userName": "ujan",
+        "password": "ashish",
+        "firstName": "Ujan",
+        "lastName": "Mondal",
+        "email1": "ujan@gmail.com",
+        "phone1": "9830625559",
+        "startDate": "10/12/2015 22:29:59",
+        "createUser": "ashish",
+        "profilePic":"iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAMFBMVEX////F2t3B19vT4+XP4OPF2d36/PzJ3N/a5+n0+Pjs8/Tx9vbL3eDh7O3V5Obp8fIrSdt3AAAFTklEQVR4nO2d25qqMAyFbYFSxML7v+0G0VFm0ME2i6zO7n/lpetLmlMDnE6FQqFQKBQKhUKhUCgciuvOY/B+GLwP47lz2v9Hlj4MrTHWmhvzr4s/a/8tIbpQP6StsLYeczel6337Qt5NpPGd9p9MYJb3Rt1dZNVr/9E4XLj8ru7GkKGv9tVueVc7ZmbGzpsd3rmWmFNc7Strmw8FToza/3sv7jP3fLJi0P7r+wjGRNhvofYjfeZw9afn75sdp9xZMduya5P0XWmm/Kit4yVdtH+uoZXoZPQZ2qDjBFz0TkNZ48RmiU0GbTUbjGlR9Dt8aUPuEC54bUE/GIQVNtqCvtPJ+ugUTtnKVC8skC7WSJ/CGW1Na4K0k05uypUSa3GBZAfRyZuQLF8IZ/uFi7aqZ6ST4YK2qmcgApkKN8gxNIZowHiGKGSaLwKy4QxRupAv2WaYEqJo70upsBaaQPEqFBzQPCskijQQgf+DQqJ8iFHIlPFBComqNpBCohYYpFBb1hOQdGhabVlPYPJhrS3rCUxNwzROxNSlTHMaTG/BdIcYEAKZCm/MqI2pLD31EIVERRtmEmWJijZMUcN1b4FIiFZb1ArEzJtLIWScqC1qBSSYaotagbgC5lJ4ugBCjbamNYBQwxVpIAqpMj5EIVPlPZ1DeYUNU48PKr2ZmgvMPT7RqoL4UtsC0aYwZk5DZESQCYmaYNA1vuEZt0EGUTMNi5tCBlFXWCo3zDrNVSHJJKNHCaSpTWGxlCaYQvrfovBYcApJziFQIUksBd2QGp58CGqeZrSV3YGVbTRtPqxso7nKhwwxDFMLDNpkZ5rUYATyJAtYMGVpD0+wLp+lxT+huguiYwiZeRvT8hxDUM4nclJMA0XTWCx4+ZNIU9AsAIzIdApn+phXQ72ksRc2gZPEPS+f24mlWr180IdKKGsEPgPecSJLGSzzp00EHsynKmV+InCVyPqSqBvpK9/kJpQo33ijzJX0PorpUZkt0odS5MdQYChF1VFs0KUKJK1mHqRX4PQKU59jI1vY2yC1MuVXmFq2sSf89NEp2exiA5/YXBDNuV+QXLZpC/iV1KKGbP60QeKCFM32xWsSixqiy5iXpKULfhOm3dLwXPq+JT7WWP4wsxDdBedwCBciLzH4k/2DuGiTxyFciIo2nG8pf0WMEdkHNGti4mlOThq1Q8Tf+n7h+hAVadrKh3MWZ9G8/UbXeztam0FOTGyfMmguUkdRNDulr0h/gIbdiOlXpOTlt8QTQtzTNonHSamNKLIPTT0ylfmCAHGFKrS0T5wThRa/aJ6O/YHYu/dYJ1KSj11QBhvXCm4nUvqp7JdY+JKiE/7UDNkXAru4nvcXqsBxGt04NLAXYxiv/d3u3l/iO/p9Im3t1QoAFxK/q7qbWmVK1fmE7+J+jj/aW89Hme8LWx+4h+KC4F7+BxovB22497jY+atG4/EJZERkvk/AOqsLauZ7YFtY59EN+vKugJx1PDx6vsNWws6qFD3fIRpZu6E5MLfvxkqVAccn9/0IlAGE7rkm0Vn7wXDrm0mIrOrJfT8xzjq1Dvzme2Cbz5zVhUtO8hZsvXce4CbvzE/fjDXVDpFjlam8BWuGt0ey8wSVdSpvCoGeOLV/hq22hld/R9+Mrb/nSMfSGYlh17561v4/AGz75Kq4dx1r0jyWAf+mQPO4acW96Vid5Vm/9Ed3ibmuVufTQUQwP8KBe1c1Bbb72yY083W59j+AUxTmT1GYP0Vh/hSF+VMU5k9RmD9FYf4UhflTFOZPUZg/RWH+FIX5UxTmT1GYP0Vh/hSF+fP3Ff4DEPpuXcIilFkAAAAASUVORK5CYII=",
+        "userRoles": [
+          {
+            "userRoleId": 3,
+            "userId": 2,
+            "roleId": 3,
+            "startDate": "08/12/2015 00:00:00",
+            "createUser": "ashish"
+          }
+        ],
+        "userSecurityQuestions": [
+          {
+            "userSecId": 1,
+            "userId": 2,
+            "questionId": 4,
+            "answer": "ashish",
+            "startDate": "10/12/2015 00:00:00",
+            "createUser": "ashish"
+          },
+          {
+            "userSecId": 2,
+            "userId": 2,
+            "questionId": 3,
+            "answer": "wipro",
+            "startDate": "13/12/2015 00:00:00",
+            "createUser": "ashish"
+          }
+        ]
+      }
+    ],
+    "branchActive": false
+  }
+}

@@ -1,0 +1,193 @@
+﻿
+
+
+<div id="wrapper" ng-controller="HomeController as hc">
+    <p>You're logged in!!</p>
+    <p><a href="#/login">Logout</a></a></p>
+    <!--<div class="likeit" style="z-index: 1;">
+        <div class="swidget" style="z-index: 25;">
+            <iframe width="60" height="60" frameborder="0" scrolling="no" vspace="0" tabindex="-1" src="../../../../assets/css/img/fastbutton.html" marginwidth="0" marginheight="0" hspace="0" allowtransparency="true"></iframe>
+        </div>
+        <div class="swidget" style="z-index: 2;">
+            <iframe width="60" height="60" frameborder="0" scrolling="no" vspace="0" tabindex="-1" src="../../../../assets/css/img/like.html" marginwidth="0" marginheight="0" hspace="0" allowtransparency="true"></iframe>
+        </div>
+        <div class="swidget" style="z-index: 3;">
+            <iframe allowtransparency="true" frameborder="0" scrolling="no" src="../../../../assets/css/img/tweet_button.html" style="width:62px; height:62px;"></iframe>
+        </div>
+
+    </div>-->
+
+    <div class="calc drag ui-draggable" style="z-index: 4; display: none;">
+        <div class="head" style="z-index: 5;">
+            <p>Calculator</p>
+            <div class="wcmd" style="z-index: 6;">
+                <a class="min">-</a>
+                <a class="max">□</a>
+                <a class="close">✖</a>
+            </div>
+        </div>
+        <div class="calc-in" style="z-index: 7;">
+            <form id="calcform">
+                <input id="display" type="text" value="0" disabled="1">
+                <div class="num-wrap" style="z-index: 8;">
+                    <button id="n7" value="7">7</button>
+                    <button id="n8" value="8">8</button>
+                    <button id="n9" value="9">9</button>
+                    <button id="ndiv" value="/">/</button>
+                    <button id="nmod" value="%">%</button>
+                    <button id="n4" value="4">4</button>
+                    <button id="n5" value="5">5</button>
+                    <button id="n6" value="6">6</button>
+                    <button id="nmul" value="*">*</button>
+                    <button id="nC" value="c">C</button>
+                    <button id="n1" value="1">1</button>
+                    <button id="n2" value="2">2</button>
+                    <button id="n3" value="3">3</button>
+                    <button id="nsub" value="-">-</button>
+                    <button id="neq" value="=">=</button>
+                    <button id="n0" value="0">0</button>
+                    <button id="nP" value=".">.</button>
+                    <button id="nadd" value="+">+</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="window drag ui-draggable" style="position: relative; z-index: 50; left: 71px; top: 66px; display: none;">
+        <div class="head" style="z-index: 10;">
+            <div class="wcmd" style="z-index: 11;">
+                <a class="min">-</a>
+                <a class="max">□</a>
+                <a class="close">✖</a>
+            </div>
+        </div>
+
+
+        <div class="wnav" style="z-index: 12;">
+            <div class="arrow-wrap" style="z-index: 13;">
+                <div class="back" style="z-index: 14;">➜</div>
+                <div class="next" style="z-index: 15;">➜</div>
+                <div class="ltry" style="z-index: 16;">▼</div>
+
+            </div>
+            <div class="address" style="z-index: 17;">
+                <div class="mycomicon" style="z-index: 18;"><img src="../../../../assets/css/img/myc.png"></div>
+                <div class="rtry" style="z-index: 19;">►</div>
+                <div class="ctext" style="z-index: 20;">
+                    Computer</div>
+                <div class="rtry" style="z-index: 21;">►</div>
+                <div class="ref" style="z-index: 22;"><img src="../../../../assets/css/img/ref.png"></div>
+            </div>
+            <input type="text" class="search" placeholder="Search Computer">
+        </div>
+        <div class="c" style="z-index: 23;"></div>
+        <div class="con-wrap" style="z-index: 24;">
+            <div class="side" style="z-index: 0;">
+                <ul>
+                    <li class="fav">Favorites
+                        <ul>
+                            <li class="desk">Desktop</li>
+                            <li class="down">Downloads</li>
+                            <li class="rece">Recent Places</li>
+                        </ul>
+                    </li>
+                    <li class="lib">Libraries
+                        <ul>
+                            <li class="docu">Documents</li>
+                            <li class="musi">Music</li>
+                            <li class="pict">Pictures</li>
+                            <li class="vide">Videos</li>
+                        </ul>
+                    </li>
+                    <li class="homeg">Homegroup</li>
+                    <li class="com">Computer
+                        <ul>
+                            <li class="wind">Local Disk(C:)</li>
+                            <li class="driv">Local Disk(D:)</li>
+                            <li class="driv">Local Disk(E:)</li>
+                            <li class="driv">Local Disk(F:)</li>
+                        </ul>
+                    </li>
+                    <li class="net">Network</li>
+                </ul>
+            </div>
+            <div class="cont" style="z-index: 26;">
+                <p>Hard Disk Drives(4)<span></span></p>
+                <div class="disk-box win-disk-box" style="z-index: 27;">
+                    <label>Local Disk(C:)</label>
+                    <div class="bar" style="z-index: 28;">
+                        <div class="bar-fill" style="z-index: 29;"></div>
+                    </div>
+                    <span class="info">35 GB free of 97 GB</span>
+                </div>
+                <div class="disk-box" style="z-index: 30;">
+                    <label>Local Disk(D:)</label>
+                    <div class="bar" style="z-index: 31;">
+                        <div class="bar-fill" style="width: 45%; z-index: 32;"></div>
+                    </div>
+                    <span class="info">135 GB free of 300 GB</span>
+                </div>
+                <div class="disk-box" style="z-index: 33;">
+                    <label>Local Disk(E:)</label>
+                    <div class="bar" style="z-index: 34;">
+                        <div class="bar-fill" style="width: 41%; z-index: 35;"></div>
+                    </div>
+                    <span class="info">125 GB free of 300 GB</span>
+                </div>
+                <div class="disk-box" style="z-index: 36;">
+                    <label>Local Disk(F:)</label>
+                    <div class="bar" style="z-index: 37;">
+                        <div class="bar-fill" style="width: 66%; z-index: 38;"></div>
+                    </div>
+                    <span class="info">200 GB free of 300 GB</span>
+                </div>
+                <div class="c" style="z-index: 39;"></div>
+                <p>Device with removable storage(1)<span style="width: 62%;"></span></p>
+                <div class="disk-box dvd" style="z-index: 40;">
+                    <br>
+                    <label>DVD RW Drive(G:)</label>
+                </div>
+            </div>
+            <div class="c" style="z-index: 41;"></div>
+            <div class="foot" style="z-index: 42;">
+                <img src="../../../../assets/css/img/myc52.png">
+                <b>Cactus</b>
+                <label><i>Workdgroup:</i>cactus</label>
+                <label><i>Memory:</i>6.00 GB</label><br>
+                <label style="margin-left: 87px;"><i>Processor:</i>AMD A8-4500M APU With..</label>
+
+            </div>
+        </div>
+
+    </div>
+  <wmwindow title="{{article.application}}" ng-repeat="article in application" options="{{options}}" data="article">
+
+    <app-content url="article.templateUrl"></app-content>
+
+  </wmwindow>
+
+</div>
+
+
+<!--TODO: need to be shift to on JS-->
+<script>
+  $(function() {
+    $(".drag").draggable({handle: "div.head", scroll: false, stack: "#wrapper div"});
+  });
+</script>
+<style>
+  .dialogdemoBasicUsage #popupContainer {
+    position: relative; }
+  .dialogdemoBasicUsage .footer {
+    width: 100%;
+    text-align: center;
+    margin-left: 20px; }
+  .dialogdemoBasicUsage .footer, .dialogdemoBasicUsage .footer > code {
+    font-size: 0.8em;
+    margin-top: 50px; }
+  .dialogdemoBasicUsage button {
+    width: 200px; }
+  .dialogdemoBasicUsage div#status {
+    color: #c60008; }
+</style>

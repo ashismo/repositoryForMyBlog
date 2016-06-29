@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html ng-app="cactusApp">
+<head>
+  <meta charset="utf-8" />
+  <title>Cactus Login</title>
+
+  <link rel="stylesheet" href="assets/css/app.css" />
+  <link rel="stylesheet" href="assets/css/retail.css" />
+  <link rel="stylesheet" href="assets/css/ng-img-crop.css" />
+  <link rel="stylesheet" href="assets/font/font-awesome-4.6.1/css/font-awesome.min.css" />
+
+  <link rel="stylesheet" href="assets/css/window.css"/>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/window-manager.css" />
+  <link rel="stylesheet" href="assets/css/material-datetimepicker.min.css" />
+
+
+  <script src="assets/vendor/jquery.js"></script>
+  <script src="assets/vendor/jquery.placeholder.min.js"></script>
+  <script src="assets/js/jquery-ui.min.js"></script>
+
+
+
+  <!-- bower:js -->
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.js"></script>
+  <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="bower_components/angular-touch/angular-touch.js"></script>
+  <!-- endbower -->
+  <script src="assets/vendor/angular-material.js"></script>
+  <script src="assets/vendor/angular-messages.min.js"></script>
+  <script src="assets/vendor/angular-aria.min.js"></script>
+  <script src="assets/vendor/angular-mocks.js"></script>
+
+  <!--<script src="assets/vendor/ui-bootstrap.min.js"></script>-->
+  <script src="assets/vendor/bootstrap.js"></script>
+  <script src="assets/vendor/ui-bootstrap-tpls.js"></script>
+  <script src="assets/vendor/moment.js"></script>
+  <script src="assets/vendor/angular-material-datetimepicker.js"></script>
+  <script src="assets/js/modernizr.custom.63321.js"></script>
+
+  <link rel="stylesheet" href="assets/vendor/angular-material.min.css" />
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+
+  <script src="assets/js/nonAngular.js"></script>
+  <script src="assets/js/ng-img-crop.js"></script>
+  <script src="assets/js/angular-window-manager.js"></script>
+
+  <!-- App related JS Start-->
+  <script src="scripts/app.js"></script>
+  <script src="scripts/modules/home/controllers.js"></script>
+  <script src="scripts/modules/config/controllers.js"></script>
+  <script src="scripts/modules/retail/controllers.js"></script>
+  <script src="scripts/services/serviceAdmin.js"></script>
+  <script src="scripts/services/serviceRetail.js"></script>
+  <script src="scripts/model/bankModule.js"></script>
+  <!-- App related JS End-->
+  <!--[if lte IE 7]><style>.main{display:none;} .support-note .note-ie{display:block;}</style><![endif]-->
+</head>
+<body class="background" ng-controller="appController as ap">
+
+<div>
+  <!-- <div class="container">
+       <div class="col-xs-offset-2 col-xs-8">-->
+  <div ng-view></div>
+  <!-- </div>
+</div>-->
+</div>
+
+
+<div id="startmenu" style="display: none; z-index: 1000000;">
+  <ul id="applications">
+    <li ng-repeat="app in applicationBeforeOpen" ng-click="openNewApp(app)"><a ng-href="{{app.url}}"><img ng-src="../../../../assets/css/img/{{app.image}}" alt="">{{app.application}}</a></li>
+    <li class="search">
+      <form action="">
+        <input type="text" placeholder="Search programs and files">
+      </form>
+    </li>
+  </ul>
+  <ul id="sysdir" ng-controller="profileController">
+    <li class="user"><div class="frame" style="z-index: 44;">
+      <div class="frame-inner" ng-click="showAdvanced($event)" style="z-index: 45;">
+        <img width="38" height="37" src="data:png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAMFBMVEX////F2t3B19vT4+XP4OPF2d36/PzJ3N/a5+n0+Pjs8/Tx9vbL3eDh7O3V5Obp8fIrSdt3AAAFTklEQVR4nO2d25qqMAyFbYFSxML7v+0G0VFm0ME2i6zO7n/lpetLmlMDnE6FQqFQKBQKhUKhUCgciuvOY/B+GLwP47lz2v9Hlj4MrTHWmhvzr4s/a/8tIbpQP6StsLYeczel6337Qt5NpPGd9p9MYJb3Rt1dZNVr/9E4XLj8ru7GkKGv9tVueVc7ZmbGzpsd3rmWmFNc7Strmw8FToza/3sv7jP3fLJi0P7r+wjGRNhvofYjfeZw9afn75sdp9xZMduya5P0XWmm/Kit4yVdtH+uoZXoZPQZ2qDjBFz0TkNZ48RmiU0GbTUbjGlR9Dt8aUPuEC54bUE/GIQVNtqCvtPJ+ugUTtnKVC8skC7WSJ/CGW1Na4K0k05uypUSa3GBZAfRyZuQLF8IZ/uFi7aqZ6ST4YK2qmcgApkKN8gxNIZowHiGKGSaLwKy4QxRupAv2WaYEqJo70upsBaaQPEqFBzQPCskijQQgf+DQqJ8iFHIlPFBComqNpBCohYYpFBb1hOQdGhabVlPYPJhrS3rCUxNwzROxNSlTHMaTG/BdIcYEAKZCm/MqI2pLD31EIVERRtmEmWJijZMUcN1b4FIiFZb1ArEzJtLIWScqC1qBSSYaotagbgC5lJ4ugBCjbamNYBQwxVpIAqpMj5EIVPlPZ1DeYUNU48PKr2ZmgvMPT7RqoL4UtsC0aYwZk5DZESQCYmaYNA1vuEZt0EGUTMNi5tCBlFXWCo3zDrNVSHJJKNHCaSpTWGxlCaYQvrfovBYcApJziFQIUksBd2QGp58CGqeZrSV3YGVbTRtPqxso7nKhwwxDFMLDNpkZ5rUYATyJAtYMGVpD0+wLp+lxT+huguiYwiZeRvT8hxDUM4nclJMA0XTWCx4+ZNIU9AsAIzIdApn+phXQ72ksRc2gZPEPS+f24mlWr180IdKKGsEPgPecSJLGSzzp00EHsynKmV+InCVyPqSqBvpK9/kJpQo33ijzJX0PorpUZkt0odS5MdQYChF1VFs0KUKJK1mHqRX4PQKU59jI1vY2yC1MuVXmFq2sSf89NEp2exiA5/YXBDNuV+QXLZpC/iV1KKGbP60QeKCFM32xWsSixqiy5iXpKULfhOm3dLwXPq+JT7WWP4wsxDdBedwCBciLzH4k/2DuGiTxyFciIo2nG8pf0WMEdkHNGti4mlOThq1Q8Tf+n7h+hAVadrKh3MWZ9G8/UbXeztam0FOTGyfMmguUkdRNDulr0h/gIbdiOlXpOTlt8QTQtzTNonHSamNKLIPTT0ylfmCAHGFKrS0T5wThRa/aJ6O/YHYu/dYJ1KSj11QBhvXCm4nUvqp7JdY+JKiE/7UDNkXAru4nvcXqsBxGt04NLAXYxiv/d3u3l/iO/p9Im3t1QoAFxK/q7qbWmVK1fmE7+J+jj/aW89Hme8LWx+4h+KC4F7+BxovB22497jY+atG4/EJZERkvk/AOqsLauZ7YFtY59EN+vKugJx1PDx6vsNWws6qFD3fIRpZu6E5MLfvxkqVAccn9/0IlAGE7rkm0Vn7wXDrm0mIrOrJfT8xzjq1Dvzme2Cbz5zVhUtO8hZsvXce4CbvzE/fjDXVDpFjlam8BWuGt0ey8wSVdSpvCoGeOLV/hq22hld/R9+Mrb/nSMfSGYlh17561v4/AGz75Kq4dx1r0jyWAf+mQPO4acW96Vid5Vm/9Ed3ibmuVufTQUQwP8KBe1c1Bbb72yY083W59j+AUxTmT1GYP0Vh/hSF+VMU5k9RmD9FYf4UhflTFOZPUZg/RWH+FIX5UxTmT1GYP0Vh/hSF+fP3Ff4DEPpuXcIilFkAAAAASUVORK5CYII=">
+        <!--<img width="38" height="37" ng-src="data:png;base64,{{$rootScope.profile.profilePic}}">-->
+      </div>
+    </div>
+    </li>
+    <li><a href="#"><span>Documents</span></a></li>
+    <li><a href="#"><span>Pictures</span></a></li>
+    <li><a href="#"><span>Music</span></a></li>
+    <li><a href="#"><span>Computer</span></a></li>
+    <li><a href="#"><span>Network</span></a></li>
+    <li><a href="#"><span>Connect to</span></a></li>
+  </ul>
+</div>
+
+
+<div id="bottom" style="z-index: 49;">
+  <div class="start" style="z-index: 47;"></div>
+  <div class="taskbar" style="z-index: 46;">
+    <ul class="ui-sortable">
+      <li id="{{mini.id}}" ng-click="openApp(mini)" ng-repeat="mini in miniAppNonMatch"><img ng-src="{{mini.imgUrl}}"></li>
+      <!--<li id="t-explor"><img src="../../../../assets/css/img/tb-explorer.png"></li>
+      <li id="t-calc"><img src="../../../../assets/css/img/Calc.png"></li>-->
+    </ul>
+  </div>
+  <div class="datetime" style="z-index: 48;">11:8<br>29-10-2015</div>
+</div>
+
+</body>
+</html>
