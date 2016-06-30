@@ -140,12 +140,12 @@ specifications of">
                   <!-- Address fields added by ashish-->
                   <!--<input type="radio" name="branchIdRadio"  value="cc.userBranchData.addresses[0].addressId" ng-click="cc.populateAddress()"/>-->
                   <label for="testInput">Add Address <input type="checkbox"
-                                                            ng-model="isBranchAttached"
+                                                            ng-model="isAddressAttached"
                                                             ng-checked="branchAddressAttached"
                                                             ng-disabled="branchAddressAttached"
-                                                            ng-click="populateBranchAddress(isBranchAttached)"/></label>
-                    <md-div ng-show="isBranchAttached || branchAddressAttached">
-                      <md-div ng-repeat="address in selectedBranch.addresses">
+                                                            ng-click="populateBranchAddress(isAddressAttached)"/></label>
+                    <md-div ng-show="isAddressAttached || branchAddressAttached">
+                      <md-div ng-repeat="address in addBranch.addresses">
                           <input type="hidden" name="branchId"  value="address.addressId"/>
 
                           <md-input-container>
@@ -170,6 +170,25 @@ specifications of">
                             <input type="text" id="addressLine2"
                                    ng-model="address.addressLine2">
                           </md-input-container>
+
+                        <md-input-container style="display:block;">
+                          <label for="testInput">State</label>
+                          <md-select ng-model="selectedStateId">
+                            <md-option ng-repeat="state in stateDistList"
+                                       value="{{state.stateId}}">{{state.stateName}}
+                            </md-option>
+                          </md-select>
+                        </md-input-container>
+
+                        <md-input-container style="display:block;">
+                          <label for="testInput">District</label>
+                          <md-select ng-model="selectedParent">
+                            <md-option ng-repeat="parentBranch in parentBranchIdSelect"
+                                       ng-click="populateDataFromParent(parentBranch)"
+                                       value="{{parentBranch.branchId}}">{{parentBranch.branchName}}
+                            </md-option>
+                          </md-select>
+                        </md-input-container>
 
                           <md-input-container>
                             <label for="testInput">District</label>

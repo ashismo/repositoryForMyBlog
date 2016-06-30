@@ -67,9 +67,10 @@ angular.module('config', ['bankModel'])
             /**
              * Populate Country, State, Dist by Ashish
              */
-            serviceAdminProfile.getCountryStateDistDetail().get({"countryCode":"IND", "stateCode" : "WB", "distCode": "HLY"}, function (data){
+            serviceAdminProfile.getCountryStateDistDetail().get({"countryCode":"IND", "stateCode" : "", "distCode": ""}, function (data){
+              $scope.stateDistList = data.countries[0].states;
               console.log(data);
-              })
+            })
 
             $scope.parentBranchIdSelect = data.branches.filter(function( obj ) {
               if(obj.parentId == undefined ||  obj.parentId == 0) {
@@ -274,19 +275,10 @@ angular.module('config', ['bankModel'])
            */
           this.resetBranchForm = function () {
             this.addBranch = add.branchBean;
-            $scope.branchAddressAttached = null;
-            $scope.branchAddress = null; // Nullify branch address
-            if(this.addBranch.addresses) {
-              $scope.branchAddress = selected.addresses;
-              $scope.branchAddressAttached = 'Y';
-            }
-
           }
-          $scope.populateBranchAddress = function (isBranchAttached) {
-            if(isBranchAttached) {
-              this.selectedBranch.addresses = add.branchBean.addresses;
-            } else {
-              this.selectedBranch.addresses = [];
+          $scope.populateBranchAddress = function (isAddressAttached) {
+            if(isAddressAttached) {
+              this.addBranch = add.branchBean;
             }
           }
 
@@ -598,10 +590,9 @@ angular.module('config', ['bankModel'])
           } else {
             $scope.cc.selectedParent = selected.parentId;
           }
-          $scope.branchAddressAttached = null;
-          $scope.branchAddress = null; // Nullify branch address
           if(selected.addresses) {
-            $scope.branchAddress = selected.addresses;
+            $scope.addBranch = selected;
+            $scope.selectedStateId = 2;
             $scope.branchAddressAttached = 'Y';
           }
         }
