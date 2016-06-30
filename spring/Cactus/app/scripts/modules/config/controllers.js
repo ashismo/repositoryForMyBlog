@@ -69,8 +69,18 @@ angular.module('config', ['bankModel'])
              */
             serviceAdminProfile.getCountryStateDistDetail().get({"countryCode":"IND", "stateCode" : "", "distCode": ""}, function (data){
               $scope.stateDistList = data.countries[0].states;
-              console.log(data);
-            })
+              //console.log(data);
+            });
+
+            $scope.getDistrictByState = function(selectedStateId){
+              //console.log(selectedStateId)
+              $scope.distList = $scope.stateDistList.filter(function( obj ) {
+                if(obj.stateId === selectedStateId ) {
+                  return obj.districts;
+                }
+              });
+              console.log($scope.distList)
+            }
 
             $scope.parentBranchIdSelect = data.branches.filter(function( obj ) {
               if(obj.parentId == undefined ||  obj.parentId == 0) {
@@ -592,7 +602,15 @@ angular.module('config', ['bankModel'])
           }
           if(selected.addresses) {
             $scope.addBranch = selected;
-            $scope.selectedStateId = 2;
+            $scope.selectedStateId = $scope.stateDistList.filter(function(obj){
+              if(obj.districts) {
+                angular.forEach(obj.districts, function(obj) {
+                  if(obj.distId == selected.addresses[0].distId) {
+                    return obj;
+                  }
+                });
+              }
+            });
             $scope.branchAddressAttached = 'Y';
           }
         }

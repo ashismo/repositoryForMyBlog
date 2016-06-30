@@ -175,17 +175,17 @@ specifications of">
                           <label for="testInput">State</label>
                           <md-select ng-model="selectedStateId">
                             <md-option ng-repeat="state in stateDistList"
+                                       ng-click="getDistrictByState(state.stateId)"
                                        value="{{state.stateId}}">{{state.stateName}}
                             </md-option>
                           </md-select>
                         </md-input-container>
 
                         <md-input-container style="display:block;">
-                          <label for="testInput">District</label>
-                          <md-select ng-model="selectedParent">
-                            <md-option ng-repeat="parentBranch in parentBranchIdSelect"
-                                       ng-click="populateDataFromParent(parentBranch)"
-                                       value="{{parentBranch.branchId}}">{{parentBranch.branchName}}
+                          <label for="testInput">District </label>
+                          <md-select ng-model="address.distId">
+                            <md-option ng-repeat="district in distList[0].districts"
+                                       value="{{district.distId}}">{{district.districtName}}
                             </md-option>
                           </md-select>
                         </md-input-container>
