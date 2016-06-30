@@ -87,6 +87,15 @@ specifications of">
               </md-toolbar>
               <md-content layout-padding>
                 <form>
+                  <md-input-container style="display:block;">
+                    <label for="testInput">Parent Branch</label>
+                    <md-select ng-model="cc.selectedParent">
+                      <md-option ng-repeat="parentBranch in parentBranchIdSelect"
+                                 ng-click="populateDataFromParent(parentBranch)"
+                                 value="{{parentBranch.branchId}}">{{parentBranch.branchName}}
+                      </md-option>
+                    </md-select>
+                  </md-input-container>
                   <md-input-container>
                     <label for="testInput">Bank Name</label>
                     <input type="text" id="bankName"
@@ -128,60 +137,52 @@ specifications of">
                            ng-model="cc.addBranch.contextRoot" required>
                   </md-input-container>
 
-                  <md-input-container style="display:block;">
-                    <label for="testInput">Parent Branch</label>
-                      <md-select ng-model="cc.selectedParent">
-                        <md-option ng-repeat="parentBranch in parentBranchIdSelect"
-                                 ng-click="populateDataFromParent(parentBranch)"
-                                 value="{{parentBranch.branchId}}">{{parentBranch.branchName}}
-                        </md-option>
-                      </md-select>
-                  </md-input-container>
-
                   <!-- Address fields added by ashish-->
                   <!--<input type="radio" name="branchIdRadio"  value="cc.userBranchData.addresses[0].addressId" ng-click="cc.populateAddress()"/>-->
                   <label for="testInput">Add Address <input type="checkbox"
+                                                            ng-model="isBranchAttached"
                                                             ng-checked="branchAddressAttached"
                                                             ng-disabled="branchAddressAttached"
-                                                            ng-click="populateBranchAddress()"/></label>
+                                                            ng-click="populateBranchAddress(isBranchAttached)"/></label>
+                    <md-div ng-show="isBranchAttached || branchAddressAttached">
+                      <md-div ng-repeat="address in selectedBranch.addresses">
+                          <input type="hidden" name="branchId"  value="address.addressId"/>
 
-                    <md-div ng-repeat="address in branchAddress">
-                        <input type="hidden" name="branchId"  value="address.addressId"/>
+                          <md-input-container>
+                            <input type="hidden" id="addressName"
+                                   ng-model="address.addressName" value="OfficeAddress">
+                          </md-input-container>
 
-                        <md-input-container>
-                          <input type="hidden" id="addressName"
-                                 ng-model="address.addressName" value="OfficeAddress">
-                        </md-input-container>
+                          <md-input-container>
 
-                        <md-input-container>
+                            <input type="hidden" id="addressType"
+                                   ng-model="address.addressType" value="OFFICE">
+                          </md-input-container>
 
-                          <input type="hidden" id="addressType"
-                                 ng-model="address.addressType" value="OFFICE">
-                        </md-input-container>
+                          <md-input-container>
+                            <label for="testInput">Address Line1</label>
+                            <input type="text" id="addressLine1"
+                                   ng-model="address.addressLine1" required>
+                          </md-input-container>
 
-                        <md-input-container>
-                          <label for="testInput">Address Line1</label>
-                          <input type="text" id="addressLine1"
-                                 ng-model="address.addressLine1" required>
-                        </md-input-container>
+                          <md-input-container>
+                            <label for="testInput">Address Line2</label>
+                            <input type="text" id="addressLine2"
+                                   ng-model="address.addressLine2">
+                          </md-input-container>
 
-                        <md-input-container>
-                          <label for="testInput">Address Line2</label>
-                          <input type="text" id="addressLine2"
-                                 ng-model="address.addressLine2">
-                        </md-input-container>
+                          <md-input-container>
+                            <label for="testInput">District</label>
+                            <input type="text" id="distId"
+                                   ng-model="address.distId" required>
+                          </md-input-container>
 
-                        <md-input-container>
-                          <label for="testInput">District</label>
-                          <input type="text" id="distId"
-                                 ng-model="address.distId" required>
-                        </md-input-container>
-
-                        <md-input-container>
-                          <label for="testInput">PIN</label>
-                          <input type="text" id="pin"
-                                 ng-model="address.pin" required>
-                        </md-input-container>
+                          <md-input-container>
+                            <label for="testInput">PIN</label>
+                            <input type="text" id="pin"
+                                   ng-model="address.pin" required>
+                          </md-input-container>
+                      </md-div>
                     </md-div>
                 </form>
 

@@ -64,6 +64,13 @@ angular.module('config', ['bankModel'])
               }
             })
 
+            /**
+             * Populate Country, State, Dist by Ashish
+             */
+            serviceAdminProfile.getCountryStateDistDetail().get({"countryCode":"IND", "stateCode" : "WB", "distCode": "HLY"}, function (data){
+              console.log(data);
+              })
+
             $scope.parentBranchIdSelect = data.branches.filter(function( obj ) {
               if(obj.parentId == undefined ||  obj.parentId == 0) {
                 return {
@@ -266,12 +273,20 @@ angular.module('config', ['bankModel'])
            * Added by Ashish - Reset form
            */
           this.resetBranchForm = function () {
-            this.addBranch = {};
+            this.addBranch = add.branchBean;
+            $scope.branchAddressAttached = null;
+            $scope.branchAddress = null; // Nullify branch address
+            if(this.addBranch.addresses) {
+              $scope.branchAddress = selected.addresses;
+              $scope.branchAddressAttached = 'Y';
+            }
+
           }
-          this.populateBranchAddress = function () {
-            if(this.addBranch) {
-              this.addBranch.addresses = [];
-              this.addBranch.addresses[0] = {};
+          $scope.populateBranchAddress = function (isBranchAttached) {
+            if(isBranchAttached) {
+              this.selectedBranch.addresses = add.branchBean.addresses;
+            } else {
+              this.selectedBranch.addresses = [];
             }
           }
 

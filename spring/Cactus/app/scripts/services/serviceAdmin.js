@@ -38,6 +38,19 @@ serviceAdmin.factory('serviceAdminProfile', function ($resource,$http) {
         }
       })
     },
+    getCountryStateDistDetail: function () {
+      var URL = isLocalEnv ? "assets/data/branchById.json" : "http://" + ip + "/AdminSvcWS/rest/getCountryStateDist?countryCode=:countryCode&stateCode=:stateCode&distCode=:distCode";
+      return $resource(URL, null, {
+        get: {
+          method: 'GET',
+          params: {},
+          isArray: false,
+          headers: {
+            'Authorization': "Basic " + btoa('ujan' + ":" + 'ashish')
+          }
+        }
+      })
+    },
    getAllDeatilOfBranchById: function () {
       var URL = isLocalEnv ? "assets/data/branchById.json" : "http://" + ip + "/AdminSvcWS/rest/getBranch?branchId=:bid";
       return $resource(URL, null, {

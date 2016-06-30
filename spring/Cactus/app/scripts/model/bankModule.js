@@ -7,16 +7,28 @@ angular.module('bankModel', [])
   obj={
     "branchBean": {
       "branchId": 0,
-        "bankName": "Kalipur",
-        "branchName": "Kalipur",
-        "ifscCode": "12345743",
-        "micrCode": "87656321",
-        "email1": "ashismo@gmail.com",
-        "phone1": "9830625559",
-        "startDate": "18/12/2015 00:00:00",
-        "createUser": "ashish",
-        "dbName": "coop_kalipur",
-        "contextRoot": "CustomerSvcWS"
+        "bankName": "",
+        "branchName": "",
+        "ifscCode": "",
+        "micrCode": "",
+        "email1": "",
+        "phone1": "",
+        "startDate": "",
+        "createUser": "",
+        "dbName": "",
+        "contextRoot": "",
+        "addresses" : [ {
+          "addressId" : 1,
+          "addressName" : "OfficeAddress",
+          "addressType" : "OFFICE",
+          "addressLine1" : "",
+          "addressLine2" : "",
+          "pin" : "",
+          "distId" : 0,
+          "phoneNo1" : "",
+          "startDate" : "",
+          "createUser" : ""
+        } ]
     },
     "modules": [
       {
