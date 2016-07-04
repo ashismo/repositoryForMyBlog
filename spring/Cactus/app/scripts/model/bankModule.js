@@ -18,7 +18,7 @@ angular.module('bankModel', [])
         "dbName": "",
         "contextRoot": "",
         "addresses" : [ {
-          "addressId" : 1,
+          "addressId" : 0,
           "addressName" : "OfficeAddress",
           "addressType" : "OFFICE",
           "addressLine1" : "",

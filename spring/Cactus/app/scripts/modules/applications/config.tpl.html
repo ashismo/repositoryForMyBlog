@@ -145,7 +145,7 @@ specifications of">
                                                             ng-disabled="branchAddressAttached"
                                                             ng-click="populateBranchAddress(isAddressAttached)"/></label>
                     <md-div ng-show="isAddressAttached || branchAddressAttached">
-                      <md-div ng-repeat="address in addBranch.addresses">
+                      <md-div ng-repeat="address in cc.addBranch.addresses">
                           <input type="hidden" name="branchId"  value="address.addressId"/>
 
                           <md-input-container>
