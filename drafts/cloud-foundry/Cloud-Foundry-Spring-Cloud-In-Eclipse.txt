@@ -1,0 +1,2 @@
+1. Install Cloud Foundry into Windows URL: https://github.com/cloudfoundry/cli#downloads
+2. Install
