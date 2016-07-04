@@ -289,6 +289,8 @@ angular.module('config', ['bankModel'])
           $scope.populateBranchAddress = function (isAddressAttached) {
             if(isAddressAttached) {
               this.addBranch = add.branchBean;
+            } else {
+
             }
           }
 
@@ -602,16 +604,28 @@ angular.module('config', ['bankModel'])
           }
           if(selected.addresses) {
             $scope.addBranch = selected;
+
+            // Populate the corresponding stateId from the districtId
+            var selectedState = null;
             $scope.selectedStateId = $scope.stateDistList.filter(function(obj){
               if(obj.districts) {
-                angular.forEach(obj.districts, function(obj) {
-                  if(obj.distId == selected.addresses[0].distId) {
-                    return obj;
+                angular.forEach(obj.districts, function(dist) {
+                  if(dist.distId == selected.addresses[0].distId) {
+                    selectedState = obj;
                   }
                 });
               }
             });
+            if(selectedState) {
+              $scope.selectedStateId = selectedState.stateId;
+              $scope.distList = [{}];
+              $scope.distList[0].districts = selectedState.districts;
+            }
             $scope.branchAddressAttached = 'Y';
+          } else {
+            $scope.branchAddressAttached = null;
+            $scope.selectedStateId = 0;
+            $scope.addBranch.addresses = null;
           }
         }
         $scope.$watch('selectedIndex', function(current, old){
