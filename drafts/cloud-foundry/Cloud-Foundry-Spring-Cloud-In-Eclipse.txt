@@ -1,3 +1,25 @@
 1. Install Cloud Foundry into Windows URL: https://github.com/cloudfoundry/cli#downloads
 2. Install Cloud foundry plugin into eclipse URL: http://dist.springsource.com/release/TOOLS/cloudfoundry   (Install only Core module)
 3. Add new server -> Select Pivotal->Cloud Foundry
+
+
+
+http://bosh.io/docs/bosh-components.html
+
+###########
+Cloud Foundry setup in AWS
+###########
+1. yum install gem
+2. yum install git
+2. gem install bosh_cli --no-ri --no-rdoc
+
+
+
+
+
+###########
+Cloud Foundry setup in Windows
+###########
+1. Install cygwin
+2. Install Ruby
+3. Go to Ruby folder/bin then execute "gem.bat install bosh_cli --no-ri --no-rdoc" from command prompt
