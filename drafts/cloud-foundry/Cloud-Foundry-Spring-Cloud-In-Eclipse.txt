@@ -23,3 +23,13 @@ Cloud Foundry setup in Windows
 1. Install cygwin
 2. Install Ruby
 3. Go to Ruby folder/bin then execute "gem.bat install bosh_cli --no-ri --no-rdoc" from command prompt
+
+
+
+##############
+Cloud foundry setup in bluemix
+##############
+1. Create bluemix account
+2. Select tomcat
+3. Follow instruction to deploy application in tomcat
+4. Create a MySql(ClearDB MySQL Database, third party)  service (service name is mySqlTest)
