@@ -1,0 +1,9 @@
+applications:
+- path: target/DebitCardCloudAppWS.war
+  memory: 256M
+  instances: 1
+  domain: mybluemix.net
+  name: DebitCardCloudAppWS
+  host: DebitCardCloudAppWS
+  disk_quota: 1024M
+  buildpack: java_buildpack

@@ -1,9 +1,0 @@
-applications:
-- path: target/SpringCloudAppWS1.war
-  memory: 256M
-  instances: 1
-  domain: mybluemix.net
-  name: SpringCloudAppWS1
-  host: SpringCloudAppWS1
-  disk_quota: 1024M
-  buildpack: java_buildpack

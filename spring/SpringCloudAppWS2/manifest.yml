@@ -1,9 +1,0 @@
-applications:
-- path: target/SpringCloudAppWS2.war
-  memory: 256M
-  instances: 1
-  domain: mybluemix.net
-  name: cfws
-  host: cfws
-  disk_quota: 1024M
-  buildpack: java_buildpack
