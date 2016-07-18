@@ -75,8 +75,14 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
-
-
+		
+		<!-- Added for circuit breaker functionality START -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-hystrix</artifactId>
+		</dependency>
+		<!-- Added for circuit breaker functionality END -->
+	
 		<!-- SWAGGER Integration START -->
 		<!-- http://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
 		<dependency>
@@ -86,4 +92,19 @@
 		</dependency>
 		<!-- SWAGGER Integration END -->
 	</dependencies>
+
+	<!-- Added for circuit breaker functionality START -->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>Brixton.SR3</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<!-- Added for circuit breaker functionality END -->
+	
 </project>

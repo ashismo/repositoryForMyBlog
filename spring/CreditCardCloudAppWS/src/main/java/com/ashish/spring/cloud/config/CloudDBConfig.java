@@ -33,9 +33,9 @@ public class CloudDBConfig {
 	public DataSource dataSource(){
 	      DriverManagerDataSource dataSource = new DriverManagerDataSource();
 	      dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-	      dataSource.setUrl("jdbc:mysql://us-cdbr-iron-east-04.cleardb.net:3306/ad_45db5c38c157ae9");
-	      dataSource.setUsername( "badcfc3604e2e8");
-	      dataSource.setPassword( "1aad4ceb" );
+	      dataSource.setUrl("jdbc:mysql://us-cdbr-iron-east-04.cleardb.net:3306/ad_1f1ace605266939");
+	      dataSource.setUsername( "bd357a42a37635");
+	      dataSource.setPassword( "e5933149" );
 	      return dataSource;
 	   }
 	

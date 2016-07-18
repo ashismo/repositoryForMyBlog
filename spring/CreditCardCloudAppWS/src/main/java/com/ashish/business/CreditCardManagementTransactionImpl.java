@@ -12,7 +12,7 @@ import com.ashish.credit.repositories.CreditCardTransactionRepository;
 import com.ashish.credit.repositories.CreditUserDetailRepository;
 
 @Component
-public class CreditCardManagementImpl {
+public class CreditCardManagementTransactionImpl {
 
 	@Autowired
 	private CreditUserDetailRepository creditUserDetailRepository;
