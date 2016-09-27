@@ -35,3 +35,8 @@ max_allowed_packet=10M
 Else 
 
 SET GLOBAL max_allowed_packet = 1024 * 1024 * 14 --14MB
+
+
+Cron job to update max_allowed_packet
+
+/opt/lampp/bin/mysql -u "root" -p"root" -e "SET GLOBAL max_allowed_packet = 1024 * 1024 * 14"
