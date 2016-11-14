@@ -19,6 +19,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -77,28 +78,18 @@ public class H2DataSource {
 	@Bean
 	public NamedParameterJdbcTemplate namedParameterJdbcTemplate() {
 		System.out.println("Initialize jdbcTemplate");
-		NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(
-				dataSource());
+		NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(dataSource());
 		return jdbcTemplate;
 
 	}
 	
 	
-	@Bean(name="txManager")
-	public DataSourceTransactionManager txManager() {
+	@Bean
+	public DataSourceTransactionManager transactionManager() {
 		DataSourceTransactionManager transactionManager = new DataSourceTransactionManager();
 		transactionManager.setDataSource(dataSource());
 		return transactionManager;
 	}
-	
-//	@Bean
-//    public PlatformTransactionManager txManager() {
-//        return new DataSourceTransactionManager(dataSource());
-//    }
-//
-//	public PlatformTransactionManager annotationDrivenTransactionManager() {
-//        return txManager();
-//    }
 	
 	// Start WebServer, access http://localhost:8082
 //	@Bean(initMethod = "start", destroyMethod = "stop")
