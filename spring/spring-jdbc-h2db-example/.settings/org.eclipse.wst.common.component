@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="spring-jdbc-h2db-example">
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/.apt_generated"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <property name="context-root" value="spring-jdbc-h2db-example"/>
+        <property name="java-output-path" value="/spring-jdbc-h2db-example/build/classes"/>
+    </wb-module>
+</project-modules>

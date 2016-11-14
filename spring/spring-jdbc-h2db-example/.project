@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>spring-jdbc-example</name>
+	<name>spring-jdbc-h2db-example</name>
 	<comment></comment>
 	<projects>
 	</projects>
