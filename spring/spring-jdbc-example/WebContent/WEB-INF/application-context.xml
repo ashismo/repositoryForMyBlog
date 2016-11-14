@@ -3,8 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://cxf.apache.org/core"
 	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jaxws="http://cxf.apache.org/jaxws"
 	xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="
 			http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
 			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -12,7 +11,9 @@
 			http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
 			http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
 			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
-	        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+	        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+	        http://www.springframework.org/schema/tx
+	        http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
@@ -23,38 +24,6 @@
 
 	<bean id="userGuideWSImpl" class="com.ashish.poc.ws.UserGuideWSImpl" />
 
-	<!-- <tx:advice id="txAdvice" transaction-manager="txManager">
-		<tx:attributes>
-			<tx:method name="*" propagation="REQUIRED" />
-		</tx:attributes>
-	</tx:advice> -->
-	
-	<!-- <aop:config>
-		<aop:aspect id="loggingAspect" ref="simpleLogger"> -->
-			
-			<!-- AROUND FOR LOGGING AROUND ALL METHODS OF BELOW PACKAGES -->
-			<!-- <aop:pointcut id="pointCutAround"
-				expression="execution(* com.ashish.poc.ws.*.*(..)) || execution(* com.ashish.poc.services.*.*(..)))" />
-			<aop:around method="logAround" pointcut-ref="pointCutAround" /> -->
-
-			<!-- AFTER THROWING EXCEPTION FOR WEB SERVICE LAYER -->
-			<!-- <aop:pointcut id="pointCutAfterThrowing" expression="execution(* com.ashish.poc.ws.*.*(..))" />
-			<aop:after-throwing method="logAfterThrowingWebService"
-				throwing="error" pointcut-ref="pointCutAfterThrowing" /> -->
-			<!-- AFTER THROWING EXCEPTION FOR JAVA SERVICE LAYER -->
-			<!-- <aop:pointcut id="pointCutAfterThrowingService"
-				expression="execution(* com.ashish.poc.services.*.*(..))" />
-			<aop:after-throwing method="logAfterThrowingService"
-				throwing="error" pointcut-ref="pointCutAfterThrowingService" /> -->
-			<!-- AFTER THROWING EXCEPTION FOR JAVA BUSINESS LAYER -->
-			<!-- <aop:pointcut id="pointCutAfterThrowingService"
-				expression="execution(* com.ashish.poc.business.*.*(..))" />
-			<aop:after-throwing method="logAfterThrowingBusinessService"
-				throwing="error" pointcut-ref="pointCutAfterThrowingService" /> -->
-		<!-- </aop:aspect>
-	</aop:config>
-	<bean id="simpleLogger" class="com.ashish.poc.config.LoggingAspect" /> -->
-	
 	<!-- For REST Implementation -->
 	<jaxrs:server id="utilities" address="/svc/">
 		<jaxrs:serviceBeans>
@@ -64,19 +33,6 @@
 			<ref bean="jsonProvider" />
 		</jaxrs:providers>
 	</jaxrs:server>
-
-	<!-- <bean id="userDao" class="com.ashish.poc.dao.UserDaoImpl" > <property 
-		name="namedParameterJdbcTemplate" ref="jdbcTemplate" /> </bean> <bean id="jdbcTemplate" 
-		class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate" 
-		> <constructor-arg ref="dataSource" /> </bean> -->
-
-	<!-- Start Hsql database manager tool -->
-	<!-- <bean depends-on="dataSource" class="org.springframework.beans.factory.config.MethodInvokingBean"> 
-		<property name="targetClass" value="org.hsqldb.util.DatabaseManagerSwing" 
-		/> <property name="targetMethod" value="main" /> <property name="arguments"> 
-		<list> <value>url</value> <value>jdbc:hsqldb:mem:dataSource</value> <value>user</value> 
-		<value>sa</value> <value>password</value> <value></value> </list> </property> 
-		</bean> -->
 
 	<bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider">
 		<constructor-arg ref="jacksonMapper" />
