@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     	xmlns:cxf="http://cxf.apache.org/core"
+		xmlns:jaxws="http://cxf.apache.org/jaxws"
+		xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:util="http://www.springframework.org/schema/util"
+		xsi:schemaLocation="
+			http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+			http://www.springframework.org/schema/beans 
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+			http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+			http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<import resource="classpath:META-INF/cxf/cxf.xml"/>
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+
+    <!-- <cxf:bus>
+        <cxf:features>
+            <cxf:logging/>
+        </cxf:features>
+    </cxf:bus>
+
+	<bean id="accountService" class="server.service.AccountService" init-method="init"></bean>
+	<bean id="jsonProvider" 
+		class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
+	
+  	<jaxrs:server id="accountrs" address="/rservice">
+  		<jaxrs:serviceBeans>
+  			<ref bean="accountService"/>
+  		</jaxrs:serviceBeans>
+  		<jaxrs:providers>
+			<ref bean='jsonProvider' />
+		</jaxrs:providers>
+  	</jaxrs:server> -->
+  	
+  	<context:annotation-config />
+  	<context:component-scan base-package="com.ashish.poc" />
+
+	<bean id="userGuideWSImpl" class="com.ashish.poc.ws.UserGuideWSImpl" />
+
+	<!-- For REST Implementation -->
+	<jaxrs:server id="utilities" address="/svc">
+		<jaxrs:serviceBeans>
+			<ref bean="userGuideWSImpl" />
+		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<ref bean="jsonProvider" />
+		</jaxrs:providers>
+	</jaxrs:server>
+
+	<bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider">
+		<constructor-arg ref="jacksonMapper" />
+	</bean>
+	<bean id="jacksonMapper" class="org.codehaus.jackson.map.ObjectMapper">
+		<property name="serializationConfig.dateFormat">
+			<bean class="java.text.SimpleDateFormat">
+				<constructor-arg value="MM/dd/yyyy" />
+			</bean>
+		</property>
+		<property name="serializationConfig.serializationInclusion">
+			<util:constant
+				static-field="org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion.NON_EMPTY" />
+		</property>
+		<property name="deserializationConfig.dateFormat">
+			<bean class="java.text.SimpleDateFormat">
+				<constructor-arg value="MM/dd/yyyy" />
+			</bean>
+		</property>
+	</bean>
+
+</beans>

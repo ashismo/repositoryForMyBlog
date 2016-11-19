@@ -14,7 +14,7 @@ public class CloudConfig extends AbstractCloudConfig implements Config {
 	@Bean(name="dataSource")
 	@Primary
 	public DataSource  dataSource() {
-	      return connectionFactory().dataSource("creditDbTest");
+	      return connectionFactory().dataSource("MySqlDBService");
 	}
 	
 	
