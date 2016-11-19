@@ -22,7 +22,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
   
   <servlet-mapping>
   	<servlet-name>CXFServlet</servlet-name>
-  	<url-pattern>/*</url-pattern>
+  	<url-pattern>/rest/*</url-pattern>
   </servlet-mapping>
   
 </web-app>
