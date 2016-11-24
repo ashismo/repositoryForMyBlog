@@ -1,5 +1,7 @@
 package com.ashish.poc.util;
 
+import java.sql.Timestamp;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -24,5 +26,9 @@ public class CommonUtil {
 			System.out.println("Batabase backup failed.");
 			e.printStackTrace();
 		}
+	}
+	
+	public Timestamp getCurrentTimeStamp() {
+		return new Timestamp(System.currentTimeMillis());
 	}
 }
