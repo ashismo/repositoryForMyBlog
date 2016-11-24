@@ -8,8 +8,10 @@ public class UserDataModel {
 	private List<Url> urls;
 	private List<EnvironmentMaster> environments;
 	private List<Module> modules;
+	private List<ModuleEnvironmentMaster> moduleEnvironments;
 	
 	private String errorMsg;
+	private String userMsg;
 
 	public List<Users> getUsers() {
 		return users;
@@ -59,4 +61,20 @@ public class UserDataModel {
 		this.modules = modules;
 	}
 
+	public List<ModuleEnvironmentMaster> getModuleEnvironments() {
+		return moduleEnvironments;
+	}
+
+	public void setModuleEnvironments(
+			List<ModuleEnvironmentMaster> moduleEnvironments) {
+		this.moduleEnvironments = moduleEnvironments;
+	}
+
+	public String getUserMsg() {
+		return userMsg;
+	}
+
+	public void setUserMsg(String userMsg) {
+		this.userMsg = userMsg;
+	}
 }
