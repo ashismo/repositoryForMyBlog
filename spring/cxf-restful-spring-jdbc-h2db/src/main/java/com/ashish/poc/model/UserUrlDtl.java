@@ -3,7 +3,7 @@ package com.ashish.poc.model;
 import java.sql.Timestamp;
 
 public class UserUrlDtl {
-	private int id;
+	private Integer id;
 	private Integer userId;
 	private Integer urlId;
 	private String username;
@@ -17,10 +17,10 @@ public class UserUrlDtl {
 	private Url url;
 	private Users user;
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public Integer getUserId() {
