@@ -27,15 +27,18 @@ public class Initializer {
 			/**
 			 * This code opens HSQL database manager for H2 database 
 			 */
-			if(!"true".equalsIgnoreCase(inMemoryInd)) {
-				org.hsqldb.util.DatabaseManagerSwing.main(new String[] { "--url",
-						env.getProperty("h2db.file.url"), "--noexit", "--user", "sa",
-						"--password", "" });
-			} else {
 			
-				org.hsqldb.util.DatabaseManagerSwing.main(new String[] { "--url",
-						env.getProperty("h2db.inmemory.url"), "--noexit", "--user", "sa",
-						"--password", "" });
+			if("true".equalsIgnoreCase(env.getProperty("h2db.display.hsql.manager"))) {
+				if(!"true".equalsIgnoreCase(inMemoryInd)) {
+					org.hsqldb.util.DatabaseManagerSwing.main(new String[] { "--url",
+							env.getProperty("h2db.file.url"), "--noexit", "--user", "sa",
+							"--password", "" });
+				} else {
+				
+					org.hsqldb.util.DatabaseManagerSwing.main(new String[] { "--url",
+							env.getProperty("h2db.inmemory.url"), "--noexit", "--user", "sa",
+							"--password", "" });
+				}
 			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
