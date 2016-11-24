@@ -1,9 +1,13 @@
 package com.ashish.poc.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.ashish.poc.dao.UserDaoImpl;
 import com.ashish.poc.model.UserDataModel;
@@ -11,34 +15,74 @@ import com.ashish.poc.model.Users;
 
 @Component
 public class UserServices {
+	
+	private static final Logger log = Logger.getLogger(UserServices.class);
+	
 	@Autowired
 	private UserDaoImpl userDaoImpl;
 	
 	@Transactional//(propagation=Propagation.REQUIRED,readOnly=false, rollbackFor=Exception.class)
 	public void createOrUpdateUser(UserDataModel udm) throws Exception{
 		if(udm.getUsers() == null ||udm.getUsers().size() == 0) {
-			udm.setErrorMsg("Input to create user is incorrect");
+			udm.setErrorMsg("Input to create/update user is incorrect");
+			return;
 		}
-		
-		
 		Users user = udm.getUsers().get(0);
-		if(user.getUserId() == null || user.getUserId() == 0) {
-			System.out.println("New user creation request");
+		if(user.getUserId() == 0) {
+			Users u = userDaoImpl.findByUserName(user.getUsername());
 			
-			
-			Users u = userDaoImpl.findByUserId(1);
-			u.setName("Junk");
-			userDaoImpl.updateUser(u);
-			
-			
-			userDaoImpl.createUser(user);
+			if(u == null) {
+				log.debug("New user creation request");
+				userDaoImpl.createUser(user);
+			} else {
+				udm.setErrorMsg("User already exists. Please try different user name");
+			}
 		} else {
-			System.out.println("Check if user already exists");
+			log.debug("Check if user already exists");
 			Users u = userDaoImpl.findByUserId(user.getUserId());
 			if(u != null) {
-				System.out.println("User already exists. Updating the user");
+				log.debug("User already exists. Updating the user");
 				userDaoImpl.updateUser(user);
 			}
 		}
+		getUsers(udm);
 	}
+	
+	public void getUsers(UserDataModel udm) throws Exception {
+		if(udm.getUsers() == null || udm.getUsers().size() == 0) {
+			udm.setErrorMsg("Input to retrieve user is incorrect");
+			return;
+		}
+		
+		Users user = udm.getUsers().get(0);
+		if(user != null && !StringUtils.isEmpty(user.getUsername())) { // Get user by userid
+			user = userDaoImpl.findByUserName(user.getUsername());
+			if(user == null) {
+				udm.setErrorMsg("User not found");
+				return;
+			}
+			List<Users> users = new ArrayList<Users>();
+			users.add(user);
+			udm.setUsers(users);
+		} else {
+			List<Users> users = userDaoImpl.findAll();
+			udm.setUsers(users);
+		}
+		
+	}
+	
+	
+	public boolean isUserAuthenticated(String username, String password) throws Exception {
+		if(username != null && !StringUtils.isEmpty(username)) { // Get user by userid
+			Users u = userDaoImpl.findByUserName(username);
+			if(u == null || u.getPassword() == null || !u.getPassword().equals(password)) {
+				return false;
+			}
+		} else {
+			return false;
+		}
+		return true;
+		
+	}
+	
 }
