@@ -11,8 +11,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.ashish.poc.exception.HttpUnauthorizedException;
 import com.ashish.poc.model.UserProfile;
+import com.ashish.poc.security.config.exception.HttpUnauthorizedException;
 import com.ashish.poc.services.UserServices;
 import com.ashish.poc.util.PasswordEncodeDecodeUtil;
 import com.ashish.poc.util.WebConstants;

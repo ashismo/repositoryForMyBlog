@@ -1,4 +1,4 @@
-package com.ashish.poc.exception;
+package com.ashish.poc.security.config.exception;
 public class HttpUnauthorizedException extends RuntimeException {
 	private String message = "";
 	private String errorCode = "";
