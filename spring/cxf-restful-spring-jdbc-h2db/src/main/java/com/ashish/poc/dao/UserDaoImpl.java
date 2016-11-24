@@ -6,19 +6,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.ashish.poc.model.Users;
+import com.ashish.poc.util.CommonUtil;
 import com.ashish.poc.util.PasswordEncodeDecodeUtil;
 
 @Repository
 public class UserDaoImpl {
 
+	private static final Logger log = Logger.getLogger(UserDaoImpl.class);
+	
 	@Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	
+	@Autowired
+	private CommonUtil commonUtil;
 	
 	@Autowired
 	private PasswordEncodeDecodeUtil passwordEncodeDecode;
@@ -27,16 +34,15 @@ public class UserDaoImpl {
 		Users result = null;
 		try {
 			Map<String, Object> params = new HashMap<String, Object>();
-			params.put("username", name);
+			params.put("username", name.toLowerCase());
 
-			String sql = "SELECT * FROM users WHERE username=:username";
+			String sql = "SELECT * FROM users WHERE lower(username)=:username";
 
 			result = namedParameterJdbcTemplate.queryForObject(sql, params,
 					new UserMapper());
 
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			log.error("No records found for user name: " + name, e);
 		}
 		return result;
 
@@ -53,9 +59,7 @@ public class UserDaoImpl {
 			result = namedParameterJdbcTemplate.queryForObject(sql, params, new UserMapper());
 
 		} catch (Exception e) {
-			System.out.println("No records found for user id: " + userId);
-			e.printStackTrace();
-			throw e;
+			log.error("No records found for user id: " + userId, e);
 		}
 		return result;
 
@@ -81,10 +85,10 @@ public class UserDaoImpl {
 	 */
 	public void createUser(Users user) throws Exception {
 		try {
-			if (user != null && (user.getUserId() == null || user.getUserId() == 0)) {
-				System.out.println("Going to add " + user);
-				String sql = "INSERT INTO users (user_id, username, name, password, role_id, email, create_user, create_date) "
-						+ " VALUES (:user_id, :username, :name, :password, :role_id, :email, :create_user, :create_date);";
+			if (user != null && user.getUserId() == 0) {
+				log.debug("Going to add " + user);
+				String sql = "INSERT INTO users (username, name, password, role_id, email, create_user, create_date) "
+						+ " VALUES (:username, :name, :password, :role_id, :email, :create_user, :create_date);";
 
 				Map<String, Object> parameters = new HashMap<String, Object>();
 				parameters.put("user_id", user.getUserId());
@@ -95,14 +99,14 @@ public class UserDaoImpl {
 				parameters.put("email", user.getEmail());
 				parameters.put("role_id", user.getRoleId());
 				parameters.put("create_user", user.getCreateUser());
-				parameters.put("create_date", user.getCreateDate());
+				parameters.put("create_date", commonUtil.getCurrentTimeStamp());
 
 				namedParameterJdbcTemplate.update(sql, parameters);
 			} else {
-				System.out.println(user.getUsername() + " not added");
+				log.debug(user.getUsername() + " not added");
 			}
 		} catch (Exception e) {
-			System.out.println("Unable to create user for user_name: " + user.getUsername());
+			log.error("Unable to create user for user_name: " + user.getUsername());
 			e.printStackTrace();
 			throw e;
 		}
@@ -115,8 +119,8 @@ public class UserDaoImpl {
 	 */
 	public void updateUser(Users user) throws Exception {
 		try {
-			if (user != null && user.getUserId() != null && user.getUserId() > 0) {
-				System.out.println("Going to update " + user.getUsername());
+			if (user != null && user.getUserId() > 0) {
+				log.debug("Going to update " + user.getUsername());
 				String sql = "update PUBLIC.USERS set name=:name, password=:password, role_id=:role_id, email=:email, "
 						+ "update_user=:update_user, update_date=:update_date where user_id=:user_id";
 				
@@ -130,14 +134,14 @@ public class UserDaoImpl {
 				parameters.put("email", user.getEmail());
 				parameters.put("role_id", user.getRoleId());
 				parameters.put("update_user", user.getUpdateUser());
-				parameters.put("update_date", user.getUpdateDate());
+				parameters.put("update_date", commonUtil.getCurrentTimeStamp());
 
 				namedParameterJdbcTemplate.update(sql, parameters);
 			} else {
-				System.out.println(user.getUsername() + " not updated");
+				log.debug(user.getUsername() + " not updated");
 			}
 		} catch (Exception e) {
-			System.out.println("Unable to update user for user_name: " + user.getUsername());
+			log.error("Unable to update user for user_name: " + user.getUsername());
 			e.printStackTrace();
 			throw e;
 		}
