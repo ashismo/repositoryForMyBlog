@@ -13,9 +13,11 @@ import javax.ws.rs.core.MediaType;
 import org.apache.cxf.jaxrs.impl.HttpHeadersImpl;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
 import com.ashish.poc.model.UserDataModel;
+import com.ashish.poc.services.UrlServices;
 import com.ashish.poc.services.UserServices;
 import com.ashish.poc.util.CommonUtil;
 
@@ -30,11 +32,15 @@ public class UserGuideWSImpl {
 	
 	@Autowired
 	private UserServices userServices;
+	
+	@Autowired
+	private UrlServices urlService;
 
 	@GET
 	@Path("/getHtmlData")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
+	@WebMethod
 	public UserDataModel getHtmlData(@Context HttpHeadersImpl headers,
 			@QueryParam("criteria") String criteria) throws Exception {
 		UserDataModel userDataModel = new UserDataModel();
@@ -59,13 +65,67 @@ public class UserGuideWSImpl {
 	}
 
 	@POST
-	@Path("/createUser")
+	@Path("/admin/createUser")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
+	@WebMethod
 	public UserDataModel createUser(UserDataModel userDataModel)
 			throws Exception {
-		log.debug("Starting the service");
-		userServices.createOrUpdateUser(userDataModel);
+		try {
+			userServices.createOrUpdateUser(userDataModel);
+		} catch (Exception e) {
+			log.error("Unable to create/update user", e);
+			userDataModel.setErrorMsg("Unable to create/update user");
+		}
+		return userDataModel;
+	}
+	
+	@POST
+	@Path("/admin/getUser")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_GENERAL')")
+	@WebMethod
+	public UserDataModel getUsers(UserDataModel userDataModel)
+			throws Exception {
+		try {
+			userServices.getUsers(userDataModel);
+		} catch (Exception e) {
+			log.error("Unable to retrieve user information", e);
+			userDataModel.setErrorMsg("Unable to retrieve user information");
+		}
+		return userDataModel;
+	}
+	
+	@POST
+	@Path("/createUrl")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@WebMethod
+	public UserDataModel createUrl(UserDataModel userDataModel)
+			throws Exception {
+		try {
+			urlService.createOrUpdateUrl(userDataModel);
+		} catch (Exception e) {
+			log.error("Unable to create/update URL", e);
+			userDataModel.setErrorMsg("Unable to create/update URL");
+		}
+		return userDataModel;
+	}
+	
+	@POST
+	@Path("/getUrl")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@WebMethod
+	public UserDataModel getUrl(UserDataModel userDataModel)
+			throws Exception {
+		try {
+			urlService.getUrl(userDataModel);
+		} catch (Exception e) {
+			log.error("Unable to retrieve URL information", e);
+			userDataModel.setErrorMsg("Unable to retrieve URL information");
+		}
 		return userDataModel;
 	}
 
