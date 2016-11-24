@@ -5,6 +5,7 @@ DROP TABLE user_url_dtl IF EXISTS;
 DROP TABLE module IF EXISTS;
 DROP TABLE environment_master IF EXISTS;
 DROP TABLE role IF EXISTS;
+DROP TABLE module_env IF EXISTS;
 
 CREATE TABLE IF NOT EXISTS users (
   user_id INTEGER auto_increment PRIMARY KEY,
@@ -32,11 +33,11 @@ CREATE TABLE IF NOT EXISTS role (
 CREATE TABLE IF NOT EXISTS url (
   url_id INTEGER auto_increment PRIMARY KEY,
   name VARCHAR(100),
-  description VARCHAR(200),
+  description VARCHAR(1000),
   url VARCHAR(1000),
   username VARCHAR(50),
   password VARCHAR(50),
-  module_id INTEGER,
+  module_env_id INTEGER,
   role_id INTEGER,		 -- This field indicates the username/password would be visible to only this role. If blank then it would be visible to all if visible is marked as TRUE
   visible BOOLEAN,   	 -- This field indicates if the details is visible to all
   email  VARCHAR(50),
@@ -63,7 +64,7 @@ CREATE TABLE IF NOT EXISTS module (
   module_id INTEGER auto_increment PRIMARY KEY,
   module_name VARCHAR(100),
   description VARCHAR(200),
-  env_id INTEGER,
+  --env_id INTEGER,
   create_user VARCHAR(100),
   create_date TIMESTAMP,
   update_user VARCHAR(100),
@@ -73,11 +74,29 @@ CREATE TABLE IF NOT EXISTS module (
 CREATE TABLE IF NOT EXISTS environment_master (
   env_id INTEGER auto_increment PRIMARY KEY,
   env_name VARCHAR(200),
-  env_desc VARCHAR(200)
+  env_desc VARCHAR(200),
+  create_user VARCHAR(100),
+  create_date TIMESTAMP,
+  update_user VARCHAR(100),
+  update_date TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS module_env (
+  module_env_id INTEGER auto_increment,
+  module_id INTEGER,
+  env_id INTEGER,
+  create_user VARCHAR(100),
+  create_date TIMESTAMP,
+  update_user VARCHAR(100),
+  update_date TIMESTAMP
 );
 
 ALTER TABLE users ADD FOREIGN KEY ( role_id ) REFERENCES role( role_id );
 ALTER TABLE url ADD FOREIGN KEY ( role_id ) REFERENCES role( role_id );
+ALTER TABLE url ADD FOREIGN KEY ( module_env_id ) REFERENCES role( module_env_id );
 ALTER TABLE user_url_dtl ADD FOREIGN KEY ( user_id ) REFERENCES users ( user_id );
 ALTER TABLE user_url_dtl ADD FOREIGN KEY ( url_id ) REFERENCES url ( url_id );
 ALTER TABLE module ADD FOREIGN KEY ( env_id ) REFERENCES environment_master( env_id );
+ALTER TABLE module_env ADD FOREIGN KEY ( module_id ) REFERENCES module ( module_id );
+ALTER TABLE module_env ADD FOREIGN KEY ( env_id ) REFERENCES environment_master( env_id );
+ALTER TABLE module_env ADD PRIMARY KEY(module_id, env_id));
