@@ -7,7 +7,7 @@ public class Module {
 	private int moduleId;
 	private String moduleName;
 	private String description;
-	private Integer envId;
+//	private Integer envId;
 	private String createUser;
 	private String updateUser;
 	private Timestamp createDate;
@@ -34,12 +34,12 @@ public class Module {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Integer getEnvId() {
-		return envId;
-	}
-	public void setEnvId(Integer envId) {
-		this.envId = envId;
-	}
+//	public Integer getEnvId() {
+//		return envId;
+//	}
+//	public void setEnvId(Integer envId) {
+//		this.envId = envId;
+//	}
 	public String getCreateUser() {
 		return createUser;
 	}
