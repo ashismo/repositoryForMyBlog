@@ -4,29 +4,32 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class Url {
-	private Integer urlId;
+	private int urlId;
 	private String name;
 	private String description;
 	private String url;
 	private String username;
 	private String password;
-	private Integer moduleId;
+	private Integer moduleEnvId;
 	private Integer roleId;
 	private boolean visible;
 	private String email;
+	private String moduleName;
+	private String envName;
+	private String roleName;
 	private String createUser;
 	private String updateUser;
 	private Timestamp createDate;
 	private Timestamp updateDate;
 	
-	private Module module;
+	private ModuleEnvironmentMaster moduleEnvMaster;
 	private Role role;
 	private List<UserUrlDtl> userUrlDtls;
 	
-	public Integer getUrlId() {
+	public int getUrlId() {
 		return urlId;
 	}
-	public void setUrlId(Integer urlId) {
+	public void setUrlId(int urlId) {
 		this.urlId = urlId;
 	}
 	public String getName() {
@@ -107,22 +110,41 @@ public class Url {
 	public void setUserUrlDtls(List<UserUrlDtl> userUrlDtls) {
 		this.userUrlDtls = userUrlDtls;
 	}
-	public Integer getModuleId() {
-		return moduleId;
+	
+	public Integer getModuleEnvId() {
+		return moduleEnvId;
 	}
-	public void setModuleId(Integer moduleId) {
-		this.moduleId = moduleId;
+	public void setModuleEnvId(Integer moduleEnvId) {
+		this.moduleEnvId = moduleEnvId;
 	}
-	public Module getModule() {
-		return module;
+	public ModuleEnvironmentMaster getModuleEnvMaster() {
+		return moduleEnvMaster;
 	}
-	public void setModule(Module module) {
-		this.module = module;
+	public void setModuleEnvMaster(ModuleEnvironmentMaster moduleEnvMaster) {
+		this.moduleEnvMaster = moduleEnvMaster;
 	}
 	public Role getRole() {
 		return role;
 	}
 	public void setRole(Role role) {
 		this.role = role;
+	}
+	public String getModuleName() {
+		return moduleName;
+	}
+	public void setModuleName(String moduleName) {
+		this.moduleName = moduleName;
+	}
+	public String getEnvName() {
+		return envName;
+	}
+	public void setEnvName(String envName) {
+		this.envName = envName;
+	}
+	public String getRoleName() {
+		return roleName;
+	}
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
 }
