@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class Users {
-	private Integer userId;
+	private int userId;
 	private String username;
 	private String password;
 	private String name;
@@ -19,10 +19,10 @@ public class Users {
 	private List<UserUrlDtl> userUrlDtls;
 	
 	
-	public Integer getUserId() {
+	public int getUserId() {
 		return userId;
 	}
-	public void setUserId(Integer userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 	public String getUsername() {
