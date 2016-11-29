@@ -40,4 +40,21 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
   	<url-pattern>/rest/*</url-pattern>
   </servlet-mapping>
   
+	<!--  Below configuration is required to deliver the static content directly-->
+	<servlet>
+		<servlet-name>DefaultCXFServlet</servlet-name>
+		<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+		<init-param>
+			<param-name>static-resources-list</param-name>
+			<param-value>/html/(\w)+.html
+						/js/(\w)+.js 
+						/css/(\w)+.css
+			</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DefaultCXFServlet</servlet-name>
+		<url-pattern>/static/**</url-pattern>
+	</servlet-mapping>
 </web-app>
