@@ -3,19 +3,19 @@ package com.ashish.poc.security.config;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity(debug=true)
+
+// Below annotation is required to use @PreAuthorize
 @EnableGlobalMethodSecurity(prePostEnabled=true,securedEnabled=true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
@@ -24,9 +24,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	@Qualifier("customUserDetailsService")
 	private UserDetailsService customUserDetailsService;
-	
-	@Autowired
-	private CustomAuthenticationProvider authenticationProvider;
 	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -42,36 +39,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-
-//	  http.authorizeRequests()
-//		.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-//		.antMatchers("/dba/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_DBA')")
-//		.and().formLogin();
-		
 		 http.authorizeRequests()
-	        .antMatchers("/", "/home","/rest/login", "/rest/svc/guide/admin/createUser").permitAll()
-	        //.and().formLogin().loginPage("/login")
-	        .and().exceptionHandling().accessDeniedPage("/Access_Denied");
-		 //http.addFilterBefore(basicAuthenticationFilter(), BasicAuthenticationFilter.class);
-	  http.authenticationProvider(authenticationProvider);
+		 	.antMatchers("/login*").permitAll()
+		 	.antMatchers("/static/**").permitAll()
+	        .and().exceptionHandling().accessDeniedPage("/rest/Access_Denied");
+		 http.formLogin().loginPage("/login.jsp")
+		 .loginProcessingUrl("/j_spring_security_check")
+		 .defaultSuccessUrl("/static/html/dashboard.html")
+		 .permitAll().and()
+         .logout()                                    
+         .permitAll();
 
-	}
-	
-	@Bean
-	public BasicAuthenticationEntryPoint authenticationEntryPoint() {
-		BasicAuthenticationEntryPoint basicAuthenticationEntryPoint = new BasicAuthenticationEntryPoint();
-		basicAuthenticationEntryPoint.setRealmName("Authorization:");
-		return basicAuthenticationEntryPoint;
-	}
-	
-	@Bean
-	public BasicAuthenticationFilter basicAuthenticationFilter() {
-		BasicAuthenticationFilter basicAuthenticationEntryPoint = null;
-		try {
-			basicAuthenticationEntryPoint = new BasicAuthenticationFilter(authenticationManager(),authenticationEntryPoint());
-		} catch (Exception e) {
-			log.error("Error is basic authentication filter", e);
-		}
-		return basicAuthenticationEntryPoint;
 	}
 }
