@@ -41,6 +41,7 @@ public class UserGuideWSImpl {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@WebMethod
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_GENERAL')")
 	public UserDataModel getHtmlData(@Context HttpHeadersImpl headers,
 			@QueryParam("criteria") String criteria) throws Exception {
 		UserDataModel userDataModel = new UserDataModel();
