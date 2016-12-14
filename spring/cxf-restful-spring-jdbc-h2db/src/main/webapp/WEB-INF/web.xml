@@ -57,4 +57,9 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
 		<servlet-name>DefaultCXFServlet</servlet-name>
 		<url-pattern>/static/**</url-pattern>
 	</servlet-mapping>
+	
+	<mime-mapping>
+		<extension>js</extension>
+		<mime-type>application/javascript</mime-type>
+	</mime-mapping>
 </web-app>
