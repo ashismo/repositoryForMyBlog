@@ -87,9 +87,26 @@ Then check for the syntax with the following command "H:\Program Files\wamp\bin\
 
 
 
+Enable Godady Certificate in LAMPP
+=====================================
+1. Get CSR file from amazon server and place it into /opt/lampp/OpenSSL/certs
+2. Open the csr file using vi editor.
+3. Copy the content then login to godaddy->Configure SSL-> Rekey and Manage->Rekey certificate->Paste the content from csr file
+4. Go back to configure SSL and download the certificate. Place them in /opt/lampp/OpenSSL/certs location
+5. In xampp aache you need the below configuration in /opt/lampp/etc/httpd.conf
 
+<IfDefine SSL>
+Include etc/extra/httpd-ssl.conf
+RewriteEngine On
+RewriteCond %{HTTPS} off
+#RewriteRule %{REQUEST_URI} !^/[^/]+/google4c0a050428a02ac2.html [NC]
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+</IfDefine>
 
+6. Open ./etc/extra/httpd-ssl.conf file and mention the crt file you got from godaddy. Example
+SSLCertificateFile "/opt/lampp/OpenSSL/certs/989c27cd62cbe023.crt"
 
+7. Restart the apache
 
 
 
