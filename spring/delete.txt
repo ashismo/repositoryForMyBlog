@@ -1,0 +1,394 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.ashish.spring.batch</groupId>
+	<artifactId>spring-batch</artifactId>
+	<version>1.0-SNAPSHOT</version>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.3.3.RELEASE</version>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+		</dependency>
+
+		<!-- Below dependency has provided scope defined because during deployment 
+			in tomcat this jar is not required. This jar is required to execute the stand 
+			alone application with embedded tomcat -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+		</dependency>
+
+		<!-- Spring batch dependency START -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-batch</artifactId>
+		</dependency>
+		<!-- Spring batch dependency END -->
+		
+		<!-- h2db dependency START -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+		
+		<!-- Below dependency act as the h2 db client -->
+		<!-- URL to access the web client: http://localhost:9000/h2-console/login.do -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+	</dependencies>
+	
+	<!-- h2db dependency END -->
+</project>
+
+
+
+
+package com.ashish.batch.app;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobParameters;
+import org.springframework.batch.core.JobParametersBuilder;
+import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/rest")
+public class SpringBootAppWS {
+
+//	@Autowired
+//	JobLauncher jobLauncher;
+//
+//	@Autowired
+//	Job processJob;
+//
+//	@RequestMapping(path = "/startJob", method = RequestMethod.GET, headers = "Accept=application/json", produces = "application/json")
+//	public String startJob() throws Exception {
+//
+//		JobParameters jobParameters = new JobParametersBuilder().addLong(
+//				"time", System.currentTimeMillis()).toJobParameters();
+//		jobLauncher.run(processJob, jobParameters);
+//
+//		return "Batch job has been invoked";
+//	}
+
+}
+
+
+
+
+
+
+
+
+
+
+package com.ashish.batch.config;
+
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobExecutionListener;
+import org.springframework.batch.core.JobParameters;
+import org.springframework.batch.core.JobParametersBuilder;
+import org.springframework.batch.core.Step;
+import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.support.transaction.ResourcelessTransactionManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.Scheduled;
+
+import com.ashish.batch.listener.BatchJobCompletionListener;
+import com.ashish.batch.step.BatchItemProcessor;
+import com.ashish.batch.step.BatchItemReader;
+import com.ashish.batch.step.BatchItemWriter;
+
+@Configuration
+public class BatchConfig {
+
+	@Autowired
+	private JobBuilderFactory jobBuilderFactory;
+
+	@Autowired
+	private StepBuilderFactory stepBuilderFactory;
+
+	@Autowired
+	private JobLauncher jobLauncher;
+
+	@Autowired
+	private Job processJob;
+
+	// This job runs in every 5 seconds
+	@Scheduled(fixedRate = 5000)
+	public void printMessage() {
+		try {
+			JobParameters jobParameters = new JobParametersBuilder().addLong(
+					"time", System.currentTimeMillis()).toJobParameters();
+			jobLauncher.run(processJob, jobParameters);
+			System.out.println("I have been scheduled with Spring scheduler");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Bean
+	public Job processJob() {
+		return jobBuilderFactory.get("processJob")
+				.incrementer(new RunIdIncrementer()).listener(listener())
+				.flow(orderStep1()).end().build();
+	}
+
+	/**
+	 * To create a step, reader, processor and writer has been passed serially
+	 * 
+	 * @return
+	 */
+	@Bean
+	public Step orderStep1() {
+		return stepBuilderFactory.get("orderStep1").<String, String> chunk(1)
+				.reader(new BatchItemReader())
+				.processor(new BatchItemProcessor())
+				.writer(new BatchItemWriter()).build();
+	}
+
+	@Bean
+	public JobExecutionListener listener() {
+		return new BatchJobCompletionListener();
+	}
+
+	@Bean
+	public ResourcelessTransactionManager transactionManager() {
+		return new ResourcelessTransactionManager();
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package com.ashish.batch.config;
+
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.web.SpringBootServletInitializer;
+import org.springframework.scheduling.annotation.EnableScheduling;
+
+@SpringBootApplication(scanBasePackages="com.ashish")
+@EnableBatchProcessing
+@EnableScheduling // Enables scheduling
+public class WebConfig extends SpringBootServletInitializer {
+
+	/**
+	 * This method configures the web application
+	 */
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(WebConfig.class);
+    }
+
+    /**
+     * Run the spring boot application in embedded tomcat 
+     * @param args
+     * @throws Exception
+     */
+    public static void main(String[] args) throws Exception {
+        SpringApplication.run(WebConfig.class, args);
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+package com.ashish.batch.listener;
+
+import org.springframework.batch.core.BatchStatus;
+import org.springframework.batch.core.JobExecution;
+import org.springframework.batch.core.listener.JobExecutionListenerSupport;
+
+/**
+ * This class extends JobExecutionListenerSupport and continuously listen the application change and 
+ * prints the message once completed.
+ * @author Ashish Mondal
+ *
+ */
+public class BatchJobCompletionListener extends JobExecutionListenerSupport {
+
+	@Override
+	public void afterJob(JobExecution jobExecution) {
+		if (jobExecution.getStatus() == BatchStatus.COMPLETED) {
+			System.out.println("BATCH JOB COMPLETED SUCCESSFULLY");
+		}
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package com.ashish.batch.step;
+
+import org.springframework.batch.item.ItemProcessor;
+
+public class BatchItemProcessor implements ItemProcessor<String, String> {
+
+//	@Override
+	public String process(String data) throws Exception {
+		return data.toUpperCase();
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+package com.ashish.batch.step;
+
+import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.item.NonTransientResourceException;
+import org.springframework.batch.item.ParseException;
+import org.springframework.batch.item.UnexpectedInputException;
+
+public class BatchItemReader implements ItemReader<String> {
+
+	private String[] messages = { "Hello World",
+			"Welcome to Spring Batch using Spring boot Example",
+			"H2 Database has been used in this example" };
+
+	private int count = 0;
+
+//	@Override
+	public String read() throws Exception, UnexpectedInputException,
+			ParseException, NonTransientResourceException {
+
+		if (count < messages.length) {
+			return messages[count++];
+		} else {
+			count = 0;
+		}
+		return null;
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package com.ashish.batch.step;
+
+import java.util.List;
+
+import org.springframework.batch.item.ItemWriter;
+
+public class BatchItemWriter implements ItemWriter<String> {
+
+	//@Override
+	public void write(List<? extends String> messages) throws Exception {
+		for (String msg : messages) {
+			System.out.println("Writing the data using batch writer: " + msg);
+		}
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+server.port=9000
+logging.level.org.springframework.web=ERROR
+
+spring.datasource.url=jdbc:h2:file:./DB
+spring.jpa.properties.hibernate.hbm2ddl.auto=update
+spring.batch.job.enabled=false
