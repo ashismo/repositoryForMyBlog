@@ -1,0 +1,28 @@
+Amazon S3 with PHP
+====================
+
+
+1. Install Composer. It is the dependency manager of PHP. 
+Create a directory and run the following command from inside the directory.
+Command: curl -sS https://getcomposer.org/installer | /opt/lampp/bin/php 
+This downloads a file called composer.phar 
+
+2. Need AWS SDK for PHP
+Execute below command. Avoid sudo mode.
+/opt/lampp/bin/php composer.phar require aws/aws-sdk-php
+
+This command creates the following files
+
+ubuntu@ip-172-31-21-231:/data/opt/awss3$ ls
+composer.json  composer.lock   vendor
+
+3. Create an access key from AWS account (if dows not exists)
+https://aws.amazon.com/developers/access-keys/
+a. Go to IAM console
+b. Create New group (name: developers)
+c. Select "AmazonS3FullAccess" template
+d. Finish. Once group is created, select the group and click "Add Users to group"
+
+4. Note down the 
+a. access key id: AKIAJJ2WMF3AJD2OZ4NQ
+b. Secret access key: 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
