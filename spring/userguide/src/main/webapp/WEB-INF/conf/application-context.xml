@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://cxf.apache.org/core"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+			http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			 http://www.springframework.org/schema/aop  http://www.springframework.org/schema/aop/spring-aop.xsd
+			http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+			http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+	        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+	        http://www.springframework.org/schema/tx
+	        http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+	<context:annotation-config />
+
+	<context:component-scan base-package="com.ashish.poc" />
+
+	<bean id="userGuideWSImpl" class="com.ashish.poc.ws.UserGuideWSImpl" />
+	<bean id="masterDataWSImpl" class="com.ashish.poc.ws.MasterDataWSImpl" />
+
+	<!-- For REST Implementation -->
+	<jaxrs:server id="utilities" address="/svc/">
+		<jaxrs:serviceBeans>
+			<ref bean="userGuideWSImpl" />
+		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<ref bean="jsonProvider" />
+		</jaxrs:providers>
+	</jaxrs:server>
+	
+	<jaxrs:server id="masterData" address="/svc/config">
+		<jaxrs:serviceBeans>
+			<ref bean="masterDataWSImpl" />
+		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<ref bean="jsonProvider" />
+		</jaxrs:providers>
+	</jaxrs:server>
+
+	<bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider">
+		<constructor-arg ref="jacksonMapper" />
+	</bean>
+	<bean id="jacksonMapper" class="org.codehaus.jackson.map.ObjectMapper">
+		<property name="serializationConfig.dateFormat">
+			<bean class="java.text.SimpleDateFormat">
+				<constructor-arg value="MM/dd/yyyy hh:mm:ss" />
+			</bean>
+		</property>
+		<property name="serializationConfig.serializationInclusion">
+			<util:constant
+				static-field="org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion.NON_EMPTY" />
+		</property>
+		<property name="deserializationConfig.dateFormat">
+			<bean class="java.text.SimpleDateFormat">
+				<constructor-arg value="MM/dd/yyyy  hh:mm:ss" />
+			</bean>
+		</property>
+	</bean>
+</beans>

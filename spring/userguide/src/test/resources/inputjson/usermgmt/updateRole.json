@@ -1,0 +1,8 @@
+{
+	"roles": [{
+		"roleId" : 1
+		"rolename":"ADMIN",
+		"roleDesc":"Administrator Role",
+		"updateUser":"ashish"
+	}]
+}

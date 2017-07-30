@@ -1,0 +1,10 @@
+{
+	"users": [{
+		"userId" : 4,
+		"username":"mondala",
+		"password":"mondala1",
+		"name":"Ashish Mondal",
+		"email":"ashismo@gmail.com",
+		"createUser":"ashish"
+	}]
+}

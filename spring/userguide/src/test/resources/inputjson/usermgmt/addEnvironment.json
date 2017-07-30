@@ -1,0 +1,7 @@
+{
+	"environments": [{
+		"envName":"DEV",
+		"envDesc":"Development",
+		"createUser":"ashish"
+	}]
+}

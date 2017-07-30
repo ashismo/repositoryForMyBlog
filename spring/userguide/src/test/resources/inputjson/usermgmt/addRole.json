@@ -1,0 +1,7 @@
+{
+	"roles": [{
+		"rolename":"ADMIN",
+		"roleDesc":"Administrator",
+		"createUser":"ashish"
+	}]
+}
