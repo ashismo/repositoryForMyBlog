@@ -18,6 +18,7 @@
 		<aspectj.version>1.8.9</aspectj.version>
 		<hsql.db.version>2.0.0</hsql.db.version>
 		<junit.version>4.9</junit.version>
+		<apache.poi.version>3.15</apache.poi.version>
 	</properties>
 
 	<pluginRepositories>
@@ -35,6 +36,14 @@
 			<version>4.11</version> <scope>test</scope> </dependency> -->
 		<!-- JUnit END -->
 
+		<!-- Excel library -->
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>${apache.poi.version}</version>
+		</dependency>
+
 		<!-- log4j START -->
 		<dependency>
 			<groupId>log4j</groupId>
@@ -49,11 +58,8 @@
 		<!-- log4J END -->
 
 		<!-- Apache CXF Dependency START -->
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-frontend-jaxws</artifactId>
-			<version>${cxf.version}</version>
-		</dependency>
+		<!--<dependency> <groupId>org.apache.cxf</groupId> <artifactId>cxf-rt-frontend-jaxws</artifactId> 
+			<version>${cxf.version}</version> </dependency> -->
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-frontend-jaxrs</artifactId>
