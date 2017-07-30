@@ -9,6 +9,7 @@ public class UserDataModel {
 	private List<EnvironmentMaster> environments;
 	private List<Module> modules;
 	private List<ModuleEnvironmentMaster> moduleEnvironments;
+	private String fileName;
 	
 	private String errorMsg;
 	private String userMsg;
@@ -85,5 +86,13 @@ public class UserDataModel {
 
 	public void setGuestUser(boolean guestUser) {
 		this.guestUser = guestUser;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 }
