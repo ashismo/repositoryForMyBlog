@@ -2,7 +2,8 @@
 <web-app id="WebApp_ID" version="2.4"
 	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
-
+	
+	
 	<!-- Spring Security -->
 	<!-- The filter must necessarily be named 'springSecurityFilterChain' to 
 		match the default bean created by Spring Security in the container -->
@@ -66,4 +67,8 @@
 		<extension>js</extension>
 		<mime-type>application/javascript</mime-type>
 	</mime-mapping>
+	
+	<welcome-file-list>
+		<welcome-file>dashboard.jsp</welcome-file>
+	</welcome-file-list>
 </web-app>
