@@ -88,7 +88,7 @@ public class UrlServices {
 		}
 		
 		Url url = udm.getUrls().get(0);
-		if(url != null && !StringUtils.isEmpty(url.getUrl())) { // Get user by urlid
+		if(url != null && !StringUtils.isEmpty(url.getUrl())) { // Get URL object by url
 			url = urlDaoImpl.findByUrl(url.getUrl().trim());
 			if(url == null) {
 				log.debug("URL not found");
