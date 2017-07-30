@@ -12,6 +12,15 @@
 <script src="static/js/jquery-1.12.4.js"
 	integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
 	crossorigin="anonymous"></script>
+	
+<script type="text/javascript">
+$( document ).ready(function() {
+	 $( ".cancelbtn" ).click(function() {
+		 window.location.href = "dashboard.jsp";
+	 })
+});
+	
+</script>
 </head>
 <body>
 	<form action="<c:url value='/j_spring_security_check' />" method='POST'>
@@ -42,7 +51,7 @@
 			<input type="hidden" name="${_csrf.parameterName}"
 				value="${_csrf.token}" /> <input type="submit" class="button"
 				value="Login"> <input type="button" class="cancelbtn"
-				value="Cancel">
+				value="Continue as Guest">
 		</div>
 	</form>
 </body>
