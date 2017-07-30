@@ -109,7 +109,7 @@ public class ModuleServices {
 		}
 		
 		Module envMaster = udm.getModules().get(0);
-		if(envMaster != null && !StringUtils.isEmpty(envMaster.getModuleName())) { // Get user by userid
+		if(envMaster != null && !StringUtils.isEmpty(envMaster.getModuleName())) { // Get user by module name
 			envMaster = moduleMasterDaoImpl.findByModuleName(envMaster.getModuleName());
 			if(envMaster == null) {
 				udm.setErrorMsg("Module not found");
