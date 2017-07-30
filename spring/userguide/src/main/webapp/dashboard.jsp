@@ -31,6 +31,10 @@
 	  controlAccess();
 	  refreshModuleEnvData(true);
 	  
+	  $( "#login" ).click(function() {
+		  window.location.href = "login.jsp";
+	  });
+	  
 	  $( ".section" ).click(function() {
 		  controlAccess();
 		  
@@ -104,6 +108,7 @@
 			  if(generalUser != "true") {
 				  //$(".search").remove();
 				  $("#loginOption").show();
+				  $("#logout").hide();
 			  } else {
 				  $("#loginOption").hide();
 			  }
@@ -117,16 +122,17 @@
 </head>
 
 <body>
-	<h2>Welcome to URL management system</h2>
 	<%-- <a href="<c:url value="login.jsp?logout=true" />" > Logout</a> --%>
 	
 	<form action="<c:url value='/j_spring_security_logout' />" method="POST">
-		<input type="submit" class="button"
+	<div style="text-align: right">
+		<input type="submit" class="buttonRed" id="logout"
 				value="Logout">
-	
+	</div>
 	</form>
-	<div id="loginOption">
-		<a href="login.jsp">Login</a>
+	<div id="loginOption" style="text-align: right">
+		<input type="button" class="buttonGreen" id="login"
+				value="Login">
 	</div>
 	
 	
@@ -142,11 +148,11 @@
   </div>
   <h3 class="section masterData moduleEnv">URL Management</h3>
   <div class="masterData">
-    <jsp:include page="moduleEnv.jsp" />
+    <jsp:include page="url.jsp" />
   </div>
-  <h3 class="section masterData module">Module Management</h3>
+  <h3 class="section masterData module">Project Management</h3>
   <div class="masterData">
-    <jsp:include page="module.jsp" />
+    <jsp:include page="projects.jsp" />
   </div>
   <h3 class="section masterData environment">Environment Management</h3>
   <div class="masterData">
