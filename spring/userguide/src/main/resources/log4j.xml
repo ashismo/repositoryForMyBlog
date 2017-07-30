@@ -15,8 +15,8 @@
 		<param name="maxFileSize" value="10MB" />
 		<param name="maxBackupIndex" value="2" />
 		<!-- For Tomcat -->
-		<!--<param name="file" value="D:\\logs\\userguide.log" />-->
-		<param name="file" value="/tmp/userguide.log" />
+		<param name="file" value="F:\\logs\\userguide.log" />
+		<!-- <param name="file" value="/tmp/userguide.log" />-->
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
 		</layout>
