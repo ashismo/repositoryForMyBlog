@@ -18,3 +18,38 @@ label.error {
     color: red;
     text-align: center;
 }
+
+.buttonRed {
+    background-color: #f44336;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 10%;
+}
+
+.buttonGreen {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 10%;
+}
+
+thead {
+	background-color: #4CAF50;
+    color: white;
+}
+
+input[type="search"] {
+    width: 200px;
+}
+
+.dataTables_filter  input { 
+	width: 600px;
+	height: 40px;
+}
+
