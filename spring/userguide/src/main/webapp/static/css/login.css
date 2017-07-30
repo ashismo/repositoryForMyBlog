@@ -18,7 +18,7 @@ input[type=text], input[type=password] {
     margin: 8px 0;
     border: none;
     cursor: pointer;
-    width: 100%;
+    width: 49%;
 }
 
 .cancelbtn {
@@ -28,7 +28,7 @@ input[type=text], input[type=password] {
     margin: 8px 0;
     border: none;
     cursor: pointer;
-    width: 100%;
+    width: 49%;
 }
 
 
