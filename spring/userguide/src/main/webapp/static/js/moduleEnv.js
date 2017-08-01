@@ -293,6 +293,7 @@ function refreshModuleEnvData(isGuestUser) {
         	$('#searchDataTable tbody').on( 'click', 'tr td:nth-child(4)', function () {
                 var url = $(this).closest("tr").find('td').eq(2).html();
                 if(url.length > 0) {
+                	url = url.replace(/&amp;/g, "&");
                 	window.open(url,'_blank');
                 }
                 
