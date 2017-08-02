@@ -1,11 +1,28 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
-	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" 
+	default-init-method="init" default-destroy-method="destroy">
 
 	<bean id="helloWorld1" class="com.ashish.learning.HelloWorld">
 	</bean>
+	
+	<bean id="helloWorld11" class="com.ashish.learning.HelloWorld">
+	</bean>
 
+	<!-- As the scope is prototype so only init method will get called but destroy method will not get called
+		init() method in the beans having prototype scope gets caled as soon as they initialize 
+		but beans in singleton scope gets called as soon as the spring context gets loaded unless lazy-init="true" defined against a bean
+	-->
+	
 	<bean id="helloWorld2" class="com.ashish.learning.HelloWorld" scope="prototype">
+	</bean>
+	
+	<!-- Spring lifecycle example -->
+	<!-- If you want to execute init and destroy method for every bean initialization then you should declare 
+		 at the beans level as shown above
+		 If you want to call init method and destroy method the you need to declare at the this level as shown below
+	-->
+	<bean id="helloWorldInitDestroy" class="com.ashish.learning.HelloWorld" init-method="init" destroy-method="destroy" lazy-init="true">
 	</bean>
 </beans>
