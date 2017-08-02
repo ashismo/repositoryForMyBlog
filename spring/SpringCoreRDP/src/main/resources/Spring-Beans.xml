@@ -30,4 +30,11 @@
 	Please check the implementation of the class -->
 	<bean class="com.ashish.learning.BeanPostProcessorImpl">
 	</bean>
+	
+	<!-- Another bean post processor has been added. 
+	Order of the call will be controlled by implementing org.springframework.core.Ordered interface
+	Check the implementation of this bean post processor. Lower the order value has the higher priority
+	-->
+	<bean class="com.ashish.learning.BeanPostProcessor2Impl">
+	</bean>
 </beans>
