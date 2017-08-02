@@ -25,4 +25,9 @@
 	-->
 	<bean id="helloWorldInitDestroy" class="com.ashish.learning.HelloWorld" init-method="init" destroy-method="destroy" lazy-init="true">
 	</bean>
+	
+	<!-- This ensures the bean post processor will gets called every time beans gets instantiated
+	Please check the implementation of the class -->
+	<bean class="com.ashish.learning.BeanPostProcessorImpl">
+	</bean>
 </beans>
