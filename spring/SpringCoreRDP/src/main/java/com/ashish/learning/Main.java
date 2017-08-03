@@ -12,11 +12,36 @@ public class Main {
 		
 		constructorBasedDI();
 		
+		setterMethodBasedDI();
+		
+		pNamespaceDI();
+		
 	}
 
+	/**
+	 * p-namespace Dependency injection
+	 */
+	private static void pNamespaceDI() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Beans.xml");
+		ShowRoom obj1 = (ShowRoom) context.getBean("showRoomPNameSpace");
+		obj1.getCustomCar("p-namespace: Your custom car really looks great");
+	}
+
+	/**
+	 * Constructor based dependency injection 
+	 */
 	private static void constructorBasedDI() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Beans.xml");
 		ShowRoom obj1 = (ShowRoom) context.getBean("showRoom");
+		obj1.getCar();
+	}
+	
+	/**
+	 * Setter method based dependency injection 
+	 */
+	private static void setterMethodBasedDI() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Beans.xml");
+		ShowRoom obj1 = (ShowRoom) context.getBean("showRoomSetter");
 		obj1.getCar();
 	}
 

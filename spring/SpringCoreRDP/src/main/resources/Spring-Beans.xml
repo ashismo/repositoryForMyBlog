@@ -1,4 +1,5 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" 
@@ -41,10 +42,25 @@
 	
 	
 	
-	<!-- Setter based constructor based dependancy injection -->
+	<!-- Constructor based dependancy injection -->
 	<bean id="showRoom" class="com.ashish.learning.ShowRoom">
 	    <constructor-arg ref="fourWheelers"></constructor-arg>
 	</bean>
 	
 	<bean id="fourWheelers" class="com.ashish.learning.BMWCar"></bean>
+	
+	
+	<!-- Setter based dependancy injection -->
+	<bean id="showRoomSetter" class="com.ashish.learning.ShowRoom">
+	    <property name="fourWheelers" ref="fourWheelersSetter"></property>
+	</bean>
+	
+	<bean id="fourWheelersSetter" class="com.ashish.learning.BMWCar"></bean>
+	
+	
+	<!-- dependancy injection using p-namespace-->
+	<!-- Look at the begning of the file p namespace is added -->
+	<bean id="showRoomPNameSpace" class="com.ashish.learning.ShowRoom" p:fourWheelers-ref="fourWheelersSetter" p:greetings="Another way to declare p-namespace">
+	</bean>
+	
 </beans>
