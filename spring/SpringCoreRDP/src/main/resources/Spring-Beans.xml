@@ -1,66 +1,92 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
-	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
 	default-init-method="init" default-destroy-method="destroy">
 
 	<bean id="helloWorld1" class="com.ashish.learning.HelloWorld">
 	</bean>
-	
+
 	<bean id="helloWorld11" class="com.ashish.learning.HelloWorld">
 	</bean>
 
-	<!-- As the scope is prototype so only init method will get called but destroy method will not get called
-		init() method in the beans having prototype scope gets caled as soon as they initialize 
-		but beans in singleton scope gets called as soon as the spring context gets loaded unless lazy-init="true" defined against a bean
-	-->
-	
-	<bean id="helloWorld2" class="com.ashish.learning.HelloWorld" scope="prototype">
+	<!-- As the scope is prototype so only init method will get called but destroy 
+		method will not get called init() method in the beans having prototype scope 
+		gets caled as soon as they initialize but beans in singleton scope gets called 
+		as soon as the spring context gets loaded unless lazy-init="true" defined 
+		against a bean -->
+
+	<bean id="helloWorld2" class="com.ashish.learning.HelloWorld"
+		scope="prototype">
 	</bean>
-	
+
 	<!-- Spring lifecycle example -->
-	<!-- If you want to execute init and destroy method for every bean initialization then you should declare 
-		 at the beans level as shown above
-		 If you want to call init method and destroy method the you need to declare at the this level as shown below
-	-->
-	<bean id="helloWorldInitDestroy" class="com.ashish.learning.HelloWorld" init-method="init" destroy-method="destroy" lazy-init="true">
+	<!-- If you want to execute init and destroy method for every bean initialization 
+		then you should declare at the beans level as shown above If you want to 
+		call init method and destroy method the you need to declare at the this level 
+		as shown below -->
+	<bean id="helloWorldInitDestroy" class="com.ashish.learning.HelloWorld"
+		init-method="init" destroy-method="destroy" lazy-init="true">
 	</bean>
-	
-	<!-- This ensures the bean post processor will gets called every time beans gets instantiated
-	Please check the implementation of the class -->
+
+	<!-- This ensures the bean post processor will gets called every time beans 
+		gets instantiated Please check the implementation of the class -->
 	<bean class="com.ashish.learning.BeanPostProcessorImpl">
 	</bean>
-	
-	<!-- Another bean post processor has been added. 
-	Order of the call will be controlled by implementing org.springframework.core.Ordered interface
-	Check the implementation of this bean post processor. Lower the order value has the higher priority
-	-->
+
+	<!-- Another bean post processor has been added. Order of the call will 
+		be controlled by implementing org.springframework.core.Ordered interface 
+		Check the implementation of this bean post processor. Lower the order value 
+		has the higher priority -->
 	<bean class="com.ashish.learning.BeanPostProcessor2Impl">
 	</bean>
-	
-	
-	
-	
+
+
+
+
 	<!-- Constructor based dependancy injection -->
 	<bean id="showRoom" class="com.ashish.learning.ShowRoom">
-	    <constructor-arg ref="fourWheelers"></constructor-arg>
+		<constructor-arg ref="fourWheelers"></constructor-arg>
 	</bean>
-	
+
 	<bean id="fourWheelers" class="com.ashish.learning.BMWCar"></bean>
-	
-	
+
+
 	<!-- Setter based dependancy injection -->
 	<bean id="showRoomSetter" class="com.ashish.learning.ShowRoom">
-	    <property name="fourWheelers" ref="fourWheelersSetter"></property>
+		<property name="fourWheelers" ref="fourWheelersSetter"></property>
 	</bean>
-	
+
 	<bean id="fourWheelersSetter" class="com.ashish.learning.BMWCar"></bean>
-	
-	
-	<!-- dependancy injection using p-namespace-->
+
+
+	<!-- dependancy injection using p-namespace -->
 	<!-- Look at the begning of the file p namespace is added -->
-	<bean id="showRoomPNameSpace" class="com.ashish.learning.ShowRoom" p:fourWheelers-ref="fourWheelersSetter" p:greetings="Another way to declare p-namespace">
+	<bean id="showRoomPNameSpace" class="com.ashish.learning.ShowRoom"
+		p:fourWheelers-ref="fourWheelersSetter" p:greetings="Another way to declare p-namespace">
 	</bean>
-	
+
+
+	<!-- Injecing collections -->
+	<bean id="showRoomCollections" class="com.ashish.learning.ShowRoom">
+		<property name="cars">
+			<list>
+				<value>Tata</value>
+				<value>Toyota</value>
+				<value>Suzuki</value>
+			</list>
+		</property>
+		<property name="carsMap">
+			<map>
+				<entry key="K1" value="1" />
+				<entry key="K2" value-ref="fourWheelersSetter" />
+				<entry key="K3">
+					<bean class="com.ashish.learning.SomeInnerBean">
+						<property name="name" value="Ashish" />
+						<property name="address" value="Atlanta, USA" />
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
 </beans>

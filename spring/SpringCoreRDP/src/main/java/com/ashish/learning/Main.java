@@ -7,22 +7,24 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Main {
 
 	public static void main(String[] args) {
+		ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Beans.xml");
 		
-		springScopeAndLifecycle();
+		springScopeAndLifecycle(context);
 		
-		constructorBasedDI();
+		constructorBasedDI(context);
 		
-		setterMethodBasedDI();
+		setterMethodBasedDI(context);
 		
-		pNamespaceDI();
+		pNamespaceDI(context);
+		
+		springCollectionInjection(context);
 		
 	}
 
 	/**
 	 * p-namespace Dependency injection
 	 */
-	private static void pNamespaceDI() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Beans.xml");
+	private static void pNamespaceDI(ApplicationContext context) {
 		ShowRoom obj1 = (ShowRoom) context.getBean("showRoomPNameSpace");
 		obj1.getCustomCar("p-namespace: Your custom car really looks great");
 	}
@@ -30,8 +32,7 @@ public class Main {
 	/**
 	 * Constructor based dependency injection 
 	 */
-	private static void constructorBasedDI() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Beans.xml");
+	private static void constructorBasedDI(ApplicationContext context) {
 		ShowRoom obj1 = (ShowRoom) context.getBean("showRoom");
 		obj1.getCar();
 	}
@@ -39,11 +40,30 @@ public class Main {
 	/**
 	 * Setter method based dependency injection 
 	 */
-	private static void setterMethodBasedDI() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Beans.xml");
+	private static void setterMethodBasedDI(ApplicationContext context) {
 		ShowRoom obj1 = (ShowRoom) context.getBean("showRoomSetter");
 		obj1.getCar();
 	}
+	
+	/**
+	 * Injecting car names into list 
+	 */
+	private static void springCollectionInjection(ApplicationContext context) {
+		ShowRoom obj1 = (ShowRoom) context.getBean("showRoomCollections");
+		System.out.println("Car List: " +obj1.getCars());
+		
+		System.out.println("Car Map: " + obj1.getCarsMap());
+		
+		// Get 2nd object
+		BMWCar bmwCar = (BMWCar)obj1.getCarsMap().get("K2");
+		bmwCar.prepareFourwheelers();
+		
+		// Get 3rd object - Inner bean
+		SomeInnerBean innerBean = (SomeInnerBean)obj1.getCarsMap().get("K3");
+		System.out.println("Some innerbean: " + innerBean);
+		
+	}
+	
 
 	/**
 	 * This method describes the
@@ -51,8 +71,8 @@ public class Main {
 	 * 		b) life cycle of beans
 	 * 		c) post processor.
 	 */
-	private static void springScopeAndLifecycle() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Beans.xml");
+	private static void springScopeAndLifecycle(ApplicationContext context) {
+//		ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Beans.xml");
 		
 		System.out.println("---------------SINGLETON SCOPE---------------------");
 		// Singleton scope
