@@ -7,6 +7,26 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Main {
 
 	public static void main(String[] args) {
+		
+		springScopeAndLifecycle();
+		
+		constructorBasedDI();
+		
+	}
+
+	private static void constructorBasedDI() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Beans.xml");
+		ShowRoom obj1 = (ShowRoom) context.getBean("showRoom");
+		obj1.getCar();
+	}
+
+	/**
+	 * This method describes the
+	 * 		a) scope of beans, 
+	 * 		b) life cycle of beans
+	 * 		c) post processor.
+	 */
+	private static void springScopeAndLifecycle() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Beans.xml");
 		
 		System.out.println("---------------SINGLETON SCOPE---------------------");

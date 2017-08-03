@@ -37,4 +37,14 @@
 	-->
 	<bean class="com.ashish.learning.BeanPostProcessor2Impl">
 	</bean>
+	
+	
+	
+	
+	<!-- Setter based constructor based dependancy injection -->
+	<bean id="showRoom" class="com.ashish.learning.ShowRoom">
+	    <constructor-arg ref="fourWheelers"></constructor-arg>
+	</bean>
+	
+	<bean id="fourWheelers" class="com.ashish.learning.BMWCar"></bean>
 </beans>
