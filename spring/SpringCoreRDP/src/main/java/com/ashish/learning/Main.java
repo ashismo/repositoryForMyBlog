@@ -4,6 +4,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.ashish.learning.autowire.PhoneManufacturer;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -19,6 +21,23 @@ public class Main {
 		
 		springCollectionInjection(context);
 		
+		autowireByName(context);
+		
+	}
+
+	/**
+	 * Autowire byName
+	 * @param context
+	 */
+	private static void autowireByName(ApplicationContext context) {
+		PhoneManufacturer obj1 = (PhoneManufacturer) context.getBean("manufacturerByName");
+		String osName = obj1.getPhone().getOsName();
+		System.out.println("Autowire by name: " + osName);
+		
+		
+		obj1 = (PhoneManufacturer) context.getBean("manufacturerByType");
+		osName = obj1.getPhone().getOsName();
+		System.out.println("Autowire by type: " + osName);
 	}
 
 	/**

@@ -89,4 +89,14 @@
 			</map>
 		</property>
 	</bean>
+	
+	
+	
+	<!-- Autowiring by Name-->
+	<bean name="manufacturerByName" class="com.ashish.learning.autowire.PhoneManufacturer" autowire="byName"></bean>
+	<bean name="phone" class="com.ashish.learning.autowire.Nokia"></bean>
+	
+	<!-- Autowiring by Type-->
+	<bean name="manufacturerByType" class="com.ashish.learning.autowire.PhoneManufacturer" autowire="byType"></bean>
+	<bean name="phone1" class="com.ashish.learning.autowire.Samsung" primary="true"></bean>
 </beans>
