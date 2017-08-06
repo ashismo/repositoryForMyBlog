@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.datasource.AbstractDriverBasedDataSource;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import com.ashish.learning.aop.SpringAOPServices;
 import com.ashish.learning.autowire.PhoneManufacturer;
@@ -32,8 +34,28 @@ public class Main {
 		
 		springAOPExample(context);
 		
+		propertyPlaceholderConfigurerImplementation(context);
+		
 		logger.info("xxxxxxxx--------LOG BACK Implementation ENDS -----------xxxxxxxxxxxxxx");
 		
+	}
+
+	/**
+	 * This method implements PropertyPlaceholderConfigurer to read values from property file and 
+	 * used into the application context
+	 * @param context
+	 */
+	private static void propertyPlaceholderConfigurerImplementation(
+			ApplicationContext context) {
+		AbstractDriverBasedDataSource dataSource = (DriverManagerDataSource) context.getBean("dataSource");
+		System.out.println("\n>>>>>>>>>>>>>>>>>PropertyPlaceholderConfigurer STARTS>>>>>>>>>>>>\n");
+		String url = dataSource.getUrl();
+		String password = dataSource.getPassword();
+		String userName = dataSource.getUsername();
+		System.out.println("url: " + url);
+		System.out.println("user name: " + userName);
+		System.out.println("password: " + password);
+		System.out.println("\n>>>>>>>>>>>>>>>>>PropertyPlaceholderConfigurer ENDS>>>>>>>>>>>>\n");
 	}
 
 	private static void springAOPExample(ApplicationContext context) {

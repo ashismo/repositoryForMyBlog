@@ -8,6 +8,8 @@
 	<properties>
 		<spring.version>4.3.10.RELEASE</spring.version>
 		<aspectj.version>1.7.4</aspectj.version>
+		<mysql.driver.version>6.0.6</mysql.driver.version>
+		<logback.version>1.2.3</logback.version>
 	</properties>
 	<build>
 		<plugins>
@@ -38,6 +40,18 @@
 			<version>${spring.version}</version>
 		</dependency>
 
+		<!-- Spring JDBC dependency -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.driver.version}</version>
+		</dependency>
 
 		<!-- Spring AOP dependency -->
 		<dependency>
@@ -61,7 +75,7 @@
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
-			<version>1.2.3</version>
+			<version>${logback.version}</version>
 		</dependency>
 	</dependencies>
 </project>

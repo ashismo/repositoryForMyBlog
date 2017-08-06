@@ -1,9 +1,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	
+
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 	http://www.springframework.org/schema/context
@@ -12,15 +11,15 @@
   	http://www.springframework.org/schema/aop/spring-aop.xsd"
 	default-init-method="init" default-destroy-method="destroy">
 
-    <!-- For component scan xmlns:context and below two URLs have been added in xsi:schemaLocation-->
-    <!-- http://www.springframework.org/schema/context
-		 http://www.springframework.org/schema/context/spring-context-3.0.xsd -->
-    <context:component-scan base-package="com.ashish" />
-    
-    
-    <!-- This element is required for enabling Spring AOP support -->
+	<!-- For component scan xmlns:context and below two URLs have been added 
+		in xsi:schemaLocation -->
+	<!-- http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd -->
+	<context:component-scan base-package="com.ashish" />
+
+
+	<!-- This element is required for enabling Spring AOP support -->
 	<aop:aspectj-autoproxy />
-	
+
 	<bean id="helloWorld1" class="com.ashish.learning.HelloWorld">
 	</bean>
 
@@ -106,15 +105,34 @@
 			</map>
 		</property>
 	</bean>
-	
-	
-	
-	<!-- Autowiring by Name-->
-	<bean name="manufacturerByName" class="com.ashish.learning.autowire.PhoneManufacturer" autowire="byName"></bean>
+
+
+
+	<!-- Autowiring by Name -->
+	<bean name="manufacturerByName" class="com.ashish.learning.autowire.PhoneManufacturer"
+		autowire="byName"></bean>
 	<bean name="phone" class="com.ashish.learning.autowire.Nokia"></bean>
-	
-	<!-- Autowiring by Type-->
+
+	<!-- Autowiring by Type -->
 	<bean name="manufacturerByType" class="com.ashish.learning.autowire.PhoneManufacturer">
 	</bean>
 	<bean name="phone1" class="com.ashish.learning.autowire.Samsung"></bean>
+
+
+	<!-- Property Place holder configurer reads data from properties file and the values are used within the applicaion context -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>database.properties</value>
+		</property>
+	</bean>
+	
+	<!-- The values are read from database.properties file -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
 </beans>
