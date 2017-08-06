@@ -4,6 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.ashish.learning.aop.SpringAOPServices;
 import com.ashish.learning.autowire.PhoneManufacturer;
 
 public class Main {
@@ -21,15 +22,41 @@ public class Main {
 		
 		springCollectionInjection(context);
 		
-		autowireByName(context);
+		autowiring(context);
+		
+		springAOPExample(context);
 		
 	}
 
+	private static void springAOPExample(ApplicationContext context) {
+		SpringAOPServices springAopServices = (SpringAOPServices) context.getBean("springAopServices");
+		System.out.println(">>>>>>>>>>>>>>>SPRING AOP STARTS>>>>>>>>>>>>>\n");
+		springAopServices.aMethod();
+		
+		System.out.println("===================================\n");
+		Object result = springAopServices.returningAdvice();
+		System.out.println("===================================\n");
+		try {
+			springAopServices.throwsAdvice();
+		} catch (Exception e) {
+			System.out.println("Exception caught in MainApp: " + e.getMessage());
+		}
+		System.out.println("===================================\n");
+		result = springAopServices.testAroundAdvice();
+		System.out.println("===================================\n");
+		try {
+			springAopServices.testAroundThrowingExceptionAdvice();
+		} catch (Exception e) {
+			System.out.println("Exception caught in MainApp: " + e.getMessage());
+		}
+		System.out.println(">>>>>>>>>>>>>>>SPRING AOP END>>>>>>>>>>>>>\n");
+	}
+
 	/**
-	 * Autowire byName
+	 * Autowiring example
 	 * @param context
 	 */
-	private static void autowireByName(ApplicationContext context) {
+	private static void autowiring(ApplicationContext context) {
 		PhoneManufacturer obj1 = (PhoneManufacturer) context.getBean("manufacturerByName");
 		String osName = obj1.getPhone().getOsName();
 		System.out.println("Autowire by name: " + osName);
@@ -45,7 +72,9 @@ public class Main {
 	 */
 	private static void pNamespaceDI(ApplicationContext context) {
 		ShowRoom obj1 = (ShowRoom) context.getBean("showRoomPNameSpace");
+		System.out.println("\n>>>>>>>>>>>>>>>p-NAMESPACE BASED DI STARTS>>>>>>>>>>>>>\n");
 		obj1.getCustomCar("p-namespace: Your custom car really looks great");
+		System.out.println("\n>>>>>>>>>>>>>>>p-NAMESPACE BASED DI ENDS>>>>>>>>>>>>>\n");
 	}
 
 	/**
@@ -53,7 +82,9 @@ public class Main {
 	 */
 	private static void constructorBasedDI(ApplicationContext context) {
 		ShowRoom obj1 = (ShowRoom) context.getBean("showRoom");
+		System.out.println("\n>>>>>>>>>>>>>>>CONSTRUCTOR BASED DI STARTS>>>>>>>>>>>>>\n");
 		obj1.getCar();
+		System.out.println("\n>>>>>>>>>>>>>>>CONSTRUCTOR BASED DI ENDS>>>>>>>>>>>>>\n");
 	}
 	
 	/**
@@ -61,7 +92,9 @@ public class Main {
 	 */
 	private static void setterMethodBasedDI(ApplicationContext context) {
 		ShowRoom obj1 = (ShowRoom) context.getBean("showRoomSetter");
+		System.out.println("\n>>>>>>>>>>>>>>>SETTER BASED DI STARTS>>>>>>>>>>>>>\n");
 		obj1.getCar();
+		System.out.println("\n>>>>>>>>>>>>>>>SETTER BASED DI ENDS>>>>>>>>>>>>>\n");
 	}
 	
 	/**
@@ -69,6 +102,7 @@ public class Main {
 	 */
 	private static void springCollectionInjection(ApplicationContext context) {
 		ShowRoom obj1 = (ShowRoom) context.getBean("showRoomCollections");
+		System.out.println("\n>>>>>>>>>>>>>>>SPRING COLLECTIN INJECTION STARTS>>>>>>>>>>>>>\n");
 		System.out.println("Car List: " +obj1.getCars());
 		
 		System.out.println("Car Map: " + obj1.getCarsMap());
@@ -80,6 +114,7 @@ public class Main {
 		// Get 3rd object - Inner bean
 		SomeInnerBean innerBean = (SomeInnerBean)obj1.getCarsMap().get("K3");
 		System.out.println("Some innerbean: " + innerBean);
+		System.out.println("\n>>>>>>>>>>>>>>>SPRING COLLECTIN INJECTION ENDS>>>>>>>>>>>>>\n");
 		
 	}
 	
