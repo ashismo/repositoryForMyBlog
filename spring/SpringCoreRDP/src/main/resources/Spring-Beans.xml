@@ -119,7 +119,8 @@
 	<bean name="phone1" class="com.ashish.learning.autowire.Samsung"></bean>
 
 
-	<!-- Property Place holder configurer reads data from properties file and the values are used within the applicaion context -->
+	<!-- Property Place holder configurer reads data from properties file and 
+		the values are used within the applicaion context or inside the code -->
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location">
 			<value>database.properties</value>
@@ -134,5 +135,15 @@
 		<property name="url" value="${jdbc.url}" />
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
+	</bean>
+	
+	<!-- ResourceBundleMessageSource to read values from properties file. 
+		 This is mainly used in internationalization (i18n) implementation -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+	    <property name="basenames">
+	        <list>
+	            <value>messages/message</value> <!-- No need to specify .properties extension -->
+	        </list>
+	    </property>
 	</bean>
 </beans>

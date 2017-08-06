@@ -1,5 +1,7 @@
 package com.ashish.learning;
 
+import java.util.Locale;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -36,19 +38,52 @@ public class Main {
 		
 		propertyPlaceholderConfigurerImplementation(context);
 		
+		resourceBundleMessageSourceImpl(context);
+		
 		logger.info("xxxxxxxx--------LOG BACK Implementation ENDS -----------xxxxxxxxxxxxxx");
 		
 	}
 
 	/**
+	 * This method implements ResourceBundleMessageSource to read values from properties file.
+	 * Parameterize message can be defined in the properties file
+	 * ResourceBundleMessageSource is mainly used in internationalization (i18n) implementation
+	 * @param context
+	 */
+	private static void resourceBundleMessageSourceImpl(
+			ApplicationContext context) {
+		System.out.println("\n>>>>>>>>>>>>>>>>>ResourceBundleMessageSource STARTS>>>>>>>>>>>>\n");
+		
+		String message = context.getMessage("greetings", null, "Default message, If not found against the key: greetings", null);
+		System.out.println("\nWelcome message for DEFAULT Locale: " + message);
+		
+		System.out.println("\nWelcome message for en_GB Locale");
+		Locale l = new Locale("en_GB");
+		message = context.getMessage("greetings", null, "Default message, If not found against the key: greetings", l);
+		System.out.println("\nWelcome message for en_GB Locale: " + message);
+		
+		message = context.getMessage("offer.message", new Object[]{"Ashish","10"}, "Default message, If not found against the key: offer.message", null);
+		System.out.println("\nParameterized welcome message: " + message);
+		
+		message = context.getMessage("offer.message", new Object[]{"Ashish","10"}, "Default message, If not found against the key: offer.message", l);
+		System.out.println("\nParameterized welcome message (This key is actually defined in the parent properties file): " + message);
+		System.out.println("\n>>>>>>>>>>>>>>>>>ResourceBundleMessageSource ENDS>>>>>>>>>>>>\n");
+	}
+
+	/**
 	 * This method implements PropertyPlaceholderConfigurer to read values from property file and 
-	 * used into the application context
+	 * used into the application context or inside the code
 	 * @param context
 	 */
 	private static void propertyPlaceholderConfigurerImplementation(
-			ApplicationContext context) {
-		AbstractDriverBasedDataSource dataSource = (DriverManagerDataSource) context.getBean("dataSource");
+			ApplicationContext context) { 
 		System.out.println("\n>>>>>>>>>>>>>>>>>PropertyPlaceholderConfigurer STARTS>>>>>>>>>>>>\n");
+		// Java code reads value from properties file
+		SpringAOPServices springAopServices = (SpringAOPServices) context.getBean("springAopServices");
+		System.out.println(springAopServices.getWelcomeNote());
+		
+		// Spring context reads from properties file 
+		AbstractDriverBasedDataSource dataSource = (DriverManagerDataSource) context.getBean("dataSource");
 		String url = dataSource.getUrl();
 		String password = dataSource.getPassword();
 		String userName = dataSource.getUsername();
