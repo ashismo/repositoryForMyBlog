@@ -44,6 +44,8 @@ public class Main {
 		
 		springJdbcExample(context);
 		
+		transactionManagementCommit(context);
+		
 		transactionManagementRollback(context);
 		
 		logger.info("xxxxxxxx--------LOG BACK Implementation ENDS -----------xxxxxxxxxxxxxx");
