@@ -1,14 +1,19 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-3.0.xsd
 	http://www.springframework.org/schema/aop
-  	http://www.springframework.org/schema/aop/spring-aop.xsd"
+  	http://www.springframework.org/schema/aop/spring-aop.xsd
+  	http://www.springframework.org/schema/jdbc 
+  	http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+  	http://www.springframework.org/schema/tx
+  	http://www.springframework.org/schema/tx/spring-tx.xsd"
 	default-init-method="init" default-destroy-method="destroy">
 
 	<!-- For component scan xmlns:context and below two URLs have been added 
@@ -121,14 +126,16 @@
 
 	<!-- Property Place holder configurer reads data from properties file and 
 		the values are used within the applicaion context or inside the code -->
-	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location">
 			<value>database.properties</value>
 		</property>
 	</bean>
-	
+
 	<!-- The values are read from database.properties file -->
-	<bean id="dataSource"
+	<!-- Data source for mysql -->
+	<bean name="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 
 		<property name="driverClassName" value="${jdbc.driverClassName}" />
@@ -136,14 +143,35 @@
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
 	</bean>
-	
-	<!-- ResourceBundleMessageSource to read values from properties file. 
-		 This is mainly used in internationalization (i18n) implementation -->
-	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-	    <property name="basenames">
-	        <list>
-	            <value>messages/message</value> <!-- No need to specify .properties extension -->
-	        </list>
-	    </property>
+
+	<!-- Data source for h2db -->
+	<bean name="dataSourceH2db"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+
+		<property name="driverClassName" value="${h2db.driver}" />
+		<property name="url" value="${h2db.inmemory.url}" />
+		<property name="username" value="${h2db.user}" />
+		<property name="password" value="${h2db.password}" />
+	</bean>
+
+	<jdbc:initialize-database data-source="dataSourceH2db"
+		ignore-failures="DROPS">
+		<jdbc:script location="create-db.sql" />
+	</jdbc:initialize-database>
+
+	<bean id="jdbcTemplate"
+		class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="dataSourceH2db" />
+	</bean>
+
+	<!-- ResourceBundleMessageSource to read values from properties file. This 
+		is mainly used in internationalization (i18n) implementation -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>messages/message</value> <!-- No need to specify .properties extension -->
+			</list>
+		</property>
 	</bean>
 </beans>

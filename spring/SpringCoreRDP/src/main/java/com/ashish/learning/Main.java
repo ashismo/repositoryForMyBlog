@@ -12,6 +12,8 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import com.ashish.learning.aop.SpringAOPServices;
 import com.ashish.learning.autowire.PhoneManufacturer;
+import com.ashish.learning.jdbc.SpringJDBCServices;
+import com.ashish.learning.jdbc.UserBean;
 
 public class Main {
 
@@ -40,8 +42,28 @@ public class Main {
 		
 		resourceBundleMessageSourceImpl(context);
 		
+		springJdbcExample(context);
+		
 		logger.info("xxxxxxxx--------LOG BACK Implementation ENDS -----------xxxxxxxxxxxxxx");
 		
+	}
+
+	/**
+	 * This method integrates spring jdbc
+	 * @param context
+	 */
+	private static void springJdbcExample(ApplicationContext context) {
+		SpringJDBCServices springJDBCServices = (SpringJDBCServices) context.getBean("springJDBCServices");
+		System.out.println("\n>>>>>>>>>>>>>>>>>Spring JDBC Integration STARTS>>>>>>>>>>>>\n");
+		springJDBCServices.displayUserDetailsByUsername("ashish");
+		
+		UserBean ub = new UserBean();
+		ub.setUsername("ujan");
+		ub.setName("Ujan");
+		ub.setPassword("ujan");
+		ub.setRoleId(1);
+		springJDBCServices.createUser(ub);
+		System.out.println("\n>>>>>>>>>>>>>>>>>Spring JDBC Integration ENDS>>>>>>>>>>>>\n");
 	}
 
 	/**
