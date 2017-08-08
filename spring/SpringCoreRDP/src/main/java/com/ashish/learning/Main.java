@@ -44,6 +44,8 @@ public class Main {
 		
 		springJdbcExample(context);
 		
+		transactionManagementRollback(context);
+		
 		logger.info("xxxxxxxx--------LOG BACK Implementation ENDS -----------xxxxxxxxxxxxxx");
 		
 	}
@@ -63,7 +65,66 @@ public class Main {
 		ub.setPassword("ujan");
 		ub.setRoleId(1);
 		springJDBCServices.createUser(ub);
+		
 		System.out.println("\n>>>>>>>>>>>>>>>>>Spring JDBC Integration ENDS>>>>>>>>>>>>\n");
+	}
+	
+	/**
+	 * Spring JDBC transaction management - rollback
+	 * @param context
+	 */
+	private static void transactionManagementRollback(ApplicationContext context) {
+		SpringJDBCServices springJDBCServices = (SpringJDBCServices) context.getBean("springJDBCServices");
+		System.out.println("\n>>>>>>>>>>>>>>>>>Spring JDBC Transaction Management STARTS>>>>>>>>>>>>\n");
+		try {
+			UserBean ub = new UserBean();
+			ub.setUsername("ujan1-rollback");
+			ub.setName("Ujan1");
+			ub.setPassword("ujan1");
+			ub.setRoleId(1);
+			
+			UserBean ub1 = new UserBean();
+			ub1.setUsername("ujan2-rollback");
+			ub1.setName("Ujan2");
+			ub1.setPassword("ujan2");
+			ub1.setRoleId(1);
+			
+			springJDBCServices.transactionManagement(ub, ub1, true);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		springJDBCServices.displayUserDetailsByUsername("ujan1-rollback");
+		
+		System.out.println("\n>>>>>>>>>>>>>>>>>Spring JDBC Transaction Management ENDS>>>>>>>>>>>>\n");
+	}
+	
+	/**
+	 * Spring JDBC transaction management - Commit success
+	 * @param context
+	 */
+	private static void transactionManagementCommit(ApplicationContext context) {
+		SpringJDBCServices springJDBCServices = (SpringJDBCServices) context.getBean("springJDBCServices");
+		System.out.println("\n>>>>>>>>>>>>>>>>>Spring JDBC Transaction Management STARTS>>>>>>>>>>>>\n");
+		try {
+			UserBean ub = new UserBean();
+			ub.setUsername("ujan1-commit");
+			ub.setName("Ujan1");
+			ub.setPassword("ujan1");
+			ub.setRoleId(1);
+			
+			UserBean ub1 = new UserBean();
+			ub1.setUsername("ujan2-commit");
+			ub1.setName("Ujan2");
+			ub1.setPassword("ujan2");
+			ub1.setRoleId(1);
+			
+			springJDBCServices.transactionManagement(ub, ub1, false);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		springJDBCServices.displayUserDetailsByUsername("ujan1-commit");
+		
+		System.out.println("\n>>>>>>>>>>>>>>>>>Spring JDBC Transaction Management ENDS>>>>>>>>>>>>\n");
 	}
 
 	/**
