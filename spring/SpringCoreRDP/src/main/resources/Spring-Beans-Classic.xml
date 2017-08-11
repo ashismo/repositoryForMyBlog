@@ -1,0 +1,33 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/util 
+	http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+	
+	<util:properties id="appProperties"
+    		location="classpath:database.properties" />
+  
+	<bean id="wheels" class="com.ashish.learning.expression.language.Wheels">
+		<property name="wheelbase" value="147"></property>
+		<property name="wheelType" value="Alloy"></property>
+	</bean>
+	
+	<bean id="cars" class="com.ashish.learning.expression.language.Car">
+		<property name="wheels" value="#{wheels}"></property>
+		<property name="carFuel" value="#{wheels.wheelType == 'Alloy'?petrol:diesel}"></property> <!-- Conditional injection -->
+		<property name="wheelType" value="#{wheels.wheelType}"></property>
+		<property name="make" value="#{appProperties.make?:'Toyota'}"></property> <!-- Read from properties file -->
+		<property name="randomSpeed" value="#{T(java.lang.Math).random()}"></property> <!-- Call static method -->
+	</bean>
+	
+	
+	<bean id="petrol" class="com.ashish.learning.expression.language.Petrol"></bean>
+	<bean id="diesel" class="com.ashish.learning.expression.language.Diesel"></bean>
+	
+</beans>
