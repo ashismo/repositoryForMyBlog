@@ -24,7 +24,7 @@ public class SpringJDBCDao {
 			ub = jdbcTemplate.queryForObject(sql, params, new UserBeanMapper());
 
 		} catch (Exception e) {
-			System.out.println("No records found for url id: " + username);
+			System.out.println("No records found for user id: " + username);
 			e.printStackTrace();
 		}
 		return ub;
