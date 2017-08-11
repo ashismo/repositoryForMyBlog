@@ -12,6 +12,8 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import com.ashish.learning.aop.SpringAOPServices;
 import com.ashish.learning.autowire.PhoneManufacturer;
+import com.ashish.learning.expression.language.Car;
+import com.ashish.learning.expression.language.Wheels;
 import com.ashish.learning.jdbc.SpringJDBCServices;
 import com.ashish.learning.jdbc.UserBean;
 
@@ -23,6 +25,10 @@ public class Main {
 		
 		logger.info("xxxxxxxx--------LOG BACK Implementation STARTS -----------xxxxxxxxxxxxxx");
 		ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Beans.xml");
+		
+		// Below is the another way to include multiple configuration files 
+		// if <import resource="Spring-Beans-Classic.xml"/> is not used in the parent configuration file
+		//ApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"Spring-Beans.xml", "Spring-Beans-Classic.xml"});
 		
 		springScopeAndLifecycle(context);
 		
@@ -48,8 +54,27 @@ public class Main {
 		
 		transactionManagementRollback(context);
 		
+		springExpressionLanguageExample(context);
 		logger.info("xxxxxxxx--------LOG BACK Implementation ENDS -----------xxxxxxxxxxxxxx");
 		
+	}
+
+	/**
+	 * Spring Expression Language example
+	 * @param context
+	 */
+	private static void springExpressionLanguageExample(
+			ApplicationContext context) {
+		
+		System.out.println("\n>>>>>>>>>>>>>>>>>Spring Expression Language STARTS>>>>>>>>>>>>\n");
+		Car cars = (Car) context.getBean("cars");
+		System.out.println("Spring Expression Language: wheelbase: " + cars.getWheels().getWheelbase() + " and wheel type: " + cars.getWheels().getWheelType());
+		System.out.println("Spring Expression Language: Populated wheel type in car class: " + cars.getWheelType());
+		System.out.println("Spring Expression Language: Populated car make from properties file: " + cars.getMake());
+		System.out.println("Spring Expression Language: Random speed: " + cars.getRandomSpeed());
+		System.out.println("Spring Expression Language: Car Fuel: " + cars.getCarFuel().fuelType());
+		
+		System.out.println("\n>>>>>>>>>>>>>>>>>Spring Expression Language ENDS>>>>>>>>>>>>\n");
 	}
 
 	/**
