@@ -1,0 +1,11 @@
+Upgrade EC2 from t2.micro to t2.medium. Which will cost $0.047 per Hour compared to $0.012 per Hour as on 8/13/2017
+===================================================================================================================
+1. List down the runing services into the server
+	a. Postgres: service postgresql stop and service postgresql start
+	b. SVN: svnserve --daemon --root /data/opt/svnRepo
+	c. xampp (for apache and mysql): /opt/lampp/xampp stop; /opt/lampp/xampp start
+	
+2. Stop the AWS instance from aws.amazon.com
+3. Select instance->Action-> Instance Setting->Change Instance type.
+
+Note: All software, content,hard disk will remain same only RAM and vCPU unit will increase.
