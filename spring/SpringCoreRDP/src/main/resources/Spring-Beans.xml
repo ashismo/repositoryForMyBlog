@@ -15,9 +15,9 @@
   	http://www.springframework.org/schema/tx
   	http://www.springframework.org/schema/tx/spring-tx.xsd"
 	default-init-method="init" default-destroy-method="destroy">
-	
-    <!-- Inclue another spring configuration file -->
-    <import resource="Spring-Beans-Classic.xml"/>
+
+	<!-- Inclue another spring configuration file -->
+	<import resource="Spring-Beans-Classic.xml" />
 	<!-- For component scan xmlns:context and below two URLs have been added 
 		in xsi:schemaLocation -->
 	<!-- http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd -->
@@ -27,6 +27,18 @@
 	<!-- This element is required for enabling Spring AOP support -->
 	<aop:aspectj-autoproxy />
 
+	<!-- Below is the alternate configuration if <aop:aspectj-autoproxy /> is not mentioned -->
+	<!-- 
+	<bean id="logginAspect" class="com.ashish.learning.aop.LoggingAspect"></bean>
+	<aop:config>
+		<aop:aspect ref="logginAspect">
+			<aop:pointcut id="someAdvice" expression="execution(* com.ashish.learning.aop.SpringAOPServices.aMethod(..))" />
+			<aop:before pointcut-ref="someAdvice" method="beforeExecution" />
+			<aop:after pointcut-ref="someAdvice" method="afterExecution" />
+		</aop:aspect>
+	</aop:config>
+	-->
+	
 	<bean id="helloWorld1" class="com.ashish.learning.HelloWorld">
 	</bean>
 
