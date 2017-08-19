@@ -5,6 +5,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.jdbc.datasource.AbstractDriverBasedDataSource;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -90,10 +92,28 @@ public class JUnitTest {
 	}
 	
 	@Test
-	public void sprngQualifier() {
+	public void springQualifier() {
 		System.out.println(">>>>>>>>>>>>>>>SPRING QUALIFIER STARTS>>>>>>>>>>>>>\n");
 		DessertService springQualifier = (DessertService) context.getBean(DessertService.class);
 		springQualifier.getDessert();
 		System.out.println(">>>>>>>>>>>>>>>SPRING QUALIFIER ENDS>>>>>>>>>>>>>\n");
+	}
+	
+	@Test
+	public void propertyPlaceholderConfigurerImplementation() { 
+		System.out.println("\n>>>>>>>>>>>>>>>>>PropertyPlaceholderConfigurer STARTS>>>>>>>>>>>>\n");
+		// Java code reads value from properties file
+		SpringAOPServices springAopServices = (SpringAOPServices) context.getBean("springAopServices");
+		System.out.println(springAopServices.getWelcomeNote());
+		
+		// Spring context reads from properties file 
+		AbstractDriverBasedDataSource dataSource = (DriverManagerDataSource) context.getBean("datasource");
+		String url = dataSource.getUrl();
+		String password = dataSource.getPassword();
+		String userName = dataSource.getUsername();
+		System.out.println("url: " + url);
+		System.out.println("user name: " + userName);
+		System.out.println("password: " + password);
+		System.out.println("\n>>>>>>>>>>>>>>>>>PropertyPlaceholderConfigurer ENDS>>>>>>>>>>>>\n");
 	}
 }
