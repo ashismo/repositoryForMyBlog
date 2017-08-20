@@ -1,5 +1,7 @@
 package com.ashish.test.learning.v4;
 
+import java.util.Locale;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import com.ashish.learning.v4.ShowRoom;
 import com.ashish.learning.v4.aop.SpringAOPServices;
 import com.ashish.learning.v4.config.AppConfig;
 import com.ashish.learning.v4.qualifier.DessertService;
+import com.ashish.learning.v4.service.CollectionInjectionServices;
 import com.ashish.learning.v4.spring.expression.language.SpELServices;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -131,7 +134,43 @@ public class JUnitTest {
 		spELServices.getShowroom().getFourWheelers().prepareFourwheelers();
 		spELServices.getFourWheelers().prepareFourwheelers();
 		
+		System.out.println("Null value injection: " + spELServices.getNullValue());
 		System.out.println("Random Speed: " + spELServices.getRandomSpeed());
 		System.out.println("\n>>>>>>>>>>>>>>>>>Spring Expression Language ENDS>>>>>>>>>>>>\n");
+	}
+	
+	@Test
+	public void collectionInjection() {
+		System.out.println("\n>>>>>>>>>>>>>>>>>Spring Collection Injection STARTS>>>>>>>>>>>>\n");
+		CollectionInjectionServices coll = (CollectionInjectionServices) context.getBean(CollectionInjectionServices.class);
+		System.out.println("Map injection: " + coll.getCountryCurrencyMap());
+		
+		System.out.println("List injection: " + coll.getCountries());
+		System.out.println("\n>>>>>>>>>>>>>>>>>Spring Collection Injection ENDS>>>>>>>>>>>>\n");
+	}
+	
+	
+	@Test
+	public void resourceBundleMessageSourceImpl() {
+		System.out.println("\n>>>>>>>>>>>>>>>>>ResourceBundleMessageSource STARTS>>>>>>>>>>>>\n");
+		
+		String message = context.getMessage("greetings", null, "Default message, If not found against the key: greetings", null);
+		System.out.println("\nWelcome message for DEFAULT Locale: " + message);
+		
+		System.out.println("\nWelcome message for en_GB Locale");
+		Locale locale = new Locale("en_GB");
+		message = context.getMessage("greetings", null, "Default message, If not found against the key: greetings", locale);
+		System.out.println("\nWelcome message for en_GB Locale: " + message);
+		
+		message = context.getMessage("offer.message", new Object[]{"Ashish","10"}, "Default message, If not found against the key: offer.message", null);
+		System.out.println("\nParameterized welcome message: " + message);
+		
+		message = context.getMessage("offer.message", new Object[]{"Ashish","10"}, "Default message, If not found against the key: offer.message", locale);
+		System.out.println("\nParameterized welcome message (This key is actually defined in the parent properties file): " + message);
+		
+		message = context.getMessage("service.failure", null, "Default message: Service Failed, if not found against the key: service.failure", null);
+		System.out.println("\nError message : " + message);
+		
+		System.out.println("\n>>>>>>>>>>>>>>>>>ResourceBundleMessageSource ENDS>>>>>>>>>>>>\n");
 	}
 }

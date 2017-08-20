@@ -22,6 +22,10 @@ public class SpELServices {
 	@Value("#{T(java.lang.Math).random()}")
 	private String randomSpeed;
 	
+	// If a property not found then null value would be injected here
+	@Value("${welcome.null.note:#{null}}")
+	private String nullValue;
+	
 	public String getWelcomeNote() {
 		return welcomeNote;
 	}
@@ -52,5 +56,9 @@ public class SpELServices {
 
 	public void setRandomSpeed(String randomSpeed) {
 		this.randomSpeed = randomSpeed;
+	}
+
+	public String getNullValue() {
+		return nullValue;
 	}
 }

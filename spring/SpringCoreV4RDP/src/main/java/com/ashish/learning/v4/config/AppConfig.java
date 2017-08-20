@@ -1,13 +1,19 @@
 package com.ashish.learning.v4.config;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -42,9 +48,52 @@ public class AppConfig {
 	public HelloWorld helloWorldInitDestroy() {
 		return new HelloWorld();
 	}
-
+	
+	/**
+	 * This map bean would be injected into another class
+	 * @return
+	 */
 	@Bean
-	@Autowired // Setter injection: At a time only one datasource would be active (as they are profile based) and would be injected here
+	public Map<String, String> countryCurrencyMap() {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("USA", "USD");
+		map.put("India", "INR");
+		map.put("UAE", "AED");
+		return map;
+	}
+	
+	/**
+	 * This list bean would be injected into another class
+	 * @return
+	 */
+	@Bean
+	public List<String> countryList() {
+		List<String> list = new ArrayList<String>();
+		list.add("India");
+		list.add("USA");
+		list.add("UAE");
+		return list;
+	}
+	
+	/**
+	 * This bean loads i18n messages from the locale based properties files
+	 * @return
+	 */
+	@Bean
+    public MessageSource messageSource() {
+    	ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasenames("messages/message", "messages/errormessage");
+        messageSource.setDefaultEncoding("UTF-8");
+        return messageSource;
+    }
+
+	/**
+	 * Setter injection: At a given point of time, only one datasource would be active (as they are profile based) and would be injected here
+	 * @param datasource
+	 * @return
+	 */
+	@Bean
+	@Autowired
 	public DataSourceTransactionManager transactionManager(DriverManagerDataSource datasource) {
 		DataSourceTransactionManager transactionManager = new DataSourceTransactionManager();
 		transactionManager.setDataSource(datasource);
