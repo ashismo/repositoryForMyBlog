@@ -1,10 +1,12 @@
 package com.ashish.learning.v4.aop;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 
 @Component("springAopServices")
+@PropertySource({"classpath:app/properties/app.properties"}) 
 public class SpringAOPServices {
 	
 	@Value("${welcome.note}") private String welcomeNote;

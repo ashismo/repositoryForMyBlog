@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.jdbc.datasource.AbstractDriverBasedDataSource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -15,9 +16,11 @@ import com.ashish.learning.v4.ShowRoom;
 import com.ashish.learning.v4.aop.SpringAOPServices;
 import com.ashish.learning.v4.config.AppConfig;
 import com.ashish.learning.v4.qualifier.DessertService;
+import com.ashish.learning.v4.spring.expression.language.SpELServices;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes={AppConfig.class})
+@ActiveProfiles("dev") // Beans marked with @Profiles("dev") will get loaded and other beans also will get loaded
 public class JUnitTest {
 	
 	@Autowired
@@ -107,7 +110,7 @@ public class JUnitTest {
 		System.out.println(springAopServices.getWelcomeNote());
 		
 		// Spring context reads from properties file 
-		AbstractDriverBasedDataSource dataSource = (DriverManagerDataSource) context.getBean("datasource");
+		AbstractDriverBasedDataSource dataSource = (DriverManagerDataSource) context.getBean(DriverManagerDataSource.class);
 		String url = dataSource.getUrl();
 		String password = dataSource.getPassword();
 		String userName = dataSource.getUsername();
@@ -115,5 +118,20 @@ public class JUnitTest {
 		System.out.println("user name: " + userName);
 		System.out.println("password: " + password);
 		System.out.println("\n>>>>>>>>>>>>>>>>>PropertyPlaceholderConfigurer ENDS>>>>>>>>>>>>\n");
+	}
+	
+	
+	@Test
+	public void springExpressionLanguage() {
+		System.out.println("\n>>>>>>>>>>>>>>>>>Spring Expression Language STARTS>>>>>>>>>>>>\n");
+		SpELServices spELServices = (SpELServices) context.getBean(SpELServices.class);
+		// To upper case - ternary operation
+		System.out.println("SpEL ternary operation - null check: " + spELServices.getWelcomeNote());
+		
+		spELServices.getShowroom().getFourWheelers().prepareFourwheelers();
+		spELServices.getFourWheelers().prepareFourwheelers();
+		
+		System.out.println("Random Speed: " + spELServices.getRandomSpeed());
+		System.out.println("\n>>>>>>>>>>>>>>>>>Spring Expression Language ENDS>>>>>>>>>>>>\n");
 	}
 }
