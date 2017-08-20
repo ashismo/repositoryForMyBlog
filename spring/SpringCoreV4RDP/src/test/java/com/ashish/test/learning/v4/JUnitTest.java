@@ -183,7 +183,12 @@ public class JUnitTest {
 	public void springJdbcExample() {
 		SpringJDBCServices springJDBCServices = (SpringJDBCServices) context.getBean(SpringJDBCServices.class);
 		System.out.println("\n>>>>>>>>>>>>>>>>>Spring JDBC Integration STARTS>>>>>>>>>>>>\n");
-		springJDBCServices.displayUserDetailsByUsername("ashish");
+		
+		// This call should return result after 5 seconds as the query execution slowed down by 5 seconds intentionally to see the caching effect
+		springJDBCServices.displayUserDetailsByUsername("ashish"); 
+		
+		// This call should return result immediately from cache
+		springJDBCServices.displayUserDetailsByUsername("ashish"); 
 		
 		UserBean ub = new UserBean();
 		ub.setUsername("ujan");

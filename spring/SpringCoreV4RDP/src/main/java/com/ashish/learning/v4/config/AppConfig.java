@@ -8,6 +8,11 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
+import org.springframework.cache.ehcache.EhCacheCacheManager;
+import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -17,6 +22,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
@@ -27,6 +33,7 @@ import com.ashish.learning.v4.HelloWorld;
 @PropertySource({ "classpath:app/properties/database.properties" })
 // This annotation loads properties file and inject values
 @Import({ DevDBConfig.class, TestDBConfig.class })
+@EnableCaching // This enables caching in spring application
 public class AppConfig {
 
 	@Autowired
@@ -107,5 +114,28 @@ public class AppConfig {
 	public NamedParameterJdbcTemplate jdbcTemplate(DataSource datasource) {
 		NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(datasource);
 		return jdbcTemplate;
+	}
+	
+	
+//	@Bean
+//	public CacheManager cacheManager() {
+//		return new ConcurrentMapCacheManager();
+//	}
+	
+	/**
+	 * Cache manager bean configuration
+	 * @return
+	 */
+	@Bean
+	public CacheManager cacheManager() {
+		return new EhCacheCacheManager(ehCacheCacheManager().getObject());
+	}
+	
+	@Bean
+	public EhCacheManagerFactoryBean ehCacheCacheManager() {
+		EhCacheManagerFactoryBean cmfb = new EhCacheManagerFactoryBean();
+		cmfb.setConfigLocation(new ClassPathResource("ehcache.xml"));// EH-cache is configured in the xml file
+		cmfb.setShared(true);
+		return cmfb;
 	}
 }

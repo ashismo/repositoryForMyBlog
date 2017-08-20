@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -15,12 +16,19 @@ public class SpringJDBCDao {
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
 	
+	/**
+	 * Add @Cacheable on the method you want to cache
+	 * @param username
+	 * @return
+	 */
+	@Cacheable(value="userFindCache", key="#username")
 	public UserBean getUserByUserName(String username) {
 		String sql = "SELECT * FROM USERS WHERE username=:username";
 		UserBean ub = null;
 		try {
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("username", username);
+			slowQuery(5000L);
 			ub = jdbcTemplate.queryForObject(sql, params, new UserBeanMapper());
 
 		} catch (Exception e) {
@@ -58,5 +66,14 @@ public class SpringJDBCDao {
 				return userBean;
 		}
 		
+	}
+	
+	
+	private void slowQuery(long seconds){
+	    try {
+                Thread.sleep(seconds);
+            } catch (InterruptedException e) {
+                throw new IllegalStateException(e);
+            }
 	}
 }
