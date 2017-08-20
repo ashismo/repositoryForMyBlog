@@ -15,6 +15,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
@@ -99,5 +100,11 @@ public class AppConfig {
 		transactionManager.setDataSource(datasource);
 
 		return transactionManager;
+	}
+	
+	@Bean
+	public NamedParameterJdbcTemplate jdbcTemplate(DriverManagerDataSource datasource) {
+		NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(datasource);
+		return jdbcTemplate;
 	}
 }

@@ -17,6 +17,8 @@ import com.ashish.learning.v4.HelloWorld;
 import com.ashish.learning.v4.ShowRoom;
 import com.ashish.learning.v4.aop.SpringAOPServices;
 import com.ashish.learning.v4.config.AppConfig;
+import com.ashish.learning.v4.dao.SpringJDBCServices;
+import com.ashish.learning.v4.dao.UserBean;
 import com.ashish.learning.v4.qualifier.DessertService;
 import com.ashish.learning.v4.service.CollectionInjectionServices;
 import com.ashish.learning.v4.spring.expression.language.SpELServices;
@@ -172,5 +174,22 @@ public class JUnitTest {
 		System.out.println("\nError message : " + message);
 		
 		System.out.println("\n>>>>>>>>>>>>>>>>>ResourceBundleMessageSource ENDS>>>>>>>>>>>>\n");
+	}
+	
+	
+	@Test
+	public void springJdbcExample() {
+		SpringJDBCServices springJDBCServices = (SpringJDBCServices) context.getBean(SpringJDBCServices.class);
+		System.out.println("\n>>>>>>>>>>>>>>>>>Spring JDBC Integration STARTS>>>>>>>>>>>>\n");
+		springJDBCServices.displayUserDetailsByUsername("ashish");
+		
+		UserBean ub = new UserBean();
+		ub.setUsername("ujan");
+		ub.setName("Ujan");
+		ub.setPassword("ujan");
+		ub.setRoleId(1);
+		springJDBCServices.createUser(ub);
+		
+		System.out.println("\n>>>>>>>>>>>>>>>>>Spring JDBC Integration ENDS>>>>>>>>>>>>\n");
 	}
 }
