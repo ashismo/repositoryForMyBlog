@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +19,6 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import com.ashish.learning.v4.HelloWorld;
 
@@ -95,7 +96,7 @@ public class AppConfig {
 	 */
 	@Bean
 	@Autowired
-	public DataSourceTransactionManager transactionManager(DriverManagerDataSource datasource) {
+	public DataSourceTransactionManager transactionManager(DataSource datasource) {
 		DataSourceTransactionManager transactionManager = new DataSourceTransactionManager();
 		transactionManager.setDataSource(datasource);
 
@@ -103,7 +104,7 @@ public class AppConfig {
 	}
 	
 	@Bean
-	public NamedParameterJdbcTemplate jdbcTemplate(DriverManagerDataSource datasource) {
+	public NamedParameterJdbcTemplate jdbcTemplate(DataSource datasource) {
 		NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(datasource);
 		return jdbcTemplate;
 	}

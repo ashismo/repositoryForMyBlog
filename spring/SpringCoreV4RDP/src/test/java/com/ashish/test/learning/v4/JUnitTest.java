@@ -2,6 +2,8 @@ package com.ashish.test.learning.v4;
 
 import java.util.Locale;
 
+import javax.sql.DataSource;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,7 @@ import com.ashish.learning.v4.spring.expression.language.SpELServices;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes={AppConfig.class})
-@ActiveProfiles("dev") // Beans marked with @Profiles("dev") will get loaded and other beans also will get loaded
+@ActiveProfiles("devEmbedded") // Beans marked with @Profiles("dev") will get loaded and other beans also will get loaded
 public class JUnitTest {
 	
 	@Autowired
@@ -107,7 +109,7 @@ public class JUnitTest {
 		System.out.println(">>>>>>>>>>>>>>>SPRING QUALIFIER ENDS>>>>>>>>>>>>>\n");
 	}
 	
-	@Test
+	@Test(expected=ClassCastException.class)
 	public void propertyPlaceholderConfigurerImplementation() { 
 		System.out.println("\n>>>>>>>>>>>>>>>>>PropertyPlaceholderConfigurer STARTS>>>>>>>>>>>>\n");
 		// Java code reads value from properties file
@@ -115,7 +117,7 @@ public class JUnitTest {
 		System.out.println(springAopServices.getWelcomeNote());
 		
 		// Spring context reads from properties file 
-		AbstractDriverBasedDataSource dataSource = (DriverManagerDataSource) context.getBean(DriverManagerDataSource.class);
+		AbstractDriverBasedDataSource dataSource = (DriverManagerDataSource) context.getBean(DataSource.class);
 		String url = dataSource.getUrl();
 		String password = dataSource.getPassword();
 		String userName = dataSource.getUsername();
