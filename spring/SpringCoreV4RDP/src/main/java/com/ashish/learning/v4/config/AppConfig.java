@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ResourceBundleMessageSource;
@@ -33,6 +34,7 @@ import com.ashish.learning.v4.HelloWorld;
 @PropertySource({ "classpath:app/properties/database.properties" })
 // This annotation loads properties file and inject values
 @Import({ DevDBConfig.class, TestDBConfig.class })
+@ImportResource(locations="classpath:Spring-Beans-Classic.xml")
 @EnableCaching // This enables caching in spring application
 public class AppConfig {
 

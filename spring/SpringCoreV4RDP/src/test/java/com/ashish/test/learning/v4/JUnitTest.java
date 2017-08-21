@@ -24,6 +24,7 @@ import com.ashish.learning.v4.dao.UserBean;
 import com.ashish.learning.v4.qualifier.DessertService;
 import com.ashish.learning.v4.service.CollectionInjectionServices;
 import com.ashish.learning.v4.spring.expression.language.SpELServices;
+import com.ashish.learning.v4.spring.expression.language.Wheels;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes={AppConfig.class})
@@ -198,5 +199,18 @@ public class JUnitTest {
 		springJDBCServices.createUser(ub);
 		
 		System.out.println("\n>>>>>>>>>>>>>>>>>Spring JDBC Integration ENDS>>>>>>>>>>>>\n");
+	}
+	
+	/**
+	 * XML configuration has been incorporated with Annotation based configuration
+	 */
+	@Test
+	public void springXmlConfigurationInjection() {
+		System.out.println("\n>>>>>>>>>>>>>>>>>Spring XML configuration STARTS>>>>>>>>>>>>\n");
+		Wheels wheel = (Wheels)context.getBean(Wheels.class);
+		
+		System.out.println("Wheelbase: " + wheel.getWheelbase());
+		System.out.println("Wheeltype: " + wheel.getWheelType());
+		System.out.println("\n>>>>>>>>>>>>>>>>>Spring XML configuration ENDS>>>>>>>>>>>>\n");
 	}
 }
