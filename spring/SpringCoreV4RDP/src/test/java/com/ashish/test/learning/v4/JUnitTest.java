@@ -228,6 +228,9 @@ public class JUnitTest {
 		System.out.println("\n>>>>>>>>>>>>>>>>>Spring duplicateBean ENDS>>>>>>>>>>>>\n");
 	}
 	
+	/**
+	 * Inheritance of the bean
+	 */
 	@Test
 	public void inheritanceBean() {
 		System.out.println("\n>>>>>>>>>>>>>>>>>Spring inheritanceBean STARTS>>>>>>>>>>>>\n");
