@@ -17,7 +17,6 @@ public class India extends Country {
 	@Override
 	public String toString() {
 		return "India [language=" + language + ", getCountryName()="
-				+ getCountryName() + "]";
+				+ getCountryName() + ", getStates()=" + getStates() + "]";
 	}
-	
 }

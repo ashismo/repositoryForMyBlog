@@ -22,6 +22,7 @@ import com.ashish.learning.v4.config.AppConfig;
 import com.ashish.learning.v4.dao.SpringJDBCServices;
 import com.ashish.learning.v4.dao.UserBean;
 import com.ashish.learning.v4.duplicate.beans.DuplicateBean;
+import com.ashish.learning.v4.inheritance.Country;
 import com.ashish.learning.v4.inheritance.India;
 import com.ashish.learning.v4.qualifier.DessertService;
 import com.ashish.learning.v4.service.CollectionInjectionServices;
@@ -234,6 +235,9 @@ public class JUnitTest {
 	@Test
 	public void inheritanceBean() {
 		System.out.println("\n>>>>>>>>>>>>>>>>>Spring inheritanceBean STARTS>>>>>>>>>>>>\n");
+//		Country country = (Country)context.getBean(Country.class);
+//		System.out.println("States injected: " + country.getStates());
+		
 		India india = (India)context.getBean(India.class);
 		india.setCountryName("India");
 		india.setLanguage("Bengali");

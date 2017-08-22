@@ -10,7 +10,6 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 import org.springframework.context.MessageSource;
@@ -28,8 +27,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import com.ashish.learning.v4.HelloWorld;
-import com.ashish.learning.v4.inheritance.Country;
-import com.ashish.learning.v4.inheritance.India;
+import com.ashish.learning.v4.inheritance.States;
 
 @Configuration
 @ComponentScan(basePackages = "com.ashish.learning.v4")
@@ -141,5 +139,13 @@ public class AppConfig {
 		cmfb.setConfigLocation(new ClassPathResource("ehcache.xml"));// EH-cache is configured in the xml file
 		cmfb.setShared(true);
 		return cmfb;
+	}
+	
+	@Bean
+	public List<States> states() {
+		List<States> states = new ArrayList<>();
+		states.add(new States("WB"));
+		states.add(new States("AP"));
+		return states;
 	}
 }
