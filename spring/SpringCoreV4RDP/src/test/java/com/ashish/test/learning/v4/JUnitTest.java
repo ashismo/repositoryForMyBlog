@@ -21,6 +21,8 @@ import com.ashish.learning.v4.aop.SpringAOPServices;
 import com.ashish.learning.v4.config.AppConfig;
 import com.ashish.learning.v4.dao.SpringJDBCServices;
 import com.ashish.learning.v4.dao.UserBean;
+import com.ashish.learning.v4.duplicate.beans.DuplicateBean;
+import com.ashish.learning.v4.inheritance.India;
 import com.ashish.learning.v4.qualifier.DessertService;
 import com.ashish.learning.v4.service.CollectionInjectionServices;
 import com.ashish.learning.v4.spring.expression.language.SpELServices;
@@ -212,5 +214,27 @@ public class JUnitTest {
 		System.out.println("Wheelbase: " + wheel.getWheelbase());
 		System.out.println("Wheeltype: " + wheel.getWheelType());
 		System.out.println("\n>>>>>>>>>>>>>>>>>Spring XML configuration ENDS>>>>>>>>>>>>\n");
+	}
+	
+	/**
+	 * Duplicate beans can be loaded into IoC if they are loaded from two different configuration file
+	 */
+	@Test
+	public void duplicateBean() {
+		System.out.println("\n>>>>>>>>>>>>>>>>>Spring duplicateBean STARTS>>>>>>>>>>>>\n");
+		DuplicateBean duplicateBean = (DuplicateBean)context.getBean(DuplicateBean.class);
+		
+		System.out.println("duplicateBean: " + duplicateBean.getName());
+		System.out.println("\n>>>>>>>>>>>>>>>>>Spring duplicateBean ENDS>>>>>>>>>>>>\n");
+	}
+	
+	@Test
+	public void inheritanceBean() {
+		System.out.println("\n>>>>>>>>>>>>>>>>>Spring inheritanceBean STARTS>>>>>>>>>>>>\n");
+		India india = (India)context.getBean(India.class);
+		india.setCountryName("India");
+		india.setLanguage("Bengali");
+		System.out.println("Bean inheritance: " + india);
+		System.out.println("\n>>>>>>>>>>>>>>>>>Spring inheritanceBean ENDS>>>>>>>>>>>>\n");
 	}
 }

@@ -16,6 +16,8 @@ import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.stereotype.Component;
 
+import com.ashish.learning.v4.duplicate.beans.DuplicateBean;
+
 @Component
 @PropertySource({"classpath:app/properties/database.properties"}) 
 public class DevDBConfig {
@@ -57,4 +59,10 @@ public class DevDBConfig {
 		return dbBuilder.build();
 	}
 
+	@Bean
+	public DuplicateBean dulicateBean() {
+		DuplicateBean duplicateBean = new DuplicateBean();
+		duplicateBean.setName("Duplicate1");
+		return duplicateBean;
+	}
 }
