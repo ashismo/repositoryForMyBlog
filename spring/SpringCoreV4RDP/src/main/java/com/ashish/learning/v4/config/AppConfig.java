@@ -27,6 +27,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import com.ashish.learning.v4.HelloWorld;
+import com.ashish.learning.v4.event.handling.ContextStartedEventHandler;
 import com.ashish.learning.v4.inheritance.States;
 
 @Configuration

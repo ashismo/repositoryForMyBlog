@@ -7,7 +7,7 @@ import javax.sql.DataSource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.jdbc.datasource.AbstractDriverBasedDataSource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -22,7 +22,7 @@ import com.ashish.learning.v4.config.AppConfig;
 import com.ashish.learning.v4.dao.SpringJDBCServices;
 import com.ashish.learning.v4.dao.UserBean;
 import com.ashish.learning.v4.duplicate.beans.DuplicateBean;
-import com.ashish.learning.v4.inheritance.Country;
+import com.ashish.learning.v4.event.handling.ContextStartedEventHandler;
 import com.ashish.learning.v4.inheritance.India;
 import com.ashish.learning.v4.qualifier.DessertService;
 import com.ashish.learning.v4.service.CollectionInjectionServices;
@@ -35,7 +35,7 @@ import com.ashish.learning.v4.spring.expression.language.Wheels;
 public class JUnitTest {
 	
 	@Autowired
-	ApplicationContext context;
+	ConfigurableApplicationContext context;
 	
 	@Test
 	public void setterMethodBasedDI() {
@@ -243,5 +243,24 @@ public class JUnitTest {
 		india.setLanguage("Bengali");
 		System.out.println("Bean inheritance: " + india);
 		System.out.println("\n>>>>>>>>>>>>>>>>>Spring inheritanceBean ENDS>>>>>>>>>>>>\n");
+	}
+	
+	@Test
+	public void eventHandlingInSpring() {
+		System.out.println("\n>>>>>>>>>>>>>>>>>Spring eventHandlingInSpring STARTS>>>>>>>>>>>>\n");
+		
+		System.out.println("Going to start ConfigurableApplicationContext\n");
+		context.start();
+		System.out.println("\nConfigurableApplicationContext already Started");
+		
+		System.out.println("Going to stop ConfigurableApplicationContext\n");
+		context.stop();
+		System.out.println("ConfigurableApplicationContext already stopped");
+		
+		System.out.println("Going to close ConfigurableApplicationContext\n");
+		context.close();
+		System.out.println("ConfigurableApplicationContext already closed");
+		
+		System.out.println("\n>>>>>>>>>>>>>>>>>Spring eventHandlingInSpring ENDS>>>>>>>>>>>>\n");
 	}
 }
