@@ -16,6 +16,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
@@ -37,6 +38,7 @@ import com.ashish.learning.v4.inheritance.States;
 @Import({ DevDBConfig.class, TestDBConfig.class })
 @ImportResource(locations="classpath:Spring-Beans-Classic.xml")
 @EnableCaching // This enables caching in spring application
+@EnableAspectJAutoProxy // This enables aspectJ 
 public class AppConfig {
 
 	@Autowired
