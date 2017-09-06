@@ -54,7 +54,7 @@ public class WebserviceTest1 {
 					.andReturn();
 			System.out.println(result.getResponse().getContentAsString());
 			SearchBean sb = om.readValue(result.getResponse().getContentAsString(),  SearchBean.class);
-			assertEquals("PNR", sb.getPnr());
+			assertEquals("ABCD1234", sb.getPnr());
 		} catch(Exception e) {
 			System.out.println("Error while retrieving PNR");
 			e.printStackTrace();

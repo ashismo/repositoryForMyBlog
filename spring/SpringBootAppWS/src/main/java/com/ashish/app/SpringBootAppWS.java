@@ -29,7 +29,7 @@ public class SpringBootAppWS {
         @ApiImplicitParam(name = "pnr", value = "PNR", required = true, dataType = "string", paramType = "query", defaultValue="Ashish")
       })
 	@RequestMapping(path="/getPNR", method = RequestMethod.GET, headers="Accept=application/json",produces="application/json")
-	public SearchBean getPNR(@RequestParam(name="pnr")String pnr) {
+	public SearchBean getPNR(@RequestParam(name="pnr", defaultValue="ABCD1234")String pnr) {
 		logger.info("Test");
 		SearchBean sb = new SearchBean();
 		sb.setPnr(pnr);
