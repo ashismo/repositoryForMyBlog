@@ -7,8 +7,8 @@ LoadModule proxy_http_module modules/mod_proxy_http.so
 #Ashish
 
 #Ashish START
-ProxyPass         / http://localhost:8081/
-ProxyPassReverse  /  http://localhost:8081/
+ProxyPass         /AdminSecurityWS http://localhost:8081/AdminSecurityWS
+ProxyPassReverse  /AdminSecurityWS  http://localhost:8081/AdminSecurityWS
 
 <Location "/">
 	Order allow,deny
