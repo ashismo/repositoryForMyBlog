@@ -1,0 +1,19 @@
+a) Enable remote tomcat to run in debug mode with the following options
+	export JPDA_ADDRESS=8000
+    export JPDA_TRANSPORT=dt_socket
+    sh catalina.sh jpda start
+	
+	Note: startup.sh should not be used to run tomcat. Instead catalina.sh jpda start would be used
+b) Start tomcat
+
+c) Click debug->debug configuration->Remote Java Application (from left panel)->Add an application
+	i. Name the application
+	ii. Select Projecct
+	iii. Conection type: Standard (Socket Attached)
+	iv. Host -> IP address of the remote server
+	v. Port would be the JPDA_ADDRESS. I.e. 8000 in this example
+	vi. Click source tab.
+	vii. Attach source code
+	viii. Apply->Debug
+	
+d) Enjoy the remote debugging
