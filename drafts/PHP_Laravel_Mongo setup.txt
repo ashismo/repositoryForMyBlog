@@ -1,0 +1,6 @@
+1. Download Xampp and install for PHP 7.1
+2. Install ATOM IDE
+3. Install drunken-php package from Atom IDE seetings
+4. Install composer for the required dependency https://getcomposer.org/
+5. Install laravel dependency "composer create-project laravel/laravel --prefer-dist" from command prompt.
+6. Move all files and folders from laravel folder into one level up and delete laravel folder
