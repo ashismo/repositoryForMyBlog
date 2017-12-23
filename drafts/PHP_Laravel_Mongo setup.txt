@@ -4,3 +4,15 @@
 4. Install composer for the required dependency https://getcomposer.org/
 5. Install laravel dependency "composer create-project laravel/laravel --prefer-dist" from command prompt.
 6. Move all files and folders from laravel folder into one level up and delete laravel folder
+
+Create Models
+--------------
+Go inside the project folder and execute the following commands to create model
+php artisan make:model Subject -m
+php artisan make:model Teacher -m
+These commands would create Subject and Teacher models and the respective tables in the migration folders
+
+Create Tables
+---------------
+Command: php artisan migrate
+
