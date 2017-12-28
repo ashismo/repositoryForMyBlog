@@ -16,3 +16,18 @@ Create Tables
 ---------------
 Command: php artisan migrate
 
+
+Passport authentication integration
+-----------------------------------
+https://laravelcode.com/post/laravel-passport-create-rest-api-with-authentication
+
+
+Run in localhost
+----------------
+if you want to access laravel project without running artisan serve, you need to change few settings,
+
+copy the .htaccess file from the public folder and paste it in the root folder of your application
+
+rename the server.php in the root directory to index.php
+
+now go to localhost/your_project_name/smokeyard for the url you want to check
