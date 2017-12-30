@@ -21,6 +21,7 @@ import com.ashish.learning.v4.aop.SpringAOPServices;
 import com.ashish.learning.v4.config.AppConfig;
 import com.ashish.learning.v4.dao.SpringJDBCServices;
 import com.ashish.learning.v4.dao.UserBean;
+import com.ashish.learning.v4.dfault.autowire.DependentClass;
 import com.ashish.learning.v4.duplicate.beans.DuplicateBean;
 import com.ashish.learning.v4.event.handling.ContextStartedEventHandler;
 import com.ashish.learning.v4.inheritance.India;
@@ -262,5 +263,25 @@ public class JUnitTest {
 		System.out.println("ConfigurableApplicationContext already closed");
 		
 		System.out.println("\n>>>>>>>>>>>>>>>>>Spring eventHandlingInSpring ENDS>>>>>>>>>>>>\n");
+	}
+	
+	@Test
+	public void autowireDetectInSpring() {
+		System.out.println("\n>>>>>>>>>>>>>>>>>Spring autdetectInSpring STARTS>>>>>>>>>>>>\n");
+		
+		com.ashish.learning.v4.dfault.autodetect.DependentClass dependent = (com.ashish.learning.v4.dfault.autodetect.DependentClass) context.getBean(com.ashish.learning.v4.dfault.autodetect.DependentClass.class);
+		dependent.printIndependentClass();
+		
+		System.out.println("\n>>>>>>>>>>>>>>>>>Spring autdetectInSpring ENDS>>>>>>>>>>>>\n");
+	}
+	
+	@Test
+	public void autowirePrecedenceInSpring() {
+		System.out.println("\n>>>>>>>>>>>>>>>>>Spring autowirePrecedenceInSpring STARTS>>>>>>>>>>>>\n");
+		
+		DependentClass dependent = (DependentClass) context.getBean(DependentClass.class);
+		dependent.printIndependentClass();
+		
+		System.out.println("\n>>>>>>>>>>>>>>>>>Spring autowirePrecedenceInSpring ENDS>>>>>>>>>>>>\n");
 	}
 }

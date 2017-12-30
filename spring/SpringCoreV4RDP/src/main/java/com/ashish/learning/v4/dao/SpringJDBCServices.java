@@ -1,5 +1,7 @@
 package com.ashish.learning.v4.dao;
 
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +17,12 @@ public class SpringJDBCServices {
 	@Autowired
 	private SpringJDBCDao jdbcDao;
 	
+	@Autowired
+	private Map<String, Float> price;
+	
 	public void displayUserDetailsByUsername(String username) {
 		logger.info(">>>>>>>>>>displayUserDetailsByUsername STARTS>>>>>>>>>>>>>>>>>>>");
+		System.out.println(price.get("ECONOMY"));
 		UserBean userBean = jdbcDao.getUserByUserName(username);
 		
 		if(userBean != null) {

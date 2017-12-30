@@ -89,6 +89,15 @@ public class AppConfig {
 		return list;
 	}
 	
+	@Bean
+	public Map<String, Float> price() {
+		Map<String, Float> map = new HashMap<>();
+		map.put("ECONOMY", 10f);
+		map.put("FIRST", 20f);
+		map.put("BUSINESS", 30f);
+		return map;
+	}
+	
 	/**
 	 * This bean loads i18n messages from the locale based properties files
 	 * @return

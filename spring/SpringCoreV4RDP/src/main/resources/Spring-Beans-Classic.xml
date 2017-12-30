@@ -17,4 +17,11 @@
 		<property name="wheelbase" value="147"></property>
 		<property name="wheelType" value="Alloy"></property>
 	</bean>
+	
+	<bean id="dependentClass" class="com.ashish.learning.v4.dfault.autodetect.DependentClass" autowire="default">
+	</bean>
+	
+	<bean id="independentClass" class="com.ashish.learning.v4.dfault.autodetect.IndependentClass">
+	    <property name="property" value="Value is set in bean.xml file"></property>
+	</bean>
 </beans>
