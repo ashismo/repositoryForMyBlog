@@ -31,3 +31,8 @@ copy the .htaccess file from the public folder and paste it in the root folder o
 rename the server.php in the root directory to index.php
 
 now go to localhost/your_project_name/smokeyard for the url you want to check
+
+Troubleshooting
+---------------------
+If login is not working with "Trying to get property of non-object" error then execute the following command
+php artisan passport:install --force
