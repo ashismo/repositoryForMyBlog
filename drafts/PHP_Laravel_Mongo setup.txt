@@ -21,6 +21,11 @@ Passport authentication integration
 -----------------------------------
 https://laravelcode.com/post/laravel-passport-create-rest-api-with-authentication
 
+Migrate and install passport
+-----------------------------------
+php artisan migrate
+php artisan passport:install
+
 
 Run in localhost
 ----------------
