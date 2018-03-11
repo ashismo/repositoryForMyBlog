@@ -27,6 +27,14 @@ php artisan migrate
 php artisan passport:install
 
 
+Integrate ACL powered by Entrust (https://github.com/Zizaco/entrust#installation)
+------------------------------------------------------------------------------------
+1. Go to project folder
+2. Execute this command -      composer update: "zizaco/entrust": "5.2.x-dev"
+3. Open your config/app.php and add the following to the providers array:    Zizaco\Entrust\EntrustServiceProvider::class,
+4. In the same config/app.php and add the following to the aliases array:    'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
+5. Run the command below to publish the package config file config/entrust.php    php artisan vendor:publish
+
 Run in localhost
 ----------------
 if you want to access laravel project without running artisan serve, you need to change few settings,
