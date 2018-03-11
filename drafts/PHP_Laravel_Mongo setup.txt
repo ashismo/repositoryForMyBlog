@@ -52,7 +52,9 @@ Integrate ACL powered by Entrust (https://github.com/Zizaco/entrust#installation
 
 8. vendor-> zizaco-> entrust-> src-> commands-> MigrationCommand.php and change the "fire" method to "handle" 
 9. Execute    php artisan entrust:migration
-10. 
+10. Execute   php artisan migrate
+11. Then follow the github link mentioned above
+
 Run in localhost
 ----------------
 if you want to access laravel project without running artisan serve, you need to change few settings,
