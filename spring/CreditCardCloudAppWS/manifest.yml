@@ -1,9 +1,0 @@
-applications:
-- path: target/CreditCardCloudAppWS.war
-  memory: 512M
-  instances: 1
-  domain: mybluemix.net
-  name: CreditCardCloudAppWS
-  host: CreditCardCloudAppWS
-  disk_quota: 1024M
-  buildpack: java_buildpack
