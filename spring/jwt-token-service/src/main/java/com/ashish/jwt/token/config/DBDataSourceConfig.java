@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "com.ashish.jwt.token.db.repository")
+@EnableJpaRepositories(basePackages = "com.ashish.jwt.token.db.repositories")
 public class DBDataSourceConfig {
 
 	@Bean(name = "msdatasource")
@@ -32,11 +32,6 @@ public class DBDataSourceConfig {
 				.addScript("sql/schema.sql")
 				.addScript("sql/data.sql").build();
 		
-		/*DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("org.h2.Driver");
-        dataSource.setUrl("jdbc:h2:mem:db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE");
-        dataSource.setUsername("sa");
-        dataSource.setPassword("");*/
         
 		return db;
 	}

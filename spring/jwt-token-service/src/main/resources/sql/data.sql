@@ -1,4 +1,4 @@
-INSERT INTO app_user (id, username, password, first_name, last_name) VALUES (1, 'ashish', 'ashish',  'ashish', 'mondal');
+INSERT INTO app_user (id, username, password, first_name, last_name) VALUES (1, 'ashish', '$2a$10$u0pzkxGOPKkq1iufN19OtO/tsT1vq0FI58RUMWYq7nG8bZJBLar3u',  'ashish', 'mondal');
 INSERT INTO app_user (id, username, password, first_name, last_name) VALUES (2, 'admin', 'admin',  'admin', 'admin');
 
 

@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.ashish.jwt.token</groupId>
 	<artifactId>jwt-token-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>jwt-token-service</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -19,11 +19,27 @@
 	</properties>
 
 	<dependencies>
+		<!-- Mandatory dependency START -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<!-- Mandatory dependency END -->
+		
+		<!-- Database Dependency START -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<!-- <scope>runtime</scope> -->
+		</dependency>
+		<!-- Database Dependency END -->
 
+		<!-- Debugging and testing dependencies START -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -34,13 +50,9 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- Debugging and testing dependencies END -->
 		
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<!-- <scope>runtime</scope> -->
-		</dependency>
-
+		<!-- Spring security and JWT token dependency START -->
 		<dependency>
 			<groupId>org.springframework.security.oauth</groupId>
 			<artifactId>spring-security-oauth2</artifactId>
@@ -53,7 +65,13 @@
 			<version>1.0.9.RELEASE</version>
 		</dependency>
 		
-		<!-- Swagger Dependency start -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<!-- Spring security and JWT token dependency END -->
+		
+		<!-- Swagger Dependency START -->
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
@@ -65,8 +83,7 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.9.2</version>
 		</dependency>
-
-		<!-- Swagger Dependency end -->
+		<!-- Swagger Dependency END -->
 	</dependencies>
 
 	<build>
@@ -74,6 +91,22 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<!-- Below code creates 2 jars, "jwt-token-service-1.0-exec.jar" 
+					big in size, "jwt-token-service-1.0.jar.jar" small in size (we can use this as dependency with other applications -->
+				<executions>
+					<execution>
+						<goals>
+							<goal>
+								repackage
+							</goal>
+						</goals>
+						<configuration>
+							<classifier>exec</classifier>
+						</configuration>
+					</execution>
+				</executions>
+				<!-- Above code creates 2 jars, "jwt-token-service-1.0-exec.jar" 
+					big in size, "jwt-token-service-1.0.jar.jar" small in size (we can use this as dependency with other applications -->
 			</plugin>
 		</plugins>
 	</build>

@@ -44,5 +44,11 @@ public class AppUserDetailsServices implements UserDetailsService {
 		return userDetails;
 	}
 	
+	public static void main(String[] args) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		for(int i = 0; i < 10; i++) {
+			System.out.println(encoder.encode("jwtpass"));
+		}
+	}
 
 }
