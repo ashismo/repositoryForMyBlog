@@ -1,0 +1,14 @@
+com\ashish\sns\TestUtils$DateTimeSerializer.class
+com\ashish\sns\TestUtils$UpperCaseRecordsPropertyNamingStrategy.class
+com\ashish\sns\TestUtils$DateTimeDeserializer.class
+com\ashish\sns\TestUtils$TestJacksonMapperModule.class
+com\ashish\sns\TestContext$1.class
+com\ashish\sns\TestContext.class
+com\ashish\sns\TestUtils$1.class
+com\ashish\sns\EmailSMSHandlerTest.class
+com\ashish\sns\TestUtils$DynamodbEventMixin$AttributeValueMixIn.class
+com\ashish\sns\TestUtils$DynamodbEventMixin$StreamRecordMixin.class
+com\ashish\sns\TestContext$TestLogger.class
+com\ashish\sns\TestUtils$DynamodbEventMixin.class
+com\ashish\sns\TestUtils.class
+com\ashish\sns\TestUtils$DynamodbEventMixin$RecordMixin.class
