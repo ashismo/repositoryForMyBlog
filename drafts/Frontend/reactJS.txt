@@ -1,0 +1,5 @@
+## Create React JS app  Hello world
+> Install nodejs
+> Install visual studio coe (VS Code)
+> Open terminal in VS Code 
+> Execute npx create-react-app helloworld
