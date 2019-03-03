@@ -2,4 +2,7 @@
 > Install nodejs
 > Install visual studio coe (VS Code)
 > Open terminal in VS Code 
-> Execute npx create-react-app helloworld
+> Execute npx create-react-app helloworld (Alternatively npm install create-react-app -g then create-react-app helloworld)
+> Once project is created then cd helloworld
+> npm start
+> localhost:3000
