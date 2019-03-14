@@ -9,11 +9,15 @@ import PropsExampleFunction from './props/PropsExampleFunction';
 import PropsExampleClassComponent from './props/PropsExampleClassComponent';
 import DestructuringFunction from './destructuring/DestructuringFunction';
 import DestructuringClass from './destructuring/DestructuringClass';
+import FunctionClick from './eventhandling/FunctionClick';
+import ClassClick from './eventhandling/ClassClick';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
+        <FunctionClick/>
+        <ClassClick/>
         <CustomGreet/>
         <ClassComponent/>
         <WithoutJsx/>
