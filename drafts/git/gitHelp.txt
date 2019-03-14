@@ -1,0 +1,5 @@
+## Add ssh key in bitbucket git
+> Generate private and public key: Command is    ssh-keygen
+> Check ssh-agent pid: Command is:   eval $(ssh-agent)
+> Add private key into ssh-agent: Command is: ssh-add id_rsa_bitbucket
+> Copy public key into bigbucket git. Open the file "vi id_rsa_bitbucket.pub". Copy the content and paste into bitbucket portal
