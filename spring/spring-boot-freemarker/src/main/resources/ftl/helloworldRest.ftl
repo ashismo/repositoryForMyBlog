@@ -31,5 +31,6 @@
     ============================ REST CALL FROM MVC CONTROLLER ===============
     <h2>Employee Id ${employee.id}</h2>
     <h2>Hello ${employee.name}!</h2>
+    <h2>Object is ${employee}</h2>
 </body>
 </html>
