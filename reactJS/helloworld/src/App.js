@@ -11,11 +11,16 @@ import DestructuringFunction from './destructuring/DestructuringFunction';
 import DestructuringClass from './destructuring/DestructuringClass';
 import FunctionClick from './eventhandling/FunctionClick';
 import ClassClick from './eventhandling/ClassClick';
+import EventBind from './eventbinding/EventBind';
+import ParentComponent from './methodAsProps/ParentComponent';
+
 
 class App extends Component {
   render() {
     return (
       <div className="App">
+        <ParentComponent/>
+        <EventBind/>
         <FunctionClick/>
         <ClassClick/>
         <CustomGreet/>
@@ -38,7 +43,7 @@ class App extends Component {
 
         <DestructuringClass name='Ashish' surname='Mondal'>
           <p>Distructuring Class component - Props Chidren tag</p>
-        </DestructuringClass>
+        </DestructuringClass>*/
       </div>
 
       
