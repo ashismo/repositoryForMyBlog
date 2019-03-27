@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ashish.spring.boot</groupId>
-	<artifactId>spring-boot-ftl</artifactId>
+	<artifactId>spring-boot-freemarker</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring-boot-ftl</name>
 	<description>Demo project for Spring Boot</description>
