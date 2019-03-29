@@ -13,12 +13,15 @@ import FunctionClick from './eventhandling/FunctionClick';
 import ClassClick from './eventhandling/ClassClick';
 import EventBind from './eventbinding/EventBind';
 import ParentComponent from './methodAsProps/ParentComponent';
-
+import ConditionlDisplay from './conditionalRendering/ConditionalDisplay';
+import ListRendering from './ListRendering/ListRendering';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
+        <ListRendering/>
+        <ConditionlDisplay/>
         <ParentComponent/>
         <EventBind/>
         <FunctionClick/>
