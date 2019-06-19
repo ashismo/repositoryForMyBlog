@@ -1,3 +1,14 @@
+Mysql installation
+====================
+yum install -y mysql-server mysql-client
+service mysqld start
+mysql -u root
+
+
+
+
+LAMPP
+==================================
 Mysql prompt
 ============
 /opt/lampp/bin/mysql -u root
