@@ -48,7 +48,7 @@ public class AlertServices {
 		
 		System.out.println("END PARALLEL EXECUTION");
 		long endTime = System.nanoTime();
-		System.out.println("Execution time: " + (endTime - startTime)/1000000000 + " sec");
+		System.out.println("Execution time: " + (endTime - startTime)/1000000 + " ms");
 		return alertOutput;
 	}
 	
@@ -74,7 +74,7 @@ public class AlertServices {
 		
 		System.out.println("END SERIAL EXECUTION");
 		long endTime = System.nanoTime();
-		System.out.println("Serial Execution time: " + (endTime - startTime)/1000000000 + " sec");
+		System.out.println("Serial Execution time: " + (endTime - startTime)/1000000 + " ms");
 		return alertOutput;
 	}
 	
