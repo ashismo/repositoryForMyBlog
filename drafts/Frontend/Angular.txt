@@ -1,0 +1,8 @@
+## Prerequisite
+1. Install Node (npm)
+2. npm install -g @angular/cli  (This installs angular cli)
+3. Install vscode
+4. Open vscode terminal
+5. Craete a new project =>  ng new helloworldng7
+6. Start the app: ng serve -o
+7. Generate more components: ng generate component nav
