@@ -9,6 +9,19 @@ Create multi site:
 > Go to server and open wp-config.php and allow multisite
 define( 'WP_DEBUG', false );
 
+/** Database change **/
+define( 'DB_NAME', 'XXXXXX' );
+
+/** MySQL database username */
+define( 'DB_USER', 'XXXXXX' );
+
+/** MySQL database password */
+define( 'DB_PASSWORD', 'XXXXXX' );
+
+/** MySQL hostname ===== This is important to mention the port number*/ 
+define( 'DB_HOST', '127.0.0.1:3306' );
+
+
 /** Multisite Ashish **/
 define( 'WP_ALLOW_MULTISITE', true);
 
