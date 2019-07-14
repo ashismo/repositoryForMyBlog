@@ -63,3 +63,7 @@ RewriteRule . index.php [L]
 </IfModule>
 
 
+
+
+## Additional information
+Create web application inside webpress - Install Caspio plugin

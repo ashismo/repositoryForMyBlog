@@ -5,4 +5,5 @@
 4. Open vscode terminal
 5. Craete a new project =>  ng new helloworldng7
 6. Start the app: ng serve -o
-7. Generate more components: ng generate component nav
+7. Generate components: ng generate component nav
+8. Generate Service: ng generate service employee 
