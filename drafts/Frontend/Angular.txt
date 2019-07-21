@@ -4,6 +4,15 @@
 3. Install vscode
 4. Open vscode terminal
 5. Craete a new project =>  ng new helloworldng7
-6. Start the app: ng serve -o
+5A. Create a new project with routing options: ng new routing-demo --routing
+5B. Create a component with inline teplates and inline styles: ng generate component page-not-found -it -is
+6. Start the app: ng serve -o     OR     npm start
 7. Generate components: ng generate component nav
 8. Generate Service: ng generate service employee 
+
+
+
+Terms:
+
+Interpolation : {{}}
+Activated Route Service

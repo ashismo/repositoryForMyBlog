@@ -1,0 +1,21 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Routing and Navigations
+  </h1>
+</div>
+<div>
+  <button>Department</button>
+  <button>Employees</button>
+</div>
+
+<nav>
+    <a routerLink="/department-list" routerLinkActive="active">Departments</a> <!--routerLinkActive takes css class as an input to apply the style-->
+    <a routerLink="/employees" routerLinkActive="active">Employees</a>
+  </nav>
+
+<!--<app-department-list></app-department-list>
+<app-department-details></app-department-details>
+-->
+
+<router-outlet></router-outlet> <!-- Routed views go here-->
