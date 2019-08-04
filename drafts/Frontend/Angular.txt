@@ -9,10 +9,30 @@
 6. Start the app: ng serve -o     OR     npm start
 7. Generate components: ng generate component nav
 8. Generate Service: ng generate service employee 
+9. Generate class: ng generate class user
 
 
 
 Terms:
 
+Directive (e.g.ngModel)
 Interpolation : {{}}
+Event binding <select (blur)="validateTopic()">
+Class binding  <select [class.is-invalid]="name.invalid">
+property binding <select [disabled]="name.invalid">
 Activated Route Service
+
+
+Template Driven Form (TDF)
+==========================
+1. Form Control can be referred from the bootstrap document
+ngForm, ngModel, ngGroup
+
+2. Track control state and validity
+
+STATE                                   |     CLASS if TRUE       |      Class if False
+========================================|=========================|=======================
+The control has been visited            |     ng-touched          |       ng-untouched
+The control's value has been changed    |     ng-dirty            |       ng-pristine
+The control's value is valid            |     ng-valid            |       ng-invalid
+==========================================================================================
