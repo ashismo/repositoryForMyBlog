@@ -4,6 +4,15 @@ yum install -y mysql-server mysql-client
 service mysqld start
 mysql -u root
 
+Allow connection from outside
+---------------------------------
+Open /etc/mysql/mysql.conf.d/mysqld.cnf
+
+Then change the following
+bind-address            = 127.0.0.1
+to 
+bind-address            = 0.0.0.0
+
 
 
 
