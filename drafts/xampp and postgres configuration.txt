@@ -47,6 +47,45 @@ sudo psql -U postgres
 \i <path to sql file>;
 
 
+10 A. 
+
+Uninstall
+==============
+apt-get --purge remove postgresql postgresql-contrib postgresql-doc postgresql-common
+
+
+Allow remote connection - postgresql
+=====================================
+vi /etc/postgresql/10/main/pg_hba.conf
+# IPv4 local connections:
+#host    all             all             127.0.0.1/32            md5
+host    all             all             127.0.0.1/32            trust
+host    all             all             0.0.0.0/0           md5
+
+vi /etc/postgresql/10/main/postgresql.conf
+make listen_addresses='*'
+
+
+Change password
+===================
+As localhost is set as trusted so no password required.
+Use "sudo -u postgres psql" to get the postgres console
+\password     query to change the password
+
+
+
+Install Postgres9.3
+=====================
+https://askubuntu.com/questions/1052079/unable-to-install-postgresql-9-6-in-ubuntu-18-04
+
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'  
+wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | sudo apt-key add - 
+apt-get install postgresql-9.3
+
+
+
+
+
 11. Start webapp and postgre at instance startup
 
 Write the below script and add execute permission chmod +x /etc/init.d/start_my_app
