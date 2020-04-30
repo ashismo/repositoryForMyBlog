@@ -1,3 +1,11 @@
+THE easiest way to do in ubuntu is
+
+crontab -e (in the sude mode) then make an entry
+
+@reboot yourScriptPath
+
+------------------------ BELOW WAS THE OLD METHOD---------------------
+
 vi /etc/init.d/startupScript.sh    (chmod 755 startupScript.sh)
 
 #!/bin/sh
