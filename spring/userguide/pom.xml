@@ -17,7 +17,7 @@
 		<jackson.version>1.9.13</jackson.version>
 		<aspectj.version>1.8.9</aspectj.version>
 		<hsql.db.version>2.0.0</hsql.db.version>
-		<junit.version>4.9</junit.version>
+		<junit.version>4.13.1</junit.version>
 		<apache.poi.version>3.15</apache.poi.version>
 	</properties>
 
