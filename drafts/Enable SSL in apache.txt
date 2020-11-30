@@ -82,7 +82,11 @@ RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
 Then check for the syntax with the following command "H:\Program Files\wamp\bin\apache\apache2.4.9\bin\httpd.exe -t"
 
 
-
+11. Redirect traffic without changing the URL
+SSLProxyEngine on
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^oldserver.com
+RewriteRule ^(.*) https://www.newserver.com/$1 [P]
 
 
 
