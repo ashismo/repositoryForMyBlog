@@ -116,7 +116,7 @@ to cancel): www.abc.com
 Simulating a certificate request for www.abc.com
 Performing the following challenges:
 http-01 challenge for www.abc.com
-Input the webroot for www.abc.com: (Enter 'c' to cancel): /opt/lampp/htdocs/school/
+Input the webroot for www.abc.com: (Enter 'c' to cancel): /opt/lampp/htdocs/scl/
 Waiting for verification...
 Challenge failed for domain www.abc.com
 http-01 challenge for www.abc.com
