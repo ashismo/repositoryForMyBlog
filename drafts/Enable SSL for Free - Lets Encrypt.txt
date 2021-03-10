@@ -1,0 +1,146 @@
+Insatll CertBot in Ubuntu: https://certbot.eff.org/lets-encrypt/ubuntubionic-apache
+==============================
+1. Instal snapd in Ubuntu
+apt-get install snapd
+2. Update snapd
+snap install core; sudo snap refresh core
+3. Remove certbot-auto and any Certbot OS packages
+ apt-get remove certbot
+4. Install classic certbot
+snap install --classic certbot
+5. Prepare the Certbot command
+ln -s /snap/bin/certbot /usr/bin/certbot
+6. Create httpd-vhosts-le-ssl.conf file where certbot will write the cert information automatically
+touch /opt/lampp/etc/extra/httpd-vhosts-le-ssl.conf
+7. Open /opt/lampp/etc/httpd.conf file and add the file created in step 6
+------------
+# Virtual hosts
+Include etc/extra/httpd-vhosts.conf
+Include etc/extra/httpd-vhosts-le-ssl.conf #Add it here
+------------
+8. Create a folder under htdocs
+mkdir -p .well-known/acme-challenge/
+
+9. Create CAA record in Route 53
+
+9. Generate certificate
+certbot certonly --apache-ctl /opt/lampp/bin/apachectl 
+
+For dry run to avoid multiple failure attempts
+------------
+certbot certonly --apache-ctl /opt/lampp/bin/apachectl  --dry-run   (For xampp)
+certbot certonly --dry-run
+
+Add --dry-run to avoid multiple failure attempts
+
+
+
+
+Output of #9
+=============
+root@ip-172-31-43-154:/opt/lampp/htdocs/.well-known/acme-challenge# certbot certonly --apache-ctl /opt/lampp/bin/apachectl
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+
+How would you like to authenticate with the ACME CA?
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+1: Spin up a temporary webserver (standalone)
+2: Place files in webroot directory (webroot)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Select the appropriate number [1-2] then [enter] (press 'c' to cancel): 2
+Plugins selected: Authenticator webroot, Installer None
+Please enter in your domain name(s) (comma and/or space separated)  (Enter 'c'
+to cancel): www.abc.com
+Requesting a certificate for www.abc.com
+Performing the following challenges:
+http-01 challenge for www.abc.com
+Input the webroot for www.abc.com: (Enter 'c' to cancel): /opt/lampp/htdocs/
+Waiting for verification...
+Cleaning up challenges
+Subscribe to the EFF mailing list (email: ashismofeb@gmail.com).
+
+IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at:
+   /etc/letsencrypt/live/www.abc.com/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/www.abc.com/privkey.pem
+   Your certificate will expire on 2021-06-06. To obtain a new or
+   tweaked version of this certificate in the future, simply run
+   certbot again. To non-interactively renew *all* of your
+   certificates, run "certbot renew"
+ - If you like Certbot, please consider supporting our work by:
+
+   Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+   Donating to EFF:                    https://eff.org/donate-le
+
+root@ip-172-31-43-154:/opt/lampp/htdocs/.well-known/acme-challenge#
+
+
+
+
+10. Open ./etc/extra/httpd-ssl.conf file and update the private and public key
+
+/etc/letsencrypt/live/www.abc.com/privkey.pem
+/etc/letsencrypt/live/www.abc.com/fullchain.pem
+
+
+11. Auto renew the certbot lets encrypt certificate
+certbot renew -n -q  (It becomes non interactive)
+
+
+Error:
+---------------
+IMPORTANT NOTES:
+ - The following errors were reported by the server:
+
+   Domain: www.abc.com
+   Type:   dns
+   Detail: DNS problem: SERVFAIL looking up CAA for abc.com -
+   the domain's nameservers may be malfunctioning
+Solution: 
+-----------
+Create CAA record in route 53
+
+root@ip-172-31-43-154:/home/ubuntu# certbot certonly --dry-run
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+
+How would you like to authenticate with the ACME CA?
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+1: Spin up a temporary webserver (standalone)
+2: Place files in webroot directory (webroot)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Select the appropriate number [1-2] then [enter] (press 'c' to cancel): 2
+Plugins selected: Authenticator webroot, Installer None
+Account registered.
+Please enter in your domain name(s) (comma and/or space separated)  (Enter 'c'
+to cancel): www.abc.com
+Simulating a certificate request for www.abc.com
+Performing the following challenges:
+http-01 challenge for www.abc.com
+Input the webroot for www.abc.com: (Enter 'c' to cancel): /opt/lampp/htdocs/school/
+Waiting for verification...
+Challenge failed for domain www.abc.com
+http-01 challenge for www.abc.com
+Cleaning up challenges
+Some challenges have failed.
+
+IMPORTANT NOTES:
+ - The following errors were reported by the server:
+
+   Domain: www.abc.com
+   Type:   unauthorized
+   Detail: Invalid response from
+   http://www.abc.com/.well-known/acme-challenge/YH84-_Fh7DdedHz7-hKFAEAoUigrRPZlgpmATP0pwC0
+   [3.6.216.222]: "<?xml version=\"1.0\"
+   encoding=\"UTF-8\"?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0
+   Strict//EN\"\n  \"http://www.w3.org/TR/xhtml1/D"
+
+   To fix these errors, please make sure that your domain name was
+   entered correctly and the DNS A/AAAA record(s) for that domain
+   contain(s) the right IP address.
+root@ip-172-31-43-154:/home/ubuntu#
+
+
+
+
+
+curl www.abc.com/.well-known/acme-challenge/wat
