@@ -1,0 +1,6 @@
+1. Create project in AWS beanstack. It will create EC2 automatically
+2. Login to the ec2
+3. Install
+	wget https://aws-codedeploy-us-east-2.s3.amazonaws.com/latest/install
+	chmod +x install
+	sudo ./install auto
