@@ -10,8 +10,36 @@ DB Import
 	OR
 	 psql -U postgres nimo4916 < /home/ec2-user/nimo4915.sql   (password is root)
 	
-	e.g. [root@ip-172-31-21-59 htdocs]# psql bergerpaints < /home/ec2-user/netware/bergerpaint/berjerpaints09.09.15_04.20_last.sql
+	e.g. [root@ip-xxx-xx-xx-xx htdocs]# psql bergerpaints < /home/ec2-user/netware/bergerpaint/berjerpaints09.09.15_04.20_last.sql
 	
 
 3. Use postgres without password prompt
 	Trust a user in pg_hba.conf file ()
+
+
+4. If there is an error then sending email using gmail account the the followings
+a. vi /etc/ssmtp/ssmtp.cnf
+b. Copy and paste the followings
+# The person who gets all mail for userids < 1000
+root=abc@gmail.com
+# The place where the mail goes
+mailhub=smtp.gmail.com:587
+# The full hostname (FQDN of the Linux box used to send emails)
+hostname=xxx.xxx.xxx.xxx
+# Gmail account username & passed:
+AuthUser=abc@gmail.com
+AuthPass=PASS
+# Other config params:
+UseTLS=YES
+UseSTARTTLS=YES
+FromLineOverride=YES
+
+c.    mailx -s "test" xyz@gmail.com < abc.txt
+d. If you get the folloing error
+send-mail: Authorization failed (xxx x.x.xx https://support.google.com/mail/answer/78754 k11sm6661867pfc.22 - gsmtp)
+then 
+1) Login to your gmail account.
+
+2) Go to https://www.google.com/settings/security/lesssecureapps and Turn On this feature.
+
+3) Go to https://accounts.google.com/DisplayUnlockCaptcha and click Continue.
