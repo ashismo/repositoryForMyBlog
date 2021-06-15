@@ -43,7 +43,7 @@ Grant access to root
 ====================
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'password' WITH GRANT OPTION;
 If above one does not work then execute below 2 queries
-CREATE USER 'root'@'%' IDENTIFIED BY 'Cactus213';
+CREATE USER 'root'@'%' IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
 
 
