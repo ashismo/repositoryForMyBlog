@@ -13,7 +13,7 @@
 		<cxf.version>3.0.3</cxf.version>
 		<dbh2.version>1.4.193</dbh2.version>
 		<spring.version>4.1.4.RELEASE</spring.version>
-		<spring.security.version>4.0.0.RELEASE</spring.security.version>
+		<spring.security.version>5.2.10.RELEASE</spring.security.version>
 		<jackson.version>1.9.13</jackson.version>
 		<aspectj.version>1.8.9</aspectj.version>
 		<hsql.db.version>2.0.0</hsql.db.version>
