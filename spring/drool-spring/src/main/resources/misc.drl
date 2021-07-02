@@ -1,0 +1,11 @@
+package KieRule;
+import com.learning.drool.droolspring.beans.MiscChargeInput;
+import com.learning.drool.droolspring.rules.BusinessRules;
+
+rule "ICE"
+when 
+ BusinessRules.isICE(quoteRequest.splHndlCodes)
+
+then
+System.out.println("Special Handling code");
+end;
