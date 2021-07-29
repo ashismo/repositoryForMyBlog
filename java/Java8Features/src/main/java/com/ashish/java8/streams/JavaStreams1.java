@@ -58,7 +58,7 @@ public class JavaStreams1 {
 		System.out.println("\nExample 6: Average of square of an int array");
 		Arrays
 			.stream(new int[] {2,4,6,8})
-			.map(x->  x * x)
+			.map((int x)->  x * x)
 			.average()
 			.ifPresent(System.out::println);
 	}
