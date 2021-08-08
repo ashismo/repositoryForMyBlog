@@ -18,9 +18,10 @@ public class FunctionalIntfMain {
 		// **************************************
 		// Java8 approach - Using Lamda Expression
 		// **************************************
-		someImplClass.execute(() -> {
+		FunctionalIntf fn = () -> {
 			System.out.println("Java8: Do some work using Lamda Expression");
-		});
+		};
+		someImplClass.execute(fn);
 	}
 
 }
