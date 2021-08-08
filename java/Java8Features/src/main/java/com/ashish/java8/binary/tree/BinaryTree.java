@@ -18,6 +18,7 @@ public class BinaryTree {
 		// Find node from a binary tree
 		binaryTree.find(root, 10);
 		binaryTree.find(root, 100);
+		binaryTree.find(root, 2);
 	}
 	
 	
