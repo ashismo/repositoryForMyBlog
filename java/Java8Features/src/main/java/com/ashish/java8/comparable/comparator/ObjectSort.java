@@ -21,6 +21,7 @@ public class ObjectSort {
 		laptops.stream().forEach(x->System.out.println(x.getBrand() + " " + x.getRam() + " GB"));
 		
 		
+		// Comparator is used when we don't have access to change the class to implement Comparable
 		Comparator<Laptop2> comparator = new Comparator<Laptop2>() {
 
 			@Override
