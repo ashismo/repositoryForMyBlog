@@ -2,18 +2,13 @@ package com.ashish.java8.threads;
 
 
 // There are two threads called Consumer and Producer. The inter thread communication will lock on inventory object 
-// to make sure the consumer consumes when the stock is positive.
+// to make sure the consumer consumes only after producer produces. If producer is faster than consumer then Producer will wait
+// until consumer consumers (after 2 secs)
 public class InterthreadCommunication {
 	public static void main(String[] args) throws InterruptedException {
 		Inventory inventory = new Inventory();
-		Thread producer = new Thread(new Producer(inventory));
-		Thread consumer = new Thread(new Consumer(inventory));
-		
-		producer.start();
-		consumer.start();
-		
-		producer.join();
-		consumer.join();
+		new Producer(inventory);
+		new Consumer(inventory);
 	}
 	
 }
@@ -24,27 +19,18 @@ class Producer implements Runnable {
 	
 	Producer(Inventory inventory) {
 		this.inventory = inventory;
+		new Thread(this, "Producer").start();
 	}
 	@Override
 	public void run() {
-		
-		synchronized (inventory) {
-			for(int i = 0; i < 6; i++) {
-				inventory.addProduceNum();
-				if(inventory.getProduceNum() <= 0) {
-					try {
-						System.out.println("Producer is waiting");
-						inventory.wait();
-					} catch (InterruptedException e) {
-						System.out.println("Error in producer:");
-						e.printStackTrace();
-					}
-				} else {
-					inventory.notify();
-					System.out.println("Consumer is notified");
-				}
-				System.out.println("Producer: " + inventory.getProduceNum());
+		while(true) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+			inventory.addProduceNum();
 		}
 	}
 	
@@ -56,30 +42,18 @@ class Consumer implements Runnable {
 	
 	Consumer(Inventory inventory) {
 		this.inventory = inventory;
+		new Thread(this, "Consumer").start();
 	}
 	@Override
 	public void run() {
-		
-		synchronized (inventory) {
-			for(int i = 0; i < 10; i++) {
-				inventory.removeProduceNum();
-				
-				if(inventory.getProduceNum() <= 0) {
-					try {
-						System.out.println("Consumer is waiting. Current inventory is: " + inventory.getProduceNum());
-						inventory.wait();
-					} catch (InterruptedException e) {
-						System.out.println("Error in consumer:");
-						e.printStackTrace();
-					}
-				} else {
-					inventory.notify();
-					System.out.println("Producer is notified. Current inventory is: " + inventory.getProduceNum());
-				}
-				
-				
-				System.out.println("Consumer: " + inventory.getProduceNum());
+		while(true) {
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+			inventory.getProduceNum();
 		}
 	}
 	
@@ -88,13 +62,32 @@ class Consumer implements Runnable {
 class Inventory {
 	int produceNum;
 	
-	public int getProduceNum() {
-		return produceNum;
+	boolean isProduced = false;
+	
+	public synchronized int getProduceNum() {
+		while(!isProduced) {
+			try {
+				wait();
+			} catch (Exception e) {
+				
+			}
+		}
+		System.out.println("Consumed: " + produceNum);
+		isProduced = false;
+		notify();
+		return this.produceNum;
 	}
-	public void addProduceNum() {
+	public synchronized void addProduceNum() {
+		while(isProduced) {
+			try {
+				wait();
+			} catch (Exception e) {
+				
+			}
+		}
+		isProduced = true;
 		this.produceNum++;
-	}
-	public void removeProduceNum() {
-		this.produceNum--;
+		System.out.println("Produced: " + produceNum);
+		notify();
 	}
 }
