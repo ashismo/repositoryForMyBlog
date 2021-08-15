@@ -8,6 +8,7 @@ import java.util.OptionalInt;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+// Find the longest paindrom from a string
 public class LongestPalindrom {
 	public static void main(String[] args) {
 		String word = "abcbabbab";
