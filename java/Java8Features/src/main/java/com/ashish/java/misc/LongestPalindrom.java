@@ -17,7 +17,8 @@ public class LongestPalindrom {
 		
 		for(int i = 0; i < word.length(); i++) {
 			for(int j = word.length() - 1; j > i+1; j--) {
-				String subStr = word.substring(i, j);
+				String subStr = word.substring(i, j+1);
+//				System.out.println(subStr);
 				StringBuilder sb = new StringBuilder(subStr).reverse();
 				if(sb.toString().equals(subStr)) {
 					map.put(subStr.length(), subStr);
@@ -32,6 +33,6 @@ public class LongestPalindrom {
 			length = it.next();
 		}
 		
-		System.out.print(length);
+		System.out.print("Length: " + length + " Value: " + map.get(length));
 	}
 }

@@ -12,8 +12,9 @@ public class BitwiseOperator {
 		System.out.println("Binary of " + b + " is " + binary2);
 		// Binary AND
 		int and = a & b;
+		
 		String binary = Integer.toBinaryString(and);
-		System.out.println("Binary AND: " + binary);
+		System.out.println(and + " Binary AND: " + binary);
 		
 		
 		// Binary One Complement

@@ -43,7 +43,7 @@ public class BinaryTree {
 	
 	public Node find(Node current, int value) {
 		if(current.getData() == value) {
-			System.out.println("value = " + value + " found which last left node " + current.getLeft() + " right node: " + current.getRight());
+			System.out.println("value = " + value + " found which has left node " + current.getLeft() + " right node: " + current.getRight());
 			return current;
 		}
 		if(current.getLeft() == null && current.getRight() == null) {
