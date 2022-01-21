@@ -10,7 +10,7 @@
 		<aspectj.version>1.7.4</aspectj.version>
 		<mysql.driver.version>6.0.6</mysql.driver.version>
 		<logback.version>1.2.3</logback.version>
-		<h2db.version>1.4.191</h2db.version>
+		<h2db.version>2.1.210</h2db.version>
 		<junit.version>4.12</junit.version>
 	</properties>
 	<build>
