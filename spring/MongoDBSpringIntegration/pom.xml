@@ -13,7 +13,7 @@
 
 		<java.version>1.8</java.version>
 		<plugin.compiler.version>3.0</plugin.compiler.version>
-		<hibernate.version>4.0.1.Final</hibernate.version>
+		<hibernate.version>5.4.24.Final</hibernate.version>
 		<spring.version>4.1.0.RELEASE</spring.version>
 		<spring.data.version>1.6.0.RELEASE</spring.data.version>
 
