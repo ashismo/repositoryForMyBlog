@@ -6,7 +6,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
-		<spring.version>4.0.1.RELEASE</spring.version>
+		<spring.version>5.3.19</spring.version>
 		<aspectj.version>1.7.4</aspectj.version>
 		<hibernate.version>4.0.1.Final</hibernate.version>
 	</properties>
