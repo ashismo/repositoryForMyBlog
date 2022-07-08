@@ -118,3 +118,12 @@ SSLCertificateFile "/opt/lampp/OpenSSL/certs/989c27cd62cbe023.crt"
 Enable SSL in LAMPP in Linux
 ================================
 1. /opt/lampp/etc
+
+
+
+Enable the same SSL into multiple apache servers
+==================================================
+1. Login to the server2
+2. vi ./etc/extra/httpd-ssl.conf
+3. Update SSLCertificateFile and SSLCertificateKeyFile from the server1 file
+4. Restart apache
