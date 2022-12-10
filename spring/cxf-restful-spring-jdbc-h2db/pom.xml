@@ -15,7 +15,7 @@
 		<cxf.version>3.0.3</cxf.version>
 		<jax.ws.rs>2.0.1</jax.ws.rs>
 		<dbh2.version>1.4.187</dbh2.version>
-		<spring.version>4.1.4.RELEASE</spring.version>
+		<spring.version>6.0.0</spring.version>
 		<spring.security.version>4.0.0.RELEASE</spring.security.version>
 		<jackson.version>1.9.13</jackson.version>
 		<aspectj.version>1.8.9</aspectj.version>
