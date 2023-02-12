@@ -6,9 +6,9 @@ Login to SSH and execute the following command
 
 This would generate yourdomain.key and yourdomain.csr files
 
-Update the following details in the httpd-ssl.conf file
-vi /opt/lampp/etc/extra/httpd-ssl.conf
+Update the following details in the httpd-ssl.conf file  
+vi /opt/lampp/etc/extra/httpd-ssl.conf  
 
-SSLCertificateFile "/opt/lampp/OpenSSL/certs/<>.crt"
+SSLCertificateFile "/opt/lampp/OpenSSL/certs/<>.crt"  
 SSLCertificateKeyFile "/opt/lampp/OpenSSL/certs/<>.key"
 
