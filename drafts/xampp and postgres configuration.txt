@@ -34,6 +34,16 @@ host    all             all             0.0.0.0/0           md5
 listen_addresses = '*'
 port = 5432
 
+7a. Postgres 15: Accept remote connections
+vi /etc/postgresql/15/main/postgresql.conf
+Search for listen_addresses and make the following change
+listen_addresses = '*'
+
+vi /etc/postgresql/15/main/pg_hba.conf
+Add following lines 
+local   all             all                                     trust  
+host    all             all             0.0.0.0/0           md5
+
 8. Start postgresql
 sudo service postgresql start
 
