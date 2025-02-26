@@ -15,7 +15,7 @@
 		<plugin.compiler.version>3.0</plugin.compiler.version>
 		<hibernate.version>4.0.1.Final</hibernate.version>
 		<spring.version>4.1.0.RELEASE</spring.version>
-		<spring.data.version>1.6.0.RELEASE</spring.data.version>
+		<spring.data.version>3.3.5</spring.data.version>
 
 		<guava.version>16.0.1</guava.version>
 
