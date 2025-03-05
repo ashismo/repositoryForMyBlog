@@ -12,7 +12,7 @@
 		<module>CustomerSvcWS</module>
 	</modules>
 	<properties>
-		<springframework.version>4.1.6.RELEASE</springframework.version>
+		<springframework.version>5.2.7.RELEASE</springframework.version>
 		<springsecurity.version>4.0.1.RELEASE</springsecurity.version>
 		<aspectj.version>1.7.4</aspectj.version>
 		<hibernate.version>4.0.1.Final</hibernate.version>
