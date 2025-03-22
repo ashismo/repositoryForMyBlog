@@ -12,7 +12,7 @@
 		<logback.version>1.2.3</logback.version>
 		<h2db.version>1.4.191</h2db.version>
 		<eh.cache.version>2.10.4</eh.cache.version>
-		<junit.version>4.12</junit.version>
+		<junit.version>4.13.1</junit.version>
 	</properties>
 
 	<build>
