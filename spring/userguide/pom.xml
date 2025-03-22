@@ -11,7 +11,7 @@
 
 	<properties>
 		<cxf.version>3.0.3</cxf.version>
-		<dbh2.version>1.4.193</dbh2.version>
+		<dbh2.version>2.1.210</dbh2.version>
 		<spring.version>4.1.4.RELEASE</spring.version>
 		<spring.security.version>4.0.0.RELEASE</spring.security.version>
 		<jackson.version>1.9.13</jackson.version>
